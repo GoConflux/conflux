@@ -59,4 +59,31 @@ class App < ActiveRecord::Base
     cost
   end
 
+  def keys_from_pg
+    map = {}
+
+    app_addons.includes(:addon).order('addons.slug').each { |app_addon|
+      map[app_addon.addon.name] = app_addon.keys.order('LOWER(name)').map { |key|
+        {
+          'name' => key.name,
+          'value' => key.value,
+          'description' => key.description
+        }
+      }
+    }
+
+    map
+  end
+
+  def job_ids
+    all_app_job_ids = []
+
+    app_addons.includes(:addon).each { |app_addon|
+      addon_job_ids = $addons[app_addon.addon.slug]['jobs'].keys rescue []
+      all_app_job_ids += addon_job_ids
+    }
+
+    all_app_job_ids
+  end
+
 end

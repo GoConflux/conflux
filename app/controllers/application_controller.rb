@@ -156,7 +156,7 @@ class ApplicationController < ActionController::Base
   def set_app_conditional
     # if app_slug is provided, find the app with this slug for this user
     if params[:app_slug].present?
-      current_user
+      current_api_user
 
       @app = App.includes(:tier => [:pipeline => [:team => :team_users]])
         .find_by(
@@ -172,7 +172,7 @@ class ApplicationController < ActionController::Base
 
     # otherwise, validate header tokens --> which also defines @app
     else
-      validate_tokens
+      validate_api_tokens
     end
   end
 

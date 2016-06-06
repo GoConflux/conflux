@@ -205,7 +205,7 @@ PLATFORMS
 DEPENDENCIES
   activeuuid (= 0.6.0)
   coffee-rails (~> 4.0.0)
-  conflux (= 0.0.5)
+  conflux
   delayed_job_active_record (= 4.1.0)
   figaro (= 0.7.0)
   friendly_id (= 5.1.0)
