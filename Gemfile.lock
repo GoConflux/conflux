@@ -54,7 +54,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
-    conflux (0.0.5)
+    conflux (0.0.6)
       rest-client
     connection_pool (2.2.0)
     delayed_job (4.1.1)
