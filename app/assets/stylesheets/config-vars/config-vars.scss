@@ -1,0 +1,99 @@
+
+.config-vars-list {
+  width: 100%;
+  list-style-type: none;
+  margin-top: 14px;
+  float: left;
+}
+
+.config-vars-list > li {
+  margin-top: 16px;
+  float: left;
+  width: 100%;
+
+  .remove-key-icon,
+  .edit-icon,
+  .config-var-input,
+  .key-info-icon,
+  .add-new-key-btn {
+    float: left;
+    display: inline-block;
+  }
+
+  .key-info-icon {
+    width: 33px;
+    text-align: center;
+    font-size: 13.5px;
+    padding-top: 14px;
+    color: #C5C6CC;
+    cursor: pointer;
+  }
+
+  .config-var-input {
+    background-color: white;
+    border: 1px solid #E7E7EC;
+    border-radius: 4px;
+    outline: none;
+    box-shadow: none;
+    padding-left: 10px;
+    padding-top: 2px;
+    font-size: 14px;
+    color: #000;
+    width: calc((100% - 106px)/2);
+    height: 40px;
+  }
+
+  .config-var-input::-webkit-input-placeholder {
+    color: #C4C5CA;
+  }
+
+  .config-var-input[disabled] {
+    cursor: default;
+  }
+
+  .key-name-input.new {
+    margin-left: 33px;
+  }
+
+  .key-val-input {
+    margin-left: 15px;
+  }
+
+  .edit-icon {
+    margin-left: 12px;
+    padding-top: 8px;
+  }
+
+  .remove-key-icon {
+    font-size: 19px;
+    padding-top: 8px;
+    margin-left: 13px;
+    color: #C5C6CC;
+    cursor: pointer;
+  }
+
+  .add-new-key-btn {
+    width: 44px;
+    height: 38px;
+    margin-top: 1px;
+    background-color: #00A6C9;
+    color: white;
+    text-align: center;
+    padding-top: 11px;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-left: 12px;
+
+    &:hover,
+    &:focus {
+      text-decoration: none;
+    }
+  }
+}
+
+.config-vars-list > li:first-child {
+  margin-top: 0;
+}
+
+

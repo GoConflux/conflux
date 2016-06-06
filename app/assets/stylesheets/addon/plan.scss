@@ -1,0 +1,46 @@
+
+.plans-list {
+  list-style-type: none;
+  width: 100%;
+  float: left;
+  margin-top: 14px;
+
+  .plan-option {
+    width: 100%;
+    height: 40px;
+    border-radius: 4px;
+    background-color: white;
+    border: 1px solid #E7E7EC;
+    margin-top: 7px;
+    padding: 0 12px;
+    padding-top: 11px;
+    font-size: 13px;
+    float: left;
+    color: black;
+    cursor: pointer;
+
+    .name {
+      float: left;
+    }
+
+    .price {
+      float: right;
+    }
+  }
+
+  .plan-option:first-child {
+    margin-top: 0;
+  }
+
+  .plan-option:hover {
+    background-color: #f0f0f4;
+    border: 1px solid #e0e0e4;
+  }
+
+  .plan-option.selected {
+    background-color: #000;
+    border: none;
+    color: white;
+  }
+
+}

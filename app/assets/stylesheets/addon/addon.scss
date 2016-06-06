@@ -1,0 +1,104 @@
+
+.addon-grid {
+  width: 100%;
+  float: left;
+  margin-bottom: 30px;
+  min-height: 386px;
+}
+
+.addon-wrapper {
+  display: inline-block;
+  float: left;
+  min-width: 230px;
+  margin-bottom: 16px;
+}
+
+.addon {
+  width: 217px;
+  height: 172px;
+  padding: 23px 16px;
+  border: 1px solid #E7E7EC;
+  border-radius: 3px;
+  background-color: white;
+  margin-left: calc((100% - 217px)/2);
+  display: inline-block;
+  -webkit-transition: border 150ms ease;
+  -moz-transition: border 150ms ease;
+  -ms-transition: border 150ms ease;
+  -o-transition: border 150ms ease;
+  transition: border 150ms ease;
+
+  &:hover {
+    border: 1px solid #00A6C9;
+  }
+
+  .addon-icon {
+    width: 50px;
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+
+  .addon-name,
+  .addon-tagline {
+    width: 100%;
+    text-align: center;
+    float: left;
+    color: #000;
+  }
+
+  .addon-name {
+    margin-top: 15px;
+    height: 19px;
+    line-height: 24px;
+    font-size: 14px;
+    font-family: Avenir-Next-DemiBold;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .addon-tagline {
+    margin-top: 13px;
+    height: 32px;
+    line-height: 16px;
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 1270px) {
+  .addon-wrapper {
+    width: 25%;
+  }
+}
+
+@media (max-width: 1269px) {
+  .addon-wrapper {
+    width: 33.33%;
+  }
+}
+
+@media (max-width: 1039px) {
+  .addon-wrapper {
+    width: 50%;
+  }
+}
+
+@media (max-width: 991px) {
+  .addon-wrapper {
+    width: 33.333%;
+  }
+}
+
+@media (max-width: 809px) {
+  .addon-wrapper {
+    width: 50%;
+  }
+}
+
+@media (max-width: 579px) {
+  .addon-wrapper {
+    width: 100%;
+  }
+}

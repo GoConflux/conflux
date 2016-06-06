@@ -1,0 +1,50 @@
+.in-app-search-bar {
+  float: left;
+  margin-left: 16px;
+  height: 100%;
+  width: 50%;
+
+  img,
+  input {
+    display: inline-block;
+    float: left;
+  }
+
+  img {
+    height: 19px;
+    width: 19px;
+    margin-top: 9px;
+  }
+
+  input {
+    border: none;
+    box-shadow: none;
+    outline: none;
+    color: #000;
+    margin-left: 11px;
+    font-size: 14px;
+    width: calc(100% - 30px);
+    padding-top: 9px;
+  }
+
+  input::-webkit-input-placeholder {
+    color: rgba(140,140,160,0.6);
+  }
+
+  .selectize-control {
+    float: left;
+    padding-top: 2px;
+    margin-left: 3px;
+    width: calc(100% - 30px);
+
+    .selectize-input {
+      outline: none;
+      border: none;
+      box-shadow: none;
+
+      input {
+        width: 100% !important;
+      }
+    }
+  }
+}

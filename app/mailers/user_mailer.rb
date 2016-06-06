@@ -1,0 +1,44 @@
+class UserMailer < ActionMailer::Base
+  require 'utils/env'
+
+  default from: "Conflux <#{ENV['TEAM_EMAIL']}>", return_path: ENV['TEAM_EMAIL']
+
+  def invite_new_user_to_team(user, inviter, team)
+    @temp_password = user.password
+    @email = user.email
+    @inviter_name = inviter.name || inviter.email
+    @team = team.name
+    send_email(@email, 'You\'ve been added to a Conflux team')
+  end
+
+  def invite_existing_user_to_team(user, inviter, team)
+    @email = user.email
+    @name = user.name
+    @inviter_name = inviter.name || inviter.email
+    @team = team.name
+    send_email(@email, 'You\'ve been added to a Conflux team')
+  end
+
+  def send_email(email, subject)
+    set_global_template_vars
+
+    if email.present?
+      if Utils::Env.is_enabled?('MAILER_PERFORM_DELIVERIES')
+
+        logger.info { "SENDING EMAIL TO: #{email}" }
+
+        mail(to: (ENV['MAIL_TO_OVERRIDE'] || email), subject: subject)
+      else
+        logger.info { 'NOT SENDING EMAIL: EMAIL EXISTS, BUT MAILER_PERFORM_DELIVERIES WAS NOT ENABLED' }
+      end
+    else
+      logger.error { 'NOT SENDING EMAIL: EMAIL IS NIL' }
+    end
+  end
+
+  def set_global_template_vars
+    @redirect_base_url = ENV['CONFLUX_USER_ADDRESS']
+    @company_logo = ''
+  end
+
+end

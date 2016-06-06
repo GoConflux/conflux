@@ -1,0 +1,11 @@
+
+#csBody.show-menu {
+  margin-left: 230px;
+  overflow: auto;
+}
+
+@media (max-width: 991px) {
+  #csBody {
+    margin-left: 0;
+  }
+}

@@ -1,0 +1,3 @@
+== Rails Skeleton
+
+Skeleton for starting Rails projects with Ruby 2.3.0 and Rails ~4.2

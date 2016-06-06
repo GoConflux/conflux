@@ -1,0 +1,251 @@
+@import 'app-addon/vars';
+
+#appAddon {
+  padding-top: $padding-top;
+  padding-bottom: $padding-bottom;
+  padding-left: $padding-left;
+  padding-right: $padding-right;
+  float: left;
+  position: relative;
+
+
+  .edit-icon {
+    font-size: 19px;
+    color: #C5C6CC;
+    cursor: pointer;
+  }
+
+  .app-addon-subsection-title {
+    text-transform: uppercase;
+    font-size: 10px;
+    color: #979AA7;
+    display: inline-block;
+  }
+
+}
+
+.app-addon-header,
+.app-addon-body {
+  float: left;
+  width: 100%;
+  display: block;
+}
+
+.app-addon-header {
+
+  .addon-primary-info,
+  .description-container {
+    display: inline-block;
+  }
+
+  .addon-primary-info {
+    float: left;
+    height: 60px;
+    padding-top: 10px;
+
+    .icon,
+    .name {
+      display: inline-block;
+      float: left;
+    }
+
+    .icon {
+      height: 60px;
+      width: 60px;
+      margin-right: 21px;
+    }
+
+    .name {
+      padding-top: 15px;
+      font-size: 21px;
+      color: #000;
+    }
+
+  }
+
+  .description-container {
+    float: right;
+    width: 64%;
+    position: relative;
+    margin-right: 28px;
+
+    .description {
+      box-shadow: none;
+      outline: none;
+      border: 1px solid #E7E7EC;
+      border-radius: 4px;
+      resize: none;
+      float: left;
+      padding: 10px 16px;
+      width: calc(100% - 29px);
+      min-height: 82px;
+
+      &:focus {
+        box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+        border: 1px solid rgba(81, 203, 238, 1);
+      }
+    }
+
+    .description[disabled] {
+      cursor: default;
+    }
+  }
+}
+
+.app-addon-body {
+  margin-top: 26px;
+  float: left;
+
+  .config-vars-container {
+    float: right;
+    width: calc(64% + 63px);
+
+    .app-addon-subsection-title {
+      float: right;
+      margin-right: 58px;
+    }
+  }
+
+  .plans-links-container {
+    float: left;
+    width: 245px;
+
+    .plans-container,
+    .links-container {
+      float: left;
+      width: 100%;
+    }
+
+    .plans-container {
+      .app-addon-subsection-title {
+        float: left;
+      }
+    }
+
+    .links-container {
+      margin-top: 23px;
+      padding-left: 5px;
+
+      .links-list,
+      .links-list > li,
+      .links-list > li > a {
+        float: left;
+        width: 100%;
+      }
+
+      .links-list {
+        list-style-type: none;
+
+        li {
+          margin-bottom: 17px;
+        }
+
+        a {
+          color: #00A6C9;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1199px) {
+
+  #appAddon {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .app-addon-body {
+
+    .config-vars-container {
+      width: 100%;
+      margin-bottom: 40px;
+
+      .app-addon-subsection-title {
+        float: left;
+        margin-left: 10px;
+        margin-right: 0;
+      }
+    }
+
+    .plans-links-container {
+      width: 100%;
+
+      .plans-container,
+      .links-container {
+        width: 50%;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
+      .links-container {
+        .links-list {
+          a {
+            text-align: right;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+@media (max-width: 799px) {
+
+  .app-addon-header {
+
+    .addon-primary-info,
+    .description-container {
+      width: 100%;
+    }
+
+    .description-container {
+      margin-right: 0;
+      margin-top: 36px;
+    }
+
+  }
+
+}
+
+@media (max-width: 579px) {
+
+  #appAddon {
+    padding-left: 20px;
+    padding-right: 20px;
+
+    .plans-links-container {
+
+      .plans-container,
+      .links-container {
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .links-container {
+        margin-top: 30px;
+
+        .links-list {
+          a {
+            text-align: left;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+@media (max-width: 499px) {
+
+  .app-addon-header {
+    .description-container {
+      .description {
+        min-height: 102px;
+      }
+    }
+  }
+
+}

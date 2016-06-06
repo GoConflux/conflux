@@ -1,0 +1,122 @@
+
+#tiersList {
+  float: left;
+  width: 100%;
+
+  li,
+  .tier {
+    width: 100%;
+    float: left;
+  }
+
+  .tier {
+    margin-bottom: 30px;
+  }
+
+  li:last-child {
+    .tier {
+      margin-bottom: 0;
+    }
+  }
+
+  .tier-name {
+    float: left;
+    font-size: 11px;
+    color: #00A6C9;
+    text-transform: uppercase;
+    display: inline-block;
+    height: 15px;
+    margin-bottom: 9.5px;
+    padding-left: 6px;
+  }
+
+  .tier-apps-list {
+    float: left;
+    width: 100%;
+
+    a,
+    li {
+      float: left;
+      width: 100%;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    a:first-child > li {
+      border-top: 1px solid #E7E7E7;
+    }
+
+    li {
+      border-bottom: 1px solid #E7E7EC;
+      height: 56px;
+
+      .no-apps-for-tier,
+      .app-list-item {
+        float: left;
+        width: 100%;
+        height: 100%;
+      }
+
+      .no-apps-for-tier {
+        background-color: #F5F5F7;
+        text-align: center;
+        color: black;
+        font-size: 12px;
+        padding-top: 20px;
+      }
+
+      .add-first-app-to-tier {
+        color: #00A6C9;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .app-list-item {
+
+        .app-icon,
+        .app-name {
+          display: inline-block;
+          float: left;
+        }
+
+        .app-icon {
+
+          &:before {
+            content: '';
+          }
+
+          width: 24px;
+          height: 24px;
+          border-radius: 12px;
+          margin-top: 16px;
+          margin-left: 16px;
+          margin-right: 16px;
+          background-color: black;
+        }
+
+        .app-name {
+          color: black;
+          font-size: 14px;
+          padding-top: 17px;
+          width: calc(100% - 72px);
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+      }
+
+    }
+
+    li.none {
+      border: none;
+    }
+
+  }
+
+}

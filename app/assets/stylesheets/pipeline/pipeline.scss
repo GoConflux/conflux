@@ -1,0 +1,180 @@
+
+#pipeline {
+  padding-top: 95px;
+  padding-bottom: 30px;
+  padding-left: 50px;
+  padding-right: 50px;
+  float: left;
+
+  .header-linebreak {
+    margin-top: 12px;
+  }
+
+  ul {
+    list-style-type: none;
+  }
+}
+
+#pipelineHeader {
+  min-height: 50px;
+  width: 100%;
+  float: left;
+  margin-bottom: 37px;
+
+  .pipeline-header-left,
+  .pipeline-header-right {
+    height: 100%;
+  }
+
+}
+
+.pipeline-header-left {
+  float: left;
+  display: inline-block;
+  width: calc(100% - 105px);
+
+  .pipeline-icon,
+  .pipeline-name,
+  .pipeline-description {
+    float: left;
+    display: inline-block;
+  }
+
+  .pipeline-icon {
+
+    &:before {
+      content: '';
+    }
+
+    height: 33px;
+    width: 33px;
+    border-radius: 16.5px;
+    background-color: black;
+    margin-right: 13px;
+    margin-top: 8.5px;
+  }
+
+  .pipeline-name,
+  .pipeline-description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .pipeline-name {
+    font-size: 21px;
+    margin-top: 10px;
+    margin-right: 16px;
+    color: black;
+    max-width: calc(40% - 46px);
+  }
+
+  .pipeline-description {
+    margin-left: 16px;
+    color: rgba(140,140,160,0.6);
+    font-size: 12px;
+    padding-top: 18px;
+    max-width: calc(60% - 46px - 10px);
+
+    .no-description {
+    }
+  }
+
+}
+
+.pipeline-header-right {
+  float: right;
+  display: inline-block;
+  padding-right: 10px;
+
+  .new-app-btn {
+    float: right;
+    width: 95px;
+    height: 32px;
+    line-height: 28px;
+    margin-top: 9px;
+    text-align: center;
+    color: #00A6C9;
+    border: 1px solid #00A6C9;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: Avenir-Next-Medium;
+    cursor: pointer;
+
+    .plus {
+      font-size: 18px;
+      position: relative;
+      top: 1px;
+      left: 1px;
+    }
+
+    &:hover {
+      background-color: #f7f7fc;
+    }
+  }
+
+}
+
+@media (max-width: 1099px) {
+
+  #pipelineHeader {
+    margin-bottom: 24px;
+  }
+
+  .pipeline-header-left,
+  .pipeline-header-right {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .pipeline-header-right {
+    padding-right: 0;
+
+    .new-app-btn {
+      margin-top: 25px;
+    }
+
+  }
+
+}
+
+@media (max-width: 749px) {
+
+  #pipeline {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  #pipelineHeader {
+
+    .header-linebreak {
+      display: none;
+    }
+
+  }
+
+  .pipeline-header-left {
+
+    .pipeline-name {
+      max-width: calc(100% - 46px);;
+      margin-right: 0;
+    }
+
+    .pipeline-description {
+      max-width: 100%;
+      width: 100%;
+      margin-left: 0;
+    }
+
+  }
+
+}
+
+@media (max-width: 499px) {
+
+  #pipeline {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+}

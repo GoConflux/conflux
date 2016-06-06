@@ -1,0 +1,86 @@
+html,
+body,
+#csBody {
+  height: 100%;
+}
+
+body {
+  font-family: Avenir-Next-Regular;
+}
+
+body.light-gray {
+  background: #f9f9f9;
+}
+
+ul {
+  float: left;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.settings-icon-container {
+  position: absolute;
+  top: 73px;
+  right: 15px;
+
+  .settings-icon {
+    height: 19px;
+    width: 19px;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  .dropdown-container {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #D9DEE4;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.16), 0 1px 2px rgba(0, 0, 0, 0.16);
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    top: 20px;
+    right: -2px;
+    width: 200px;
+    z-index: 10;
+
+    .dropdown-options {
+      width: 100%;
+      list-style-type: none;
+
+      .dropdown-option {
+        width: 100%;
+        height: 41px;
+        line-height: 17px;
+        font-size: 13px;
+        padding: 12px 16px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #F7F7FC;
+        }
+
+        .text,
+        i {
+          display: inline-block;
+        }
+
+        .text {
+          float: left;
+        }
+
+        i {
+          float: right;
+          font-size: 17px;
+          color: rgba(0, 0, 0, 0.75);
+        }
+      }
+    }
+  }
+}
+
+.bold-me {
+  font-family: Avenir-Next-Medium;
+  font-weight: 600;
+}

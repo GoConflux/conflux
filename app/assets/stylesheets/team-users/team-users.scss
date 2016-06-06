@@ -1,0 +1,132 @@
+
+$padding-top: 60px;
+$padding-sides: 55px;
+
+#teamUsers {
+  width: 100%;
+  height: 100%;
+  float: left;
+  padding-top: $padding-top;
+  padding-left: $padding-sides;
+  padding-right: $padding-sides;
+}
+
+#teamUsersHeader {
+  height: 40px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  padding-left: 5px;
+  padding-right: 5px;
+  float: left;
+  width: 100%;
+
+  .team-users-header-left {
+    display: inline-block;
+    width: auto;
+    float: left;
+    max-width: calc(100% - 275px);
+  }
+
+  .header-linebreak {
+    margin-top: 6px;
+  }
+
+  .add-members-btn {
+    display: inline-block;
+    float: left;
+    margin-left: 16px;
+    color: #00A6C9;
+    font-size: 13px;
+    cursor: pointer;
+    height: 100%;
+    line-height: 41px;
+
+    .text {
+      display: inline-block;
+      height: 100%;
+    }
+
+    .text:hover{
+      text-decoration: underline;
+    }
+  }
+
+  .team-users-header-right{
+    display: inline-block;
+    width: auto;
+    float: right;
+
+    .app-select {
+      width: 275px;
+      margin-top: 3px;
+    }
+  }
+
+}
+
+#teamUsersList {
+  float: left;
+  width: 100%;
+  list-style-type: none;
+
+  li {
+    float: left;
+    width: 100%;
+  }
+
+  li:first-child {
+    border-top: 1px solid #E7E7E7;
+  }
+
+  li {
+    border-bottom: 1px solid #E7E7EC;
+    height: 56px;
+
+    .team-user {
+      float: left;
+      width: 100%;
+      height: 100%;
+
+      .team-user-pic,
+      .team-user-name {
+        display: inline-block;
+        float: left;
+      }
+
+      .team-user-pic {
+        width: 30px;
+        height: 30px;
+        border-radius: 15px;
+        margin-top: 12px;
+        margin-left: 16px;
+        margin-right: 15px;
+      }
+
+      .team-user-name {
+        color: black;
+        font-size: 14px;
+        padding-top: 17px;
+        max-width: 350px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        cursor: default;
+
+        .name {
+          color: rgba(140,140,160,0.75);
+        }
+      }
+
+      .team-user-label {
+        display: inline-block;
+        float: right;
+        color: #00A6C9;
+        font-size: 13px;
+        padding-top: 18px;
+        margin-right: 16px;
+      }
+
+    }
+
+  }
+}

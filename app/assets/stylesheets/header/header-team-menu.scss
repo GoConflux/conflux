@@ -1,0 +1,124 @@
+
+#headerTeamMenu {
+  display: none;
+  position: absolute;
+  z-index: 1042;
+  vertical-align: top;
+  min-width: 220px;
+  max-width: 320px;
+  color: #2c2d30;
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,.15);
+  top: 80px;
+  right: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.5);
+
+  &.smaller-header {
+    top: 70px;
+  }
+
+  #menuItemsScrollContainer {
+    max-height: 454px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  #headerTeamMenuList {
+    max-height: 340px;
+    width: 260px;
+    margin: 4px;
+    overflow: auto;
+    list-style-type: none;
+    padding: 0;
+    float: right;
+
+    .header-team-menu-item-link {
+      text-decoration: none;
+      float: left;
+      width: 100%;
+      opacity: 0.815;
+
+      .header-team-menu-item {
+        line-height: 36px;
+        height: 36px;
+        margin: 4px;
+        display: block;
+        color: #555459;
+        border-radius: 4px;
+        font-family: Avenir-Next-Medium;
+        font-size: 15.5px;
+
+        .team-icon {
+          display: inline-block;
+          float: left;
+          margin-right: 8px;
+          height: 36px;
+          width: 36px;
+          background-size: 100%;
+          border-radius: 4px;
+          text-align: center;
+          color: white;
+          font-family: Avenir-Next-Thin;
+          font-size: 24px;
+          line-height: 34px;
+
+          &.no-icon {
+            background: #9e9ea6;
+            font-size: 18px;
+            line-height: 36px;
+          }
+
+          .fa {
+            font-size: 17px;
+            padding-left: 2px;
+          }
+        }
+
+        .header-team-name {
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          max-width: 190px;
+          display: inline-block;
+          float: left;
+        }
+
+      }
+
+      &:hover {
+        text-decoration: none;
+        background: #f9f9f9;
+        opacity: 1;
+      }
+
+      &.non-team {
+        .team-icon {
+          background: #9e9ea6;
+        }
+      }
+
+    }
+
+    .header-team-menu-divider {
+      border-bottom: 2px solid #f0f0f2;
+      margin: 4px;
+      width: 100%;
+      float: left;
+    }
+
+    .header-team-menu-no-teams {
+      height: 53px;
+      margin: 4px;
+      display: block;
+      line-height: 22px;
+      padding-left: 10px;
+      padding-right: 10px;
+      color: #909090;
+      border-radius: 4px;
+      font-size: 13px;
+      text-align: center;
+      padding-top: 4px;
+    }
+  }
+}
