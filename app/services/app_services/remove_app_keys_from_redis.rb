@@ -13,7 +13,7 @@ module AppServices
 
       if tokens.present?
         RestClient.post(
-          "#{ENV['DEV_SERVER_ADDRESS']}/remove_keys",
+          "#{ENV['DEV_SERVER_ADDRESS']}/api/remove_keys",
           { tokens: tokens },
           { 'Conflux-Token' => ENV['TOP_LEVEL_CONFLUX_TOKEN'] }
         )
