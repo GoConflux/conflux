@@ -46,3 +46,5 @@ gem 'platform-api', '~> 0.6.0'
 gem 'turbolinks', '~> 2.5'
 
 gem 'conflux'
+
+gem 'redis'
