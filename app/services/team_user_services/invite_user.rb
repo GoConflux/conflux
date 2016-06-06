@@ -1,9 +1,10 @@
 module TeamUserServices
   class InviteUser < AbstractService
+    include ApplicationHelper
 
-    def initialize(executor_user, emails, team)
+    def initialize(executor_user, emails = [], team)
       super(executor_user)
-      @emails = emails || []
+      @emails = emails
       @team = team
     end
 

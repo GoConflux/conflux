@@ -8,8 +8,8 @@ class TeamUsersController < ApplicationController
       with_transaction do
         TeamUserServices::InviteUser.new(
           @current_user,
-          emails: params[:emails],
-          team: @team
+          params[:emails],
+          @team
         ).perform
       end
 
