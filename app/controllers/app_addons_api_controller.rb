@@ -1,6 +1,8 @@
 class AppAddonsApiController < ApplicationController
 
   before_filter :set_app_conditional, :only => [:create]
+  before_filter :required_app_addon_destroy_params, :only => [:destroy]
+  before_filter :app_addon_by_uuid, :only => [:destroy]
 
   def create
     addon = Addon.find_by(slug: params[:addon_slug])
@@ -37,6 +39,22 @@ class AppAddonsApiController < ApplicationController
     rescue Exception => e
       logger.error { e.message }
       render json: { message: "Error adding app_addon #{e.message}" }, status: 500
+    end
+  end
+
+  def destroy
+    begin
+      app = @app_addon.app
+
+      @app_addon.destroy!
+
+      $redis.hdel(Key::CONFIGS, app.token) if $redis.present?
+
+      render json: { url: app.create_link }
+    rescue Exception => e
+      error = "#{ConfluxErrors::AppAddonDestroyFailed} - #{e}"
+      logger.error { error }
+      render json: { message: error }, status: 500
     end
   end
 

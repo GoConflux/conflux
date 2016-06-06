@@ -37,6 +37,7 @@ Rails.application.routes.draw do
 
     # API:
     post '/api/app_addons' => 'app_addons_api#create'
+    delete '/api/app_addons' => 'app_addons_api#destroy'
 
   # ADDONS ----------------------------------
 
