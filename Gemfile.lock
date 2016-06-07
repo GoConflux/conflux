@@ -54,7 +54,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
-    conflux (0.0.7)
+    conflux (0.0.8)
       rest-client
     connection_pool (2.2.0)
     delayed_job (4.1.1)
@@ -206,7 +206,7 @@ PLATFORMS
 DEPENDENCIES
   activeuuid (= 0.6.0)
   coffee-rails (~> 4.0.0)
-  conflux (= 0.0.7)
+  conflux (= 0.0.8)
   delayed_job_active_record (= 4.1.0)
   figaro (= 0.7.0)
   friendly_id (= 5.1.0)
