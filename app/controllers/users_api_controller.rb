@@ -22,13 +22,29 @@ class UsersApiController < ApplicationController
 
   # Get all apps for a user, grouped by team
   def apps
-    map = {}
+    render json: @user.apps_by_team
+  end
 
-    @user.teams.order(:slug).includes(:apps).each { |team|
-      map[team.name] = team.apps.order(:slug).map(&:slug)
+  # Same as `apps` above, but auth is just email/password
+  def apps_basic_auth
+    @user = User.find_by(
+      email: params[:email],
+      password: params[:password]
+    )
+
+    assert(@user)
+
+    user_token = UserToken.new(
+      user_id: @user.id,
+      token: UUIDTools::UUID.random_create.to_s
+    )
+
+    user_token.save!
+
+    render json: {
+      apps_map: @user.apps_by_team,
+      token: user_token.token
     }
-
-    render json: map
   end
 
   def teams

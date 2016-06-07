@@ -100,6 +100,7 @@ Rails.application.routes.draw do
     # API:
     post '/api/users/login' => 'users_api#login'
     get '/api/users/apps' => 'users_api#apps'
+    post '/api/users/apps_basic_auth' => 'users_api#apps_basic_auth'
     get '/api/users/teams' => 'users_api#teams'
 
   # MAJOR VIEWS -----------------------------

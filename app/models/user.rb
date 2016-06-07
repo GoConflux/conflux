@@ -21,4 +21,14 @@ class User < ActiveRecord::Base
     }
   end
 
+  def apps_by_team
+    map = {}
+
+    self.teams.order(:slug).includes(:apps).each { |team|
+      map[team.name] = team.apps.order(:slug).map(&:slug)
+    }
+
+    map
+  end
+
 end
