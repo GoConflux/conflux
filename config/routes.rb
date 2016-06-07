@@ -64,6 +64,7 @@ Rails.application.routes.draw do
     # API:
     get '/api/apps/manifest' => 'apps_api#manifest'
     get '/api/apps/cost' => 'apps_api#cost'
+    get '/api/apps/configs' => 'apps_api#configs'
     get '/api/pull' => 'apps_api#pull'
 
 

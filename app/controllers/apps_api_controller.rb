@@ -2,7 +2,7 @@ class AppsApiController < ApplicationController
 
   before_filter :current_api_user, :only => [:manifest]
   before_filter :validate_api_tokens, :only => [:pull]
-  before_filter :set_app_conditional, :only => [:cost]
+  before_filter :set_app_conditional, :only => [:cost, :configs]
 
   def manifest
     app = App.includes(:tier => [:pipeline => [:team]]).find_by(slug: params[:app_slug])
@@ -52,6 +52,11 @@ class AppsApiController < ApplicationController
       app_slug: @app.slug,
       cost: (cost.to_i == 0) ? 'Free .99' : "$#{'%.2f' % cost}"
     }
+  end
+
+  def configs
+    configs = ApiServices::FetchConfigsService.new(nil, @app, @app.token).perform.configs
+    render json: configs
   end
 
 end
