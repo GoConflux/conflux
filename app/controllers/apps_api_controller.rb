@@ -1,6 +1,6 @@
 class AppsApiController < ApplicationController
 
-  before_filter :current_api_user, :only => [:manifest, :user_and_app_tokens]
+  before_filter :current_api_user, :only => [:manifest, :team_user_app_tokens]
   before_filter :validate_api_tokens, :only => [:pull]
   before_filter :set_app_conditional, :only => [:cost, :configs]
 
