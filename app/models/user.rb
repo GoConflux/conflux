@@ -31,4 +31,13 @@ class User < ActiveRecord::Base
     map
   end
 
+  def apps
+    App.includes(:tier => [:pipeline => [:team => :team_users]])
+      .where(team_users: { user_id: self.id })
+  end
+
+  def app(app_slug)
+    apps.where(slug: app_slug).take
+  end
+
 end

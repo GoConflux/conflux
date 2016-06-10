@@ -51,4 +51,14 @@ module ApplicationHelper
     ENV['CONFLUX_PLATFORM_URL'] || 'http://www.goconflux.com'
   end
 
+  def app_for_user(user)
+    App.includes(:tier => [:pipeline => [:team => :team_users]])
+      .find_by(
+        slug: params[:app_slug],
+        team_users: {
+          user_id: user.id
+        }
+      )
+  end
+
 end

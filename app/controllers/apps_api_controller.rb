@@ -1,12 +1,11 @@
 class AppsApiController < ApplicationController
 
-  before_filter :current_api_user, :only => [:manifest]
+  before_filter :current_api_user, :only => [:manifest, :user_and_app_tokens]
   before_filter :validate_api_tokens, :only => [:pull]
   before_filter :set_app_conditional, :only => [:cost, :configs]
 
   def manifest
-    app = App.includes(:tier => [:pipeline => [:team]]).find_by(slug: params[:app_slug])
-
+    app = @user.app(params[:app_slug])
     assert(app)
 
     pipeline = app.tier.pipeline
@@ -57,6 +56,30 @@ class AppsApiController < ApplicationController
   def configs
     configs = ApiServices::FetchConfigsService.new(nil, @app, @app.token).perform.configs
     render json: configs
+  end
+
+  def team_user_app_tokens
+    app = @user.app(params[:app_slug])
+    assert(app)
+
+    pipeline = app.tier.pipeline
+    team = pipeline.team
+
+    team_user = TeamUser.find_by(user_id: @user.id, team_id: team.id)
+
+    assert(team_user)
+
+    team_user_token = TeamUserToken.new(
+      team_user_id: team_user.id,
+      token: UUIDTools::UUID.random_create.to_s
+    )
+
+    team_user_token.save!
+
+    render json: {
+      'CONFLUX_USER' => team_user_token.token,
+      'CONFLUX_APP' => app.token
+    }
   end
 
 end

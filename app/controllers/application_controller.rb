@@ -158,17 +158,9 @@ class ApplicationController < ActionController::Base
     if params[:app_slug].present?
       current_api_user
 
-      @app = App.includes(:tier => [:pipeline => [:team => :team_users]])
-        .find_by(
-          slug: params[:app_slug],
-          team_users: {
-            user_id: @user.id
-          }
-        )
+      @app = @user.app(params[:app_slug])
 
-      if @app.nil?
-        render json: { message: 'App not found' }, status: 500
-      end
+      assert(@app)
 
     # otherwise, validate header tokens --> which also defines @app
     else
