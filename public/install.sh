@@ -27,4 +27,7 @@
   cp bin/conflux /usr/local/bin/conflux
 
 SCRIPT
+
+    echo "Successfully installed Conflux CLI."
+    echo "Type `conflux help` for a list of available commands."
 }
