@@ -29,5 +29,5 @@
 SCRIPT
 
     echo "Successfully installed Conflux CLI."
-    echo "Type `conflux help` for a list of available commands."
+    echo "Type 'conflux help' for a list of available commands."
 }
