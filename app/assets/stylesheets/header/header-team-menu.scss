@@ -103,7 +103,7 @@
     .header-team-menu-divider {
       border-bottom: 2px solid #f0f0f2;
       margin: 4px;
-      width: 100%;
+      width: calc(100% - 8px);
       float: left;
     }
 
