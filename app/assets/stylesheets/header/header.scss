@@ -1,3 +1,4 @@
+@import 'global-vars';
 @import 'header/vars';
 
 #header {
@@ -20,10 +21,11 @@
 
 .conflux-icon {
   position: absolute;
-  width: 35px;
-  height: 35px;
-  top: 12.5px;
-  right: calc((100% - 35px) / 2);
+  width: 30px;
+  height: 30px;
+  top: 15px;
+  right: calc((100% - 30px) / 2);
+  opacity: 0.35;
 }
 
 .header-back-btn,

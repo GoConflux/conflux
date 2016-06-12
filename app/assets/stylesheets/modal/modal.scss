@@ -1,3 +1,5 @@
+@import 'global-vars';
+
 .modal-dialog {
   width: 400px;
   margin-top: 68px;
@@ -65,7 +67,7 @@
 }
 
 .modal-action-btn.confirm {
-  background-color: #00A6C9;
+  background-color: $conflux-green;
 }
 
 .modal-action-btn.decline {

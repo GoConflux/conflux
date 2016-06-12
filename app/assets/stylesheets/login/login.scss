@@ -1,6 +1,7 @@
+@import 'global-vars';
 
 #login {
-  color: #555459;
+  color: $conflux-gray;
 }
 
 .card {
@@ -98,16 +99,16 @@
     color: #fff;
     cursor: pointer;
     border-radius: 4px;
-    background: #00A6C9;
+    background: $conflux-green;
     text-decoration: none;
     position: relative;
 
     &:hover {
-      background: #05ADCE;
+      background: $conflux-green-hover;
     }
 
     &:active {
-      background: #00A6C9;
+      background: $conflux-green;
     }
   }
 }

@@ -1,3 +1,4 @@
+@import 'global-vars';
 
 #pipeline {
   padding-top: 95px;
@@ -94,8 +95,8 @@
     line-height: 28px;
     margin-top: 9px;
     text-align: center;
-    color: #00A6C9;
-    border: 1px solid #00A6C9;
+    color: $conflux-green;
+    border: 1px solid $conflux-green;
     border-radius: 4px;
     font-size: 12px;
     font-family: Avenir-Next-Medium;

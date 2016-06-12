@@ -26,6 +26,7 @@ var Header = React.createClass({
         <div className="header-inner">
           {this.configureBackBtn()}
           <i className="fa fa-bars" id="headerMenuBtn"></i>
+          <img src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/conflux-icon-gray.svg" className="conflux-icon"/>
           <div id="lh-teams-button" className="dark"><i className="fa fa-th-large teams-grid-icon"></i><div className="teams-text">My Teams</div></div>
           <div className="header-right header-right-text-btn"><a className="header-action-btn" href="/explore">Explore</a></div>
         </div>

@@ -1,3 +1,4 @@
+@import 'global-vars';
 
 .addon-grid {
   width: 100%;
@@ -29,7 +30,7 @@
   transition: border 150ms ease;
 
   &:hover {
-    border: 1px solid #00A6C9;
+    border: 1px solid $conflux-green;
   }
 
   .addon-icon {

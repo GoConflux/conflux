@@ -30,7 +30,7 @@ var LandingHeader = React.createClass({
     return (
       <div id="landingHeader">
         <div className="lh-left">
-          <img className="lh-logo" src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/slack-white.png"/>
+          <img className="lh-logo" src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/conflux-long-white.svg"/>
         </div>
         <div className="lh-right">
           {this.getRightestButton()}

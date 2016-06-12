@@ -1,3 +1,4 @@
+@import 'global-vars';
 
 #tiersList {
   float: left;
@@ -22,7 +23,7 @@
   .tier-name {
     float: left;
     font-size: 11px;
-    color: #00A6C9;
+    color: $conflux-green;
     text-transform: uppercase;
     display: inline-block;
     height: 15px;
@@ -68,7 +69,7 @@
       }
 
       .add-first-app-to-tier {
-        color: #00A6C9;
+        color: $conflux-green;
         cursor: pointer;
 
         &:hover {
