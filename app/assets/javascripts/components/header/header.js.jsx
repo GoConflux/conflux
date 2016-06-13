@@ -2,9 +2,15 @@ var Header = React.createClass({
 
   configureBackBtn: function () {
     if (this.props.back_url) {
-      return <a className="header-back-btn" href={this.props.back_url}><i className="fa fa-angle-left header-back-btn-icon"></i><div className="header-back-btn-text">{this.props.back_text}</div></a>;
+      return <a className="header-back-btn" onClick={this.onBackClick} href={this.props.back_url}><i className="fa fa-angle-left header-back-btn-icon"></i><div className="header-back-btn-text">{this.props.back_text}</div></a>;
     }
     return;
+  },
+
+  onBackClick: function () {
+    if (this.props.users) {
+      window.history.back();
+    }
   },
 
   componentDidMount: function () {
