@@ -339,11 +339,7 @@ class ApplicationController < ActionController::Base
   end
 
   def is_name_available(model, name)
-    AppServices::CheckNameAvailability.new(
-      @current_user,
-      model,
-      name
-    ).perform.available
+    model.find_by(slug: name.slugify).nil?
   end
 
   def assert(value, status_code = StatusCodes::UnknownError, message = nil, http_code = 400, format = :json)

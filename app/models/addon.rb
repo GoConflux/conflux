@@ -1,19 +1,15 @@
 class Addon < ActiveRecord::Base
   include Extensions::UUID
   include Extensions::SoftDestroyable
-  include FriendlyId
+  include Extensions::Slug
 
   acts_as_soft_destroyable
 
+  SLUG_SOURCE = 'name'
+  before_create :generate_slug
   before_create :generate_uuid
 
   has_many :app_addons, :dependent => :destroy
-
-  friendly_id :slug_candidates, use: :slugged
-
-  def slug_candidates
-    [:name]
-  end
 
   def is_heroku_dependent?
     self.heroku_dependent

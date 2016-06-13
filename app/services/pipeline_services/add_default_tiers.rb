@@ -27,7 +27,7 @@ module PipelineServices
 
       if @add_default_local_app
         App.create!(
-          name: App::DEFAULT_LOCAL_APP_NAME,
+          name: "#{@pipeline.team.name} Local",
           token: UUIDTools::UUID.random_create.to_s,
           tier_id: local_dev_tier_id
         )

@@ -57,12 +57,7 @@ class PipelinesController < ApplicationController
           description: @pipeline.description
         }
 
-        respond_with_new_url = false
-
-        if @pipeline.name_changed?
-          @pipeline.assign_attributes(slug: nil)
-          respond_with_new_url = true
-        end
+        respond_with_new_url = @pipeline.name_changed?
 
         @pipeline.save!
 

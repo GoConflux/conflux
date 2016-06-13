@@ -39,7 +39,7 @@ gem 'react-rails', '1.5.0'
 
 gem 'rest-client'
 
-gem 'friendly_id', '5.1.0'
+gem 'slugify', '~> 1.0', '>= 1.0.6'
 
 gem 'platform-api', '~> 0.6.0'
 

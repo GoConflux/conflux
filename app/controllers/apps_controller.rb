@@ -64,12 +64,7 @@ class AppsController < ApplicationController
 
         response_data = { name: @app.name }
 
-        respond_with_new_url = false
-
-        if @app.name_changed?
-          @app.assign_attributes(slug: nil)
-          respond_with_new_url = true
-        end
+        respond_with_new_url = @app.name_changed?
 
         @app.save!
 

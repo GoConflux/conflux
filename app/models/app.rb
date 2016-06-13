@@ -1,24 +1,18 @@
 class App < ActiveRecord::Base
   include Extensions::UUID
   include Extensions::SoftDestroyable
-  include FriendlyId
+  include Extensions::Slug
 
   acts_as_soft_destroyable
 
+  SLUG_SOURCE = 'name'
+  before_save :generate_slug
   before_create :generate_uuid
 
   belongs_to :tier
   belongs_to :pipeline
   has_many :app_addons, :dependent => :destroy
   has_many :keys, :through => :app_addons
-
-  friendly_id :slug_candidates, use: :slugged
-
-  DEFAULT_LOCAL_APP_NAME = 'local-dev-1'
-
-  def slug_candidates
-    [:name]
-  end
 
   def addons_for_app_view
     self.app_addons.includes(:addon).map { |app_addon|

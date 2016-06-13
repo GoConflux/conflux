@@ -34,9 +34,21 @@ module Extensions
     end
 
     def destroy
+      # Update is_destroyed to true
       self.update_attributes!(Extensions::SoftDestroyable::ATTRIBUTES_DESTROYED)
 
-      # Unprovision app_addon from heroku if it's heroku dependent
+      # Check to see if model has a slug_source
+      slug_source = self.class.const_get('SLUG_SOURCE')
+
+      # If slug source exists, set that column to a unique destroyed string, which will then
+      # set the slug column to the same thing and free up that previously taken slug for someone else to use.
+      if slug_source.present?
+        attrs = {}
+        attrs[slug_source.to_sym] = "destroyed-#{SecureRandom.hex(3)}"
+        self.update_attributes(attrs)
+      end
+
+      # Unprovision app_addon from Heroku if it's 'heroku_dependent'
       if self.is_a?(AppAddon) && self.addon.is_heroku_dependent?
         AppServices::UnprovisionAppAddon.new(@current_user, self).perform
       end
