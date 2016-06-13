@@ -1,5 +1,5 @@
 var AddonGrid = React.createClass({
-
+  
   getInitialState: function () {
     return {
       addons: (this.props.data || {}).addons || []

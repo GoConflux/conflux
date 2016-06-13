@@ -33,7 +33,7 @@ class AddonsController < ApplicationController
       return
     end
 
-    match = Addon.arel_table[:name].matches("#{params[:query]}%")
+    match = Addon.arel_table[:name].matches("%#{params[:query]}%")
 
     addons = Addon.where(match).order('LOWER(name)').limit(30).map { |addon|
       {
