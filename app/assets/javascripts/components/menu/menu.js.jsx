@@ -44,7 +44,7 @@ var Menu = React.createClass({
   },
 
   addMouseUpListener: function () {
-    $('#menuPipelinesList > a').mouseup(function (e) {
+    $('#menuPipelinesList > a.eager-select').mouseup(function (e) {
       if (!e.ctrlKey && !e.metaKey) {
         $(e.currentTarget).siblings().removeClass('selected');
         $(e.currentTarget).addClass('selected');
@@ -86,10 +86,14 @@ var Menu = React.createClass({
     return el;
   },
 
+  onFeedbackClick: function () {
+    alert('Give Feedback');
+  },
+
   render: function() {
     var menuFooterLink = 'menu-footer-link';
     var teamSettingsBtnClasses = menuFooterLink += (this.props.team_settings_selected ? ' selected' : '');
-    var usersBtnClasses = menuFooterLink += (this.props.users_selected ? ' selected' : '');
+    var usersBtnClasses = menuFooterLink += (this.props.users_selected ? ' eager-select selected' : ' eager-select');
 
     return (
       <div id="menu">
@@ -107,10 +111,13 @@ var Menu = React.createClass({
         </div>
         <div id="menuFooter">
           <a href="#" className={teamSettingsBtnClasses}>
-            <img src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/gear.png"/>
+            <img src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/gear-white.svg"/>
           </a>
           <a href={this.props.link + '/users'} className={usersBtnClasses}>
             <i className="fa fa-users"></i>
+          </a>
+          <a href="javascript:void(0)" onClick={this.onFeedbackClick} className="menu-footer-link">
+            <i className="fa fa-comment"></i>
           </a>
         </div>
       </div>

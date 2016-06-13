@@ -13,7 +13,7 @@
 
 #menuHeader {
   height: $header-height;
-  border-bottom: 1px solid rgba(60, 60, 60, 0.6);
+  border-bottom: 1px solid rgba(255,255,255, 0.05);
   padding-left: 15px;
   padding-right: 8px;
   padding-top: 10px;
@@ -37,7 +37,7 @@
   font-family: Avenir-Next-Thin;
 
   &.no-icon {
-    background: #9e9ea6;
+    background: $conflux-green;
   }
 }
 
@@ -121,16 +121,9 @@
     padding-left: 8px;
     margin-bottom: 4px;
 
-    &:hover {
-      background-color: rgba(255,255,255,0.19);
-    }
-  }
-
-  a.selected {
-    background-color: rgba(255,255,255,0.4);
-
-    &:hover {
-      background-color: rgba(255,255,255,0.4);
+    &:hover,
+    &.selected {
+      background-color: rgba(255,255,255,0.32);
     }
   }
 }
@@ -171,14 +164,13 @@
   bottom: 0;
   left: 0;
   z-index: 3;
-  background-color: rgba(255,255,255,0.14);
-  border-top: 1px solid rgba(60,60,60,0.4);
+  background-color: rgba(255,255,255,0.1);
 
   .menu-footer-link {
     text-decoration: none;
-    width: 25%;
+    width: 33.33%;
     height: 100%;
-    float: right;
+    float: left;
     text-align: center;
 
     &:hover,
@@ -192,13 +184,18 @@
       margin-left: auto;
       margin-right: auto;
       margin-top: 10px;
+      opacity: 0.9;
     }
 
     .fa {
       font-size: 19px;
-      color: #C5C6CB;
+      color: rgba(255,255,255,0.8);
       width: 100%;
       margin-top: 10px;
+    }
+
+    .fa-users {
+      margin-top: 11px;
     }
   }
 }

@@ -12,7 +12,7 @@
   top: 0;
   padding-left: $left-padding;
   padding-right: $right-padding;
-  z-index: 1;
+  z-index: 2;
 }
 
 .header-inner {
@@ -21,10 +21,10 @@
 
 .conflux-icon {
   position: absolute;
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   top: 15px;
-  right: calc((100% - 30px) / 2);
+  right: calc((100% - 32px) / 2);
   opacity: 0.3;
 }
 
@@ -39,6 +39,12 @@
 .header-back-btn {
   height: 100%;
   cursor: pointer;
+
+  &:hover {
+    .header-back-btn-text {
+      text-decoration: underline;
+    }
+  }
 }
 
 .header-back-btn-icon {

@@ -22,14 +22,6 @@ var App = React.createClass({
     this.setState({ showingKey: !this.state.showingKey });
   },
 
-  getApiKeyText: function () {
-    if (this.state.showingKey) {
-      return <span><span onClick={this.toggleKeyVisibility} className="clickable">Hide API Key: </span>{this.props.api_key}</span>;
-    } else {
-      return <span><span onClick={this.toggleKeyVisibility} className="clickable">Show API Key</span></span>;
-    }
-  },
-
   onCreateNewAddon: function (data) {
     this.addonGrid.setState({ addons: data.addons });
     $('.monthly-cost > .figure').html(data.monthly_cost);
@@ -116,7 +108,6 @@ var App = React.createClass({
           <img onClick={this.toggleDropdown} src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/gear.png" className="settings-icon"/>
           <Dropdown customID={'appSettingsDropdown'} data={this.getSettingsDropdownOptions()} ref={this.setDropdownRef} />
         </div>
-        <div className="show-api-key-btn">{this.getApiKeyText()}</div>
         <AppHeader data={this.props} onCreateNewAddon={this.onCreateNewAddon} ref={this.setHeaderRef} />
         <AddonGrid data={this.props} ref={this.setGridRef} />
         <div className="monthly-cost">Estimated Monthly Cost:<span className="figure">{this.props.monthly_cost}</span></div>
