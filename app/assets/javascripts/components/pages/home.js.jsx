@@ -7,7 +7,8 @@ var Home = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <div id="home">
+        <div id="homeHeader"></div>
       </div>
     );
   }

@@ -64,21 +64,21 @@ class ApplicationController < ActionController::Base
     }
   end
 
-  def get_user_teams_for_header
+  def get_user_teams_for_header(home = false)
+    @header_team_data = {}
+    @header_team_data[:home] = true if home
+
     if @current_user
-      @header_team_data = {
-        teams: @current_user.teams.order(:slug).map { |team|
-          {
-            name: team.name,
-            icon: team.icon,
-            url: team.create_link
-          }
+      @header_team_data[:authed] = true
+      @header_team_data[:teams] = @current_user.teams.order(:slug).map { |team|
+        {
+          name: team.name,
+          icon: team.icon,
+          url: team.create_link
         }
       }
 
-      if @header_data
-        @header_team_data[:inside_app] = true
-      end
+      @header_team_data[:inside_app] = true if @header_data
     end
   end
 

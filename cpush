@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+git push USER master
+git push API master

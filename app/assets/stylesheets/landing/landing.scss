@@ -1,12 +1,13 @@
 @import 'global-vars';
 
 #landingHeader {
-  height: 70px;
+  height: 80px;
   padding-left: 30px;
   padding-right: 30px;
-  background-color: #000;
   width: 100%;
   z-index: 1;
+  background: #fff;
+  box-shadow: 0 1px 1px rgba(0,0,0,.1);
 
   .lh-left,
   .lh-right {
@@ -24,17 +25,17 @@
   .lh-logo {
     float: left;
     display: inline-block;
-    height: 30px;
-    margin-top: 20px;
+    height: 34px;
+    margin-top: 23px;
   }
 
   .lh-right-button {
     float: right;
     display: inline-block;
-    padding-top: 19px;
+    padding-top: 24px;
 
     .lh-right-link {
-      color: #fff;
+      color: $header-dark-text-color;
       text-decoration: none;
       display: inline-block;
       font-size: 14.5px;
@@ -45,9 +46,9 @@
       opacity: 0.8;
 
       &:hover {
+        background: $header-dark-btn-hover-bg-color;
         text-decoration: none;
         opacity: 1;
-        background: rgba(255,255,255,0.2);
         box-shadow: inset 0 1px 2px rgba(0,0,0,.05);
       }
     }
@@ -56,6 +57,24 @@
   .lh-right-button:first-child {
     .lh-right-link {
       margin-right: 0;
+    }
+  }
+
+  &.home {
+    box-shadow: none;
+    background: none;
+
+    .lh-right-link {
+      color: #fff;
+
+      &.sign-in {
+        background: rgba(255,255,255,0.16);
+      }
+
+      &:hover {
+        background: rgba(255,255,255,0.22);
+      }
+
     }
   }
 }
@@ -70,7 +89,7 @@
   box-shadow: inset 0 0 0 2px rgba(255,255,255,0.75);
   cursor: pointer;
   font-size: 15px;
-  margin-top: 15.5px;
+  margin-top: 20.5px;
 
   .teams-grid-icon {
     display: inline-block;
@@ -91,11 +110,26 @@
 }
 
 #lh-teams-button.dark {
-  color: rgba(0,0,0,0.4);
-  box-shadow: inset 0 0 0 2px rgba(0,0,0,0.35);
+  color: rgba(64, 75, 85, 0.8);
+  box-shadow: inset 0 0 0 2px rgba(64, 75, 85, 0.8);
 
   &:hover {
-    color: rgba(0,0,0,0.75);
-    box-shadow: inset 0 0 0 2px rgba(0,0,0,0.75), 0 1px 1px rgba(0,0,0,.1);
+    color: $header-dark-text-color;
+    box-shadow: inset 0 0 0 2px $header-dark-text-color;
+  }
+}
+
+#home {
+  #homeHeader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 312px;
+    width: 100%;
+    background-color: #0b283a;
+    background-image: -webkit-radial-gradient(circle at 50% top, rgba(40, 87, 145, 0.6) 0%, rgba(40, 87, 145, 0) 75%), -webkit-radial-gradient(circle at right top, #2F62A4 0%, rgba(47, 98, 164, 0) 57%);
+    background-image: radial-gradient(circle at 50% top, rgba(40, 87, 145, 0.6) 0%, rgba(40, 87, 145, 0) 75%), radial-gradient(circle at right top, #2F62A4 0%, rgba(47, 98, 164, 0) 57%);
+    background-repeat: no-repeat;
+    z-index: -1;
   }
 }

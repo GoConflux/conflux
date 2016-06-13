@@ -17,20 +17,30 @@ var LandingHeader = React.createClass({
   getRightestButton: function () {
     var button;
 
-    if (Object.keys(this.props).length > 0) {
+    if (!!this.props.authed) {
       button = <div id="lh-teams-button"><i className="fa fa-th-large teams-grid-icon"></i><div className="teams-text">My Teams</div></div>;
     } else {
-      button = <div className="lh-right-button"><a className="lh-right-link" href="/login">Sign In</a></div>;
+      button = <div className="lh-right-button"><a className="lh-right-link sign-in" href="/login">Sign In</a></div>;
     }
 
     return button;
   },
 
+  landingHeaderClass: function () {
+    return !!this.props.home ? 'home' : '';
+  },
+
+  confluxLogo: function () {
+    return !!this.props.home ?
+      'http://confluxapp.s3-website-us-west-1.amazonaws.com/images/conflux-long-white.svg' :
+      'http://confluxapp.s3-website-us-west-1.amazonaws.com/images/conflux-long-colored.svg';
+  },
+
   render: function() {
     return (
-      <div id="landingHeader">
+      <div id="landingHeader" className={this.landingHeaderClass()}>
         <div className="lh-left">
-          <img className="lh-logo" src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/conflux-long-white.svg"/>
+          <img className="lh-logo" src={this.confluxLogo()}/>
         </div>
         <div className="lh-right">
           {this.getRightestButton()}
