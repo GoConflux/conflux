@@ -1,8 +1,16 @@
 @import 'global-vars';
 
+$modal-width: 400px;
+
+#confluxModal > div:first-child {
+  width: $modal-width;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .modal-dialog {
-  width: 400px;
-  margin-top: 68px;
+  width: $modal-width;
+  margin-top: 100px;
 }
 
 .modal-content {
