@@ -48,3 +48,5 @@ gem 'turbolinks', '~> 2.5'
 gem 'conflux', '0.0.10'
 
 gem 'redis'
+
+gem 'slack-api'
