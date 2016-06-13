@@ -1,4 +1,7 @@
 var DeleteAppModal = React.createClass({
+
+  hideOnConfirm: true,
+
   render: function() {
     return (
       <div className="delete-app-modal-container">
