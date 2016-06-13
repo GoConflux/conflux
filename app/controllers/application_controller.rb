@@ -387,14 +387,14 @@ class ApplicationController < ActionController::Base
     }
   end
 
-  def configure_header_data(app: nil, app_addon: nil, users: false)
+  def configure_header_data(app: nil, app_addon: nil, use_window_history: false)
     model = app || app_addon
     back_data = model.try(:get_back_data) || {}
 
     @header_data = {
-      back_url: users ? 'javascript:void(0)' : back_data[:url],
-      back_text: users ? 'Back' : back_data[:text],
-      users: users
+      back_url: use_window_history ? 'javascript:void(0)' : back_data[:url],
+      back_text: use_window_history ? 'Back' : back_data[:text],
+      use_window_history: use_window_history
     }
 
     get_user_teams_for_header

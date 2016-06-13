@@ -111,7 +111,7 @@ class TeamsController < ApplicationController
     @team_user_data[:users] = admins + others
 
     configure_menu_data(@team, users_selected: true)
-    configure_header_data(users: true)
+    configure_header_data(use_window_history: true)
     render component: 'TeamUsers', props: @team_user_data
   end
 

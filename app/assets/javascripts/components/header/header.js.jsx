@@ -8,7 +8,7 @@ var Header = React.createClass({
   },
 
   onBackClick: function () {
-    if (this.props.users) {
+    if (this.props.use_window_history) {
       window.history.back();
     }
   },
