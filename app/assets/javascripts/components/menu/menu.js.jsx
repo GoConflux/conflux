@@ -87,7 +87,7 @@ var Menu = React.createClass({
   },
 
   onFeedbackClick: function () {
-    alert('Give Feedback');
+    React.modal.show('feedback:create');
   },
 
   render: function() {

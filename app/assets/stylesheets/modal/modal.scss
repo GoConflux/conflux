@@ -169,6 +169,11 @@ $modal-width: 400px;
   position: relative;
 }
 
+.modal-textarea-container {
+  width: 100%;
+  padding: 10px 15px;
+}
+
 .name-available-indicator-icon {
   position: absolute;
   top: 16px;
@@ -200,6 +205,12 @@ $modal-width: 400px;
   }
 }
 
+.modal-textarea-container.invalid {
+  .modal-textarea {
+    border: 1px solid #D53434;
+  }
+}
+
 .modal-name-input-title {
   float: left;
   display: inline-block;
@@ -210,7 +221,8 @@ $modal-width: 400px;
 }
 
 .modal-name-input,
-.modal-add-description {
+.modal-add-description,
+.modal-textarea {
   border: 1px solid #CBCBD2;
   border-radius: 4px;
   outline: none;
@@ -229,7 +241,8 @@ $modal-width: 400px;
   }
 }
 
-.modal-add-description {
+.modal-add-description,
+.modal-textarea {
   border: 1px solid #CBCBD2;
   border-radius: 4px;
   padding: 8px;
@@ -242,6 +255,10 @@ $modal-width: 400px;
   &::-webkit-input-placeholder {
     color: rgba(140,140,160,0.6);
   }
+}
+
+.modal-textarea {
+  height: 90px;
 }
 
 .create-app-modal {

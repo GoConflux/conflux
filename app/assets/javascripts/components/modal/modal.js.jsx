@@ -109,6 +109,10 @@ var Modal = React.createClass({
       'users:invite': {
         body: <InviteUsersModal data={this.data} ref={this.setCurrentModal}/>,
         confirmText: 'Send invites'
+      },
+      'feedback:create': {
+        body: <UserFeedbackModal data={this.data} ref={this.setCurrentModal}/>,
+        confirmText: 'Send feedback'
       }
     }[this.state.usecase];
   },
