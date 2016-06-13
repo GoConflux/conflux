@@ -21,11 +21,10 @@
 
 .conflux-icon {
   position: absolute;
-  width: 32px;
-  height: 32px;
-  top: 15px;
-  right: calc((100% - 32px) / 2);
-  opacity: 0.3;
+  width: $icon-dim;
+  height: $icon-dim;
+  top: calc((60px - 36px) / 2); // 60px is $height; 37px is $icon-dim
+  right: calc((100% - 36px) / 2); // 37px is $icon-dim
 }
 
 .header-back-btn,
