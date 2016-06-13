@@ -4,6 +4,25 @@ var AppAddon = React.createClass({
     this.plansComp = ref;
   },
 
+  componentDidMount: function () {
+    var self = this;
+
+    document.addEventListener('click', function () {
+      self.settingsDropdown.hideDropdown();
+    });
+
+    var settingsIcon = document.getElementById('settingsIcon');
+
+    if (settingsIcon) {
+      settingsIcon.addEventListener('click', function (e) {
+        self.settingsDropdown.toggleVisibility();
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      });
+    }
+  },
+
   setDescriptionRef: function (ref) {
     var self = this;
     this.description = ref;
@@ -93,15 +112,11 @@ var AppAddon = React.createClass({
     });
   },
 
-  toggleDropdown: function () {
-    this.settingsDropdown.toggleVisibility();
-  },
-
   render: function() {
     return (
       <div id="appAddon">
         <div className="settings-icon-container">
-          <img onClick={this.toggleDropdown} src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/gear.png" className="settings-icon"/>
+          <img src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/gear.png" id="settingsIcon"/>
           <Dropdown customID={'appAddonSettingsDropdown'} data={this.getSettingsDropdownOptions()} ref={this.setDropdownRef} />
         </div>
         <div className="app-addon-header">

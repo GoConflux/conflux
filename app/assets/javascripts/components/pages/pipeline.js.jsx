@@ -10,6 +10,25 @@ var Pipeline = React.createClass({
     this.settingsDropdown = ref;
   },
 
+  componentDidMount: function () {
+    var self = this;
+
+    document.addEventListener('click', function () {
+      self.settingsDropdown.hideDropdown();
+    });
+
+    var settingsIcon = document.getElementById('settingsIcon');
+
+    if (settingsIcon) {
+      settingsIcon.addEventListener('click', function (e) {
+        self.settingsDropdown.toggleVisibility();
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      });
+    }
+  },
+
   componentWillMount: function () {
     try {
       this.tierUUIDs = _.map(this.props.tiers || [], function (tier) {
@@ -103,10 +122,6 @@ var Pipeline = React.createClass({
     });
   },
 
-  toggleDropdown: function () {
-    this.settingsDropdown.toggleVisibility();
-  },
-
   newAppCreated: function (data) {
     this.tiersMap[data.updated_tier].setState({ apps: data.apps });
   },
@@ -115,7 +130,7 @@ var Pipeline = React.createClass({
     return (
       <div id="pipeline">
         <div className="settings-icon-container">
-          <img onClick={this.toggleDropdown} src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/gear.png" className="settings-icon"/>
+          <img src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/gear.png" id="settingsIcon"/>
           <Dropdown customID={'pipelineSettingsDropdown'} data={this.getSettingsDropdownOptions()} ref={this.setDropdownRef} />
         </div>
         <PipelineHeader tierUUIDs={this.tierUUIDs} data={this.props} onNewAppCreated={this.newAppCreated} ref={this.setHeaderRef} />

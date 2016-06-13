@@ -4,6 +4,10 @@ var Dropdown = React.createClass({
     $('#' + this.props.customID).toggle();
   },
 
+  hideDropdown: function () {
+    $('#' + this.props.customID).hide();
+  },
+
   getDropdownOptions: function () {
     var self = this;
 
