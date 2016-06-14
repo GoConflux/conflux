@@ -1,5 +1,22 @@
 var InAppSearchBar = React.createClass({
 
+  setSearchBarRef: function (ref) {
+    this.searchBar = ref;
+  },
+
+  setSearchBarWidth: function () {
+    var siblingsWidth = 0;
+
+    _.each($(this.searchBar).siblings(), function (sibling) {
+      siblingsWidth += $(sibling).outerWidth();
+    });
+
+    var parentWidth = $(this.searchBar).parent().width();
+    var width = 0.95 * (parentWidth - siblingsWidth - 32);
+
+    $(this.searchBar).width(width);
+  },
+
   componentDidMount: function () {
     var self = this;
 
@@ -23,6 +40,12 @@ var InAppSearchBar = React.createClass({
           this.blur();
         }
       });
+
+      this.setSearchBarWidth();
+
+      $(window).resize(function () {
+        self.setSearchBarWidth();
+      });
     } catch (e) {}
   },
 
@@ -36,7 +59,7 @@ var InAppSearchBar = React.createClass({
 
   render: function() {
     return (
-      <div className="in-app-search-bar">
+      <div className="in-app-search-bar" ref={this.setSearchBarRef}>
         <img src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/search.png" />
         <input type="text" className="autocomplete-input" placeholder="Find other add-ons to add"/>
       </div>
