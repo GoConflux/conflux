@@ -1,7 +1,5 @@
 var DeleteTeamModal = React.createClass({
 
-  hideOnConfirm: true,
-
   render: function() {
     return (
       <div className="delete-team-modal-container">

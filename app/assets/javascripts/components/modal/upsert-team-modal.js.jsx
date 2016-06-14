@@ -1,13 +1,17 @@
 var UpsertTeamModal = React.createClass({
 
-  hideOnConfirm: true,
-
   setNameInputRef: function (ref) {
     this.nameInput = ref;
   },
 
   onNameInputKeyUp: function (name) {
     var self = this;
+    var originalName = this.props.data.defaultName;
+
+    if (originalName && name === originalName) {
+      this.nameInput.showValid();
+      return;
+    }
 
     React.get('/teams/name_available', { name: name }, {
       success: function (info) {
@@ -20,6 +24,21 @@ var UpsertTeamModal = React.createClass({
     return {
       name: this.nameInput.getValue()
     };
+  },
+
+  validate: function () {
+    var nameExists = !!this.nameInput.getValue();
+
+    if (!nameExists) {
+      this.nameInput.showInvalid();
+      return false;
+    }
+
+    if (!this.nameInput.isAvailable()) {
+      return false;
+    }
+
+    return true;
   },
 
   render: function() {

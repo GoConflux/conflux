@@ -97,6 +97,8 @@ var App = React.createClass({
 
         if (newData.url) {
           window.location = newData.url;
+        } else {
+          React.modal.hide();
         }
       }
     });

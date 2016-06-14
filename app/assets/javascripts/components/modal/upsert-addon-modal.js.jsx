@@ -1,7 +1,5 @@
 var UpsertAddonModal = React.createClass({
 
-  hideOnConfirm: true,
-
   serialize: function () {
     return this.props.isNew ? {
       app_uuid: this.props.data.app_uuid,

@@ -1,19 +1,24 @@
 var KeyUpdateModal = React.createClass({
 
-  hideOnConfirm: true,
-
   setKeyNameRef: function (ref) {
     this.keyNameInput = ref;
   },
 
-  setKeyValueRef: function (ref) {
+  setKeyValueRef: function (ref) {s
     this.keyValueInput = ref;
+  },
+
+  validate: function () {
+    var nameValid = this.keyNameInput.validate();
+    var valueValid = this.keyValueInput.validate();
+
+    return nameValid && valueValid;
   },
 
   serialize: function () {
     return {
-      name: this.keyNameInput.getValue(),
-      value: this.keyValueInput.getValue()
+      name: this.keyNameInput.getValue().trim(),
+      value: this.keyValueInput.getValue().trim()
     };
   },
 

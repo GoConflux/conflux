@@ -1,7 +1,5 @@
 var UpsertAppModal = React.createClass({
 
-  hideOnConfirm: true,
-
   tiers: ['Local Development', 'Cloud Development', 'Staging', 'Production'],
 
   setNameInputRef: function (ref) {
@@ -16,6 +14,12 @@ var UpsertAppModal = React.createClass({
 
   onNameInputKeyUp: function (name) {
     var self = this;
+    var originalName = this.props.data.defaultName;
+
+    if (originalName && name === originalName) {
+      this.nameInput.showValid();
+      return;
+    }
 
     React.get('/apps/name_available', { name: name }, {
       success: function (info) {
@@ -30,6 +34,21 @@ var UpsertAppModal = React.createClass({
       selectedIndex: this.props.data.selectedIndex,
       options: this.tiers.map(function (tier) { return { text: tier, value: tier }; })
     };
+  },
+
+  validate: function () {
+    var nameExists = !!this.nameInput.getValue();
+
+    if (!nameExists) {
+      this.nameInput.showInvalid();
+      return false;
+    }
+
+    if (!this.nameInput.isAvailable()) {
+      return false;
+    }
+
+    return true;
   },
 
   serialize: function () {

@@ -8,15 +8,17 @@ var InviteUsersModal = React.createClass({
     this.inputContainer = ref;
   },
 
-  onConfirm: function () {
-    var val = $(this.input).val();
-
-    if (!val.trim()) {
+  validate: function () {
+    if (!$(this.input).val().trim()) {
       $(this.inputContainer).addClass('invalid');
-      return;
+      return false;
     }
 
-    var emails = _.map(val.split(','), function (email) {
+    return true;
+  },
+
+  onConfirm: function () {
+    var emails = _.map($(this.input).val().split(','), function (email) {
       return email.trim();
     });
 

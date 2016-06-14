@@ -1,7 +1,4 @@
 var DeletePipelineModal = React.createClass({
-
-  hideOnConfirm: true,
-
   render: function() {
     return (
       <div className="delete-pipeline-modal-container">

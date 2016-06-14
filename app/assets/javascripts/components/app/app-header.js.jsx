@@ -31,6 +31,7 @@ var AppHeader = React.createClass({
         if (newData.addon_already_exists) {
           alert('Addon alredy exists for this app!');
         } else {
+          React.modal.hide();
           self.props.onCreateNewAddon(newData);
         }
       }

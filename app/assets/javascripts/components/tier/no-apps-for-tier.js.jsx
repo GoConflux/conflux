@@ -17,6 +17,7 @@ var NoAppsForTier = React.createClass({
       tier_uuid: data.tier_uuid
     }, {
       success: function (newData) {
+        React.modal.hide();
         self.props.onNewAppCreated(newData.apps);
       }
     });

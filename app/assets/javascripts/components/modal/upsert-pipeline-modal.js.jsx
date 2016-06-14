@@ -1,13 +1,17 @@
 var UpsertPipelineModal = React.createClass({
 
-  hideOnConfirm: true,
-
   setNameInputRef: function (ref) {
     this.nameInput = ref;
   },
 
   onNameInputKeyUp: function (name) {
     var self = this;
+    var originalName = (this.props.data || {}).name;
+
+    if (originalName && name === originalName) {
+      this.nameInput.showValid();
+      return;
+    }
 
     React.get('/pipelines/name_available', { name: name }, {
       success: function (info) {
@@ -23,9 +27,19 @@ var UpsertPipelineModal = React.createClass({
     };
   },
 
-  isValid: function () {
-    var self = this;
+  validate: function () {
+    var nameExists = !!this.nameInput.getValue();
 
+    if (!nameExists) {
+      this.nameInput.showInvalid();
+      return false;
+    }
+
+    if (!this.nameInput.isAvailable()) {
+      return false;
+    }
+
+    return true;
   },
 
   // Only used for Pipeline "Creation". Not updating

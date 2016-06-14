@@ -75,6 +75,7 @@ var AppAddon = React.createClass({
       plan: data.plan
     }, {
       success: function (data) {
+        React.modal.hide();
         self.plansComp.setState({ selected: data.selected });
       }
     });

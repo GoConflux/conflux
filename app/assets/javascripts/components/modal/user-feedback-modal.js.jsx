@@ -8,19 +8,25 @@ var UserFeedbackModal = React.createClass({
     this.inputContainer = ref;
   },
 
-  onConfirm: function () {
-    var feedback = $(this.input).val();
-
-    if (!feedback.trim()) {
+  validate: function () {
+    if (!$(this.input).val().trim()) {
       $(this.inputContainer).addClass('invalid');
-      return;
+      return false;
     }
 
-    React.post('/users/feedback', { feedback: feedback }, {
+    return true;
+  },
+
+  onConfirm: function () {
+    React.post('/users/feedback', { feedback: $(this.input).val() }, {
       success: function () {
         React.modal.hide();
       }
     });
+  },
+
+  onHide: function () {
+    $(this.input).val('');
   },
 
   onKeyUp: function () {

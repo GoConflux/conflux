@@ -18,6 +18,7 @@ var ConfigVar = React.createClass({
       key_uuid: this.props.data.key_uuid
     }, {
       success: function (keys) {
+        React.modal.hide();
         self.props.onUpdateKeys(keys);
       }
     });
@@ -38,6 +39,7 @@ var ConfigVar = React.createClass({
       key_uuid: this.props.data.key_uuid
     }, {
       success: function (keys) {
+        React.modal.hide();
         self.props.onUpdateKeys(keys);
       }
     });

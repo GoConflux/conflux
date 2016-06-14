@@ -30,10 +30,10 @@ var ModalNameInput = React.createClass({
         return;
       }
 
-      // create new timeout for 300ms from now
+      // create new timeout for 250ms from now
       self.timeout = setTimeout(function () {
         self.props.onKeyUp($(input).val());
-      }, 300);
+      }, 250);
     })
   },
 
@@ -50,7 +50,7 @@ var ModalNameInput = React.createClass({
   },
 
   getValue: function () {
-    return $(this.input).val();
+    return $(this.input).val().trim();
   },
 
   setValue: function (val) {
@@ -72,6 +72,10 @@ var ModalNameInput = React.createClass({
     $('.modal-name-input-container').removeClass('valid').addClass('invalid');
     $('.available').hide();
     $('.not-available').show();
+  },
+
+  isAvailable: function () {
+    $('.modal-name-input-container').hasClass('valid');
   },
 
   getDefaultValue: function () {

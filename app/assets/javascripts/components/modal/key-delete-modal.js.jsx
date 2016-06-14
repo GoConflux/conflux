@@ -1,7 +1,5 @@
 var KeyDeleteModal = React.createClass({
 
-  hideOnConfirm: true,
-
   render: function() {
     return (
       <div className="key-delete-modal-body">

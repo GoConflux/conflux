@@ -27,6 +27,24 @@ $modal-width: 400px;
 
 .modal-header {
   border-bottom: none;
+  position: relative;
+  padding: 0;
+  height: 50px;
+
+  .modal-header-title {
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    color: $conflux-green;
+    margin-top: 16px;
+  }
+
+  .close {
+    float: none;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+  }
 }
 
 .modal-body {
@@ -87,15 +105,24 @@ $modal-width: 400px;
     width: 40%;
     margin-right: 6.67%;
   }
+
+  .horiz-spinner {
+    width: 90%;
+  }
 }
 
 .modal-action-link {
   text-decoration: none;
+  position: relative;
 
   &:hover,
   &:focus,
   &:active {
     text-decoration: none;
+  }
+
+  .horiz-spinner {
+    top: -1px;
   }
 }
 
@@ -313,6 +340,12 @@ $modal-width: 400px;
   }
 }
 
+.modal-titled-input-container.invalid {
+  .modal-titled-input {
+    border: 1px solid #D53434;
+  }
+}
+
 .modal-question-text {
   width: 100%;
   font-size: 13.5px;
@@ -345,8 +378,8 @@ $modal-width: 400px;
 .delete-pipeline-modal-container,
 .delete-app-modal-container,
 .delete-team-modal-container {
-  padding: 15px;
-  padding-bottom: 22px;
+  padding: 22px;
+  padding-bottom: 32px;
 
   .delete-pipeline-modal-question,
   .delete-app-modal-question,
@@ -360,7 +393,7 @@ $modal-width: 400px;
 
   .modal-name-input-container {
     padding: 4px 15px;
-    margin-bottom: 0;
+    margin-bottom: 6px;
   }
 
   .name-available-indicator-icon {

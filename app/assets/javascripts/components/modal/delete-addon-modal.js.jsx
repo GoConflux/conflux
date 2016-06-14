@@ -1,7 +1,5 @@
 var DeleteAddonModal = React.createClass({
 
-  hideOnConfirm: true,
-
   render: function() {
     return (
       <div className="delete-addon-modal-container">
