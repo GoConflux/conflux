@@ -83,6 +83,8 @@ Rails.application.routes.draw do
     # User:
     get '/teams/name_available' => 'teams#name_available'
     post '/teams' => 'teams#create'
+    put '/teams' => 'teams#update'
+    delete '/teams' => 'teams#destroy'
 
     # API:
     get '/api/teams/users' => 'teams_api#users'

@@ -40,14 +40,7 @@ class TeamsController < ApplicationController
     begin
       with_transaction do
         @team.update_attributes(allowed_update_params_for(:team, params))
-
-        updated_data = {
-          name: @team.name,
-          icon: @team.icon,
-          pipelines: @team.pipelines_for_team_view
-        }
-
-        render json: updated_data
+        render json: { url: @team.create_link }
       end
     rescue Exception => e
       error = "#{ConfluxErrors::TeamUpdateFailed} - #{e}"
@@ -71,7 +64,7 @@ class TeamsController < ApplicationController
           apps
         ).delay.perform
 
-        redirect_to '/'
+        render json: {}
       end
     rescue Exception => e
       error = "#{ConfluxErrors::TeamDestroyFailed} - #{e}"

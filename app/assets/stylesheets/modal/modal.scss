@@ -343,12 +343,14 @@ $modal-width: 400px;
 }
 
 .delete-pipeline-modal-container,
-.delete-app-modal-container {
+.delete-app-modal-container,
+.delete-team-modal-container {
   padding: 15px;
   padding-bottom: 22px;
 
   .delete-pipeline-modal-question,
-  .delete-app-modal-question {
+  .delete-app-modal-question,
+  .delete-team-modal-question {
     font-size: 13.5px;
     text-align: center;
   }

@@ -6,7 +6,7 @@ class Team < ActiveRecord::Base
   acts_as_soft_destroyable
 
   SLUG_SOURCE = 'name'
-  before_create :generate_slug
+  before_save :generate_slug
   before_create :generate_uuid
 
   has_many :team_users, :dependent => :destroy

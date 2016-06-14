@@ -23,8 +23,13 @@
   position: absolute;
   width: $icon-dim;
   height: $icon-dim;
-  top: calc((60px - 36px) / 2); // 60px is $height; 37px is $icon-dim
-  right: calc((100% - 36px) / 2); // 37px is $icon-dim
+  top: calc((60px - 36px) / 2);
+  right: calc((100% - 36px) / 2);
+  opacity: 0.8;
+
+  &:hover {
+    opacity: 1;
+  }
 }
 
 .header-back-btn,

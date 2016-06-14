@@ -55,8 +55,17 @@ var Modal = React.createClass({
   getCurrentModal: function () {
     return {
       'team:create': {
-        body: <CreateTeamModal data={this.data} ref={this.setCurrentModal}/>,
+        body: <UpsertTeamModal data={this.data} isNew={true} ref={this.setCurrentModal}/>,
         confirmText: 'Create Team'
+      },
+      'team:update': {
+        body: <UpsertTeamModal data={this.data} isNew={false} ref={this.setCurrentModal}/>,
+        confirmText: 'Update Team'
+      },
+      'team:delete': {
+        body: <DeleteTeamModal data={this.data} ref={this.setCurrentModal}/>,
+        confirmText: 'Yes, delete it.',
+        declineText: 'No'
       },
       'pipeline:create': {
         body: <UpsertPipelineModal data={this.data} isNew={true} ref={this.setCurrentModal}/>,

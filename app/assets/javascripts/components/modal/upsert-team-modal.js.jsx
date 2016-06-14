@@ -1,4 +1,4 @@
-var CreateTeamModal = React.createClass({
+var UpsertTeamModal = React.createClass({
 
   hideOnConfirm: true,
 
@@ -27,7 +27,7 @@ var CreateTeamModal = React.createClass({
 
     return (
       <div className="create-team-modal">
-        <ModalNameInput placeholder={'Team name'} onKeyUp={this.onNameInputKeyUp} ref={this.setNameInputRef} />
+        <ModalNameInput placeholder={'Team name'} defaultName={this.props.data.defaultName} onKeyUp={this.onNameInputKeyUp} ref={this.setNameInputRef} />
       </div>
     );
   }
