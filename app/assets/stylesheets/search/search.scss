@@ -79,5 +79,20 @@
     text-overflow: ellipsis;
     overflow: hidden;
   }
+}
 
+@media (max-width: 579px) {
+  .in-app-search-bar {
+    width: 100%;
+    margin-left: 12px;
+    margin-top: 15px;
+  }
+}
+
+#app.full-width-search {
+  .in-app-search-bar {
+    width: 100% !important;
+    margin-left: 12px;
+    margin-top: 15px;
+  }
 }

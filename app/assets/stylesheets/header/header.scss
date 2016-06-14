@@ -138,3 +138,9 @@
     display: inline-block;
   }
 }
+
+@media (max-width: 809px) {
+  .conflux-icon {
+    display: none;
+  }
+}

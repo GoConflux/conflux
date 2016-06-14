@@ -104,3 +104,30 @@
   font-size: 16px;
   margin-top: 120px;
 }
+
+#app.full-width-search {
+  #appHeader {
+    margin-bottom: 70px;
+
+    .header-linebreak {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 579px) {
+  #appHeader {
+    margin-bottom: 70px;
+
+    .header-linebreak {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 530px) {
+  #app {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}

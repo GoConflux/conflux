@@ -49,10 +49,17 @@ var InAppSearchBar = React.createClass({
         }
       });
 
-      this.setSearchBarWidth();
+      if (window.innerWidth > 579) {
+        this.setSearchBarWidth();
+      }
 
       $(window).resize(function () {
-        self.setSearchBarWidth();
+        if (window.innerWidth > 579) {
+          $('#app').removeClass('full-width-search');
+          self.setSearchBarWidth();
+        } else {
+          $('#app').addClass('full-width-search');
+        }
       });
     } catch (e) {}
   },
