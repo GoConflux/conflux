@@ -19,7 +19,7 @@
 <% if @show_menu %>
   <%= react_component('Menu', @menu_data, { prerender: true }) %>
 <% end %>
-<div id="csBody" class="<%= @show_menu ? 'show-menu' : '' %>">
+<div id="csBody" class="<%= @show_menu ? '' : 'no-menu' %>">
   <% if @landing_header %>
     <%= react_component('LandingHeader', @header_team_data, { prerender: true }) %>
   <% else %>

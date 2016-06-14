@@ -1,8 +1,12 @@
 @import 'global-vars';
 
-#csBody.show-menu {
+#csBody {
   margin-left: 230px;
   overflow: auto;
+}
+
+#csBody.no-menu {
+  margin-left: 0;
 }
 
 @media (max-width: 991px) {
