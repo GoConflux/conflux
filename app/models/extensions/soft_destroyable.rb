@@ -38,7 +38,7 @@ module Extensions
       self.update_attributes!(Extensions::SoftDestroyable::ATTRIBUTES_DESTROYED)
 
       # Check to see if model has a slug_source
-      slug_source = self.class.const_get('SLUG_SOURCE')
+      slug_source = self.class.const_defined?('SLUG_SOURCE') ? self.class.const_get('SLUG_SOURCE') : nil
 
       # If slug source exists, set that column to a unique destroyed string, which will then
       # set the slug column to the same thing and free up that previously taken slug for someone else to use.

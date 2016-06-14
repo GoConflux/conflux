@@ -2,7 +2,7 @@ var Menu = React.createClass({
 
   getInitialState: function () {
     return {
-      pipelines: this.props.pipelines
+      pipelines: this.props.pipelines || []
     };
   },
   
@@ -84,15 +84,15 @@ var Menu = React.createClass({
     return false;
   },
 
-  handlePipelineClick: function () {
-    console.log('heard click');
-  },
-
   formatPipelines: function () {
-    return this.state.pipelines.map(function (pipeline) {
-      var classes = pipeline.selected ? 'selected' : '';
-      return <a href={pipeline.link} className={classes}><li key={pipeline.name} onClick={this.handlePipelineClick} className="menu-pipeline"><i className="fa fa-circle"></i><div className="pipeline-name">{pipeline.name}</div></li></a>;
-    });
+    if (this.state.pipelines.length == 0) {
+      return <div className="no-pipelines-menu-message">No Pipelines</div>;
+    } else {
+      return this.state.pipelines.map(function (pipeline) {
+        var classes = pipeline.selected ? 'selected' : '';
+        return <a href={pipeline.link} className={classes}><li key={pipeline.name} className="menu-pipeline"><i className="fa fa-circle"></i><div className="pipeline-name">{pipeline.name}</div></li></a>;
+      });
+    }
   },
 
   getMenuTeamIcon: function () {

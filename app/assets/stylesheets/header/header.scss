@@ -23,9 +23,14 @@
   position: absolute;
   width: $icon-dim;
   height: $icon-dim;
-  top: calc((60px - 36px) / 2);
-  right: calc((100% - 36px) / 2);
+  top: calc((60px - 35px) / 2);
+  right: calc((100% - 35px) / 2);
   opacity: 0.8;
+  -webkit-transition: opacity 0.25s;
+  -moz-transition: opacity 0.25s;
+  -ms-transition: opacity 0.25s;
+  -o-transition: opacity 0.25s;
+  transition: opacity 0.25s;
 
   &:hover {
     opacity: 1;

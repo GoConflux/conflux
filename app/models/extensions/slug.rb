@@ -6,7 +6,7 @@ module Extensions
 
     included do
       def generate_slug
-        col = self.class.const_get('SLUG_SOURCE')
+        col = self.class.const_defined?('SLUG_SOURCE') ? self.class.const_get('SLUG_SOURCE') : nil
 
         if col.nil?
           raise 'Slug Error: generate_slug can only be used on models with a SLUG_SOURCE constant'

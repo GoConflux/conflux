@@ -15,7 +15,7 @@ class TeamsController < ApplicationController
     else
       configure_menu_data(@team)
       configure_header_data
-      render component: 'NoPipelines'
+      render component: 'NoPipelines', props: { team_uuid: @team.uuid }
     end
   end
 
