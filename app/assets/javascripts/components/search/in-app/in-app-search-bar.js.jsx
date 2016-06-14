@@ -69,7 +69,7 @@ var InAppSearchBar = React.createClass({
     return (
       <div className="in-app-search-bar" ref={this.setSearchBarRef}>
         <img className="search-icon" src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/search.png" />
-        <input type="text" className="autocomplete-input" placeholder="Find other add-ons to add"/>
+        <input type="text" className="autocomplete-input" placeholder="Find add-ons to add"/>
       </div>
     );
   }
