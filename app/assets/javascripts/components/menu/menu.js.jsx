@@ -25,8 +25,6 @@ var Menu = React.createClass({
 
       var settingsIcon = $('[data-action=settings]')[0];
 
-      console.log(settingsIcon);
-
       if (settingsIcon) {
         settingsIcon.addEventListener('click', function (e) {
           self.settingsDropdown.toggleVisibility();

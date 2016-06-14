@@ -38,6 +38,14 @@ var InAppSearchBar = React.createClass({
           self.props.onAddonSelected(value);
           this.clear();
           this.blur();
+        },
+        render: {
+          option: function(item) {
+            return '<div class="addon-search-result" data-value="' + item.value + '">' +
+              '<img class="sr-icon" src="' + item.icon + '" />' +
+              '<span class="sr-name">' + item.text + '</span>' +
+              '</div>';
+          }
         }
       });
 
@@ -60,7 +68,7 @@ var InAppSearchBar = React.createClass({
   render: function() {
     return (
       <div className="in-app-search-bar" ref={this.setSearchBarRef}>
-        <img src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/search.png" />
+        <img className="search-icon" src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/search.png" />
         <input type="text" className="autocomplete-input" placeholder="Find other add-ons to add"/>
       </div>
     );

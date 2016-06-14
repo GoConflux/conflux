@@ -38,7 +38,8 @@ class AddonsController < ApplicationController
     addons = Addon.where(match).order('LOWER(name)').limit(30).map { |addon|
       {
         text: addon.name,
-        value: addon.uuid
+        value: addon.uuid,
+        icon: addon.icon
       }
     }
 
