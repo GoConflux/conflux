@@ -68,8 +68,3 @@ namespace :addons do
   end
 
 end
-
-Addon.find_by(slug: 'redis-to-go').update_attributes(slug: 'redistogo') &&
-  Addon.find_by(slug: 'heroku-postgres').update_attributes(slug: 'heroku-postgresql') &&
-  Addon.find_by(slug: 'ironworker-18').update_attributes(slug: 'iron_worker') &&
-  Addon.find_by(slug: 'mlab-mongodb-18').update_attributes(slug: 'mongolab')
