@@ -1,12 +1,9 @@
 class Addon < ActiveRecord::Base
   include Extensions::UUID
   include Extensions::SoftDestroyable
-  include Extensions::Slug
 
   acts_as_soft_destroyable
 
-  SLUG_SOURCE = 'name'
-  before_save :generate_slug
   before_create :generate_uuid
 
   has_many :app_addons, :dependent => :destroy
