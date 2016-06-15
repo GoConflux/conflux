@@ -41,7 +41,7 @@ var AppHeader = React.createClass({
   render: function() {
     return (
       <div id="appHeader" key={Date.now()}>
-        <img src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/app-green.svg" className="app-header-icon"/>
+        <img src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/app-gray.svg" className="app-header-icon"/>
         <div className="left-header-title">{this.state.name}</div>
         <div className="header-linebreak"></div>
         <InAppSearchBar onAddonSelected={this.onAddonSelected} />
