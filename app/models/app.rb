@@ -15,7 +15,7 @@ class App < ActiveRecord::Base
   has_many :keys, :through => :app_addons
 
   def addons_for_app_view
-    self.app_addons.includes(:addon).order('LOWER(addons.name)').map { |app_addon|
+    self.app_addons.includes(:addon).order('addons.name').map { |app_addon|
       addon = app_addon.addon
 
       {
