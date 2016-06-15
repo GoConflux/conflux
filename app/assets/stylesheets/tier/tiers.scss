@@ -63,7 +63,7 @@
       .no-apps-for-tier {
         background-color: #F5F5F7;
         text-align: center;
-        color: black;
+        color: $header-dark-text-color;
         font-size: 12px;
         padding-top: 20px;
       }
@@ -86,22 +86,15 @@
         }
 
         .app-icon {
-
-          &:before {
-            content: '';
-          }
-
           width: 24px;
           height: 24px;
-          border-radius: 12px;
           margin-top: 16px;
           margin-left: 16px;
           margin-right: 16px;
-          background-color: black;
         }
 
         .app-name {
-          color: black;
+          color: $header-dark-text-color;
           font-size: 14px;
           padding-top: 17px;
           width: calc(100% - 72px);

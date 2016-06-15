@@ -43,16 +43,9 @@
   }
 
   .pipeline-icon {
-
-    &:before {
-      content: '';
-    }
-
     height: 33px;
     width: 33px;
-    border-radius: 16.5px;
-    background-color: black;
-    margin-right: 13px;
+    margin-right: 12px;
     margin-top: 8.5px;
   }
 
@@ -67,13 +60,13 @@
     font-size: 21px;
     margin-top: 10px;
     margin-right: 16px;
-    color: black;
+    color: #111;
     max-width: calc(40% - 46px);
   }
 
   .pipeline-description {
     margin-left: 16px;
-    color: rgba(140,140,160,0.6);
+    color: rgba(64,75,85,0.6);
     font-size: 12px;
     padding-top: 18px;
     max-width: calc(60% - 46px - 10px);

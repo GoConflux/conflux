@@ -17,7 +17,7 @@
     padding-top: 11px;
     font-size: 13px;
     float: left;
-    color: black;
+    color: $conflux-black;
     cursor: pointer;
 
     .name {
@@ -39,7 +39,7 @@
   }
 
   .plan-option.selected {
-    background-color: #000;
+    background-color: $conflux-black;
     border: none;
     color: white;
   }

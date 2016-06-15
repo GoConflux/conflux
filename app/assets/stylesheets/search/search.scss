@@ -22,7 +22,7 @@
     border: none;
     box-shadow: none;
     outline: none;
-    color: #000;
+    color: $conflux-black;
     margin-left: 11px;
     font-size: 14px;
     width: calc(100% - 30px);
@@ -73,7 +73,7 @@
   .sr-name {
     font-size: 14.5px;
     padding-top: 9px;
-    color: black;
+    color: $conflux-black;
     max-width: calc(100% - 40px - 7px);
     white-space: nowrap;
     text-overflow: ellipsis;

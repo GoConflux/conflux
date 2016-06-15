@@ -149,20 +149,21 @@
   float: left;
   height: 35px;
 
-  .fa,
+  img,
   .pipeline-name {
     float: left;
     display: inline-block;
   }
 
-  .fa {
-    font-size: 12px;
-    margin-right: 12px;
-    margin-top: 12px;
+  img {
+    height: 19px;
+    width: 19px;
+    margin-right: 10px;
+    margin-top: 8px;
   }
 
   .pipeline-name {
-    width: calc(100% - 23px);
+    width: calc(100% - 29px);
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;

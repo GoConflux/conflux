@@ -90,7 +90,7 @@ var Menu = React.createClass({
     } else {
       return this.state.pipelines.map(function (pipeline) {
         var classes = pipeline.selected ? 'selected' : '';
-        return <a href={pipeline.link} className={classes}><li key={pipeline.name} className="menu-pipeline"><i className="fa fa-circle"></i><div className="pipeline-name">{pipeline.name}</div></li></a>;
+        return <a href={pipeline.link} className={classes}><li key={pipeline.name} className="menu-pipeline"><img src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/pipeline-white.svg" /><div className="pipeline-name">{pipeline.name}</div></li></a>;
       });
     }
   },

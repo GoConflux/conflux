@@ -25,7 +25,7 @@ var NoAppsForTier = React.createClass({
 
   render: function() {
     return (
-      <div className="no-apps-for-tier">No apps exist yet for this tier. <span onClick={this.showAddNewApp} className="add-first-app-to-tier">Click to add one.</span></div>
+      <div className="no-apps-for-tier">No apps exist yet for this tier.&nbsp;&nbsp;<span onClick={this.showAddNewApp} className="add-first-app-to-tier">Click to add one.</span></div>
     );
   }
 });
