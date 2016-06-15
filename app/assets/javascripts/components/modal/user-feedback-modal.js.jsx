@@ -37,7 +37,7 @@ var UserFeedbackModal = React.createClass({
     return (
       <div className="user-feedback-modal">
         <div className="modal-textarea-container" ref={this.setInputContainerRef}>
-          <textarea className="modal-textarea" placeholder="Feedback, ideas, bugs, etc." onKeyUp={this.onKeyUp} ref={this.setInputRef} />
+          <textarea className="modal-textarea" placeholder="Feedback, suggestions, bugs, etc." onKeyUp={this.onKeyUp} ref={this.setInputRef} />
         </div>
       </div>
     );

@@ -15,7 +15,7 @@ class App < ActiveRecord::Base
   has_many :keys, :through => :app_addons
 
   def addons_for_app_view
-    self.app_addons.includes(:addon).map { |app_addon|
+    self.app_addons.includes(:addon).order('LOWER(addons.name)').map { |app_addon|
       addon = app_addon.addon
 
       {
@@ -24,7 +24,7 @@ class App < ActiveRecord::Base
         tagline: addon.tagline,
         link: app_addon.create_link
       }
-    }.sort_by { |a| a[:name].downcase } # optimize into initial query later
+    }
   end
 
   def create_link

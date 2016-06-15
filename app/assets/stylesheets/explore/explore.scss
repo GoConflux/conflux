@@ -1,0 +1,51 @@
+@import 'global-vars';
+
+#explore {
+  .home-header {
+    height: 80px;
+  }
+
+  .explore-subheader {
+    background-image: -webkit-linear-gradient(left, #fff, #ddd 10%, #ddd 90%, #fff);
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    background-size: 100% 1px;
+    padding-bottom: 65px;
+    padding-top: 70px;
+  }
+
+  .title,
+  .subtitle {
+    width: 100%;
+    text-align: center;
+    font-family: Avenir-Next-Thin;
+  }
+
+  .title {
+    color: $conflux-green;
+    font-size: 22px;
+    margin-bottom: 14px;
+  }
+
+  .subtitle {
+    color: rgba(0,0,0,0.8);
+    font-size: 16px;
+    padding: 0 10%;
+    line-height: 1.4em;
+  }
+
+}
+
+.explore-body {
+  margin-top: 65px;
+  width: 85%;
+}
+
+
+@media (max-width: 579px) {
+  #explore {
+    .title {
+      margin-bottom: 30px;
+    }
+  }
+}

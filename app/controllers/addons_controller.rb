@@ -35,7 +35,7 @@ class AddonsController < ApplicationController
 
     match = Addon.arel_table[:name].matches("%#{params[:query]}%")
 
-    addons = Addon.where(match).order('LOWER(name)').limit(30).map { |addon|
+    addons = Addon.where(match).order('LOWER(name)').map { |addon|
       {
         text: addon.name,
         value: addon.uuid,

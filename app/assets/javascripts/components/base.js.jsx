@@ -3,6 +3,7 @@ var Base = React.createClass({
     return (
       <div>
         <Home />
+        <Explore />
         <Login />
         <Team />
         <Pipeline />

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
     # User:
     get '/' => 'home#index'
-
+    get '/explore' => 'home#explore'
 
   # KEYS ------------------------------------
 

@@ -60,14 +60,15 @@
     }
   }
 
-  &.home {
+  &.home,
+  &.explore {
     box-shadow: none;
     background: none;
 
     .lh-right-link {
       color: #fff;
 
-      &.sign-in {
+      &.selected {
         background: rgba(255,255,255,0.16);
       }
 
@@ -119,17 +120,56 @@
   }
 }
 
+.home-header {
+  width: 100%;
+  margin-top: -80px;
+  background-color: #0b283a;
+  background-image: -webkit-radial-gradient(circle at 50% top, rgba(40, 87, 145, 0.6) 0%, rgba(40, 87, 145, 0) 75%), -webkit-radial-gradient(circle at right top, #2F62A4 0%, rgba(47, 98, 164, 0) 57%);
+  background-image: radial-gradient(circle at 50% top, rgba(40, 87, 145, 0.6) 0%, rgba(40, 87, 145, 0) 75%), radial-gradient(circle at right top, #2F62A4 0%, rgba(47, 98, 164, 0) 57%);
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+
 #home {
-  #homeHeader {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 312px;
+  .home-header {
+    min-height: 312px;
+    padding-top: 126px;
+  }
+
+  .title,
+  .subtitle {
     width: 100%;
-    background-color: #0b283a;
-    background-image: -webkit-radial-gradient(circle at 50% top, rgba(40, 87, 145, 0.6) 0%, rgba(40, 87, 145, 0) 75%), -webkit-radial-gradient(circle at right top, #2F62A4 0%, rgba(47, 98, 164, 0) 57%);
-    background-image: radial-gradient(circle at 50% top, rgba(40, 87, 145, 0.6) 0%, rgba(40, 87, 145, 0) 75%), radial-gradient(circle at right top, #2F62A4 0%, rgba(47, 98, 164, 0) 57%);
-    background-repeat: no-repeat;
-    z-index: -1;
+    text-align: center;
+  }
+
+  .title {
+    color: white;
+    font-size: 31px;
+    margin-bottom: 16px;
+  }
+
+  .subtitle {
+    color: rgba(255,255,255,0.8);
+    font-size: 17px;
+    font-family: Avenir-Next-Thin;
+  }
+}
+
+
+@media (max-width: 579px) {
+  #landingHeader {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  #lh-teams-button {
+
+    .teams-grid-icon {
+      padding-right: 0;
+    }
+
+    .teams-text {
+      display: none;
+    }
   }
 }
