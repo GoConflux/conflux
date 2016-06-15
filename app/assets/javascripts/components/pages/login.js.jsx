@@ -44,7 +44,7 @@ var Login = React.createClass({
     var valid = true;
 
     _.each($('.card-input.required'), function (input) {
-      if (_.isEmpty($(input).val())) {
+      if (_.isEmpty($(input).val().trim())) {
         $(input).addClass('invalid');
         valid = false;
       }
@@ -63,13 +63,13 @@ var Login = React.createClass({
 
   onLoginClick: function () {
     var data = this.state.sign_up ? {
-      email: $(this.email).val(),
-      name: $(this.name).val(),
-      password: $(this.password).val(),
+      email: $(this.email).val().trim(),
+      name: $(this.name).val().trim(),
+      password: $(this.password).val().trim(),
       sign_up: true
     } : {
-      email: $(this.email).val(),
-      password: $(this.password).val()
+      email: $(this.email).val().trim(),
+      password: $(this.password).val().trim()
     };
 
     if (!this.validateData(data)) {
@@ -125,17 +125,22 @@ var Login = React.createClass({
       },
       {
         link: 'javascript:void(0)',
-        text: 'I forgot my password'
+        text: 'I forgot my password',
+        onClick: this.forgotPassword
       }
     ];
 
     return btnInfo.map(function (info) {
-      return <div className="card-footer-button"><a href={info.link} className="card-footer-link">{info.text}</a></div>;
+      return <div className="card-footer-button"><a href={info.link} onClick={(info.onClick || function(){})} className="card-footer-link">{info.text}</a></div>;
     });
   },
 
   getPrimaryBtnText: function () {
     return this.state.sign_up ? <span className="primary-text">Sign up</span> : <span className="primary-text">Sign in</span>;
+  },
+
+  forgotPassword: function () {
+    React.modal.show('password:forgot');
   },
 
   getTitleClasses: function () {

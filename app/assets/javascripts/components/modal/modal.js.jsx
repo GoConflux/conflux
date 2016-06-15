@@ -138,6 +138,11 @@ var Modal = React.createClass({
         body: <UserFeedbackModal data={this.data} ref={this.setCurrentModal}/>,
         confirmText: 'Submit',
         headerText: 'Give Feedback to Conflux'
+      },
+      'password:forgot': {
+        body: <ForgotPasswordModal data={this.data} ref={this.setCurrentModal}/>,
+        confirmText: 'Send email',
+        headerText: 'Forgot Password'
       }
     }[this.state.usecase];
   },

@@ -25,7 +25,9 @@ Rails.application.routes.draw do
     get '/signup' => 'login#signup'
     get '/signout' => 'login#signout'
     post '/login' => 'login#login'
-
+    get '/reset_password' => 'login#reset_password'
+    post '/pw_reset' => 'login#pw_reset'
+    post '/forgot_password' => 'login#forgot_password'
 
   # APP_ADDONS ------------------------------
 

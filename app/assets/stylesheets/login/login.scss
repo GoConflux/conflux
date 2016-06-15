@@ -1,6 +1,7 @@
 @import 'global-vars';
 
-#login {
+#login,
+#resetPassword {
   color: $conflux-gray;
 }
 
@@ -26,7 +27,8 @@
     text-align: center;
     font-weight: 600;
 
-    &.sign-up {
+    &.sign-up,
+    &.reset {
       margin-bottom: 28px;
     }
   }

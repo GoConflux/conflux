@@ -1,7 +1,7 @@
 class LoginController < ApplicationController
 
   before_filter :check_for_current_user, :only => [:index, :signup]
-  before_filter :required_auth_credentials_exist, :only => [:login]
+  before_filter :required_auth_credentials_exist, :only => [:login, :pw_reset]
 
   def index
     if @current_user.present?
@@ -47,6 +47,50 @@ class LoginController < ApplicationController
       logger.error { "User Auth Error for User with email: #{params[:email]}, with exception #{e}" }
       render json: { message: 'User auth error' }, status: 500
     end
+  end
+
+  def reset_password
+    @bg_light_gray = true
+    @landing_header = true
+
+    render component: 'ResetPassword'
+  end
+
+  def pw_reset
+    user = User.find_by(
+      email: params[:email],
+      password: params[:password]
+    )
+
+    assert(user)
+
+    begin
+      with_transaction do
+        user.update_attributes(password: params[:new_password])
+
+        ut = UserToken.new(
+          user_id: user.id,
+          token: UUIDTools::UUID.random_create.to_s
+        )
+
+        ut.save!
+
+        response.headers[UserToken::HEADER] = ut.token
+
+        render json: {}, status: 200
+      end
+    rescue => e
+      puts "Error resetting password for #{params[:email]}, #{e.message}"
+    end
+  end
+
+  def forgot_password
+    user = User.find_by(email: params[:email])
+    assert(user)
+
+    UserMailer.delay.forgot_password(user)
+
+    render json: {}, status: 200
   end
 
 end

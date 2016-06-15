@@ -38,6 +38,10 @@ var InviteUsersModal = React.createClass({
     $(this.inputContainer).removeClass('invalid');
   },
 
+  onHide: function () {
+    $(this.input).val('');
+  },
+
   render: function() {
     return (
       <div className="invite-users-modal">
