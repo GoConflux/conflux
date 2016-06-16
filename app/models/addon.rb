@@ -7,6 +7,7 @@ class Addon < ActiveRecord::Base
   before_create :generate_uuid
 
   has_many :app_addons, :dependent => :destroy
+  belongs_to :addon_category
 
   def is_heroku_dependent?
     self.heroku_dependent
@@ -60,7 +61,10 @@ class Addon < ActiveRecord::Base
         'cost' => (price.blank? || price.to_i == 0) ? 'FREE' : "$#{'%.2f' % price}"
       }
     }
+
+    ['websolr'].each { |addon_slug|
+      Addon.find_by(slug: addon_slug).update_attributes(addon_category_id: AddonCategory.find_by(category: 'Search').id)
+    }
   end
 
 end
-
