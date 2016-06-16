@@ -38,7 +38,26 @@
 
 .explore-body {
   margin-top: 65px;
-  width: 85%;
+
+  #addons {
+    .category {
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+
+      .category-name {
+        font-size: 20px;
+        font-family: Avenir-Next-Thin;
+        color: $conflux-green;
+        margin-bottom: 26px;
+        padding-left: 34px;
+      }
+
+      .addon-grid {
+        min-height: 0;
+      }
+    }
+  }
+
 }
 
 

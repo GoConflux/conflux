@@ -1,7 +1,7 @@
 var Explore = React.createClass({
-
-  setGridRef: function (ref) {
-    this.addonGrid = ref;
+  
+  setCategoryAddonsRef: function (ref) {
+    this.categoryAddons = ref;
   },
 
   render: function() {
@@ -13,9 +13,7 @@ var Explore = React.createClass({
           <div className="subtitle">Use technologies you love with over 150 Add-ons from the Elements Marketplace. Add-ons are fully-managed services, integrated for use with Heroku. They can be provisioned and scaled in one command. Add-ons provide services for logging, caching, monitoring, persistence and more.</div>
         </div>
         <div className="explore-body conflux-container">
-          <div className="addons">
-            <AddonGrid data={this.props} ref={this.setGridRef} />
-          </div>
+          <CategoryAddons data={this.props} ref={this.setCategoryAddonsRef} />
         </div>
       </div>
     );
