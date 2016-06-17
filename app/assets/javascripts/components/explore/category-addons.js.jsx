@@ -11,7 +11,7 @@ var CategoryAddons = React.createClass({
       var category = group[0];
       var addons = group[1];
 
-      return <div className="category"><div className="category-name">{category}</div><CategoryAddonsGrid data={addons} /></div>;
+      return <div className="category" data-category={group[0].toLowerCase()}><div className="category-name">{category}</div><CategoryAddonsGrid data={addons} /></div>;
     });
   },
 

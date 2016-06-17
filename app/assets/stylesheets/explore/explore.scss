@@ -39,25 +39,95 @@
 .explore-body {
   margin-top: 65px;
 
+  #categoriesList {
+    width: 210px;
+    float: left;
+    display: inline-block;
+    margin-top: -5px;
+
+    .header {
+      margin: 10px 0;
+      color: $conflux-black;
+      font-size: 13.5px;
+      font-family: Avenir-Next-Medium;
+    }
+
+    .category-name {
+      font-size: 13px;
+      height: 22px;
+      line-height: 22px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      cursor: pointer;
+      color: rgba(0,0,0,0.7);
+      -webkit-transition: color 0.12s;
+      -moz-transition: color 0.12s;
+      -ms-transition: color 0.12s;
+      -o-transition: color 0.12s;
+      transition: color 0.12s;
+
+      &:hover {
+        color: $conflux-green;
+      }
+    }
+
+  }
+
   #addons {
+    width: calc(100% - 210px);
+    float: left;
+    display: inline-block;
+
     .category {
-      margin-bottom: 15px;
-      padding-bottom: 15px;
+      float: left;
+      width: 100%;
 
       .category-name {
         font-size: 20px;
         font-family: Avenir-Next-Thin;
         color: $conflux-green;
         margin-bottom: 26px;
-        padding-left: 34px;
+        text-align: left;
       }
 
       .addon-grid {
         min-height: 0;
+
+        .addon {
+          margin-left: 0;
+        }
       }
     }
   }
 
+}
+
+
+@media (max-width: 736px) {
+  #explore {
+    #categoriesList {
+      display: none;
+    }
+
+    #addons {
+      width: 100%;
+
+      .category {
+
+        .category-name {
+          text-align: center;
+        }
+
+        .addon-grid {
+          .addon {
+            margin-left: calc((100% - 217px)/2);
+          }
+        }
+
+      }
+    }
+  }
 }
 
 
