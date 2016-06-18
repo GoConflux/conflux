@@ -33,6 +33,8 @@ var Menu = React.createClass({
           return false;
         });
       }
+
+      $('#menuFooter > [data-toggle=tooltip]').tooltip();
     } catch (e) {}
   },
 

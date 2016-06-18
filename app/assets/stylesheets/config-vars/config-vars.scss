@@ -30,20 +30,6 @@
     cursor: pointer;
   }
 
-  .config-var-input {
-    background-color: white;
-    border: 1px solid #E7E7EC;
-    border-radius: 4px;
-    outline: none;
-    box-shadow: none;
-    padding-left: 10px;
-    padding-top: 2px;
-    font-size: 14px;
-    color: $conflux-black;
-    width: calc((100% - 106px)/2);
-    height: 40px;
-  }
-
   .config-var-input::-webkit-input-placeholder {
     color: #C4C5CA;
   }
@@ -97,4 +83,36 @@
   margin-top: 0;
 }
 
+.config-var-input {
+  background-color: white;
+  border: 1px solid #E7E7EC;
+  border-radius: 4px;
+  outline: none;
+  box-shadow: none;
+  padding-left: 10px;
+  padding-top: 2px;
+  font-size: 14px;
+  color: $conflux-black;
+  width: calc((100% - 106px)/2);
+  height: 40px;
+}
 
+.new-config-description {
+  display: none;
+  position: absolute;
+  top: 56px;
+  left: 32px;
+  width: calc(100% - 90px);
+  height: 34px;
+  padding-top: 1px;
+  -webkit-transition: opacity 0.15s;
+  -moz-transition: opacity 0.15s;
+  -ms-transition: opacity 0.15s;
+  -o-transition: opacity 0.15s;
+  transition: opacity 0.15s;
+  opacity: 0;
+
+  &.in {
+    opacity: 1;
+  }
+}

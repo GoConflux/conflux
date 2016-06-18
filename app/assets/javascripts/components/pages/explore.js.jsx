@@ -15,7 +15,7 @@ var Explore = React.createClass({
   scrollToCategory: function (e) {
     var category = $(e.target).attr('data-category');
     var topOfSelectedCategory = $('#addons > .category[data-category="' + category + '"]').offset().top;
-    $('html, body').animate({ scrollTop: topOfSelectedCategory - 26 }, 500);
+    $('html, body').animate({ scrollTop: topOfSelectedCategory - 26 }, 600);
   },
 
   render: function() {

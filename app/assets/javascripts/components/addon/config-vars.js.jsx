@@ -11,18 +11,29 @@ var ConfigVars = React.createClass({
     e.preventDefault();
     e.stopPropagation();
 
-    var name = $('.config-vars-list > li.new .key-name-input').val();
-    var value = $('.config-vars-list > li.new .key-val-input').val();
-
     React.post('/keys', {
-      name: name,
-      value: value,
+      name: this.newKeyName(),
+      value: this.newKeyVal(),
+      description: this.newKeyDescription(),
       app_addon_uuid: this.props.data.app_addon_uuid
     }, {
       success: function (keys) {
         self.setState({ keys: keys });
+        $('[data-toggle=tooltip]').tooltip();
       }
     });
+  },
+
+  newKeyName: function () {
+    return $('.config-vars-list > li.new .key-name-input').val().trim();
+  },
+
+  newKeyVal: function () {
+    return $('.config-vars-list > li.new .key-val-input').val().trim();
+  },
+
+  newKeyDescription: function () {
+    return $('.config-vars-list > li.new .new-config-description').val().trim();
   },
 
   onUpdateKeys: function (keys) {
@@ -32,7 +43,7 @@ var ConfigVars = React.createClass({
   formatConfigVars: function () {
     var self = this;
 
-    var configs = this.state.keys.map(function (key) {
+    var configs = this.state.keys.map(function (key, i) {
       return <li><ConfigVar onUpdateKeys={self.onUpdateKeys} data={key} /></li>;
     });
 

@@ -12,16 +12,16 @@ class KeysController < ApplicationController
       with_transaction do
         Key.create!(
           name: params[:name],
-          description: params[:description],
           value: params[:value],
+          description: params[:description],
           app_addon_id: @app_addon.id
         )
 
-        # Remove all keys from Redis mapping to each of these apps
-        AppServices::RemoveAppKeysFromRedis.new(
-          @current_user,
-          @app_addon.app
-        ).delay.perform
+        # # Remove all keys from Redis mapping to each of these apps
+        # AppServices::RemoveAppKeysFromRedis.new(
+        #   @current_user,
+        #   @app_addon.app
+        # ).delay.perform
 
         render json: @app_addon.keys_for_app_addon_view
       end

@@ -105,6 +105,25 @@
       float: right;
       margin-right: 58px;
     }
+
+    .tooltip {
+      margin-top: 6px;
+      margin-left: 6px;
+
+      &.in {
+        opacity: 1;
+      }
+    }
+
+    .tooltip-arrow {
+      border-left-color: $conflux-green;
+    }
+
+    .tooltip-inner {
+      background-color: $conflux-green;
+      color: white;
+      padding: 10px;
+    }
   }
 
   .plans-links-container {

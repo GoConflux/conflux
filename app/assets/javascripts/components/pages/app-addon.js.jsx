@@ -21,6 +21,8 @@ var AppAddon = React.createClass({
         return false;
       });
     }
+
+    $('[data-toggle=tooltip]').tooltip();
   },
 
   setDescriptionRef: function (ref) {
