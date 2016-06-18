@@ -38,10 +38,10 @@ class KeysController < ApplicationController
         @key.update_attributes(allowed_update_params_for(:key, params))
 
         # Remove all keys from Redis mapping to each of these apps
-        AppServices::RemoveAppKeysFromRedis.new(
-          @current_user,
-          @key.app_addon.app
-        ).delay.perform
+        # AppServices::RemoveAppKeysFromRedis.new(
+        #   @current_user,
+        #   @key.app_addon.app
+        # ).delay.perform
 
         render json: @key.app_addon.keys_for_app_addon_view
       end

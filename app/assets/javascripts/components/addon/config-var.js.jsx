@@ -7,7 +7,8 @@ var ConfigVar = React.createClass({
   onClickEdit: function () {
     React.modal.show('key:update', {
       name: this.props.data.name,
-      value: this.props.data.value
+      value: this.props.data.value,
+      description: this.props.data.description
     }, {
       onConfirm: this.applyEdit
     });
@@ -19,6 +20,7 @@ var ConfigVar = React.createClass({
     React.put('/keys', {
       name: data.name,
       value: data.value,
+      description: data.description,
       key_uuid: this.props.data.key_uuid
     }, {
       success: function (keys) {

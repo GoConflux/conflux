@@ -18,8 +18,7 @@ var ConfigVars = React.createClass({
       app_addon_uuid: this.props.data.app_addon_uuid
     }, {
       success: function (keys) {
-        self.setState({ keys: keys });
-        $('[data-toggle=tooltip]').tooltip();
+        self.onUpdateKeys(keys);
       }
     });
   },
@@ -38,6 +37,8 @@ var ConfigVars = React.createClass({
 
   onUpdateKeys: function (keys) {
     this.setState({ keys: keys });
+    $('[data-toggle=tooltip]').tooltip();
+
   },
 
   formatConfigVars: function () {

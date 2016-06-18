@@ -4,8 +4,12 @@ var KeyUpdateModal = React.createClass({
     this.keyNameInput = ref;
   },
 
-  setKeyValueRef: function (ref) {s
+  setKeyValueRef: function (ref) {
     this.keyValueInput = ref;
+  },
+
+  setDescriptionRef: function (ref) {
+    this.description = ref;
   },
 
   validate: function () {
@@ -18,7 +22,8 @@ var KeyUpdateModal = React.createClass({
   serialize: function () {
     return {
       name: this.keyNameInput.getValue().trim(),
-      value: this.keyValueInput.getValue().trim()
+      value: this.keyValueInput.getValue().trim(),
+      description: this.description.getValue().trim()
     };
   },
 
@@ -27,6 +32,7 @@ var KeyUpdateModal = React.createClass({
       <div className="key-update-modal-body">
         <ModalTitledInput titleText={'Key'} defaultValue={this.props.data.name} ref={this.setKeyNameRef} />
         <ModalTitledInput titleText={'Value'} defaultValue={this.props.data.value} ref={this.setKeyValueRef} />
+        <ModalTitledInput titleText={'Description'} defaultValue={this.props.data.description} ref={this.setDescriptionRef} />
       </div>
     );
   }
