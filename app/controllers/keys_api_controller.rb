@@ -13,7 +13,7 @@ class KeysApiController < ApplicationController
   # they'll have to get them from Postgres. They will then be re-added to Redis
   def remove_keys_from_redis
     begin
-      $redis.hdel(Key::Configs, *params[:tokens]) if $redis.present?
+      $redis.hdel(Key::CONFIGS, *params[:tokens]) if $redis.present?
       render json: {}, status: 200
     rescue => e
       render json: { message: "Error removing tokens from redis: #{e}" }, status: 500
