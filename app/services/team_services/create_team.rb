@@ -15,8 +15,7 @@ module TeamServices
       TeamUser.create!(
         user_id: @executor_user.id,
         team_id: @team.id,
-        is_owner: true,
-        is_admin: true
+        role: Role::OWNER
       )
 
       PipelineServices::CreatePipeline.new(

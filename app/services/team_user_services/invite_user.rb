@@ -2,10 +2,11 @@ module TeamUserServices
   class InviteUser < AbstractService
     include ApplicationHelper
 
-    def initialize(executor_user, emails = [], team)
+    def initialize(executor_user, emails = [], team, role)
       super(executor_user)
       @emails = emails
       @team = team
+      @role = role
     end
 
     def perform
@@ -29,6 +30,8 @@ module TeamUserServices
           user_id: user.id,
           team_id: @team.id
         )
+
+        team_user.role = @role
 
         if !team_user.persisted?
           send_email = true

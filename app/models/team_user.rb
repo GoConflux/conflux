@@ -10,4 +10,8 @@ class TeamUser < ActiveRecord::Base
   belongs_to :team
   has_many :team_user_tokens, :dependent => :destroy
 
+  def at_least_admin
+    role >= Role::ADMIN
+  end
+
 end

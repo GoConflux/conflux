@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   has_many :teams, :through => :team_users
   has_many :user_tokens, :dependent => :destroy
 
+  DEFAULT_PIC = 'http://confluxapp.s3-website-us-west-1.amazonaws.com/images/user.svg'
+
   def all_team_attrs
     self.teams.map { |team|
       {

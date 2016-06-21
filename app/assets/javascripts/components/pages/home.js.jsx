@@ -12,6 +12,8 @@ var Home = React.createClass({
           <div className="title">Introducing Elements Marketplace</div>
           <div className="subtitle">Find everything you need for your app, your stack, and your workflow in one place.</div>
         </div>
+        <div id="homeBody"></div>
+        <LandingFooter />
       </div>
     );
   }

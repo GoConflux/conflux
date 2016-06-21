@@ -52,15 +52,13 @@ $padding-sides: 55px;
     }
   }
 
-  .team-users-header-right{
+  .members-total {
     display: inline-block;
-    width: auto;
-    float: right;
-
-    .app-select {
-      width: 275px;
-      margin-top: 3px;
-    }
+    float: left;
+    margin-left: 16px;
+    color: rgba(140,140,160,0.6);
+    font-size: 13px;
+    line-height: 41px;
   }
 
 }
@@ -101,6 +99,21 @@ $padding-sides: 55px;
         margin-top: 12px;
         margin-left: 16px;
         margin-right: 15px;
+        background-color: rgba(140, 140, 160, 0.45);
+
+        img {
+          width: 30px;
+          height: 30px;
+          border-radius: 15px;
+        }
+
+        img.no-pic {
+          width: 22px;
+          height: 22px;
+          border-radius: 9px;
+          margin-top: 6px;
+          margin-left: 4px;
+        }
       }
 
       .team-user-name {
@@ -122,9 +135,30 @@ $padding-sides: 55px;
         display: inline-block;
         float: right;
         color: $conflux-green;
-        font-size: 13px;
+        font-size: 12.5px;
         padding-top: 18px;
         margin-right: 16px;
+      }
+
+      .team-user-action-icons {
+        display: inline-block;
+        float: right;
+        font-size: 15px;
+        padding-top: 17px;
+        margin-right: 10px;
+        color: rgba(140, 140, 160, 0.45);
+
+        i {
+          cursor: pointer;
+
+          &:hover {
+            color: rgba(140, 140, 160, 0.9);
+          }
+        }
+
+        i.edit {
+          margin-right: 12px;
+        }
       }
 
     }

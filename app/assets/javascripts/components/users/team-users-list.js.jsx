@@ -7,8 +7,10 @@ var TeamUsersList = React.createClass({
   },
 
   getUsers: function () {
+    var self = this;
+
     return this.state.users.map(function (user) {
-      return <li><TeamUser data={user} /></li>;
+      return <li><TeamUser data={user} cuCanEdit={self.props.cuCanEdit} /></li>;
     });
   },
 

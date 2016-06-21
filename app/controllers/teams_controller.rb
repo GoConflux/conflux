@@ -2,6 +2,7 @@ class TeamsController < ApplicationController
 
   before_filter :set_current_user
   before_filter :set_team, :only => [:index, :users]
+  before_filter :set_current_team_user, :only => [:users]
   before_filter :required_team_creation_params, :only => [:create]
   before_filter :required_team_update_params, :only => [:update]
   before_filter :required_team_destroy_params, :only => [:destroy]
@@ -77,34 +78,15 @@ class TeamsController < ApplicationController
     @team_user_data = {
       team_name: @team.name,
       team_uuid: @team.uuid,
-      apps: @team.apps.order(:slug).map{ |app| { slug: app.slug, name: app.name } }
+      apps: @team.apps.order(:slug).map{ |app| { slug: app.slug, name: app.name } },
+      users: @team.formatted_team_users(@current_team_user),
+      cu_can_edit: @current_team_user.at_least_admin,
+      cu_can_invite: @current_team_user.at_least_admin
     }
-
-    admins = []
-    others = []
-
-    @team.team_users.includes(:user).each { |team_user|
-      user = team_user.user
-
-      user_data = {
-        email: user.email,
-        name: user.name,
-        pic: user.pic,
-        is_owner: team_user.is_owner,
-        is_admin: team_user.is_admin
-      }
-
-      placement = (team_user.is_owner || team_user.is_admin) ? admins : others
-      placement << user_data
-    }
-
-    admins = admins.sort_by { |user| [user[:is_owner], user[:email].downcase] }
-    others = others.sort_by { |user| user[:email].downcase }
-
-    @team_user_data[:users] = admins + others
 
     configure_menu_data(@team, users_selected: true)
     configure_header_data(use_window_history: true)
+
     render component: 'TeamUsers', props: @team_user_data
   end
 

@@ -94,6 +94,11 @@ class ApplicationController < ActionController::Base
     }
   end
 
+  def set_current_team_user
+    @current_team_user = TeamUser.find_by(team_id: @team.id, user_id: @current_user.id)
+    assert(@current_team_user)
+  end
+
   def validate_api_tokens
     [UserToken::HEADER, CONFLUX_APP_TOKEN].each { |token|
       if request.headers[token].nil?

@@ -25,7 +25,7 @@ var UpsertAddonModal = React.createClass({
   },
 
   onPlanChange: function (val) {
-    this.planDescription.updatePlan(_.findIndex(this.props.data.plans, function(plan){ return plan.slug == val; }));
+    this.planDescription.updateAttrs(_.findIndex(this.props.data.plans, function(plan){ return plan.slug == val; }));
   },
 
   formatSelectData: function () {
@@ -41,6 +41,14 @@ var UpsertAddonModal = React.createClass({
     };
   },
 
+  getSelectionAttrData: function () {
+    return {
+      selectedIndex: this.props.data.selectedIndex,
+      info: this.props.data.plans,
+      headline_features: this.props.data.headline_features
+    };
+  },
+
   render: function() {
     var self = this;
 
@@ -53,7 +61,7 @@ var UpsertAddonModal = React.createClass({
         <div>
           <AddonModalTop data={this.props.data}/>
           <ModalSelect onChange={this.onPlanChange} data={this.formatSelectData()} ref={function(ref){ self.planSelectComp = ref; }}/>
-          <ModalPlanDescription data={this.props.data} ref={function(ref){ self.planDescription = ref; }} />
+          <ModalSelectionAttributes data={this.getSelectionAttrData()} ref={function(ref){ self.planDescription = ref; }} />
         </div>
       );
     }

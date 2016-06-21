@@ -130,9 +130,9 @@ var Modal = React.createClass({
         headerText: 'Delete Config Var'
       },
       'users:invite': {
-        body: <InviteUsersModal data={this.data} ref={this.setCurrentModal}/>,
-        confirmText: 'Send invites',
-        headerText: 'New Members'
+        body: <UpsertTeamUserModal data={this.data} isNew={true} ref={this.setCurrentModal}/>,
+        confirmText: 'Send invitation',
+        headerText: 'New Member'
       },
       'feedback:create': {
         body: <UserFeedbackModal data={this.data} ref={this.setCurrentModal}/>,

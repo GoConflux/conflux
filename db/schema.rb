@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160616035110) do
+ActiveRecord::Schema.define(version: 20160621194159) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,11 +131,10 @@ ActiveRecord::Schema.define(version: 20160616035110) do
     t.string   "uuid"
     t.integer  "team_id"
     t.integer  "user_id"
-    t.boolean  "is_admin",     default: false
-    t.boolean  "is_owner",     default: false
     t.boolean  "is_destroyed", default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "role"
   end
 
   add_index "team_users", ["is_destroyed"], name: "index_team_users_on_is_destroyed", using: :btree

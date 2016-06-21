@@ -154,16 +154,16 @@ $modal-width: 400px;
   margin-bottom: 5px;
 }
 
-.modal-plan-description {
+.modal-selection-attrs {
   width: 100%;
   padding: 0 20px;
 
-  .plan-feature {
+  .feature {
     width: 100%;
     height: 30px;
 
-    .addon-feature-name,
-    .addon-feature-value {
+    .feature-name,
+    .feature-value {
       font-size: 11.5px;
       color: rgba(91, 91, 91, 0.85);
       height: 30px;
@@ -171,12 +171,25 @@ $modal-width: 400px;
       display: inline-block;
     }
 
-    .addon-feature-name {
+    .feature-name {
       float: left;
     }
 
-    .addon-feature-value {
+    .feature-value {
       float: right;
+
+      i {
+        font-size: 14.5px;
+        padding-right: 1px;
+      }
+
+      .yes {
+        color: #59A45C;
+      }
+
+      .no {
+        color: #D53434;
+      }
     }
 
   }
@@ -412,5 +425,16 @@ $modal-width: 400px;
   .modal-name-input-container {
     padding-left: 15px;
     padding-right: 15px;
+  }
+}
+
+.invite-users-modal {
+  .modal-name-input-container {
+    margin-top: 2px;
+    margin-bottom: 0;
+
+    .modal-name-input {
+      height: 34px;
+    }
   }
 }
