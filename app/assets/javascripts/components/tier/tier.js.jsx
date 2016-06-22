@@ -11,7 +11,7 @@ var Tier = React.createClass({
   },
 
   formatApps: function () {
-    if (this.props.hideAccess) {
+    if (this.props.hideProd) {
       return <li className="none"><div className="pipeline-view-apps-off-limits">You currently don't have access to production apps.</div></li>;
     }
     

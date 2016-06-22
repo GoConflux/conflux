@@ -13,7 +13,7 @@ module PipelinesHelper
 
   def apps_for_tier(tier)
     if tier.is_prod?
-      @current_team_user.at_least_regular_contrib? ? tier.apps_for_tier_view : []
+      @current_team_user.can_read_production_apps? ? tier.apps_for_tier_view : []
     else
       tier.apps_for_tier_view
     end

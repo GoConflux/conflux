@@ -109,6 +109,16 @@
   }
 }
 
+.addons-count {
+  float: left;
+  display: inline-block;
+  color: rgba(140,140,160,0.6);
+  margin-left: 16px;
+  height: 100%;
+  font-size: 12px;
+  padding-top: 12px;
+}
+
 @media (max-width: 579px) {
   #appHeader {
     margin-bottom: 70px;

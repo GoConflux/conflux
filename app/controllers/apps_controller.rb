@@ -9,13 +9,17 @@ class AppsController < ApplicationController
   before_filter :app_by_uuid, :only => [:update, :destroy]
 
   def index
+    @current_team_user = TeamUser.find_by(user_id: @current_user.id, team_id: @app.tier.pipeline.team.id)
+    assert(@current_team_user)
+
     data = {
       name: @app.name,
       app_uuid: @app.uuid,
       tier_stage: @app.tier.stage,
       addons: @app.addons_for_app_view,
       monthly_cost: "$#{'%.2f' % @app.est_monthly_cost}",
-      api_key: @app.token
+      api_key: @app.token,
+      can_add_new_addons: @current_team_user.can_add_new_addons_to_app?(@app)
     }
 
     pipeline = @app.tier.pipeline

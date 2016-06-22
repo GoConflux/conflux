@@ -22,7 +22,7 @@ class PipelinesController < ApplicationController
       description: @pipeline.description,
       pipeline_uuid: @pipeline.uuid,
       tiers: tiers_for_pipeline_view,
-      hide_prod: @current_team_user.at_least_regular_contrib?
+      show_prod_apps: @current_team_user.can_read_production_apps?
     }
 
     configure_menu_data(@pipeline.team, selected_pipeline_slug: @pipeline.slug)

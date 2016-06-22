@@ -50,4 +50,16 @@ class TeamUser < ActiveRecord::Base
     at_least_admin?
   end
 
+  def can_read_production_apps?
+    at_least_regular_contrib?
+  end
+
+  def can_add_new_addons_to_app?(app)
+    if app.tier.is_prod?
+      at_least_admin?
+    else
+      at_least_regular_contrib?
+    end
+  end
+
 end
