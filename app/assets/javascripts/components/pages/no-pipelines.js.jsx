@@ -6,11 +6,19 @@ var NoPipelines = React.createClass({
     });
   },
 
+  getNewPipelineBtn: function () {
+    if (!this.props.can_add_new_pipelines) {
+      return;
+    }
+
+    return <div onClick={this.onNewPipelineClick} className="new-pipeline-btn">New Pipeline&nbsp;&nbsp;<span className="plus">+</span></div>;
+  },
+
   render: function() {
     return (
       <div id="noPipelinesView">
         <div className="message">Your team currently doesn't have any pipelines.</div>
-        <div onClick={this.onNewPipelineClick} className="new-pipeline-btn">New Pipeline&nbsp;&nbsp;<span className="plus">+</span></div>
+        {this.getNewPipelineBtn()}
       </div>
     );
   }

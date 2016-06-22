@@ -80,7 +80,8 @@ var App = React.createClass({
   editApp: function () {
     React.modal.show('app:update', {
       defaultName: this.appHeader.state.name,
-      selectedIndex: this.props.tier_stage
+      selectedIndex: this.props.tier_stage,
+      includeProd: this.props.can_bump_to_prod
     }, {
       onConfirm: this.updateApp
     });
@@ -133,7 +134,7 @@ var App = React.createClass({
       <div id="app">
         {this.getSettingsIcon()}
         <AppHeader data={this.props} onCreateNewAddon={this.onCreateNewAddon} ref={this.setHeaderRef} />
-        <AddonGrid data={this.props} ref={this.setGridRef} />
+        <AddonGrid data={this.props} writeAccess={this.props.write_access} ref={this.setGridRef} />
         <div className="monthly-cost">Estimated Monthly Cost:<span className="figure">{this.props.monthly_cost}</span></div>
       </div>
     );

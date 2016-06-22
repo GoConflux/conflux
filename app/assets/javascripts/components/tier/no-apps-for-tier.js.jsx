@@ -3,10 +3,19 @@ var NoAppsForTier = React.createClass({
   showAddNewApp: function () {
     React.modal.show('app:create', {
       selectedIndex: this.props.stage,
-      tierUUIDs: this.props.tierUUIDs
+      tierUUIDs: this.getTierUUIDsBasedOnPermissions(),
+      includeProd: this.props.canCreateNewProdApps
     }, {
       onConfirm: this.createNewApp
     });
+  },
+  
+  getTierUUIDsBasedOnPermissions: function () {
+    if (this.props.canCreateNewProdApps) {
+      return this.props.tierUUIDs;
+    }
+    
+    return _.without(this.props.tierUUIDs, this.props.productionTierUUID);
   },
 
   createNewApp: function (data) {
@@ -23,9 +32,17 @@ var NoAppsForTier = React.createClass({
     });
   },
 
+  getText: function () {
+    if (this.props.preventNewAppsForTier) {
+      return <span>No apps exist yet for this tier.</span>;
+    }
+
+    return <span>No apps exist yet for this tier.&nbsp;&nbsp;<span onClick={this.showAddNewApp} className="add-first-app-to-tier">Click to add one.</span></span>;
+  },
+
   render: function() {
     return (
-      <div className="no-apps-for-tier">No apps exist yet for this tier.&nbsp;&nbsp;<span onClick={this.showAddNewApp} className="add-first-app-to-tier">Click to add one.</span></div>
+      <div className="no-apps-for-tier">{this.getText()}</div>
     );
   }
 });

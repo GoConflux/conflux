@@ -379,6 +379,9 @@ class ApplicationController < ActionController::Base
     team_settings_selected: false
   )
 
+    @current_team_user ||= TeamUser.find_by(user_id: @current_user.id, team_id: team.id)
+    assert(@current_team_user)
+
     @show_menu = true
 
     @menu_data = {
@@ -386,7 +389,7 @@ class ApplicationController < ActionController::Base
       icon: team.icon,
       team_uuid: team.uuid,
       link: "/#{team.slug}",
-      allow_new_pipelines: @current_team_user.try(:allow_pipeline_write_access?),
+      allow_new_pipelines: @current_team_user.allow_pipeline_write_access?,
       users_selected: users_selected,
       team_settings_selected: team_settings_selected,
       pipelines: (team.pipelines.order('LOWER(name)') || []).map { |p|

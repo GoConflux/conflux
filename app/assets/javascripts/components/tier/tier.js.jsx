@@ -16,7 +16,7 @@ var Tier = React.createClass({
     }
     
     if (this.state.apps.length == 0) {
-      return <li className="none"><NoAppsForTier onNewAppCreated={this.newAppCreated} tierUUIDs={this.props.tierUUIDs} stage={this.props.data.stage} /></li>;
+      return <li className="none"><NoAppsForTier productionTierUUID={this.props.productionTierUUID} canCreateNewProdApps={this.props.canCreateNewProdApps} preventNewAppsForTier={this.props.preventNewAppsForTier} onNewAppCreated={this.newAppCreated} tierUUIDs={this.props.tierUUIDs} stage={this.props.data.stage} /></li>;
     }
 
     return this.state.apps.map(function (app) {

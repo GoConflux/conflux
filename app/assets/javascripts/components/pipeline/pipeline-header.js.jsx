@@ -12,7 +12,8 @@ var PipelineHeader = React.createClass({
 
     React.modal.show('app:create', {
       selectedIndex: 0,
-      tierUUIDs: this.props.tierUUIDs
+      tierUUIDs: this.getTierUUIDsBasedOnPermissions(),
+      includeProd: this.props.canCreateNewProdApps
     }, {
       onConfirm: function (data) {
         React.post('/apps', {
@@ -26,6 +27,14 @@ var PipelineHeader = React.createClass({
         });
       }
     });
+  },
+
+  getTierUUIDsBasedOnPermissions: function () {
+    if (this.props.canCreateNewProdApps) {
+      return this.props.tierUUIDs;
+    }
+
+    return _.without(this.props.tierUUIDs, this.props.productionTierUUID);
   },
 
   getDescription: function () {

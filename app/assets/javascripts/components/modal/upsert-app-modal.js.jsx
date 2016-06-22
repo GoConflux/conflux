@@ -1,6 +1,14 @@
 var UpsertAppModal = React.createClass({
 
-  tiers: ['Local Development', 'Cloud Development', 'Staging', 'Production'],
+  tiers: function () {
+    var tiers = ['Local Development', 'Cloud Development', 'Staging'];
+
+    if (this.props.data.includeProd) {
+      tiers.push('Production');
+    }
+
+    return tiers;
+  },
 
   setNameInputRef: function (ref) {
     this.nameInput = ref;
@@ -32,7 +40,7 @@ var UpsertAppModal = React.createClass({
     return {
       title: 'Tier',
       selectedIndex: this.props.data.selectedIndex,
-      options: this.tiers.map(function (tier) { return { text: tier, value: tier }; })
+      options: this.tiers().map(function (tier) { return { text: tier, value: tier }; })
     };
   },
 
@@ -62,7 +70,7 @@ var UpsertAppModal = React.createClass({
   },
 
   getSelectedTierStage: function () {
-    return this.tiers.indexOf(this.tierSelectComp.getValue());
+    return this.tiers().indexOf(this.tierSelectComp.getValue());
   },
 
   render: function() {

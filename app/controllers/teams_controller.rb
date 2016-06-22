@@ -15,9 +15,18 @@ class TeamsController < ApplicationController
     if pipelines.present?
       redirect_to "/#{@team.slug}/#{pipelines.first.slug}"
     else
+      @current_team_user = TeamUser.find_by(user_id: @current_user.id, team_id: @team.id)
+      assert(@current_team_user)
+
       configure_menu_data(@team)
       configure_header_data
-      render component: 'NoPipelines', props: { team_uuid: @team.uuid }
+
+      data = {
+        team_uuid: @team.uuid,
+        can_add_new_pipelines: @current_team_user.allow_pipeline_write_access?
+      }
+
+      render component: 'NoPipelines', props: data
     end
   end
 

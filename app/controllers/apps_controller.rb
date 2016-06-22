@@ -19,6 +19,7 @@ class AppsController < ApplicationController
       addons: @app.addons_for_app_view,
       monthly_cost: "$#{'%.2f' % @app.est_monthly_cost}",
       api_key: @app.token,
+      can_bump_to_prod: @current_team_user.can_write_production_apps?,
       write_access: @current_team_user.can_edit_app?(@app)
     }
 

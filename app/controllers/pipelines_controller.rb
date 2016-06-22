@@ -23,6 +23,7 @@ class PipelinesController < ApplicationController
       pipeline_uuid: @pipeline.uuid,
       tiers: tiers_for_pipeline_view,
       show_prod_apps: @current_team_user.can_read_production_apps?,
+      can_write_prod_apps: !@current_team_user.can_write_production_apps?,
       write_access: @current_team_user.allow_pipeline_write_access?
     }
 

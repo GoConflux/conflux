@@ -34,8 +34,14 @@ var Pipeline = React.createClass({
   },
 
   componentWillMount: function () {
+    var self = this;
+
     try {
       this.tierUUIDs = _.map(this.props.tiers || [], function (tier) {
+        if (tier.stage == self.productionTier) {
+          self.productionTierUUID = tier.uuid;
+        }
+
         return tier.uuid;
       });
     } catch (e) {}
@@ -45,7 +51,7 @@ var Pipeline = React.createClass({
     var self = this;
 
     return this.props.tiers.reverse().map(function (tier) {
-      return <li><Tier tierUUIDs={self.tierUUIDs} data={tier} hideProd={tier.stage == self.productionTier && !self.props.show_prod_apps} ref={self.addTierToTiersMap} /></li>;
+      return <li><Tier tierUUIDs={self.tierUUIDs} productionTierUUID={self.productionTierUUID} data={tier} hideProd={tier.stage == self.productionTier && !self.props.show_prod_apps} preventNewAppsForTier={tier.stage == self.productionTier && !self.props.can_write_prod_apps} canCreateNewProdApps={self.props.can_write_prod_apps} ref={self.addTierToTiersMap} /></li>;
     });
   },
 
@@ -144,7 +150,7 @@ var Pipeline = React.createClass({
     return (
       <div id="pipeline">
         {this.getSettingsIcon()}
-        <PipelineHeader tierUUIDs={this.tierUUIDs} data={this.props} onNewAppCreated={this.newAppCreated} ref={this.setHeaderRef} />
+        <PipelineHeader tierUUIDs={this.tierUUIDs} productionTierUUID={this.productionTierUUID} data={this.props} onNewAppCreated={this.newAppCreated} canCreateNewProdApps={this.props.can_write_prod_apps} ref={this.setHeaderRef} />
         <ul id="tiersList">{this.formatTiers()}</ul>
       </div>
     );

@@ -54,6 +54,10 @@ class TeamUser < ActiveRecord::Base
     at_least_regular_contrib?
   end
 
+  def can_write_production_apps?
+    at_least_admin?
+  end
+
   def can_edit_app?(app)
     app.tier.is_prod? ? at_least_admin? : true
   end
