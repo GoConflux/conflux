@@ -29,7 +29,13 @@ var UpsertAppModal = React.createClass({
       return;
     }
 
-    React.get('/apps/name_available', { name: name }, {
+    var data = { name: name };
+
+    if (this.props.data.appUUID) {
+      data.app_uuid = this.props.data.appUUID;
+    }
+
+    React.get('/apps/name_available', data, {
       success: function (info) {
         info.available ? self.nameInput.showValid() : self.nameInput.showInvalid();
       }

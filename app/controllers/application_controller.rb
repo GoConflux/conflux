@@ -102,7 +102,7 @@ class ApplicationController < ActionController::Base
   def validate_api_tokens
     [UserToken::HEADER, CONFLUX_APP_TOKEN].each { |token|
       if request.headers[token].nil?
-        render json: {}, status: 403
+        show_invalid_permissions
         return
       end
     }
@@ -137,7 +137,7 @@ class ApplicationController < ActionController::Base
     top_level_token = request.headers[TOP_LEVEL_CONFLUX_TOKEN_NAME]
 
     if top_level_token.nil? || top_level_token != ENV['TOP_LEVEL_CONFLUX_TOKEN']
-      render json: {}, status: 403
+      show_invalid_permissions
     end
   end
 
@@ -145,7 +145,7 @@ class ApplicationController < ActionController::Base
     token = request.headers[UserToken::HEADER]
 
     if token.nil?
-      render json: {}, status: 403
+      show_invalid_permissions
       return
     end
 
@@ -153,7 +153,7 @@ class ApplicationController < ActionController::Base
       @user = user_token.try(:user)
 
       if @user.nil?
-        render json: {}, status: 403
+        show_invalid_permissions
         return
       end
     }
@@ -269,6 +269,28 @@ class ApplicationController < ActionController::Base
     assert(@team_user, StatusCodes::ResourceNotFound)
   end
 
+  def protect_app
+    @current_team_user ||= TeamUser.find_by(user_id: @current_user.id, team_id: @app.tier.pipeline.team.id)
+    assert(@current_team_user)
+
+    if @app.tier.is_prod? && !@current_team_user.can_read_production_apps?
+      show_invalid_permissions
+    end
+  end
+
+  def protect_app_addon
+    @current_team_user ||= TeamUser.find_by(user_id: @current_user.id, team_id: @app_addon.app.tier.pipeline.team.id)
+    assert(@current_team_user)
+
+    if @app_addon.app.tier.is_prod? && !@current_team_user.can_read_production_apps?
+      show_invalid_permissions
+    end
+  end
+
+  def show_invalid_permissions
+    render json: { message: 'Invalid Permissions' }, status: 403
+  end
+
   # ---------- Helpers ----------
 
   def required_params(required_keys)
@@ -349,8 +371,16 @@ class ApplicationController < ActionController::Base
     required_params(REQUIRED_PARAMS[:key][:destroy])
   end
 
-  def is_name_available(model, name)
-    model.find_by(slug: name.slugify).nil?
+  def is_name_available(model, name, record = nil)
+    # Find a record that already exists for this slug
+    existing_record = model.find_by(slug: name.slugify)
+
+    # If no record is found, go ahead and return true (aka. it's available)
+    return true if existing_record.nil?
+
+    # If a record already exists, it's availability should be based
+    # on whether the one found is the same as the one passed in as the "record" argument
+    return existing_record.id == record.try(:id)
   end
 
   def assert(value, status_code = StatusCodes::UnknownError, message = nil, http_code = 400, format = :json)
@@ -389,6 +419,7 @@ class ApplicationController < ActionController::Base
       icon: team.icon,
       team_uuid: team.uuid,
       link: "/#{team.slug}",
+      can_access_team_settings: @current_team_user.is_owner?,
       allow_new_pipelines: @current_team_user.allow_pipeline_write_access?,
       users_selected: users_selected,
       team_settings_selected: team_settings_selected,

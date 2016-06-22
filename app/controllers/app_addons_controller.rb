@@ -1,6 +1,7 @@
 class AppAddonsController < ApplicationController
   before_filter :set_current_user
   before_filter :set_app_addon, :only => [:index]
+  before_filter :protect_app_addon, :only => [:index]
   before_filter :required_app_addon_creation_params, :only => [:create]
   before_filter :required_app_addon_update_params, :only => [:update]
   before_filter :required_app_addon_destroy_params, :only => [:destroy]
@@ -9,9 +10,6 @@ class AppAddonsController < ApplicationController
   before_filter :app_addon_by_uuid, :only => [:update, :update_plan, :update_description, :destroy, :revoke_keys]
 
   def index
-    @current_team_user = TeamUser.find_by(user_id: @current_user.id, team_id: @app_addon.app.tier.pipeline.team.id)
-    assert(@current_team_user)
-
     addon = @app_addon.addon
 
     data = {
@@ -80,10 +78,10 @@ class AppAddonsController < ApplicationController
         ).delay.perform
 
         # Remove all keys from Redis mapping to each of these apps
-        AppServices::RemoveAppKeysFromRedis.new(
-          @current_user,
-          @app
-        ).delay.perform
+        # AppServices::RemoveAppKeysFromRedis.new(
+        #   @current_user,
+        #   @app
+        # ).delay.perform
 
         render json: {
           monthly_cost: "$#{'%.2f' % @app.est_monthly_cost}",
@@ -168,10 +166,10 @@ class AppAddonsController < ApplicationController
 
       @app_addon.destroy!
 
-      AppServices::RemoveAppKeysFromRedis.new(
-        @current_user,
-        app
-      ).perform
+      # AppServices::RemoveAppKeysFromRedis.new(
+      #   @current_user,
+      #   app
+      # ).perform
 
       render json: { url: app.create_link }
     rescue Exception => e

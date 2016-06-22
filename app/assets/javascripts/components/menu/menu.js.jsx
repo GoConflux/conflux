@@ -117,7 +117,7 @@ var Menu = React.createClass({
         text: 'Edit Team',
         iconClasses: 'fa fa-pencil',
         onClick: function () {
-          React.modal.show('team:update', { defaultName: self.props.name }, {
+          React.modal.show('team:update', { defaultName: self.props.name, teamUUID: self.props.team_uuid }, {
             onConfirm: self.updateTeam
           });
 
@@ -172,9 +172,32 @@ var Menu = React.createClass({
     return <div className="ghost-add-btn">+</div>;
   },
 
+  getTeamSettingsDropdown: function () {
+    if (!this.props.can_access_team_settings) {
+      return;
+    }
+
+    return <Dropdown customID={'teamSettingsDropdown'} data={this.getSettingsDropdownOptions()} ref={this.setDropdownRef} />;
+  },
+
+  getTeamSettingsBtn: function () {
+    if (!this.props.can_access_team_settings) {
+      return;
+    }
+
+    return <a href="javascript:void(0)" className="menu-footer-link" data-action="settings"><img src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/gear-white.svg"/></a>;
+  },
+
   render: function() {
-    var menuFooterLink = 'menu-footer-link';
-    var usersBtnClasses = menuFooterLink += (this.props.users_selected ? ' eager-select selected' : ' eager-select');
+    var usersBtnClasses = 'menu-footer-link eager-select';
+
+    if (this.props.users_selected) {
+      usersBtnClasses += ' selected';
+    }
+
+    if (!this.props.can_access_team_settings) {
+      usersBtnClasses += ' no-settings';
+    }
 
     return (
       <div id="menu">
@@ -191,10 +214,8 @@ var Menu = React.createClass({
           </div>
         </div>
         <div id="menuFooter">
-          <Dropdown customID={'teamSettingsDropdown'} data={this.getSettingsDropdownOptions()} ref={this.setDropdownRef} />
-          <a href="javascript:void(0)" className="menu-footer-link" data-action="settings">
-            <img src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/gear-white.svg"/>
-          </a>
+          {this.getTeamSettingsDropdown()}
+          {this.getTeamSettingsBtn()}
           <a href={this.props.link + '/users'} className={usersBtnClasses} data-action="users">
             <i className="fa fa-users"></i>
           </a>

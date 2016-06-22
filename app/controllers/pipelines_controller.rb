@@ -66,6 +66,11 @@ class PipelinesController < ApplicationController
 
         respond_with_new_url = @pipeline.name_changed?
 
+        if @pipeline.name_changed?
+          @pipeline.slug = nil
+          @pipeline.generate_slug
+        end
+
         @pipeline.save!
 
         response_data[:url] = @pipeline.create_link if respond_with_new_url
@@ -159,7 +164,10 @@ class PipelinesController < ApplicationController
   end
 
   def name_available
-    available = is_name_available(Pipeline, params[:name])
+    pipeline = params[:pipeline_uuid].present? ? Pipeline.find_by(uuid: params[:pipeline_uuid]) : nil
+
+    available = is_name_available(Pipeline, params[:name], pipeline)
+
     render json: { available: available }
   end
 

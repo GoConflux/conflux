@@ -6,7 +6,7 @@ class Pipeline < ActiveRecord::Base
   acts_as_soft_destroyable
 
   SLUG_SOURCE = 'name'
-  before_save :generate_slug
+  before_create :generate_slug
   before_create :generate_uuid
 
   belongs_to :team

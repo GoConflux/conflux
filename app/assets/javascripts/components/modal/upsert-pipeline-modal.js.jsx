@@ -13,7 +13,13 @@ var UpsertPipelineModal = React.createClass({
       return;
     }
 
-    React.get('/pipelines/name_available', { name: name }, {
+    var data = { name: name };
+
+    if (this.props.data.pipelineUUID) {
+      data.pipeline_uuid = this.props.data.pipelineUUID;
+    }
+
+    React.get('/pipelines/name_available', data, {
       success: function (info) {
         info.available ? self.nameInput.showValid() : self.nameInput.showInvalid();
       }

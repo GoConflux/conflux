@@ -13,7 +13,13 @@ var UpsertTeamModal = React.createClass({
       return;
     }
 
-    React.get('/teams/name_available', { name: name }, {
+    var data = { name: name };
+
+    if (this.props.data.teamUUID) {
+      data.team_uuid = this.props.data.teamUUID;
+    }
+
+    React.get('/teams/name_available', data, {
       success: function (info) {
         info.available ? self.nameInput.showValid() : self.nameInput.showInvalid();
       }

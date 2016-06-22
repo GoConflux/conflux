@@ -50,7 +50,15 @@ class TeamsController < ApplicationController
   def update
     begin
       with_transaction do
-        @team.update_attributes(allowed_update_params_for(:team, params))
+        @team.assign_attributes(allowed_update_params_for(:team, params))
+
+        if @team.name_changed?
+          @team.slug = nil
+          @team.generate_slug
+        end
+
+        @team.save!
+
         render json: { url: @team.create_link }
       end
     rescue Exception => e
@@ -101,7 +109,10 @@ class TeamsController < ApplicationController
   end
 
   def name_available
-    available = is_name_available(Team, params[:name])
+    team = params[:team_uuid].present? ? Team.find_by(uuid: params[:team_uuid]) : nil
+
+    available = is_name_available(Team, params[:name], team)
+
     render json: { available: available }
   end
 

@@ -91,7 +91,8 @@ var Pipeline = React.createClass({
   editPipeline: function () {
     React.modal.show('pipeline:update', {
       name: this.pipelineHeader.state.name,
-      description: this.pipelineHeader.state.description
+      description: this.pipelineHeader.state.description,
+      pipelineUUID: this.props.pipeline_uuid
     }, {
       onConfirm: this.updatePipeline
     });

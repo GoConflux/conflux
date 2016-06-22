@@ -81,7 +81,8 @@ var App = React.createClass({
     React.modal.show('app:update', {
       defaultName: this.appHeader.state.name,
       selectedIndex: this.props.tier_stage,
-      includeProd: this.props.can_bump_to_prod
+      includeProd: this.props.can_bump_to_prod,
+      appUUID: this.props.app_uuid
     }, {
       onConfirm: this.updateApp
     });

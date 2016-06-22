@@ -2,6 +2,7 @@ class AppsController < ApplicationController
 
   before_filter :set_current_user
   before_filter :set_app, :only => [:index]
+  before_filter :protect_app, :only => [:index]
   before_filter :required_app_creation_params, :only => [:create]
   before_filter :tier_by_uuid, :only => [:create]
   before_filter :required_app_update_params, :only => [:update]
@@ -9,9 +10,6 @@ class AppsController < ApplicationController
   before_filter :app_by_uuid, :only => [:update, :destroy]
 
   def index
-    @current_team_user = TeamUser.find_by(user_id: @current_user.id, team_id: @app.tier.pipeline.team.id)
-    assert(@current_team_user)
-
     data = {
       name: @app.name,
       app_uuid: @app.uuid,
@@ -71,6 +69,13 @@ class AppsController < ApplicationController
 
         respond_with_new_url = @app.name_changed?
 
+        if @app.name_changed?
+          @app.slug = nil
+          @app.save!
+
+          @app.generate_slug
+        end
+
         @app.save!
 
         response_data[:url] = @app.create_link if respond_with_new_url
@@ -110,7 +115,10 @@ class AppsController < ApplicationController
   end
 
   def name_available
-    available = is_name_available(App, params[:name])
+    app = params[:app_uuid].present? ? App.find_by(uuid: params[:app_uuid]) : nil
+
+    available = is_name_available(App, params[:name], app)
+
     render json: { available: available }
   end
 
