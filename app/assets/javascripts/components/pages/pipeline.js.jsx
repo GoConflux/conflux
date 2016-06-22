@@ -16,7 +16,9 @@ var Pipeline = React.createClass({
     var self = this;
 
     document.addEventListener('click', function () {
-      self.settingsDropdown.hideDropdown();
+      if (self.settingsDropdown) {
+        self.settingsDropdown.hideDropdown();
+      }
     });
 
     var settingsIcon = document.getElementById('settingsIcon');
@@ -130,13 +132,18 @@ var Pipeline = React.createClass({
     this.tiersMap[data.updated_tier].setState({ apps: data.apps });
   },
 
+  getSettingsIcon: function () {
+    if (!this.props.write_access) {
+      return;
+    }
+
+    return <div className="settings-icon-container"><img src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/gear.png" id="settingsIcon"/><Dropdown customID={'pipelineSettingsDropdown'} data={this.getSettingsDropdownOptions()} ref={this.setDropdownRef} /></div>;
+  },
+
   render: function() {
     return (
       <div id="pipeline">
-        <div className="settings-icon-container">
-          <img src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/gear.png" id="settingsIcon"/>
-          <Dropdown customID={'pipelineSettingsDropdown'} data={this.getSettingsDropdownOptions()} ref={this.setDropdownRef} />
-        </div>
+        {this.getSettingsIcon()}
         <PipelineHeader tierUUIDs={this.tierUUIDs} data={this.props} onNewAppCreated={this.newAppCreated} ref={this.setHeaderRef} />
         <ul id="tiersList">{this.formatTiers()}</ul>
       </div>

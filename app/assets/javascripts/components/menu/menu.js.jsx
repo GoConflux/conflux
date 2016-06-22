@@ -164,6 +164,14 @@ var Menu = React.createClass({
     React.modal.show('feedback:create');
   },
 
+  getNewPipelineBtn: function () {
+    if (!this.props.allow_new_pipelines) {
+      return;
+    }
+
+    return <div className="ghost-add-btn">+</div>;
+  },
+
   render: function() {
     var menuFooterLink = 'menu-footer-link';
     var usersBtnClasses = menuFooterLink += (this.props.users_selected ? ' eager-select selected' : ' eager-select');
@@ -178,7 +186,7 @@ var Menu = React.createClass({
         <div id="menuBody">
           <div className="menu-body-item">
             <div className="section-title">Pipelines</div>
-            <div className="ghost-add-btn">+</div>
+            {this.getNewPipelineBtn()}
             <ul id="menuPipelinesList">{this.formatPipelines()}</ul>
           </div>
         </div>

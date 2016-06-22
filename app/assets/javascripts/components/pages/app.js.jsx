@@ -10,7 +10,9 @@ var App = React.createClass({
     var self = this;
 
     document.addEventListener('click', function () {
-      self.settingsDropdown.hideDropdown();
+      if (self.settingsDropdown) {
+        self.settingsDropdown.hideDropdown();
+      }
     });
 
     var settingsIcon = document.getElementById('settingsIcon');
@@ -118,13 +120,18 @@ var App = React.createClass({
     });
   },
 
+  getSettingsIcon: function () {
+    if (!this.props.write_access) {
+      return;
+    }
+
+    return <div className="settings-icon-container"><img src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/gear.png" id="settingsIcon"/><Dropdown customID={'appSettingsDropdown'} data={this.getSettingsDropdownOptions()} ref={this.setDropdownRef} /></div>;
+  },
+
   render: function() {
     return (
       <div id="app">
-        <div className="settings-icon-container">
-          <img src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/gear.png" id="settingsIcon"/>
-          <Dropdown customID={'appSettingsDropdown'} data={this.getSettingsDropdownOptions()} ref={this.setDropdownRef} />
-        </div>
+        {this.getSettingsIcon()}
         <AppHeader data={this.props} onCreateNewAddon={this.onCreateNewAddon} ref={this.setHeaderRef} />
         <AddonGrid data={this.props} ref={this.setGridRef} />
         <div className="monthly-cost">Estimated Monthly Cost:<span className="figure">{this.props.monthly_cost}</span></div>

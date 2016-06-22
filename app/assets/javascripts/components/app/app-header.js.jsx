@@ -39,10 +39,16 @@ var AppHeader = React.createClass({
   },
 
   getSearchBar: function () {
-    if (this.props.data.can_add_new_addons) {
+    if (this.props.data.write_access) {
       return <InAppSearchBar onAddonSelected={this.onAddonSelected} />;
     } else {
-      return <div className="addons-count">{this.props.data.addons.length + ' add-ons'}</div>
+      var count = this.props.data.addons.length;
+      
+      if (count == 0) {
+        count = 'No';
+      }
+      
+      return <div className="addons-count">{count + ' add-ons'}</div>
     }
   },
 

@@ -8,7 +8,9 @@ var AppAddon = React.createClass({
     var self = this;
 
     document.addEventListener('click', function () {
-      self.settingsDropdown.hideDropdown();
+      if (self.settingsDropdown) {
+        self.settingsDropdown.hideDropdown();
+      }
     });
 
     var settingsIcon = document.getElementById('settingsIcon');

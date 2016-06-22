@@ -38,7 +38,7 @@ var UpsertAppModal = React.createClass({
 
   validate: function () {
     var nameExists = !!this.nameInput.getValue();
-
+    
     if (!nameExists) {
       this.nameInput.showInvalid();
       return false;

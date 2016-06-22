@@ -54,12 +54,16 @@ class TeamUser < ActiveRecord::Base
     at_least_regular_contrib?
   end
 
-  def can_add_new_addons_to_app?(app)
+  def can_edit_app?(app)
     app.tier.is_prod? ? at_least_admin? : true
   end
 
   def can_edit_addon?(app_addon)
     app_addon.app.tier.is_prod? ? at_least_admin? : true
+  end
+
+  def allow_pipeline_write_access?
+    at_least_admin?
   end
 
 end

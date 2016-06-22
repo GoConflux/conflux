@@ -386,6 +386,7 @@ class ApplicationController < ActionController::Base
       icon: team.icon,
       team_uuid: team.uuid,
       link: "/#{team.slug}",
+      allow_new_pipelines: @current_team_user.try(:allow_pipeline_write_access?),
       users_selected: users_selected,
       team_settings_selected: team_settings_selected,
       pipelines: (team.pipelines.order('LOWER(name)') || []).map { |p|

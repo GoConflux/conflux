@@ -8,24 +8,22 @@ var PipelineHeader = React.createClass({
   },
 
   onNewAppClick: function () {
+    var self = this;
+
     React.modal.show('app:create', {
       selectedIndex: 0,
       tierUUIDs: this.props.tierUUIDs
     }, {
-      onConfirm: this.createNewApp
-    });
-  },
-
-  createNewApp: function (data) {
-    var self = this;
-
-    React.post('/apps', {
-      name: data.name,
-      tier_uuid: data.tier_uuid
-    }, {
-      success: function (newData) {
-        React.modal.hide();
-        self.props.onNewAppCreated(newData);
+      onConfirm: function (data) {
+        React.post('/apps', {
+          name: data.name,
+          tier_uuid: data.tier_uuid
+        }, {
+          success: function (newData) {
+            React.modal.hide();
+            self.props.onNewAppCreated(newData);
+          }
+        });
       }
     });
   },

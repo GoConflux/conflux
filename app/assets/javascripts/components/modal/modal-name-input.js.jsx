@@ -75,7 +75,7 @@ var ModalNameInput = React.createClass({
   },
 
   isAvailable: function () {
-    $('.modal-name-input-container').hasClass('valid');
+    return !$('.modal-name-input-container').hasClass('invalid');
   },
 
   getDefaultValue: function () {
