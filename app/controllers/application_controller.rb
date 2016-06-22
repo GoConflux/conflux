@@ -264,6 +264,11 @@ class ApplicationController < ActionController::Base
     assert(@key, StatusCodes::KeyNotFound)
   end
 
+  def team_user_by_uuid
+    @team_user = TeamUser.find_by(uuid: params[:team_user_uuid])
+    assert(@team_user, StatusCodes::ResourceNotFound)
+  end
+
   # ---------- Helpers ----------
 
   def required_params(required_keys)

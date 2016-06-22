@@ -10,7 +10,7 @@ var TeamUsersList = React.createClass({
     var self = this;
 
     return this.state.users.map(function (user) {
-      return <li><TeamUser data={user} cuCanEdit={self.props.cuCanEdit} /></li>;
+      return <li><TeamUser data={user} cuCanEdit={self.props.cuCanEdit} onRemoveUser={self.props.onRemoveUser} /></li>;
     });
   },
 

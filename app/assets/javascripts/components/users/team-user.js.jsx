@@ -1,14 +1,32 @@
 var TeamUser = React.createClass({
 
+  onEditUser: function () {
+
+  },
+
+  onRemoveUser: function () {
+    var self = this;
+
+    React.modal.show('users:delete', { email: this.props.data.email }, {
+      onConfirm: function () {
+        React.delete('/team_users', { team_user_uuid: self.props.data.team_user_uuid }, {
+          success: function (resp) {
+            self.props.onRemoveUser(resp.users);
+          }
+        });
+      }
+    });
+  },
+
   getAdminOrOwnerLabel: function () {
-    var label;
+    var label = 'Contributor';
 
     if (this.props.data.is_owner) {
       label = 'Owner';
     } else if (this.props.data.is_admin) {
       label = 'Admin';
     } else if (this.props.data.limited) {
-      label = 'Limited';
+      label += ' (Limited)';
     }
 
     return label;
@@ -28,12 +46,11 @@ var TeamUser = React.createClass({
   },
 
   getActionIcons: function () {
-    // if current user can't edit users, just return
-    if (!this.props.cuCanEdit) {
+    if (!this.props.cuCanEdit || this.props.data.is_owner) {
       return;
     }
 
-    return <div className="team-user-action-icons"><i className="fa fa-pencil edit"></i><i className="fa fa-times remove"></i></div>
+    return <div className="team-user-action-icons"><i className="fa fa-pencil edit" onClick={this.onEditUser}></i><i className="fa fa-times remove" onClick={this.onRemoveUser}></i></div>
   },
 
   render: function() {

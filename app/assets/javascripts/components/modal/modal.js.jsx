@@ -134,6 +134,12 @@ var Modal = React.createClass({
         confirmText: 'Send invitation',
         headerText: 'New Member'
       },
+      'users:delete': {
+        body: <DeleteTeamUserModal data={this.data} ref={this.setCurrentModal}/>,
+        confirmText: 'Yes',
+        declineText: 'No',
+        headerText: 'Remove Team Member'
+      },
       'feedback:create': {
         body: <UserFeedbackModal data={this.data} ref={this.setCurrentModal}/>,
         confirmText: 'Submit',

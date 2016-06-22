@@ -1,5 +1,10 @@
 var TeamUsers = React.createClass({
 
+  onRemoveUser: function (users) {
+    this.teamUsersList.setState({ users: users });
+    React.modal.hide();
+  },
+
   setTeamUsersListRef: function (ref) {
     this.teamUsersList = ref;
   },
@@ -39,7 +44,7 @@ var TeamUsers = React.createClass({
             {this.getAddMembersBtn()}
           </div>
         </div>
-        <TeamUsersList users={this.props.users} cuCanEdit={this.props.cu_can_edit} ref={this.setTeamUsersListRef} />
+        <TeamUsersList users={this.props.users} cuCanEdit={this.props.cu_can_edit} onRemoveUser={this.onRemoveUser} ref={this.setTeamUsersListRef} />
       </div>
     );
   }

@@ -381,22 +381,25 @@ $modal-width: 400px;
   .delete-addon-modal-question {
     font-size: 13.5px;
     text-align: center;
-
-    .addon-to-remove {
-      font-family: Avenir-Next-Medium;
-    }
   }
+}
+
+.addon-to-remove,
+.email-to-remove {
+  font-family: Avenir-Next-Medium;
 }
 
 .delete-pipeline-modal-container,
 .delete-app-modal-container,
-.delete-team-modal-container {
+.delete-team-modal-container,
+.delete-team-user-modal-container {
   padding: 22px;
   padding-bottom: 32px;
 
   .delete-pipeline-modal-question,
   .delete-app-modal-question,
-  .delete-team-modal-question {
+  .delete-team-modal-question,
+  .delete-team-user-modal-question {
     font-size: 13.5px;
     text-align: center;
   }

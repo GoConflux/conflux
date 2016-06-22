@@ -43,6 +43,7 @@ class Team < ActiveRecord::Base
           email: user.email,
           name: user.name,
           pic: user.pic,
+          team_user_uuid: team_user.uuid,
           role: team_user.role,
           is_owner: team_user.role == Role::OWNER,
           is_admin: team_user.role == Role::ADMIN
