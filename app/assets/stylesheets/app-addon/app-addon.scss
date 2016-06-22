@@ -91,11 +91,35 @@
       cursor: default;
     }
   }
+
+  .app-addon-static-description-container {
+    float: left;
+    display: inline-block;
+    width: 60%;
+    margin-left: 16px;
+    margin-top: 25px;
+
+    .static-app-addon-description {
+      float: left;
+      display: inline-block;
+      margin-left: 16px;
+      color: rgba(64,75,85,0.6);
+      font-size: 12px;
+      padding-top: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
 }
 
 .app-addon-body {
   margin-top: 26px;
   float: left;
+
+  &.no-write {
+    margin-top: 49px;
+  }
 
   .config-vars-container {
     float: right;
@@ -187,6 +211,17 @@
         margin-left: 10px;
         margin-right: 0;
       }
+
+      &.no-write {
+
+        .app-addon-subsection-title {
+          margin-right: 22px;
+        }
+
+        .config-var-input {
+          width: calc((100% - 67px)/2);
+        }
+      }
     }
 
     .plans-links-container {
@@ -254,6 +289,18 @@
         }
       }
     }
+
+    .app-addon-header {
+
+      .header-linebreak {
+        display: none;
+      }
+
+      .app-addon-static-description-container {
+        width: 100%;
+      }
+    }
+
   }
 
 }

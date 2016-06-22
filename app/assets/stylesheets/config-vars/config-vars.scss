@@ -116,3 +116,15 @@
     opacity: 1;
   }
 }
+
+.app-addon-body {
+  .config-vars-container.no-write {
+    .app-addon-subsection-title {
+      margin-right: 23px;
+    }
+
+    .config-var-input {
+      width: calc((100% - 67px) / 2);
+    }
+  }
+}

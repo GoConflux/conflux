@@ -45,10 +45,12 @@ var ConfigVars = React.createClass({
     var self = this;
 
     var configs = this.state.keys.map(function (key, i) {
-      return <li><ConfigVar onUpdateKeys={self.onUpdateKeys} data={key} /></li>;
+      return <li><ConfigVar onUpdateKeys={self.onUpdateKeys} writeAccess={self.props.writeAccess} data={key} /></li>;
     });
 
-    configs.push(<li className="new"><ConfigVar data={{ isNew: true }} onAddNewKey={this.onAddNewKey}/></li>);
+    if (this.props.writeAccess) {
+      configs.push(<li className="new"><ConfigVar data={{ isNew: true }} onAddNewKey={this.onAddNewKey}/></li>);
+    }
 
     return configs;
   },

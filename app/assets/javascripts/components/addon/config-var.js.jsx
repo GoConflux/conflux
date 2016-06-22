@@ -99,6 +99,22 @@ var ConfigVar = React.createClass({
     }, 150);
   },
 
+  getEditIcon: function () {
+    if (!this.props.writeAccess) {
+      return;
+    }
+
+    return <i onClick={this.onClickEdit} className="fa fa-pencil edit-icon"></i>;
+  },
+
+  getRemoveIcon: function () {
+    if (!this.props.writeAccess) {
+      return;
+    }
+
+    return <i onClick={this.onClickRemove} className="fa fa-times remove-key-icon"></i>;
+  },
+
   render: function() {
     if (this.props.data.isNew) {
       return (
@@ -115,8 +131,8 @@ var ConfigVar = React.createClass({
           <i className="fa fa-info-circle key-info-icon" data-toggle="tooltip" data-placement="left" title={this.description()}></i>
           <input type="text" className="key-name-input config-var-input" placeholder="KEY" value={this.props.data.name} disabled="disabled"/>
           <input type="text" className="key-val-input config-var-input" placeholder="VALUE" value={this.props.data.value} disabled="disabled"/>
-          <i onClick={this.onClickEdit} className="fa fa-pencil edit-icon"></i>
-          <i onClick={this.onClickRemove} className="fa fa-times remove-key-icon"></i>
+          {this.getEditIcon()}
+          {this.getRemoveIcon()}
         </div>
       );
     }

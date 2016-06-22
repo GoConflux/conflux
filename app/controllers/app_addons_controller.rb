@@ -9,6 +9,9 @@ class AppAddonsController < ApplicationController
   before_filter :app_addon_by_uuid, :only => [:update, :update_plan, :update_description, :destroy, :revoke_keys]
 
   def index
+    @current_team_user = TeamUser.find_by(user_id: @current_user.id, team_id: @app_addon.app.tier.pipeline.team.id)
+    assert(@current_team_user)
+
     addon = @app_addon.addon
 
     data = {
@@ -25,28 +28,28 @@ class AppAddonsController < ApplicationController
       },
       links: [
         {
-          href: '/',
+          href: '#',
           name: 'Getting Started'
         },
         {
-          href: '/',
+          href: '#',
           name: 'API Documentation'
         },
         {
-          href: '/',
+          href: '#',
           name: 'Client Libraries'
         },
         {
-          href: '/',
+          href: '#',
           name: 'API Playground'
         }
-      ]
+      ],
+      write_access: @current_team_user.can_edit_addon?(@app_addon)
     }
 
     pipeline = @app_addon.app.tier.pipeline
 
     configure_menu_data(pipeline.team, selected_pipeline_slug: pipeline.slug)
-
     configure_header_data(app_addon: @app_addon)
 
     render component: 'AppAddon', props: data

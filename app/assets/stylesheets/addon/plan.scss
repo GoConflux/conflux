@@ -44,4 +44,24 @@
     color: white;
   }
 
+  &.no-write {
+    .plan-option {
+      cursor: not-allowed;
+
+      &:hover {
+        background-color: white;
+        border: 1px solid #E7E7EC;
+      }
+    }
+
+    .plan-option.selected {
+      cursor: default;
+
+      &:hover {
+        background-color: $conflux-black;
+        border: none;
+      }
+    }
+  }
+
 }

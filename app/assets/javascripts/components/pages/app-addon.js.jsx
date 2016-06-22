@@ -59,6 +59,10 @@ var AppAddon = React.createClass({
   onPlanSelected: function (e) {
     var self = this;
 
+    if (!this.props.write_access) {
+      return;
+    }
+
     React.get('/addons/modal_info', { addon_uuid: this.props.addon_uuid }, {
       success: function (data) {
         data.app_uuid = self.props.app_uuid;
@@ -115,29 +119,60 @@ var AppAddon = React.createClass({
     });
   },
 
+  getSettingsIcon: function () {
+    if (!this.props.write_access) {
+      return;
+    }
+
+    return <div className="settings-icon-container"><img src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/gear.png" id="settingsIcon"/><Dropdown customID={'appAddonSettingsDropdown'} data={this.getSettingsDropdownOptions()} ref={this.setDropdownRef} /></div>;
+  },
+
+  getAddonDescription: function () {
+    if (this.props.write_access) {
+      return <div className="description-container"><textarea className="description" autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" ref={this.setDescriptionRef}>{this.props.description}</textarea></div>;
+    } else {
+      return <div className="app-addon-static-description-container"><div className="header-linebreak"></div><div className="static-app-addon-description">{this.props.description}</div></div>;
+    }
+  },
+
+  getBodyClasses: function () {
+    var classes = 'app-addon-body';
+
+    if (!this.props.write_access) {
+      classes += ' no-write'
+    }
+
+    return classes;
+  },
+
+  getConfigVarsClasses: function () {
+    var classes = 'config-vars-container';
+
+    if (!this.props.write_access) {
+      classes += ' no-write'
+    }
+
+    return classes;
+  },
+
   render: function() {
     return (
       <div id="appAddon">
-        <div className="settings-icon-container">
-          <img src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/gear.png" id="settingsIcon"/>
-          <Dropdown customID={'appAddonSettingsDropdown'} data={this.getSettingsDropdownOptions()} ref={this.setDropdownRef} />
-        </div>
+        {this.getSettingsIcon()}
         <div className="app-addon-header">
           <div className="addon-primary-info">
             <img src={this.props.icon} className="icon" />
             <div className="name">{this.props.name}</div>
           </div>
-          <div className="description-container">
-            <textarea className="description" autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" ref={this.setDescriptionRef}>{this.props.description}</textarea>
-          </div>
+          {this.getAddonDescription()}
         </div>
-        <div className="app-addon-body">
-          <div className="config-vars-container">
-            <ConfigVars data={this.props} />
+        <div className={this.getBodyClasses()}>
+          <div className={this.getConfigVarsClasses()}>
+            <ConfigVars data={this.props} writeAccess={this.props.write_access} />
           </div>
           <div className="plans-links-container">
             <div className="plans-container">
-              <Plans data={this.props.plan_data} onPlanSelected={this.onPlanSelected} ref={this.setPlanRef} />
+              <Plans data={this.props.plan_data} writeAccess={this.props.write_access} onPlanSelected={this.onPlanSelected} ref={this.setPlanRef} />
             </div>
             <div className="links-container">
               <ul className="links-list">{this.formatLinksList()}</ul>

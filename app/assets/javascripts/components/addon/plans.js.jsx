@@ -16,11 +16,21 @@ var Plans = React.createClass({
     });
   },
 
+  getPlansListClasses: function () {
+    var classes = 'plans-list';
+
+    if (!this.props.writeAccess) {
+      classes += ' no-write';
+    }
+
+    return classes;
+  },
+
   render: function() {
     return (
       <div>
         <div className="app-addon-subsection-title">Plans</div>
-        <ul className="plans-list">{this.formatPlans()}</ul>
+        <ul className={this.getPlansListClasses()}>{this.formatPlans()}</ul>
       </div>
     );
   }

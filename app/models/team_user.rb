@@ -55,11 +55,11 @@ class TeamUser < ActiveRecord::Base
   end
 
   def can_add_new_addons_to_app?(app)
-    if app.tier.is_prod?
-      at_least_admin?
-    else
-      at_least_regular_contrib?
-    end
+    app.tier.is_prod? ? at_least_admin? : true
+  end
+
+  def can_edit_addon?(app_addon)
+    app_addon.app.tier.is_prod? ? at_least_admin? : true
   end
 
 end
