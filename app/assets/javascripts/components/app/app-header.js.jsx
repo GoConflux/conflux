@@ -43,12 +43,17 @@ var AppHeader = React.createClass({
       return <InAppSearchBar onAddonSelected={this.onAddonSelected} />;
     } else {
       var count = this.props.data.addons.length;
+      var model = ' add-on';
+
+      if (count != 1) {
+        model += 's';
+      }
       
       if (count == 0) {
         count = 'No';
       }
       
-      return <div className="addons-count">{count + ' add-ons'}</div>
+      return <div className="addons-count">{count + model}</div>
     }
   },
 

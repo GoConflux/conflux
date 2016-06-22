@@ -68,6 +68,15 @@
   padding-right: 16px;
   font-size: 21px;
   color: #111;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#appHeader {
+  .left-header-title {
+    max-width: calc(50% - 49px);
+  }
 }
 
 .header-linebreak {
@@ -123,7 +132,12 @@
   #appHeader {
     margin-bottom: 70px;
 
-    .header-linebreak {
+    .left-header-title {
+      max-width: calc(100% - 49px);
+    }
+
+    .header-linebreak,
+    .addons-count {
       display: none;
     }
   }

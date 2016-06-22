@@ -29,9 +29,17 @@ var TeamUsers = React.createClass({
   },
 
   getAddMembersBtn: function () {
-    return this.props.cu_can_invite ?
-      <div className="add-members-btn" onClick={this.showAddMembersModal}><span className="text">New Member</span>&nbsp;&nbsp;+</div> :
-      <div className="members-total">{this.props.users.length + ' members'}</div>;
+    if (this.props.cu_can_invite) {
+      return <div className="add-members-btn" onClick={this.showAddMembersModal}><span className="text">New Member</span>&nbsp;&nbsp;+</div>;
+    }
+
+    var text = this.props.users.length + ' member';
+
+    if (this.props.users.length != 1) {
+      text += 's';
+    }
+
+    return <div className="members-total">{text}</div>;
   },
 
   render: function() {

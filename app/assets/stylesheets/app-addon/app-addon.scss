@@ -101,6 +101,7 @@
 
     .static-app-addon-description {
       float: left;
+      max-width: 95%;
       display: inline-block;
       margin-left: 16px;
       color: rgba(64,75,85,0.6);
@@ -260,6 +261,19 @@
       margin-top: 36px;
     }
 
+    .header-linebreak {
+      display: none;
+    }
+
+    .app-addon-static-description-container {
+      width: 97%;
+      margin-left: 0;
+
+      .static-app-addon-description {
+        max-width: 100%;
+        margin-left: 0;
+      }
+    }
   }
 
 }
@@ -296,9 +310,6 @@
         display: none;
       }
 
-      .app-addon-static-description-container {
-        width: 100%;
-      }
     }
 
   }
