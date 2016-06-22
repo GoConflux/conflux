@@ -96,6 +96,7 @@ Rails.application.routes.draw do
 
     # User:
     post '/team_users/invite' => 'team_users#invite'
+    put '/team_users' => 'team_users#update'
     delete '/team_users' => 'team_users#destroy'
 
   # API:

@@ -134,6 +134,11 @@ var Modal = React.createClass({
         confirmText: 'Send invitation',
         headerText: 'New Member'
       },
+      'users:update': {
+        body: <UpsertTeamUserModal data={this.data} isNew={false} ref={this.setCurrentModal}/>,
+        confirmText: 'Save',
+        headerText: 'Edit Team Member'
+      },
       'users:delete': {
         body: <DeleteTeamUserModal data={this.data} ref={this.setCurrentModal}/>,
         confirmText: 'Yes',

@@ -1,7 +1,24 @@
 var TeamUser = React.createClass({
 
   onEditUser: function () {
+    var self = this;
+    var selectedIndexOfRole = 1;  // Contributor
 
+    if (this.props.data.is_admin) {
+      selectedIndexOfRole = 2;  // Admin
+    } else if (this.props.data.limited) {
+      selectedIndexOfRole = 0;  // Contributor - Limited
+    }
+
+    React.modal.show('users:update', { email: this.props.data.email, selectedIndex: selectedIndexOfRole }, {
+      onConfirm: function (data) {
+        React.put('/team_users', _.extend(data, { team_user_uuid: self.props.data.team_user_uuid }), {
+          success: function (resp) {
+            self.props.updateUsersList(resp.users);
+          }
+        });
+      }
+    });
   },
 
   onRemoveUser: function () {
@@ -11,7 +28,7 @@ var TeamUser = React.createClass({
       onConfirm: function () {
         React.delete('/team_users', { team_user_uuid: self.props.data.team_user_uuid }, {
           success: function (resp) {
-            self.props.onRemoveUser(resp.users);
+            self.props.updateUsersList(resp.users);
           }
         });
       }

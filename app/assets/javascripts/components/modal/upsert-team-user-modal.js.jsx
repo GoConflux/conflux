@@ -18,19 +18,19 @@ var UpsertTeamUserModal = React.createClass({
   // The order of these maps to the order of roleSelectionData[] above
   roleInfo: [
     {
-      'Read/Write access to Non-production apps': 'yes',
+      'Read/Write access to all Non-production apps': 'yes',
       'Read access to Production apps': 'no',
       'Write access to Production apps': 'no',
       'Can invite new team members': 'no'
     },
     {
-      'Read/Write access to Non-production apps': 'yes',
+      'Read/Write access to all Non-production apps': 'yes',
       'Read access to Production apps': 'yes',
       'Write access to Production apps': 'no',
       'Can invite new team members': 'no'
     },
     {
-      'Read/Write access to Non-production apps': 'yes',
+      'Read/Write access to all Non-production apps': 'yes',
       'Read access to Production apps': 'yes',
       'Write access to Production apps': 'yes',
       'Can invite new team members': 'yes'
@@ -38,7 +38,7 @@ var UpsertTeamUserModal = React.createClass({
   ],
 
   headlineFeatures: [
-    'Read/Write access to Non-production apps',
+    'Read/Write access to all Non-production apps',
     'Read access to Production apps',
     'Write access to Production apps',
     'Can invite new team members'
@@ -61,7 +61,7 @@ var UpsertTeamUserModal = React.createClass({
   },
 
   validate: function () {
-    if (!$(this.input).val().trim()) {
+    if (this.props.isNew && !$(this.input).val().trim()) {
       $(this.inputContainer).addClass('invalid');
       return false;
     }
@@ -70,17 +70,22 @@ var UpsertTeamUserModal = React.createClass({
   },
 
   serialize: function () {
-    return {
-      team_uuid: this.props.data.team_uuid,
-      emails: [$(this.input).val().trim()], // backend still supports multiple emails, comma-delimited. Limiting to 1 for now.
-      role: this.role.getValue()
-    };
+    if (this.props.isNew) {
+      return {
+        team_uuid: this.props.data.team_uuid,
+        emails: [$(this.input).val().trim()], // backend still supports multiple emails, comma-delimited. Limiting to 1 for now.
+        role: this.role.getValue()
+      };
+    } else {
+      return {
+        role: this.role.getValue()
+      }
+    }
   },
 
   onHide: function () {
-    $(this.input).val('');
-
     if (this.props.isNew) {
+      $(this.input).val('');
       this.forceSelectRole(0);
     }
   },
@@ -117,11 +122,25 @@ var UpsertTeamUserModal = React.createClass({
     };
   },
 
+  getEmail: function () {
+    if (this.props.isNew) {
+      return <input type="text" className="modal-name-input" placeholder="Email" onKeyUp={this.onKeyUp} ref={this.setInputRef} />;
+    } else {
+      return <div className="static-user-email">{this.props.data.email}</div>;
+    }
+  },
+
   render: function() {
+    var modalNameInputContainerClasses = 'modal-name-input-container';
+
+    if (!this.props.isNew) {
+      modalNameInputContainerClasses += ' no-side-padding';
+    }
+
     return (
       <div className="invite-users-modal">
-        <div className="modal-name-input-container" ref={this.setInputContainerRef}>
-          <input type="text" className="modal-name-input" placeholder="Email" onKeyUp={this.onKeyUp} ref={this.setInputRef} />
+        <div className={modalNameInputContainerClasses} ref={this.setInputContainerRef}>
+          {this.getEmail()}
         </div>
         <ModalSelect data={this.formatSelectData()} ref={this.setRoleRef} onChange={this.onRoleChange} />
         <ModalSelectionAttributes data={this.getSelectionAttrData()} ref={this.setRoleDescriptionRef} />
