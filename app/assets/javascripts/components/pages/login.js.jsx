@@ -86,10 +86,7 @@ var Login = React.createClass({
           React.setCookie('Conflux-User', userToken);
         }
 
-        window.location = '/'
-      },
-      error: function () {
-        // tell them an error occurred
+        window.location = response.redirect_url || '/';
       }
     });
   },

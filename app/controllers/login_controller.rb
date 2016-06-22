@@ -41,7 +41,13 @@ class LoginController < ApplicationController
 
         response.headers[UserToken::HEADER] = login_svc.token
 
-        render json: {}, status: 200
+        data = {}
+
+        if login_svc.user.teams.count == 1
+          data[:redirect_url] = "/#{login_svc.user.teams.first.slug}"
+        end
+
+        render json: data, status: 200
       end
     rescue Exception => e
       logger.error { "User Auth Error for User with email: #{params[:email]}, with exception #{e}" }
