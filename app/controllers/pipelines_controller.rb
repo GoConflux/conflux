@@ -1,4 +1,5 @@
 class PipelinesController < ApplicationController
+  include PipelinesHelper
 
   before_filter :set_current_user
   before_filter :set_pipeline, :only => [:index]
@@ -13,11 +14,15 @@ class PipelinesController < ApplicationController
   before_filter :tier_by_uuid, :only => [:update_tier, :destroy_tier]
 
   def index
+    @current_team_user = TeamUser.find_by(user_id: @current_user.id, team_id: @pipeline.team.id)
+    assert(@current_team_user)
+
     data = {
       name: @pipeline.name,
       description: @pipeline.description,
       pipeline_uuid: @pipeline.uuid,
-      tiers: @pipeline.tiers_for_pipeline_view
+      tiers: tiers_for_pipeline_view,
+      hide_prod: @current_team_user.at_least_regular_contrib?
     }
 
     configure_menu_data(@pipeline.team, selected_pipeline_slug: @pipeline.slug)
@@ -112,7 +117,7 @@ class PipelinesController < ApplicationController
           pipeline_id: @pipeline.id
         )
 
-        render json: @pipeline.tiers_for_pipeline_view
+        render json: tiers_for_pipeline_view
       end
     rescue Exception => e
       error = "#{ConfluxErrors::TierCreationFailed} - #{e}"
@@ -138,11 +143,11 @@ class PipelinesController < ApplicationController
   def destroy_tier
     begin
       with_transaction do
-        pipeline = @tier.pipeline
+        @pipeline = @tier.pipeline
 
         @tier.destroy!
 
-        render json: pipeline.tiers_for_pipeline_view
+        render json: tiers_for_pipeline_view
       end
     rescue Exception => e
       error = "#{ConfluxErrors::TierDestroyFailed} - #{e}"

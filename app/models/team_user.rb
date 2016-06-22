@@ -10,8 +10,44 @@ class TeamUser < ActiveRecord::Base
   belongs_to :team
   has_many :team_user_tokens, :dependent => :destroy
 
-  def at_least_admin
+  def is_limited_contrib?
+    role === Role::CONTRIBUTOR_LIMITED
+  end
+
+  def is_regular_contrib?
+    role === Role::CONTRIBUTOR
+  end
+
+  def is_admin?
+    role === Role::ADMIN
+  end
+
+  def is_owner?
+    role === Role::OWNER
+  end
+
+  def at_least_regular_contrib?
+    role >= Role::CONTRIBUTOR
+  end
+
+  def at_least_admin?
     role >= Role::ADMIN
+  end
+
+  def can_invite_team_user?
+    at_least_admin?
+  end
+
+  def can_update_team_user?
+    at_least_admin?
+  end
+
+  def can_remove_team_user?
+    at_least_admin?
+  end
+
+  def can_view_limited_contributors?
+    at_least_admin?
   end
 
 end

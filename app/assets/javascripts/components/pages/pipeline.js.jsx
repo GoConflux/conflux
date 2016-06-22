@@ -2,6 +2,8 @@ var Pipeline = React.createClass({
 
   tiersMap: {},
 
+  productionTier: 3,
+
   setHeaderRef: function (ref) {
     this.pipelineHeader = ref;
   },
@@ -41,7 +43,7 @@ var Pipeline = React.createClass({
     var self = this;
 
     return this.props.tiers.reverse().map(function (tier) {
-      return <li><Tier tierUUIDs={self.tierUUIDs} data={tier} ref={self.addTierToTiersMap} /></li>;
+      return <li><Tier tierUUIDs={self.tierUUIDs} data={tier} hideAccess={self.props.hide_prod && tier.stage == self.productionTier} ref={self.addTierToTiersMap} /></li>;
     });
   },
 

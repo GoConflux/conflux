@@ -11,6 +11,10 @@ var Tier = React.createClass({
   },
 
   formatApps: function () {
+    if (this.props.hideAccess) {
+      return <li className="none"><div className="pipeline-view-apps-off-limits">You currently don't have access to production apps.</div></li>;
+    }
+    
     if (this.state.apps.length == 0) {
       return <li className="none"><NoAppsForTier onNewAppCreated={this.newAppCreated} tierUUIDs={this.props.tierUUIDs} stage={this.props.data.stage} /></li>;
     }

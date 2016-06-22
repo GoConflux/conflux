@@ -1,4 +1,5 @@
 class TeamUsersController < ApplicationController
+  include TeamUsersHelper
 
   before_filter :set_current_user
   before_filter :team_by_uuid, :only => [:invite]
@@ -18,7 +19,7 @@ class TeamUsersController < ApplicationController
         ).perform
       end
 
-      render json: { users: @team.formatted_team_users(@current_team_user) }
+      render json: { users: formatted_team_users }
     rescue Exception => e
       error = "#{ConfluxErrors::UserInvitesFailed} - #{e}"
       logger.error { error }
@@ -27,15 +28,14 @@ class TeamUsersController < ApplicationController
   end
 
   def update
-    team = @team_user.team
+    @team = @team_user.team
+    @current_team_user = TeamUser.find_by(user_id: @current_user.id, team_id: @team.id)
 
-    current_team_user = TeamUser.find_by(user_id: @current_user.id, team_id: team.id)
-
-    if current_team_user.nil?
+    if @current_team_user.nil?
       raise 'Error: You must be a part of the team you are updating a member for.'
     end
 
-    if !current_team_user.at_least_admin
+    if !@current_team_user.can_update_team_user?
       raise 'You must be an admin for this team in order to update the role of another member.'
     end
 
@@ -46,22 +46,21 @@ class TeamUsersController < ApplicationController
         end
       end
 
-      render json: { users: team.formatted_team_users(current_team_user) }
+      render json: { users: formatted_team_users }
     rescue => e
       puts "Error updating role for Team User #{@team_user.uuid} of Team #{team.name} with error: #{e.message}"
     end
   end
 
   def destroy
-    team = @team_user.team
+    @team = @team_user.team
+    @current_team_user = TeamUser.find_by(user_id: @current_user.id, team_id: @team.id)
 
-    current_team_user = TeamUser.find_by(user_id: @current_user.id, team_id: team.id)
-
-    if current_team_user.nil?
+    if @current_team_user.nil?
       raise 'Error: You must be a part of the team you are removing a member for.'
     end
 
-    if !current_team_user.at_least_admin
+    if !@current_team_user.can_remove_team_user?
       raise 'You must be an admin for this team in order to remove a member.'
     end
 
@@ -70,7 +69,7 @@ class TeamUsersController < ApplicationController
         @team_user.destroy!
       end
 
-      render json: { users: team.formatted_team_users(current_team_user) }
+      render json: { users: formatted_team_users }
     rescue => e
       puts "Error destroying Team User #{@team_user.uuid} of Team #{team.name} with error: #{e.message}"
     end

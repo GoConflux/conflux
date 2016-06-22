@@ -26,4 +26,8 @@ class Tier < ActiveRecord::Base
     }
   end
 
+  def is_prod?
+    stage == DEFAULT_TIERS.index(PROD)
+  end
+
 end

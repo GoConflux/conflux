@@ -1,4 +1,5 @@
 class TeamsController < ApplicationController
+  include TeamUsersHelper
 
   before_filter :set_current_user
   before_filter :set_team, :only => [:index, :users]
@@ -79,9 +80,9 @@ class TeamsController < ApplicationController
       team_name: @team.name,
       team_uuid: @team.uuid,
       apps: @team.apps.order(:slug).map{ |app| { slug: app.slug, name: app.name } },
-      users: @team.formatted_team_users(@current_team_user),
-      cu_can_edit: @current_team_user.at_least_admin,
-      cu_can_invite: @current_team_user.at_least_admin
+      users: formatted_team_users,
+      cu_can_edit: @current_team_user.can_update_team_user?,
+      cu_can_invite: @current_team_user.can_invite_team_user?
     }
 
     configure_menu_data(@team, users_selected: true)
