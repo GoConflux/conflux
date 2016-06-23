@@ -23,9 +23,14 @@ $padding-sides: 55px;
 
   .team-users-header-left {
     display: inline-block;
-    width: auto;
     float: left;
-    max-width: calc(100% - 275px);
+
+    .left-header-title {
+      max-width: 400px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 
   .header-linebreak {
@@ -120,7 +125,7 @@ $padding-sides: 55px;
         color: $conflux-black;
         font-size: 14px;
         padding-top: 17px;
-        max-width: 350px;
+        max-width: calc(100% - 61px - 137px - 47px - 25px);
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -163,5 +168,63 @@ $padding-sides: 55px;
 
     }
 
+  }
+}
+
+@media (max-width: 799px) {
+ #teamUsers {
+   padding-left: 20px;
+   padding-right: 20px;
+ }
+}
+
+@media (max-width: 579px) {
+
+  #teamUsers {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  #teamUsersList {
+    margin-top: 10px;
+
+    li {
+      .team-user {
+        .team-user-label {
+          font-size: 12px;
+        }
+
+        .team-user-pic {
+          display: none;
+        }
+
+        .team-user-name {
+          font-size: 12px;
+          margin-left: 8px;
+          max-width: calc(100% - 10px - 132px - 47px - 10px);
+        }
+      }
+    }
+  }
+
+
+  #teamUsersHeader {
+    .team-users-header-left {
+      width: 100%;
+
+      .left-header-title {
+        width: 100%;
+        max-width: 100%;
+      }
+    }
+
+    .header-linebreak {
+      display: none;
+    }
+
+    .add-members-btn {
+      margin-left: 0;
+      margin-top: 5px;
+    }
   }
 }
