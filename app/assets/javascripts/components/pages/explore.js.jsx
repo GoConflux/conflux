@@ -33,6 +33,7 @@ var Explore = React.createClass({
           </div>
           <CategoryAddons data={this.props} ref={this.setCategoryAddonsRef} />
         </div>
+        <LandingFooter />
       </div>
     );
   }

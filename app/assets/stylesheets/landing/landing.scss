@@ -121,12 +121,67 @@
 }
 
 #landingFooter {
-  height: 72px;
+  height: 60px;
   width: 100%;
   background: #F5F5F9;
-  position: absolute;
-  bottom: 0;
-  left: 0;
+  float: left;
+
+  .footer-inner {
+    width: 100%;
+    max-width: 1014px;
+    padding: 0 24px;
+    margin: 0 auto;
+
+    .footer-section {
+      width: 33.33%;
+      float: left;
+    }
+
+    .footer-right {
+      float: right;
+    }
+
+    .footer-icon {
+      display: inline-block;
+      float: left;
+      width: 27px;
+      height: 27px;
+      margin-top: 16.5px;
+      cursor: pointer;
+      opacity: 0.825;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    .made-with-love {
+      text-align: center;
+      width: 100%;
+      font-size: 12px;
+      padding-top: 23px;
+      color: $made-with-love;
+      opacity: 0.9;
+
+      .fa {
+        font-size: 10.5px;
+      }
+    }
+
+    .footer-action-link {
+      display: inline-block;
+      font-size: 13px;
+      color: $footer-gray;
+      float: right;
+      padding-top: 22px;
+      cursor: pointer;
+      text-decoration: none;
+
+      &:hover {
+        color: #7D7D7F;
+      }
+    }
+  }
 }
 
 .home-header {
@@ -178,6 +233,16 @@
     }
 
     .teams-text {
+      display: none;
+    }
+  }
+
+  #landingFooter {
+    .footer-section {
+      width: 50%;
+    }
+
+    .made-with-love {
       display: none;
     }
   }
