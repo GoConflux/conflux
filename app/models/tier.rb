@@ -16,6 +16,8 @@ class Tier < ActiveRecord::Base
 
   DEFAULT_TIERS = [LOCAL_DEV, CLOUD_DEV, STAGING, PROD]
 
+  scope :non_prod, -> { where.not(stage: DEFAULT_TIERS.index(PROD)) }
+
   def apps_for_tier_view
     self.apps.order('LOWER(name)').map { |app|
       {

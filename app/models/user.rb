@@ -26,20 +26,22 @@ class User < ActiveRecord::Base
   def apps_by_team
     map = {}
 
-    self.teams.order(:slug).includes(:apps).each { |team|
-      map[team.name] = team.apps.order(:slug).map(&:slug)
+    self.team_users.includes(:team => [:tiers => :apps]).each { |team_user|
+      map[team_user.team.name] = team_user.apps_for_role.map(&:slug).sort
     }
 
     map
   end
 
-  def apps
-    App.includes(:tier => [:pipeline => [:team => :team_users]])
-      .where(team_users: { user_id: self.id })
-  end
-
   def app(app_slug)
-    apps.where(slug: app_slug).take
+    app = nil
+
+    self.team_users.includes(:team => [:tiers => :apps]).each { |team_user|
+      app = team_user.apps_for_role.find { |app| app.slug == app_slug }
+      return app if app.present?
+    }
+
+    app
   end
 
 end

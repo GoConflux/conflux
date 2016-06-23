@@ -10,6 +10,12 @@ class TeamUser < ActiveRecord::Base
   belongs_to :team
   has_many :team_user_tokens, :dependent => :destroy
 
+  def apps_for_role
+    tiers = self.team.tiers
+    tiers = tiers.non_prod if self.is_limited_contrib?
+    tiers.map(&:apps).flatten
+  end
+
   def is_limited_contrib?
     role === Role::CONTRIBUTOR_LIMITED
   end

@@ -166,7 +166,7 @@ class ApplicationController < ActionController::Base
 
       @app = @user.app(params[:app_slug])
 
-      assert(@app)
+      assert(@app, StatusCodes::AppNotFound)
 
     # otherwise, validate header tokens --> which also defines @app
     else
