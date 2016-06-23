@@ -67,7 +67,7 @@ var HeaderTeamMenu = React.createClass({
 
   render: function() {
     return (
-      <div id="headerTeamMenu" className={this.getMenuClasses()}ref={this.setHeaderMenuRef}>
+      <div id="headerTeamMenu" className={this.getMenuClasses()} ref={this.setHeaderMenuRef}>
         <div id="menuItemsScrollContainer">
           <ul id="headerTeamMenuList">{this.getMenuItems()}</ul>
         </div>

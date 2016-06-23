@@ -114,3 +114,17 @@
     }
   }
 }
+
+@media (max-width: 699px) {
+  .card {
+    width: calc(100% - 40px);
+
+    .card-body {
+      width: 100%
+    }
+
+    .card-input {
+      font-size: 15px;
+    }
+  }
+}
