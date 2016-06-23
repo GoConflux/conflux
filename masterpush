@@ -6,6 +6,6 @@ git push origin master
 bundle exec rake assets:precompile --trace
 git add -A .
 git commit -m "ca"
-g push origin master
+git push origin master
 git push USER master
 git push API master
