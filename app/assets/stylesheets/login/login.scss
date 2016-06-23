@@ -119,6 +119,10 @@
   .card {
     width: calc(100% - 40px);
 
+    .title {
+      font-size: 26px;
+    }
+
     .card-body {
       width: 100%
     }
