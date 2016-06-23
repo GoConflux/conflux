@@ -5,13 +5,13 @@ class AppsApiController < ApplicationController
   before_filter :set_app_conditional, :only => [:cost, :configs]
 
   def manifest
-    app = @user.app(params[:app_slug])
+    app = @current_user.app(params[:app_slug])
     assert(app)
 
     pipeline = app.tier.pipeline
     team = pipeline.team
 
-    team_user = TeamUser.find_by(user_id: @user.id, team_id: team.id)
+    team_user = TeamUser.find_by(user_id: @current_user.id, team_id: team.id)
 
     assert(team_user)
 
@@ -59,13 +59,13 @@ class AppsApiController < ApplicationController
   end
 
   def team_user_app_tokens
-    app = @user.app(params[:app_slug])
+    app = @current_user.app(params[:app_slug])
     assert(app)
 
     pipeline = app.tier.pipeline
     team = pipeline.team
 
-    team_user = TeamUser.find_by(user_id: @user.id, team_id: team.id)
+    team_user = TeamUser.find_by(user_id: @current_user.id, team_id: team.id)
 
     assert(team_user)
 

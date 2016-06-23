@@ -9,7 +9,7 @@ class TeamUsersApiController < ApplicationController
     begin
       with_transaction do
         TeamUserServices::InviteUser.new(
-          @user,
+          @current_user,
           [ params[:email] ],
           team
         ).perform

@@ -1,7 +1,8 @@
 class AppAddonsApiController < ApplicationController
 
-  before_filter :set_app_conditional, :only => [:create, :destroy]
-  before_filter :set_addon, :only => [:create, :destroy]
+  before_filter :set_app_conditional
+  before_filter :set_addon
+  before_filter :protect_app
 
   def create
     current_addon_ids_for_app = @app.app_addons.includes(:addon).map { |app_addon| app_addon.addon.id }
@@ -23,7 +24,7 @@ class AppAddonsApiController < ApplicationController
         )
 
         AppServices::ProvisionAppAddon.new(
-          @user,
+          @current_user,
           app_addon,
           @addon.basic_plan # hardcoding basic plan until Stripe integration is added
         ).perform

@@ -150,12 +150,8 @@ class ApplicationController < ActionController::Base
     end
 
     UserToken.find_by(token: token).tap { |user_token|
-      @user = user_token.try(:user)
-
-      if @user.nil?
-        show_invalid_permissions
-        return
-      end
+      @current_user = user_token.try(:user)
+      show_invalid_permissions if @current_user.nil?
     }
   end
 
@@ -164,7 +160,7 @@ class ApplicationController < ActionController::Base
     if params[:app_slug].present?
       current_api_user
 
-      @app = @user.app(params[:app_slug])
+      @app = @current_user.app(params[:app_slug])
 
       assert(@app, StatusCodes::AppNotFound)
 

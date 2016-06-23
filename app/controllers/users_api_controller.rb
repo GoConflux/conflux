@@ -22,33 +22,33 @@ class UsersApiController < ApplicationController
 
   # Get all apps for a user, grouped by team
   def apps
-    render json: @user.apps_by_team
+    render json: @current_user.apps_by_team
   end
 
   # Same as `apps` above, but auth is just email/password
   def apps_basic_auth
-    @user = User.find_by(
+    @current_user = User.find_by(
       email: params[:email],
       password: params[:password]
     )
 
-    assert(@user)
+    assert(@current_user)
 
     user_token = UserToken.new(
-      user_id: @user.id,
+      user_id: @current_user.id,
       token: UUIDTools::UUID.random_create.to_s
     )
 
     user_token.save!
 
     render json: {
-      apps_map: @user.apps_by_team,
+      apps_map: @current_user.apps_by_team,
       token: user_token.token
     }
   end
 
   def teams
-    teams = @user.teams.order(:slug).map { |team|
+    teams = @current_user.teams.order(:slug).map { |team|
       {
         'slug' => team.slug,
         'name' => team.name
