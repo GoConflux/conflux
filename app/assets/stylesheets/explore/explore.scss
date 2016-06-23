@@ -67,7 +67,8 @@
       -o-transition: color 0.12s;
       transition: color 0.12s;
 
-      &:hover {
+      &:hover,
+      &:active {
         color: $conflux-green;
       }
     }

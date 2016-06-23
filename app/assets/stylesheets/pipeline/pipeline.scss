@@ -100,7 +100,8 @@
       left: 1px;
     }
 
-    &:hover {
+    &:hover,
+    &:active {
       background-color: #f7f7fc;
     }
   }
@@ -193,7 +194,8 @@
       left: 1px;
     }
 
-    &:hover {
+    &:hover,
+    &:active {
       color: rgba(0, 0, 0, 0.6);
       border: 2px solid rgba(0, 0, 0, 0.4);
     }

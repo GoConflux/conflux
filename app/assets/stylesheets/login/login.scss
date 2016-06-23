@@ -64,7 +64,8 @@
       color: #3aa3e3;
       font-weight: 600;
 
-      &:hover {
+      &:hover,
+      &:active {
         text-decoration: underline;
       }
     }

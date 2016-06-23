@@ -33,7 +33,8 @@
     margin-top: 0;
   }
 
-  .plan-option:hover {
+  .plan-option:hover,
+  .plan-option:active {
     background-color: #f0f0f4;
     border: 1px solid #e0e0e4;
   }
@@ -48,7 +49,8 @@
     .plan-option {
       cursor: not-allowed;
 
-      &:hover {
+      &:hover,
+      &:active {
         background-color: white;
         border: 1px solid #E7E7EC;
       }
@@ -57,7 +59,8 @@
     .plan-option.selected {
       cursor: default;
 
-      &:hover {
+      &:hover,
+      &:active {
         background-color: $conflux-black;
         border: none;
       }

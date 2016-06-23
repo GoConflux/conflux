@@ -52,7 +52,8 @@ $padding-sides: 55px;
       height: 100%;
     }
 
-    .text:hover{
+    .text:hover,
+    &:active {
       text-decoration: underline;
     }
   }
@@ -156,7 +157,8 @@ $padding-sides: 55px;
         i {
           cursor: pointer;
 
-          &:hover {
+          &:hover,
+          &:active {
             color: rgba(140, 140, 160, 0.9);
           }
         }

@@ -32,7 +32,8 @@
   -o-transition: opacity 0.25s;
   transition: opacity 0.25s;
 
-  &:hover {
+  &:hover,
+  &:active {
     opacity: 1;
   }
 }
@@ -49,7 +50,8 @@
   height: 100%;
   cursor: pointer;
 
-  &:hover {
+  &:hover,
+  &:active {
     .header-back-btn-text {
       text-decoration: underline;
     }
@@ -104,7 +106,8 @@
     text-decoration: none;
   }
 
-  &:hover {
+  &:hover,
+  &:active {
     background: $header-dark-btn-hover-bg-color;
   }
 }

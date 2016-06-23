@@ -29,7 +29,8 @@
   -o-transition: border 150ms ease;
   transition: border 150ms ease;
 
-  &:hover {
+  &:hover,
+  &:active {
     border: 1px solid $conflux-green;
   }
 

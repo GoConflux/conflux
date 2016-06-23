@@ -19,7 +19,8 @@
   padding-top: 10px;
   overflow: hidden;
 
-  &:hover {
+  &:hover,
+  &:active {
     background-color: rgba(255,255,255,0.075);
   }
 }
@@ -104,7 +105,8 @@
     padding-left: 1px;
     cursor: pointer;
 
-    &:hover {
+    &:hover,
+    &:active {
       color: rgba(255, 255, 255, 0.85);
       border-color: rgba(255, 255, 255, 0.8);
     }
@@ -126,7 +128,8 @@
     margin-bottom: 4px;
 
     &:hover,
-    &.selected {
+    &.selected,
+    &:active {
       background-color: rgba(255,255,255,0.32);
     }
   }
@@ -194,7 +197,8 @@
     }
 
     &:hover,
-    &.selected {
+    &.selected,
+    &:active {
       background-color: rgba(255,255,255,0.12);
     }
 
