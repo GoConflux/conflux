@@ -5,4 +5,11 @@ class Role < ActiveRecord::Base
   ADMIN = 2
   OWNER = 3
 
+  module CLIRoleNames
+    CONTRIBUTOR_LIMITED = 'limited'
+    CONTRIBUTOR = 'contributor'
+    ADMIN = 'admin'
+    OWNER = 'owner'
+  end
+
 end

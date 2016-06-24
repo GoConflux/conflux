@@ -50,4 +50,18 @@ module TeamUsersHelper
     team_users
   end
 
+  def string_role_for_int_role(role_int)
+    case role_int
+      when 0
+        @current_team_user.can_view_limited_contributors? ?
+          Role::CLIRoleNames::CONTRIBUTOR_LIMITED : Role::CLIRoleNames::CONTRIBUTOR
+      when 1
+        Role::CLIRoleNames::CONTRIBUTOR
+      when 2
+        Role::CLIRoleNames::ADMIN
+      when 3
+        Role::CLIRoleNames::OWNER
+    end
+  end
+
 end

@@ -6,6 +6,14 @@ class TeamUsersApiController < ApplicationController
     team = Team.find_by(slug: params[:team_slug])
     assert(team)
 
+    current_team_user = TeamUser.find_by(user_id: @current_user.id, team_id: team.id)
+    assert(current_team_user)
+
+    if !current_team_user.can_invite_team_user?
+      show_invalid_permissions
+      return
+    end
+
     begin
       with_transaction do
         TeamUserServices::InviteUser.new(
