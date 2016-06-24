@@ -4,8 +4,8 @@ class TeamsApiController < ApplicationController
   before_filter :current_api_user, :only => [:users]
 
   def users
-    team = @current_user.teams.find_by(slug: params[:team_slug])
-    assert(team)
+    @team = @current_user.teams.find_by(slug: params[:team_slug])
+    assert(@team)
 
     @current_team_user = TeamUser.find_by(user_id: @current_user.id, team_id: team.id)
 
