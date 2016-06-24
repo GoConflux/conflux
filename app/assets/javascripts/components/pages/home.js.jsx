@@ -9,8 +9,8 @@ var Home = React.createClass({
     return (
       <div id="home">
         <div className="home-header">
-          <div className="title">Introducing Elements Marketplace</div>
-          <div className="subtitle">Find everything you need for your app, your stack, and your workflow in one place.</div>
+          <div className="title">Conflux Add-ons Platform & Marketplace</div>
+          <div className="subtitle">Manage all of your app's third-party services from one place, regardless of host platform or environment.</div>
         </div>
         <div id="homeBody"></div>
         <LandingFooter />

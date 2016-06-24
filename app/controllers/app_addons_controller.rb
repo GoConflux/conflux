@@ -28,18 +28,6 @@ class AppAddonsController < ApplicationController
         {
           href: '#',
           name: 'Getting Started'
-        },
-        {
-          href: '#',
-          name: 'API Documentation'
-        },
-        {
-          href: '#',
-          name: 'Client Libraries'
-        },
-        {
-          href: '#',
-          name: 'API Playground'
         }
       ],
       write_access: @current_team_user.can_edit_addon?(@app_addon)
