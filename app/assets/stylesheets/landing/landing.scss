@@ -204,6 +204,9 @@
   .home-header {
     min-height: 312px;
     padding-top: 126px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 55px;
   }
 
   .title,
@@ -222,6 +225,15 @@
     color: rgba(255,255,255,0.8);
     font-size: 17px;
     font-family: Avenir-Next-Thin;
+  }
+}
+
+
+@media (max-width: 617px) {
+  #home {
+    .title {
+      margin-bottom: 25px;
+    }
   }
 }
 

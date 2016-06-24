@@ -23,8 +23,8 @@ var Explore = React.createClass({
       <div id="explore">
         <div className="home-header"></div>
         <div className="explore-subheader conflux-container">
-          <div className="title">Add-ons are the tools and services for developing, extending, and operating your app.</div>
-          <div className="subtitle">Use technologies you love with over 150 Add-ons from the Elements Marketplace. Add-ons are fully-managed services, integrated for use with Heroku. They can be provisioned and scaled in one command. Add-ons provide services for logging, caching, monitoring, persistence and more.</div>
+          <div className="title">Explore the Add-ons ready to integrate with your app.</div>
+          <div className="subtitle">Addons are self-hosted, third-party services, ready to be integrated with your app in one command. They provide services for caching, persistence, email, messaging, and more.</div>
         </div>
         <div className="explore-body conflux-container">
           <div id="categoriesList">
