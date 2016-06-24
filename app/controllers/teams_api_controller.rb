@@ -7,7 +7,7 @@ class TeamsApiController < ApplicationController
     @team = @current_user.teams.find_by(slug: params[:team_slug])
     assert(@team)
 
-    @current_team_user = TeamUser.find_by(user_id: @current_user.id, team_id: team.id)
+    @current_team_user = TeamUser.find_by(user_id: @current_user.id, team_id: @team.id)
 
     team_users = formatted_team_users.map { |user_info|
       {
