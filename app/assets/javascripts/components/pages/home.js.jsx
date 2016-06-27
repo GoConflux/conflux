@@ -20,7 +20,7 @@ var Home = React.createClass({
               </div>
               <div className="sub-section">
                 <div className="text-section">
-                  <div className="feature">Use add-ons across any platform.</div>
+                  <div className="feature">Access your add-on bundles from any host platform.</div>
                   <div className="sub-text">This is my subtext.</div>
                 </div>
               </div>
