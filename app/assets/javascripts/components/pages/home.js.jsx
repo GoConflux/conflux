@@ -39,7 +39,19 @@ var Home = React.createClass({
               </div>
             </div>
           </div>
-
+          <div className="home-section">
+            <div className="section-inner">
+              <div className="sub-section">
+                <img className="image-section left" src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/onboard.png" />
+              </div>
+              <div className="sub-section">
+                <div className="text-section">
+                  <div className="feature">Onboard new team members with one click.</div>
+                  <div className="sub-text">This is my subtext.</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <LandingFooter />
       </div>
