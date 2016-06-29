@@ -35,6 +35,7 @@ var Header = React.createClass({
           <a href="/"><img src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/conflux-icon-dark.svg" className="conflux-icon"/></a>
           <div id="lh-teams-button" className="dark"><i className="fa fa-th-large teams-grid-icon"></i><div className="teams-text">My Teams</div></div>
           <div className="header-right header-right-text-btn"><a className="header-action-btn" href="/explore">Explore</a></div>
+          <div className="header-right header-right-text-btn"><a className="header-action-btn" href="/toolbelt">Toolbelt</a></div>
         </div>
       </div>
     );
