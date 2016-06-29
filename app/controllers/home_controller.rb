@@ -5,7 +5,7 @@ class HomeController < ApplicationController
   def index
     get_user_teams_for_header(home: true)
     @landing_header = true
-    render component: 'Home'
+    render component: 'Home', props: { authed: @current_user.present? }
   end
 
   def explore

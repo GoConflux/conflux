@@ -87,6 +87,10 @@ var Home = React.createClass({
     this.startTerminalAnimation();
   },
 
+  getStartedLink: function () {
+    return this.props.authed ? '/toolbelt' : '/signup' ;
+  },
+
   render: function() {
     return (
       <div id="home">
@@ -94,7 +98,7 @@ var Home = React.createClass({
           <div className="title">Conflux Add-ons Platform & Marketplace</div>
           <div className="subtitle">Manage all of your app's third-party services from one secure location, regardless of host platform or environment.</div>
           <div className="home-main-action-btn-container">
-            <div className="home-main-action-btn">Get Started</div>
+            <a className="home-main-action-btn" href={this.getStartedLink()}>Get Started</a>
           </div>
         </div>
         <div id="homeBody">
@@ -165,6 +169,11 @@ var Home = React.createClass({
               </div>
             </div>
           </div>
+          <a href="/toolbelt" className="toolbelt-link">
+            <div className="home-section get-toolbelt">
+              <div className="get-toolbelt-text"><i className="fa fa-terminal"></i> Get started with the open source <span className="toolbelt-text">Conflux Toolbelt</span>.</div>
+            </div>
+          </a>
         </div>
         <LandingFooter />
       </div>

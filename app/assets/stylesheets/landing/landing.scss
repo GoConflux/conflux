@@ -190,6 +190,12 @@
   }
 }
 
+#home {
+  #landingFooter {
+    background: white;
+  }
+}
+
 .home-header {
   width: 100%;
   margin-top: -80px;
@@ -233,10 +239,6 @@
   padding: 95px 0;
   border-bottom: 1px solid #E5E5E5;
   float: left;
-
-  &:last-child {
-    border-bottom: none;
-  };
 
   .section-inner {
     width: 100%;
@@ -309,6 +311,48 @@
       font-size: 22px;
     }
   }
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &.get-toolbelt {
+    padding: 70px;
+    background-color: #249cf2;
+
+    .get-toolbelt-text {
+      font-size: 28px;
+      color: white;
+      font-family: Avenir-Next-Thin;
+      text-align: center;
+
+      .fa-terminal {
+        margin-right: 8px;
+      }
+
+    }
+  }
+}
+
+.toolbelt-link {
+  width: 100%;
+  float: left;
+  text-decoration: none;
+
+  .toolbelt-text {
+    border-bottom: 1px solid transparent;
+    -webkit-transition: all 0.125s;
+    -moz-transition: all 0.125s;
+    -ms-transition: all 0.125s;
+    -o-transition: all 0.125s;
+    transition: all 0.125s;
+  }
+
+  &:hover {
+    .toolbelt-text {
+      border-bottom-color: white;
+    }
+  }
 }
 
 .home-main-action-btn-container {
@@ -331,6 +375,20 @@
   display: inline-block;
   margin: 0 auto;
   cursor: pointer;
+  text-decoration: none;
+  -webkit-transition: background-color 0.11s;
+  -moz-transition: background-color 0.11s;
+  -ms-transition: background-color 0.11s;
+  -o-transition: background-color 0.11s;
+  transition: background-color 0.11s;
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: white;
+    text-decoration: none;
+    background-color: #12D2D8;
+  }
 }
 
 @media (max-width: 1060px) {
