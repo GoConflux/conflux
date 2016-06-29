@@ -273,7 +273,18 @@
     .sub-text {
       margin-top: 15px;
       font-size: 16px;
+      line-height: 26px;
       color: rgba(0,0,0,0.5);
+
+      .highlight {
+        font-family: Avenir-Next-DemiBold;
+        color: rgba(0,0,0,0.575);
+      }
+
+      .new-section {
+        display: block;
+        margin-top: 17px;
+      }
     }
   }
 
