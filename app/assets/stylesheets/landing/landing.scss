@@ -311,6 +311,28 @@
   }
 }
 
+.home-main-action-btn-container {
+  text-align: center;
+}
+
+.home-header > .home-main-action-btn-container {
+  margin-top: 48px;
+  margin-bottom: 4px;
+}
+
+.home-main-action-btn {
+  padding: 12px 22px;
+  background-color: $conflux-green;
+  border-radius: 4px;
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  text-transform: uppercase;
+  display: inline-block;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
 @media (max-width: 1060px) {
   .home-section {
     .terminal-example {

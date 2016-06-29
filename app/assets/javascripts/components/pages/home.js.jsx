@@ -93,6 +93,9 @@ var Home = React.createClass({
         <div className="home-header">
           <div className="title">Conflux Add-ons Platform & Marketplace</div>
           <div className="subtitle">Manage all of your app's third-party services from one secure location, regardless of host platform or environment.</div>
+          <div className="home-main-action-btn-container">
+            <div className="home-main-action-btn">Get Started</div>
+          </div>
         </div>
         <div id="homeBody">
           <div className="home-section">
