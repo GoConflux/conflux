@@ -13,6 +13,7 @@ var LandingHeader = React.createClass({
   },
 
   componentDidMount: function () {
+    var self = this;
     var myTeamsBtn = document.getElementById('lh-teams-button');
 
     if (myTeamsBtn) {
@@ -25,7 +26,11 @@ var LandingHeader = React.createClass({
     }
 
     this.addWindowResizeEvent();
-    this.determineLogo();
+
+    $(document).ready(function () {
+      var image = (window.innerWidth > self.logoSwitchWidth) ? self.properLongLogo() : self.iconLogo;
+      $(self.logo).attr('src', image);
+    });
   },
 
   addWindowResizeEvent: function () {
@@ -73,7 +78,6 @@ var LandingHeader = React.createClass({
 
   confluxLogo: function () {
     try {
-      console.log(window.innerWidth > this.logoSwitchWidth);
       return (window.innerWidth > this.logoSwitchWidth) ? this.properLongLogo() : this.iconLogo;
     } catch (e) {
       return;
@@ -104,7 +108,7 @@ var LandingHeader = React.createClass({
     return (
       <div id="landingHeader" className={this.landingHeaderClass()}>
         <div className="lh-left">
-          <a href="/"><img className="lh-logo" ref={this.setLogoRef}/></a>
+          <a href="/"><img className="lh-logo" src="" ref={this.setLogoRef}/></a>
         </div>
         <div className="lh-right">
           {this.getRightestButton()}
