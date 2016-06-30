@@ -9,6 +9,7 @@
   .explore-subheader,
   .toolbelt-subheader {
     background-image: -webkit-linear-gradient(left, #fff, #ddd 10%, #ddd 90%, #fff);
+    background-image: -moz-linear-gradient(left, #fff, #ddd 10%, #ddd 90%, #fff);
     background-position: bottom center;
     background-repeat: no-repeat;
     background-size: 100% 1px;

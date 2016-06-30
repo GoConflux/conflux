@@ -25,9 +25,11 @@
   .lh-logo {
     float: left;
     display: inline-block;
-    height: 34px;
     margin-top: 23px;
-    content:url("http://confluxapp.s3-website-us-west-1.amazonaws.com/images/conflux-long-colored.svg");
+    height: 0;
+    width: 0;
+    padding: 17px 76px;
+    background: url("http://confluxapp.s3-website-us-west-1.amazonaws.com/images/conflux-long-colored.svg");
   }
 
   .lh-right-button {
@@ -88,7 +90,7 @@
 #landingHeader.explore,
 #landingHeader.toolbelt {
   .lh-logo {
-    content:url("http://confluxapp.s3-website-us-west-1.amazonaws.com/images/conflux-long-white-colored-icon.svg");
+    background: url("http://confluxapp.s3-website-us-west-1.amazonaws.com/images/conflux-long-white-colored-icon.svg");
   }
 }
 
@@ -535,7 +537,8 @@
 @media (max-width: 499px) {
   #landingHeader {
     .lh-logo {
-      content:url("http://confluxapp.s3-website-us-west-1.amazonaws.com/images/conflux-icon-colored.svg") !important;
+      padding: 17px 17px;
+      background: url("http://confluxapp.s3-website-us-west-1.amazonaws.com/images/conflux-icon-colored.svg") !important;
     }
 
     .lh-right-button {
