@@ -150,7 +150,7 @@
       color: white;
       font-family: Avenir-Next-Thin;
       text-align: center;
-      padding-bottom: 34px;
+      padding-bottom: 27px;
     }
 
     .support-body {
@@ -177,5 +177,14 @@
       }
     }
 
+  }
+}
+
+
+@media (max-width: 699px) {
+  #toolbelt {
+    .subtitle {
+      text-align: left;
+    }
   }
 }

@@ -146,6 +146,13 @@
   }
 }
 
+@media (max-width: 699px) {
+  #explore {
+    .subtitle {
+      text-align: left;
+    }
+  }
+}
 
 @media (max-width: 579px) {
   #explore {
