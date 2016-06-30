@@ -1,17 +1,5 @@
 var LandingHeader = React.createClass({
 
-  logoSwitchWidth: 499,
-
-  longLogo: 'http://confluxapp.s3-website-us-west-1.amazonaws.com/images/conflux-long-white-colored-icon.svg',
-
-  loginLogo: 'http://confluxapp.s3-website-us-west-1.amazonaws.com/images/conflux-long-colored.svg',
-
-  iconLogo: 'http://confluxapp.s3-website-us-west-1.amazonaws.com/images/conflux-icon-colored.svg',
-
-  setLogoRef: function (ref) {
-    this.logo = ref;
-  },
-
   componentDidMount: function () {
     var myTeamsBtn = document.getElementById('lh-teams-button');
 
@@ -23,27 +11,6 @@ var LandingHeader = React.createClass({
         return false;
       });
     }
-
-    this.addWindowResizeEvent();
-
-    var image = (window.innerWidth > this.logoSwitchWidth) ? this.properLongLogo() : this.iconLogo;
-    $(this.logo).attr('src', image);
-  },
-
-  addWindowResizeEvent: function () {
-    var self = this;
-
-    $(window).resize(function () {
-      if (window.innerWidth > self.logoSwitchWidth && $(self.logo).attr('src') != self.properLongLogo()) {
-        $(self.logo).attr('src', self.properLongLogo());
-      } else if (window.innerWidth <= self.logoSwitchWidth && $(self.logo).attr('src') != self.iconLogo) {
-        $(self.logo).attr('src', self.iconLogo);
-      }
-    });
-  },
-
-  properLongLogo: function () {
-    return (!!this.props.home || !!this.props.explore || !!this.props.toolbelt) ? this.longLogo : this.loginLogo;
   },
 
   // Either return a "Sign In" button or a button with all your teams
@@ -93,7 +60,7 @@ var LandingHeader = React.createClass({
     return (
       <div id="landingHeader" className={this.landingHeaderClass()}>
         <div className="lh-left">
-          <a href="/"><img className="lh-logo" src={this.iconLogo} ref={this.setLogoRef}/></a>
+          <a href="/"><img className="lh-logo"/></a>
         </div>
         <div className="lh-right">
           {this.getRightestButton()}
