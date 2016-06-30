@@ -1,44 +1,134 @@
+@import 'global-vars';
 
 #toolbelt {
+
+  .toolbelt-subheader {
+    padding-bottom: 60px;
+    padding-top: 60px;
+  }
+
   .title {
-    font-size: 24px;
+    font-size: 26px;
   }
 
   .subtitle {
-    max-width: 975px;
+    max-width: 1010px;
   }
 
   .toolbelt-body {
-    margin-top: 65px;
+    margin-top: 30px;
+    max-width: 920px;
+  }
+
+  .before-getting-started,
+  .conflux-md-numbered-section,
+  .numbered-title,
+  .sub-section,
+  .sub-section-title,
+  .md-section-description,
+  .md-text,
+  div.md-shell {
+    width: 100%;
+    float: left;
   }
 
   .before-getting-started {
-
+    margin-top: 15px;
+    margin-bottom: 3px;
   }
 
   .conflux-md-numbered-section {
+    padding-top: 34px;
 
     .numbered-title {
-
+      font-size: 21px;
+      color: #919191;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10.5px;
+      margin-bottom: 10.5px;
     }
 
     .sub-section {
+      padding-top: 16px;
 
       .sub-section-title {
+        font-size: 16.5px;
+        font-family: Avenir-Next-Medium;
+      }
+    }
 
+    &:last-child {
+      padding-bottom: 42px;
+    }
+  }
+
+  .numbered-title + .md-section-description {
+    padding-top: 8px;
+  }
+
+  .md-text {
+    font-size: 16px;
+    font-family: Avenir-Next-Thin;
+    color: rgba(0,0,0,0.8);
+    padding: 8px 0;
+
+    .md-text-strong {
+      font-family: Avenir-Next-Regular;
+    }
+
+    .feaux-link {
+      color: $conflux-green;
+      font-family: Avenir-Next-Regular;
+      cursor: pointer;
+    }
+  }
+
+  .before-getting-started,
+  .md-text {
+    a {
+      color: $conflux-green;
+      font-family: Avenir-Next-Regular;
+
+      &:hover,
+      &:active,
+      &:focus {
+        color: $conflux-green;
       }
     }
   }
 
-  .md-section-description {
+  // Multi-line
+  div.md-shell {
+    font-family: Monaco, monospace;
+    font-size: 13px;
+    background: #434e56;
+    border: 1px solid #3f464c;
+    color: #adc6ee;
+    border-radius: 3px;
+    line-height: 18px;
+    margin: 5px 0 11px 0;
+    padding: 12px;
+    word-spacing: normal;
+    word-wrap: normal;
+    white-space: pre;
 
+    .command {
+      color: #F8F8F8;
+    }
+
+    .prompt {
+      color: #B4B4BC;
+    }
   }
 
-  .md-text {
-
-  }
-
-  .md-shell {
-
+  // Single-line
+  span.md-shell {
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1);
+    padding: 2px 4px;
+    font-size: 82%;
+    color: #3F3F44;
+    background-color: #f5f5f7;
+    border-radius: 4px;
   }
 }
