@@ -70,7 +70,7 @@ var Pipeline = React.createClass({
           self.editPipeline();
 
           setTimeout(function () {
-            self.settingsDropdown.toggleVisibility();
+            self.settingsDropdown.hideDropdown();
           }, 50);
         }
       },
@@ -81,7 +81,7 @@ var Pipeline = React.createClass({
           self.confirmDeletePipeline();
 
           setTimeout(function () {
-            self.settingsDropdown.toggleVisibility();
+            self.settingsDropdown.hideDropdown();
           }, 50);
         }
       }

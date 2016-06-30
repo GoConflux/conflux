@@ -59,7 +59,7 @@ var App = React.createClass({
           self.editApp();
 
           setTimeout(function () {
-            self.settingsDropdown.toggleVisibility();
+            self.settingsDropdown.hideDropdown();
           }, 50);
         }
       },
@@ -70,7 +70,7 @@ var App = React.createClass({
           self.confirmDeleteApp();
 
           setTimeout(function () {
-            self.settingsDropdown.toggleVisibility();
+            self.settingsDropdown.hideDropdown();
           }, 50);
         }
       }

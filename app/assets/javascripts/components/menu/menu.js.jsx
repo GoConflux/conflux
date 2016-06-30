@@ -122,7 +122,7 @@ var Menu = React.createClass({
           });
 
           setTimeout(function () {
-            self.settingsDropdown.toggleVisibility();
+            self.settingsDropdown.hideDropdown();
           }, 50);
         }
       },
@@ -135,7 +135,7 @@ var Menu = React.createClass({
           });
 
           setTimeout(function () {
-            self.settingsDropdown.toggleVisibility();
+            self.settingsDropdown.hideDropdown();
           }, 50);
         }
       }

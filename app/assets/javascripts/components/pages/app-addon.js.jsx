@@ -100,7 +100,7 @@ var AppAddon = React.createClass({
           self.confirmRemoveAddon();
 
           setTimeout(function () {
-            self.settingsDropdown.toggleVisibility();
+            self.settingsDropdown.hideDropdown();
           }, 50);
         }
       }
