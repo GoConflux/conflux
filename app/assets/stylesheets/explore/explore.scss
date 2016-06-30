@@ -1,11 +1,13 @@
 @import 'global-vars';
 
-#explore {
+#explore,
+#toolbelt {
   .home-header {
     height: 80px;
   }
 
-  .explore-subheader {
+  .explore-subheader,
+  .toolbelt-subheader {
     background-image: -webkit-linear-gradient(left, #fff, #ddd 10%, #ddd 90%, #fff);
     background-position: bottom center;
     background-repeat: no-repeat;
@@ -34,8 +36,18 @@
     line-height: 1.4em;
     margin: 0 auto;
     max-width: 970px;
-  }
 
+    a {
+      font-family: Avenir-Next-Regular;
+      color: rgba(0,0,0,0.8);
+
+      &:hover,
+      &:active,
+      &:focus {
+        color: rgba(0,0,0,0.8);
+      }
+    }
+  }
 }
 
 .explore-body {

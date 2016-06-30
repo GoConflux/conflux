@@ -13,7 +13,6 @@ var LandingHeader = React.createClass({
   },
 
   componentDidMount: function () {
-    var self = this;
     var myTeamsBtn = document.getElementById('lh-teams-button');
 
     if (myTeamsBtn) {
@@ -25,6 +24,12 @@ var LandingHeader = React.createClass({
       });
     }
 
+    this.addWindowResizeEvent();
+  },
+
+  addWindowResizeEvent: function () {
+    var self = this;
+
     $(window).resize(function () {
       if (window.innerWidth > self.logoSwitchWidth && $(self.logo).attr('src') != self.properLongLogo()) {
         $(self.logo).attr('src', self.properLongLogo());
@@ -35,7 +40,7 @@ var LandingHeader = React.createClass({
   },
 
   properLongLogo: function () {
-    return (this.props.home || this.props.explore) ? this.longLogo : this.loginLogo;
+    return (!!this.props.home || !!this.props.explore || !!this.props.toolbelt) ? this.longLogo : this.loginLogo;
   },
 
   // Either return a "Sign In" button or a button with all your teams
@@ -56,8 +61,8 @@ var LandingHeader = React.createClass({
       return 'home';
     } else if (!!this.props.explore) {
       return 'explore';
-    } else {
-      return '';
+    } else if (!!this.props.toolbelt) {
+      return 'toolbelt';
     }
   },
 

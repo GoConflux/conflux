@@ -17,4 +17,10 @@ class HomeController < ApplicationController
     render component: 'Explore', props: { addons: addons }
   end
 
+  def toolbelt
+    get_user_teams_for_header(toolbelt: true)
+    @landing_header = true
+    render component: 'Toolbelt'
+  end
+
 end
