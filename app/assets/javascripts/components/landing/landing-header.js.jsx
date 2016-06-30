@@ -25,18 +25,23 @@ var LandingHeader = React.createClass({
     }
 
     this.addWindowResizeEvent();
+    this.determineLogo();
   },
 
   addWindowResizeEvent: function () {
     var self = this;
 
     $(window).resize(function () {
-      if (window.innerWidth > self.logoSwitchWidth && $(self.logo).attr('src') != self.properLongLogo()) {
-        $(self.logo).attr('src', self.properLongLogo());
-      } else if (window.innerWidth <= self.logoSwitchWidth && $(self.logo).attr('src') != self.iconLogo) {
-        $(self.logo).attr('src', self.iconLogo);
-      }
+      self.determineLogo();
     });
+  },
+
+  determineLogo: function () {
+    if (window.innerWidth > this.logoSwitchWidth && $(this.logo).attr('src') != this.properLongLogo()) {
+      $(this.logo).attr('src', this.properLongLogo());
+    } else if (window.innerWidth <= this.logoSwitchWidth && $(this.logo).attr('src') != this.iconLogo) {
+      $(this.logo).attr('src', this.iconLogo);
+    }
   },
 
   properLongLogo: function () {
@@ -68,6 +73,7 @@ var LandingHeader = React.createClass({
 
   confluxLogo: function () {
     try {
+      console.log(window.innerWidth > this.logoSwitchWidth);
       return (window.innerWidth > this.logoSwitchWidth) ? this.properLongLogo() : this.iconLogo;
     } catch (e) {
       return;
@@ -98,7 +104,7 @@ var LandingHeader = React.createClass({
     return (
       <div id="landingHeader" className={this.landingHeaderClass()}>
         <div className="lh-left">
-          <a href="/"><img className="lh-logo" src={this.confluxLogo()} ref={this.setLogoRef}/></a>
+          <a href="/"><img className="lh-logo" ref={this.setLogoRef}/></a>
         </div>
         <div className="lh-right">
           {this.getRightestButton()}

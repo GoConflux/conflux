@@ -72,7 +72,7 @@ var Home = React.createClass({
         $(self.terminalContainer).find('.typed-cursor').hide();
 
         setTimeout(function () {
-          // self.resetTerminalAnimation();
+          self.resetTerminalAnimation();
         }, 15000);
       }
     }, info.delay);
