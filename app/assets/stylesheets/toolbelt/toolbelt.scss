@@ -80,6 +80,10 @@
       color: $conflux-green;
       font-family: Avenir-Next-Regular;
       cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 
@@ -111,6 +115,7 @@
     word-spacing: normal;
     word-wrap: normal;
     white-space: pre;
+    overflow: auto;
 
     .command {
       color: #F8F8F8;
@@ -130,5 +135,47 @@
     color: #3F3F44;
     background-color: #f5f5f7;
     border-radius: 4px;
+  }
+
+  .toolbelt-support {
+    width: 100%;
+    float: left;
+    padding: 42px;
+    background-color: #249cf2;
+
+    .support-title {
+      width: 100%;
+      float: left;
+      font-size: 24px;
+      color: white;
+      font-family: Avenir-Next-Thin;
+      text-align: center;
+      padding-bottom: 34px;
+    }
+
+    .support-body {
+      float: left;
+      width: 100%;
+      text-align: center;
+
+      .support-body-inner {
+        display: inline-block;
+        margin: 0 auto;
+
+        .support-section {
+          text-align: left;
+          padding: 8px 0;
+          color: rgba(255,255,255,0.8);
+          font-family: Avenir-Next-Thin;
+          font-size: 16px;
+
+          .topic {
+            font-family: Avenir-Next-Regular;
+            color: white;
+          }
+        }
+      }
+    }
+
   }
 }

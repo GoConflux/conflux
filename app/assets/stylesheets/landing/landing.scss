@@ -192,7 +192,8 @@
   }
 }
 
-#home {
+#home,
+#toolbelt {
   #landingFooter {
     background: white;
   }
@@ -454,15 +455,21 @@
   }
 }
 
-
 @media (max-width: 617px) {
   #home {
     .title {
       margin-bottom: 25px;
     }
+
+    .get-toolbelt {
+      padding: 25px;
+
+      .get-toolbelt-text {
+        font-size: 24px;
+      }
+    }
   }
 }
-
 
 @media (max-width: 579px) {
   #landingHeader {

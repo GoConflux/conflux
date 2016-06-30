@@ -1,5 +1,9 @@
 var Toolbelt = React.createClass({
-  
+
+  setSupportSectionRef: function (ref) {
+    this.supportSection = ref;
+  },
+
   promptNewTeam: function () {
     if (this.props.authed) {
       React.modal.show('team:create', {}, {
@@ -17,6 +21,11 @@ var Toolbelt = React.createClass({
       }
     });
   },
+
+  scrollToSupportSection: function () {
+    var topOfSupportSection = $(this.supportSection).offset().top;
+    $('html, body').animate({ scrollTop: topOfSupportSection }, 850);
+  },
   
   render: function() {
     return (
@@ -27,7 +36,7 @@ var Toolbelt = React.createClass({
           <div className="subtitle">Get up and running with Conflux by downloading the developer toolbelt. Connect to your add-ons, add new team members, and much more, straight from the command line. Follow the guide below to get started, or <a href="https://github.com/GoConflux/conflux-cli" target="_blank">view the source code on Github</a>.</div>
         </div>
         <div className="toolbelt-body conflux-container">
-          <div className="before-getting-started md-text">Before getting started, make sure you have a Conflux account. If you haven't signed up yet, <a href="/signup">create an account</a>.</div>
+          <div className="before-getting-started md-text">Before getting started, make sure you have a Conflux account. If you haven't signed up yet, <a href="/signup">create an account</a>. Also check to <span className="feaux-link" onClick={this.scrollToSupportSection}>make sure your operating system and app's language are supported.</span></div>
           <div className="conflux-md-numbered-section">
             <div className="numbered-title">1. Installing the Toolbelt</div>
             <div className="md-section-description">
@@ -141,6 +150,21 @@ var Toolbelt = React.createClass({
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+          <div className="conflux-md-numbered-section">
+            <div className="numbered-title">4. Start using your Add-ons</div>
+            <div className="md-section-description">
+              <div className="md-text">Once your project is connected to the Conflux app of your choice, your add-ons will automatically be made available any time you start up your server. This way, you can stop worrying about setup and get back to building out your app. Enjoy your add-ons!</div>
+            </div>
+          </div>
+        </div>
+        <div className="toolbelt-support" ref={this.setSupportSectionRef}>
+          <div className="support-title">Toolbelt Support</div>
+          <div className="support-body">
+            <div className="support-body-inner">
+              <div className="support-section"><span className="topic">Operating sytems:&nbsp;&nbsp;</span>Mac OS X, Linux, (Windows coming soon)</div>
+              <div className="support-section"><span className="topic">Languages:&nbsp;&nbsp;</span>Ruby (Rails)</div>
             </div>
           </div>
         </div>
