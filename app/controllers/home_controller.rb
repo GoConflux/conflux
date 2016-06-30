@@ -20,7 +20,7 @@ class HomeController < ApplicationController
   def toolbelt
     get_user_teams_for_header(toolbelt: true)
     @landing_header = true
-    render component: 'Toolbelt'
+    render component: 'Toolbelt', props: { authed: @current_user.present? }
   end
 
 end
