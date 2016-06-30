@@ -13,7 +13,6 @@ var LandingHeader = React.createClass({
   },
 
   componentDidMount: function () {
-    var self = this;
     var myTeamsBtn = document.getElementById('lh-teams-button');
 
     if (myTeamsBtn) {
@@ -27,26 +26,20 @@ var LandingHeader = React.createClass({
 
     this.addWindowResizeEvent();
 
-    $(document).ready(function () {
-      var image = (window.innerWidth > self.logoSwitchWidth) ? self.properLongLogo() : self.iconLogo;
-      $(self.logo).attr('src', image);
-    });
+    var image = (window.innerWidth > this.logoSwitchWidth) ? this.properLongLogo() : this.iconLogo;
+    $(this.logo).attr('src', image);
   },
 
   addWindowResizeEvent: function () {
     var self = this;
 
     $(window).resize(function () {
-      self.determineLogo();
+      if (window.innerWidth > self.logoSwitchWidth && $(self.logo).attr('src') != self.properLongLogo()) {
+        $(self.logo).attr('src', self.properLongLogo());
+      } else if (window.innerWidth <= self.logoSwitchWidth && $(self.logo).attr('src') != self.iconLogo) {
+        $(self.logo).attr('src', self.iconLogo);
+      }
     });
-  },
-
-  determineLogo: function () {
-    if (window.innerWidth > this.logoSwitchWidth && $(this.logo).attr('src') != this.properLongLogo()) {
-      $(this.logo).attr('src', this.properLongLogo());
-    } else if (window.innerWidth <= this.logoSwitchWidth && $(this.logo).attr('src') != this.iconLogo) {
-      $(this.logo).attr('src', this.iconLogo);
-    }
   },
 
   properLongLogo: function () {
@@ -76,14 +69,6 @@ var LandingHeader = React.createClass({
     }
   },
 
-  confluxLogo: function () {
-    try {
-      return (window.innerWidth > this.logoSwitchWidth) ? this.properLongLogo() : this.iconLogo;
-    } catch (e) {
-      return;
-    }
-  },
-
   getExploreClasses: function () {
     var classes = 'lh-right-link';
 
@@ -108,7 +93,7 @@ var LandingHeader = React.createClass({
     return (
       <div id="landingHeader" className={this.landingHeaderClass()}>
         <div className="lh-left">
-          <a href="/"><img className="lh-logo" src="" ref={this.setLogoRef}/></a>
+          <a href="/"><img className="lh-logo" src={this.iconLogo} ref={this.setLogoRef}/></a>
         </div>
         <div className="lh-right">
           {this.getRightestButton()}
