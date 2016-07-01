@@ -22,7 +22,7 @@ class AppsApiController < ApplicationController
 
     team_user_token.save!
 
-    render json: {
+    manifest = {
       'app' => {
         'name' => app.slug,
         'url' => "#{platform_url}/#{team.slug}/#{pipeline.slug}/#{app.slug}"
@@ -32,6 +32,8 @@ class AppsApiController < ApplicationController
         'CONFLUX_APP' => app.token
       }
     }
+
+    render json: { manifest: manifest, latest_gem_version: ENV['LATEST_RUBY_GEM_VERSION'] }
   end
 
   def pull

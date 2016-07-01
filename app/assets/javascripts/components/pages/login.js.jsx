@@ -158,7 +158,6 @@ var Login = React.createClass({
           {this.getSubtitle()}
           <div className="card-body">
             <input type="text" name="email" className="card-input required" placeholder="email" ref={this.setEmailRef}/>
-            {this.getNameInput()}
             <input type="password" name="password" className="card-input required" placeholder="password" ref={this.setPasswordRef}/>
             {this.getConfirmPassword()}
             <a className="primary-action-btn" onClick={this.onLoginClick} href="javascript:void(0)">
