@@ -13,6 +13,68 @@ module ApplicationHelper
     key: [:name, :value, :description]
   }
 
+  SLUGS_BLACKLIST = [
+    'explore',
+    'toolbelt',
+    'api',
+    'login',
+    'signup',
+    'signout',
+    'reset_password',
+    'search',
+    'modal_info',
+    'for_app',
+    'all',
+    'plan',
+    'plans',
+    'jobs',
+    'job',
+    'name_available',
+    'manifest',
+    'team_user_app_tokens',
+    'cost',
+    'config',
+    'configs',
+    'pull',
+    'key',
+    'keys',
+    'addon',
+    'addons',
+    'app-addon',
+    'app-addons',
+    'app_addon',
+    'app_addons',
+    'app',
+    'apps',
+    'tier',
+    'tiers',
+    'pipeline',
+    'pipelines',
+    'team',
+    'teams',
+    'team_user',
+    'team_users',
+    'team-user',
+    'team-users',
+    'user',
+    'users',
+    'heroku-postgresql',
+    'heroku-redis',
+    'mongolab',
+    'redistogo',
+    'blitline',
+    'pandastream',
+    'bomberman',
+    'suggestgrid',
+    'stream',
+    'iron_worker',
+    'pubnub',
+    'proximo',
+    'sendgrid',
+    'websolr',
+    'bucketeer'
+  ]
+
   def with_transaction(&block)
     raise 'no block given' unless block_given?
 
@@ -59,6 +121,10 @@ module ApplicationHelper
           user_id: user.id
         }
       )
+  end
+
+  def slug_blacklisted?(slug)
+    SLUGS_BLACKLIST.include?(slug)
   end
 
 end

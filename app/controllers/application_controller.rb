@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
   CONFLUX_APP_TOKEN = 'Conflux-App'
   TOP_LEVEL_CONFLUX_TOKEN_NAME = 'Conflux-Token'
 
-
   REQUIRED_PARAMS = {
     team: {
       create: [:name],
@@ -369,6 +368,9 @@ class ApplicationController < ActionController::Base
   end
 
   def is_name_available(model, name, record = nil)
+    # ensure name won't interfere with your routes
+    return false if slug_blacklisted?(name.slugify)
+
     # Find a record that already exists for this slug
     existing_record = model.find_by(slug: name.slugify)
 
