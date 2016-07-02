@@ -1,6 +1,9 @@
 require 'json'
+require 'open-uri'
 
-$addons = JSON.parse(File.read(File.join(Rails.root, 'config', 'addons.json')))
+open('http://confluxapp.s3-website-us-west-1.amazonaws.com/files/addons.json') { |io|
+  $addons = JSON.parse(io.read)
+}
 
 $jobs = {}
 
