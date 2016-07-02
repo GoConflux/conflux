@@ -26,8 +26,12 @@ module PipelineServices
       }
 
       if @add_default_local_app
+        # For the first pipeline, name the default local app "<TeamName> Local".
+        # Afterwards, name the default local apps as "<PipelineName> Local"
+        app_name = (@pipeline.team.pipelines.count == 1) ? "#{@pipeline.team.name} Local" : "#{@pipeline.name} Local"
+
         App.create!(
-          name: "#{@pipeline.team.name} Local",
+          name: app_name,
           token: UUIDTools::UUID.random_create.to_s,
           tier_id: local_dev_tier_id
         )
