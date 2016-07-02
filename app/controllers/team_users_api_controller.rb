@@ -19,7 +19,8 @@ class TeamUsersApiController < ApplicationController
         TeamUserServices::InviteUser.new(
           @current_user,
           [ params[:email] ],
-          team
+          team,
+          Role::CONTRIBUTOR_LIMITED
         ).perform
       end
 
