@@ -88,22 +88,19 @@ class PipelinesController < ApplicationController
   def destroy
     begin
       with_transaction do
-        app_ids = App.unscoped
-          .includes(:tier => :pipeline)
-          .where(tiers: { pipeline_id: @pipeline.id })
-          .map(&:id)
-
         team = @pipeline.team
 
         @pipeline.destroy!
 
-        if app_ids.present?
-          # Remove all keys from Redis mapping to each of these apps
-          AppServices::RemoveAppKeysFromRedis.new(
-            @current_user,
-            App.unscoped.where(id: app_ids)
-          ).delay.perform
-        end
+        apps_of_pipeline = App.unscoped
+          .includes(:tier => :pipeline)
+          .where(tiers: { pipeline_id: @pipeline.id })
+
+        # Remove all keys from Redis mapping to each of these apps
+        AppServices::RemoveAppKeysFromRedis.new(
+          @current_user,
+          apps_of_pipeline
+        ).delay.perform
 
         render json: { url: "/#{team.slug}" }
       end

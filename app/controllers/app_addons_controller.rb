@@ -61,10 +61,10 @@ class AppAddonsController < ApplicationController
         ).delay.perform
 
         # Remove all keys from Redis mapping to each of these apps
-        # AppServices::RemoveAppKeysFromRedis.new(
-        #   @current_user,
-        #   @app
-        # ).delay.perform
+        AppServices::RemoveAppKeysFromRedis.new(
+          @current_user,
+          @app
+        ).delay.perform
 
         render json: {
           monthly_cost: "$#{'%.2f' % @app.est_monthly_cost}",
@@ -149,10 +149,10 @@ class AppAddonsController < ApplicationController
 
       @app_addon.destroy!
 
-      # AppServices::RemoveAppKeysFromRedis.new(
-      #   @current_user,
-      #   app
-      # ).perform
+      AppServices::RemoveAppKeysFromRedis.new(
+        @current_user,
+        app
+      ).perform
 
       render json: { url: app.create_link }
     rescue Exception => e

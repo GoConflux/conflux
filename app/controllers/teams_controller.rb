@@ -71,16 +71,17 @@ class TeamsController < ApplicationController
   def destroy
     begin
       with_transaction do
-        # Get all tokens for all apps belonging to this team
-        apps = @team.apps
-
         # Destroy the team
         @team.destroy!
+
+        apps_of_team = App.unscoped
+          .includes(:tier => [:pipeline => :team])
+          .where(pipelines: { team_id: @team.id })
 
         # Remove all keys from Redis mapping to each of these apps
         AppServices::RemoveAppKeysFromRedis.new(
           @current_user,
-          apps
+          apps_of_team
         ).delay.perform
 
         render json: {}

@@ -4,11 +4,14 @@ module AppServices
 
     def initialize(executor_user, apps)
       super(executor_user)
-      assert(apps, 'apps cannot be nil when calling RemoveAppKeysFromRedis')
-      @apps = apps.to_a rescue [apps]
+      @apps = apps
     end
 
     def perform
+      return if @apps.blank?
+
+      @apps = @apps.to_a rescue [@apps]
+
       tokens = @apps.map(&:token)
 
       if tokens.present?
