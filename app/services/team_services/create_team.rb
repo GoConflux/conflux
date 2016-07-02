@@ -21,7 +21,7 @@ module TeamServices
       PipelineServices::CreatePipeline.new(
         @executor_user,
         @team,
-        name: 'My First Pipeline'
+        name: "First #{@team.name} Pipeline"
       ).perform
 
       self
