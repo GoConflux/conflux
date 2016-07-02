@@ -1,7 +1,7 @@
 class AppAddonsApiController < ApplicationController
 
-  before_filter :set_app_conditional
   before_filter :set_addon
+  before_filter :set_app_conditional
   before_filter :protect_app
 
   def create

@@ -124,6 +124,8 @@ class ApplicationController < ActionController::Base
       return
     end
 
+    @current_user ||= team_user.user
+
     @app_token = request.headers[CONFLUX_APP_TOKEN]
 
     @app = team_user.team.apps.find_by(token: @app_token)
