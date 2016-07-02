@@ -45,8 +45,8 @@ gem 'platform-api', '~> 0.6.0'
 
 gem 'turbolinks', '~> 2.5'
 
-gem 'conflux', '1.0.0'
-
 gem 'redis'
 
 gem 'slack-api'
+
+gem 'conflux', '1.0.0'

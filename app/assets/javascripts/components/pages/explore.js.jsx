@@ -24,7 +24,7 @@ var Explore = React.createClass({
         <div className="home-header"></div>
         <div className="explore-subheader conflux-container">
           <div className="title">Explore the Add-ons ready to integrate with your app.</div>
-          <div className="subtitle">Addons are self-hosted, third-party services, ready to be integrated with your app in one command. They provide services for caching, persistence, email, messaging, and more.</div>
+          <div className="subtitle">Add-ons are self-hosted, third-party services, ready to be integrated with your app in one command. They provide services for caching, persistence, email, messaging, and more.</div>
         </div>
         <div className="explore-body conflux-container">
           <div id="categoriesList">
