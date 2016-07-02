@@ -306,16 +306,15 @@
 
   .terminal-example {
     float: left;
-    padding-left: 12px;
     width: 100%;
     height: 168px;
     text-align: left;
-    font-size: 18px;
+    font-size: 17px;
     margin-top: 5px;
     font-family: Consolas, "Courier New", Courier;
 
     &.with-output {
-      margin-top: 8.5px;
+      margin-top: 10px;
     }
 
     .terminal-text {
@@ -407,10 +406,26 @@
   }
 }
 
-@media (max-width: 934px) {
+@media (max-width: 1048px) {
   .home-section {
     .terminal-example {
-      font-size: 17px;
+      font-size: 16px;
+    }
+  }
+}
+
+@media (max-width: 993px) {
+  .home-section {
+    .terminal-example {
+      font-size: 15px;
+    }
+  }
+}
+
+@media (max-width: 938px) {
+  .home-section {
+    .terminal-example {
+      font-size: 14px;
     }
   }
 }
@@ -438,17 +453,13 @@
 
     .terminal-example {
       font-size: 18px;
-      padding-left: 25%;
+      padding-left: calc((100% - 497px)/2);
     }
   }
 }
 
 @media (max-width: 699px) {
   .home-section {
-    .terminal-example {
-      padding-left: 20%;
-    }
-
     .text-section {
 
       .sub-text {
@@ -474,14 +485,6 @@
       .get-toolbelt-text {
         font-size: 24px;
       }
-    }
-  }
-}
-
-@media (max-width: 599px) {
-  .home-section {
-    .terminal-example {
-      padding-left: 15%;
     }
   }
 }
@@ -524,12 +527,26 @@
   }
 }
 
+@media (max-width: 566px) {
+  .home-section {
+    .terminal-example {
+      font-size: 16px;
+      padding-left: calc((100% - 442px)/2);
+    }
+  }
+}
+
 @media (max-width: 540px) {
   .home-section {
     padding: 60px 0;
+  }
+}
 
+@media (max-width: 511px) {
+  .home-section {
     .terminal-example {
-      padding-left: 5%;
+      font-size: 15px;
+      padding-left: calc((100% - 415px)/2);
     }
   }
 }
@@ -547,29 +564,26 @@
       }
     }
   }
-
-  .home-section {
-    padding: 60px 0;
-
-    .terminal-example {
-      font-size: 16px;
-    }
-  }
 }
 
-@media (max-width: 443px) {
+@media (max-width: 484px) {
   .home-section {
     .terminal-example {
       font-size: 14px;
+      padding-left: calc((100% - 387px)/2);
     }
   }
 }
 
-@media (max-width: 397px) {
+@media (max-width: 456px) {
   .home-section {
     .terminal-example {
-      font-size: 13px;
+      font-size: 14px;
+      padding-left: calc((100% - 311px)/2);
+
+      .terminal-text {
+        width: 311px;
+      }
     }
   }
 }
-

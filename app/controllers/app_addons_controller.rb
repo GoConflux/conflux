@@ -24,12 +24,7 @@ class AppAddonsController < ApplicationController
         selected: addon.index_for_plan(@app_addon.plan),
         plans: addon.plans
       },
-      links: [
-        {
-          href: '#',
-          name: 'Getting Started'
-        }
-      ],
+      links: [],
       write_access: @current_team_user.can_edit_addon?(@app_addon)
     }
 

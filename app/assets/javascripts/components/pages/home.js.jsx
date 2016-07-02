@@ -18,7 +18,7 @@ var Home = React.createClass({
       delay: 1000
     },
     {
-      text: "<span style=\"color: #59A45C\">Creating file:</span> config/redis.rb...",
+      text: "<span style=\"color: #59A45C\">Creating file:</span> config/initializers/redis.rb...",
       delay: 500
     },
     {
@@ -72,7 +72,7 @@ var Home = React.createClass({
         $(self.terminalContainer).find('.typed-cursor').hide();
 
         setTimeout(function () {
-          self.resetTerminalAnimation();
+          // self.resetTerminalAnimation();
         }, 15000);
       }
     }, info.delay);
