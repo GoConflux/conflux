@@ -39,7 +39,7 @@ class AppsApiController < ApplicationController
   def pull
     configs = ApiServices::FetchConfigsService.new(nil, @app, @app_token).perform.configs
 
-    past_jobs = params[:past_jobs].nil? ? [] : params[:past_jobs].split(',')
+    past_jobs = params[:past_jobs].blank? ? [] : params[:past_jobs].split(',')
 
     jobs = ApiServices::FetchJobsService.new(nil, @app, @app_token, past_jobs).perform.jobs
 

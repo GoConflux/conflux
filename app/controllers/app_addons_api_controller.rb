@@ -29,7 +29,10 @@ class AppAddonsApiController < ApplicationController
           @addon.basic_plan # hardcoding basic plan until Stripe integration is added
         ).perform
 
-        $redis.hdel(Key::CONFIGS, @app.token) if $redis.present?
+        if $redis.present?
+          $redis.hdel(Key::CONFIGS, @app.token)
+          $redis.hdel(Key::JOBS, @app.token)
+        end
 
         render json: { 'app_slug' => @app.slug }
       end
@@ -46,7 +49,10 @@ class AppAddonsApiController < ApplicationController
 
       app_addon.destroy!
 
-      $redis.hdel(Key::CONFIGS, @app.token) if $redis.present?
+      if $redis.present?
+        $redis.hdel(Key::CONFIGS, @app.token)
+        $redis.hdel(Key::JOBS, @app.token)
+      end
 
       render json: { 'app_slug' => @app.slug }
     rescue Exception => e
