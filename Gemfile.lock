@@ -131,6 +131,7 @@ GEM
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
+    rack-timeout (0.4.2)
     rails (4.2.6)
       actionmailer (= 4.2.6)
       actionpack (= 4.2.6)
@@ -235,6 +236,7 @@ DEPENDENCIES
   pry
   pry-byebug
   pry-doc
+  rack-timeout
   rails (~> 4.2)
   rails4_upgrade
   rails_12factor (= 0.0.2)
