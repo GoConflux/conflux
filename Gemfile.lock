@@ -242,7 +242,7 @@ DEPENDENCIES
   rails_12factor (= 0.0.2)
   react-rails (= 1.5.0)
   redis
-  rest-client
+  rest-client (= 1.6.7)
   sass-rails (~> 4.0.0)
   slack-api
   slugify (~> 1.0, >= 1.0.6)

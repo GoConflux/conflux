@@ -35,11 +35,13 @@ module ApiServices
       (job_ids - @past_jobs).each { |job_id|
         job_info = $jobs[job_id] # global var '$jobs' -- important difference
 
-        addon = job_info['addon']
+        if job_info
+          addon = job_info['addon']
 
-        @jobs[addon] = [] if !@jobs.key?(addon)
+          @jobs[addon] = [] if !@jobs.key?(addon)
 
-        @jobs[addon].push(job_info)
+          @jobs[addon].push(job_info)
+        end
       }
 
       self

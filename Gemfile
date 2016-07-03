@@ -37,7 +37,7 @@ gem 'activeuuid', '0.6.0'
 
 gem 'react-rails', '1.5.0'
 
-gem 'rest-client'
+gem 'rest-client', '1.6.7'
 
 gem 'slugify', '~> 1.0', '>= 1.0.6'
 
