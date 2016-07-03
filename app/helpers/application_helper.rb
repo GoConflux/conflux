@@ -14,6 +14,7 @@ module ApplicationHelper
   }
 
   SLUGS_BLACKLIST = [
+    'fonts',
     'explore',
     'toolbelt',
     'api',
