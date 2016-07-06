@@ -88,7 +88,7 @@ var Toolbelt = React.createClass({
                     Writing configs to conflux.yml...<br/>
                     Found 2 new jobs for redistogo.<br/>
                     Installing redis ruby gem...<br/>
-                    Creating file: config/redis.rb<br/>
+                    Creating file: config/initializers/redis.rb<br/>
                     Done.<br/>
                   </div>
                   <div className="md-text">At this point, you can view the <span className="md-shell">.conflux/conflux.yml</span> file inside your project's root directory to see which configs will be available when you boot your server. For example:</div>
