@@ -43,6 +43,12 @@ class PipelinesController < ApplicationController
           description: params[:description]
         ).perform.pipeline
 
+        EventService.new(
+          @current_user,
+          'New Pipeline',
+          props: { team: @team.slug }
+        ).delay.perform
+
         render json: {
           url: pipeline.create_link
         }
@@ -100,6 +106,12 @@ class PipelinesController < ApplicationController
         AppServices::RemoveAppKeysFromRedis.new(
           @current_user,
           apps_of_pipeline
+        ).delay.perform
+
+        EventService.new(
+          @current_user,
+          'Delete Pipeline',
+          props: { team: team.slug }
         ).delay.perform
 
         render json: { url: "/#{team.slug}" }

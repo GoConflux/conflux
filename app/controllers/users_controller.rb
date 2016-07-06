@@ -4,10 +4,6 @@ class UsersController < ApplicationController
   before_filter :set_current_user
 
   def feedback
-    Slack.configure do |config|
-      config.token = ENV['SLACK_TOKEN']
-    end
-
     begin
       Slack.chat_postMessage(
         channel: ENV['SLACK_FEEDBACK_CHANNEL'],

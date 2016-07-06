@@ -19,6 +19,12 @@ class TeamUsersController < ApplicationController
         ).perform
       end
 
+      EventService.new(
+        @current_user,
+        'New User Invite',
+        props: { invited: params[:emails] }
+      ).delay.perform
+
       render json: { users: formatted_team_users }
     rescue Exception => e
       error = "#{ConfluxErrors::UserInvitesFailed} - #{e}"
@@ -68,6 +74,15 @@ class TeamUsersController < ApplicationController
       with_transaction do
         @team_user.destroy!
       end
+
+      EventService.new(
+        @current_user,
+        'Removed User from Team',
+        props: {
+          team: @team.slug,
+          removed: @team_user.user.email
+        }
+      ).delay.perform
 
       render json: { users: formatted_team_users }
     rescue => e

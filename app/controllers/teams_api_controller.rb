@@ -17,6 +17,12 @@ class TeamsApiController < ApplicationController
       }
     }
 
+    EventService.new(
+      @current_user,
+      'CLI - Fetch Users for Team',
+      props: { team: @team.slug }
+    ).delay.perform
+
     render json: team_users
   end
 

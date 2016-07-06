@@ -17,11 +17,14 @@ class UsersApiController < ApplicationController
 
     user_token.save!
 
+    EventService.new(@current_user, 'CLI - User Login').delay.perform
+
     render json: { user_token: user_token.token }
   end
 
   # Get all apps for a user, grouped by team
   def apps
+    EventService.new(@current_user, 'CLI - Apps for User').delay.perform
     render json: @current_user.apps_by_team
   end
 
@@ -54,6 +57,8 @@ class UsersApiController < ApplicationController
         'name' => team.name
       }
     }
+
+    EventService.new(@current_user, 'CLI - Teams for User').delay.perform
 
     render json: teams
   end

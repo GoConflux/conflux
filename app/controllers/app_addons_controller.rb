@@ -66,6 +66,12 @@ class AppAddonsController < ApplicationController
           @app
         ).delay.perform
 
+        EventService.new(
+          @current_user,
+          'New Add-on',
+          props: { addon: @addon.slug }
+        ).delay.perform
+
         render json: {
           monthly_cost: "$#{'%.2f' % @app.est_monthly_cost}",
           addons: @app.addons_for_app_view
@@ -121,6 +127,15 @@ class AppAddonsController < ApplicationController
         #   "#{addon.slug}:#{params[:plan]}"
         # ).delay.perform
 
+        EventService.new(
+          @current_user,
+          'Update Add-on Plan',
+          props: {
+            addon: addon.slug,
+            plan: params[:plan]
+          }
+        ).delay.perform
+
         render json: { selected: addon.index_for_plan(params[:plan]) }
       end
     rescue Exception => e
@@ -146,6 +161,7 @@ class AppAddonsController < ApplicationController
   def destroy
     begin
       app = @app_addon.app
+      addon = @app_addon.addon
 
       @app_addon.destroy!
 
@@ -153,6 +169,12 @@ class AppAddonsController < ApplicationController
         @current_user,
         app
       ).perform
+
+      EventService.new(
+        @current_user,
+        'Remove Add-on',
+        props: { addon: addon.slug }
+      ).delay.perform
 
       render json: { url: app.create_link }
     rescue Exception => e

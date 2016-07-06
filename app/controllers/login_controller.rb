@@ -47,6 +47,11 @@ class LoginController < ApplicationController
           data[:redirect_url] = "/#{login_svc.user.teams.first.slug}"
         end
 
+        EventService.new(
+          login_svc.user,
+          (params[:sign_up] ? 'New User' : 'User Login')
+        ).delay.perform
+
         render json: data, status: 200
       end
     rescue Exception => e
@@ -69,6 +74,8 @@ class LoginController < ApplicationController
     )
 
     assert(user)
+
+    EventService.new(user, 'Reset Password').delay.perform
 
     begin
       with_transaction do

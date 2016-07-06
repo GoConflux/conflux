@@ -1,44 +1,59 @@
 class EventService < AbstractService
   require 'slack'
 
-  def initialize(executor_user, event)
+  def initialize(executor_user, event, props: {})
     super(executor_user)
+    @email = executor_user.try(:email)
     @event = event
+    @props = props
   end
 
   def perform
-    if Rails.env.production? && !@executor_user.is_conflux_admin?
-      log_to_mixpanel # Log event to Mixpanel
-      pipe_event_to_slack if ENV['SLACK_TOKEN'].present? # Pipe event to Slack
+    if should_track_events
+      log_to_mixpanel if $mixpanel.present?
+      pipe_event_to_slack if ENV['SLACK_TOKEN'].present?
     end
 
     self
   end
 
+  private
+
   def log_to_mixpanel
-    $mixpanel.track(@executor_user.email, @event)
+    $mixpanel.track(@email || 'Unknown User', @event, @props)
   end
 
   def pipe_event_to_slack
     begin
-      Slack.configure do |config|
-        config.token = ENV['SLACK_TOKEN']
-      end
-
       Slack.chat_postMessage(
         channel: ENV['SLACK_EVENT_CHANNEL'],
-        username: @event,
+        username: @email.present? ? "#{@event} (#{@email})" : @event,
         text: stats,
         icon_url: 'http://confluxapp.s3-website-us-west-1.amazonaws.com/images/conflux-icon-white-blue-bg.png'
       )
     rescue => e
-      puts "SLACK ERROR: Piping #{@event} event to #{ENV['SLACK_EVENT_CHANNEL']} channel for user #{@executor_user.email} failed with error: #{e.message}"
+      puts "SLACK ERROR: Piping #{@event} event to #{ENV['SLACK_EVENT_CHANNEL']} channel for user #{@email || 'Unknown User'} failed with error: #{e.message}"
     end
   end
 
   def stats
-    "Users: #{User.all.count}\n" \
-    "Teams: #{Team.all.count}"
+    stats = "Users: #{User.all.count}\nTeams: #{Team.all.count}"
+
+    if @props.present?
+      prop_stats = ''
+
+      @props.each { |k, v|
+        prop_stats += "#{k}: #{v}\n"
+      }
+
+      stats = prop_stats + stats
+    end
+
+    stats
+  end
+
+  def should_track_events
+    ENV['TRACK_EVENTS'] && Rails.env.production? && !@executor_user.try(:is_conflux_admin?)
   end
 
 end

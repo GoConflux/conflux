@@ -23,6 +23,8 @@ class KeysController < ApplicationController
           @app_addon.app
         ).delay.perform
 
+        EventService.new(@current_user, 'New Key').delay.perform
+
         render json: @app_addon.keys_for_app_addon_view
       end
     rescue Exception => e

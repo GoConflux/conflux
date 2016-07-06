@@ -24,6 +24,12 @@ class TeamUsersApiController < ApplicationController
         ).perform
       end
 
+      EventService.new(
+        @current_user,
+        'CLI - New User Invite',
+        props: { invited: params[:email] }
+      ).delay.perform
+
       render json: {}, status: 200
     rescue Exception => e
       error = "#{ConfluxErrors::UserInvitesFailed} - #{e}"

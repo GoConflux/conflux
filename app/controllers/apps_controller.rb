@@ -40,6 +40,12 @@ class AppsController < ApplicationController
           tier_id: @tier.id
         )
 
+        EventService.new(
+          @current_user,
+          'New App',
+          props: { team: @tier.pipeline.team.slug }
+        ).delay.perform
+
         render json: {
           updated_tier: @tier.uuid,
           apps: @tier.apps_for_tier_view
@@ -101,6 +107,12 @@ class AppsController < ApplicationController
         AppServices::RemoveAppKeysFromRedis.new(
           @current_user,
           token_placeholder_app
+        ).delay.perform
+
+        EventService.new(
+          @current_user,
+          'Delete App',
+          props: { app: @app.slug }
         ).delay.perform
 
         render json: {

@@ -34,6 +34,12 @@ class AppAddonsApiController < ApplicationController
           $redis.hdel(Key::JOBS, @app.token)
         end
 
+        EventService.new(
+          @current_user,
+          'CLI - New Add-on',
+          props: { addon: @addon.slug }
+        ).delay.perform
+
         render json: { 'app_slug' => @app.slug }
       end
     rescue Exception => e
@@ -53,6 +59,12 @@ class AppAddonsApiController < ApplicationController
         $redis.hdel(Key::CONFIGS, @app.token)
         $redis.hdel(Key::JOBS, @app.token)
       end
+
+      EventService.new(
+        @current_user,
+        'CLI - Remove Add-on',
+        props: { addon: @addon.slug }
+      ).delay.perform
 
       render json: { 'app_slug' => @app.slug }
     rescue Exception => e

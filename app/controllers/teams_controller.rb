@@ -38,6 +38,12 @@ class TeamsController < ApplicationController
           params,
         ).perform.team
 
+        EventService.new(
+          @current_user,
+          'New Team',
+          props: { team: team.slug }
+        ).delay.perform
+
         render json: { url: team.create_link }
       end
     rescue Exception => e
@@ -82,6 +88,12 @@ class TeamsController < ApplicationController
         AppServices::RemoveAppKeysFromRedis.new(
           @current_user,
           apps_of_team
+        ).delay.perform
+
+        EventService.new(
+          @current_user,
+          'Delete Team',
+          props: { team: @team.slug }
         ).delay.perform
 
         render json: {}
