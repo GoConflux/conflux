@@ -101,6 +101,7 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
     minitest (5.9.0)
+    mixpanel-ruby (2.2.0)
     moneta (0.8.0)
     multi_json (1.12.1)
     multipart-post (2.0.0)
@@ -227,6 +228,7 @@ DEPENDENCIES
   figaro (= 0.7.0)
   heroku_rails_deflate (~> 1.0.3)
   log4r (= 1.1.10)
+  mixpanel-ruby
   mysql2 (~> 0.3.15)
   newrelic_rpm
   pg (= 0.17.1)

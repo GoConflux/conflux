@@ -75,7 +75,7 @@ var Login = React.createClass({
     if (!this.validateData(data)) {
       return;
     }
-
+    
     this.showSpinner();
 
     React.post('/login', data, {

@@ -44,4 +44,8 @@ class User < ActiveRecord::Base
     app
   end
 
+  def is_conflux_admin?
+    ENV['CONFLUX_ADMINS'] && (ENV['CONFLUX_ADMINS'] || '').split(',').include?(email)
+  end
+
 end
