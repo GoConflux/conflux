@@ -16,10 +16,18 @@ module Heroku
   # 'plan' is in format 'addon_slug:plan_slug'
   def self.create_addon(app_addon, plan)
     app = app_addon.app
+    addon = app_addon.addon
 
     create_app_for(app) if app.heroku_app.nil?
 
-    heroku.addon.create(app.heroku_app, { plan: plan })
+    if addon.prevent_deprovision && AppAddon.unscoped.where(app_id: app.id, addon_id: addon.id).count > 1
+      # If we're preventing the deprovision of this Addon (aka. keeping it active on the Heroku app side even if the
+      # user removes it on the Conflux side) AND there's more than one existing Conflux AppAddon (unscoped) for this Addon,
+      # than we know the addon was already provisioned before on the Heroku app. Therefore, don't create a new one.
+      # *Will have to readdress this when plans can actually be chosen.
+    else
+      heroku.addon.create(app.heroku_app, { plan: plan })
+    end
 
     upsert_keys_from_new_config_vars(app_addon)
   end
@@ -32,14 +40,6 @@ module Heroku
     new_configs_map = all_app_configs.select { |key|
       addon_specific_configs.include?(key.to_s)
     }
-
-    # Hardcoded hack to get Rediscloud url only after it's actually configured
-    # Remove after you're done hacking with heroku's shit
-    if new_configs_map.key?('REDISCLOUD_URL') && (new_configs_map['REDISCLOUD_URL'] == 'redis://rediscloud:password@localhost:6379')
-      sleep 1
-      upsert_keys_from_new_config_vars(app_addon)
-      return
-    end
 
     new_configs_map.each { |key, value|
       key = Key.find_or_initialize_by(

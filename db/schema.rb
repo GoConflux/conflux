@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160621194159) do
+ActiveRecord::Schema.define(version: 20160706042115) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,13 +28,14 @@ ActiveRecord::Schema.define(version: 20160621194159) do
     t.text     "description"
     t.string   "icon"
     t.string   "slug"
-    t.boolean  "is_destroyed",      default: false
+    t.boolean  "is_destroyed",        default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "heroku_dependent",  default: false
+    t.boolean  "heroku_dependent",    default: false
     t.string   "tagline"
     t.string   "category"
     t.integer  "addon_category_id"
+    t.boolean  "prevent_deprovision", default: false
   end
 
   add_index "addons", ["is_destroyed"], name: "index_addons_on_is_destroyed", using: :btree

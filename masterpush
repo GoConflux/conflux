@@ -3,10 +3,5 @@
 git add -A .
 git commit -m "$1"
 git push origin master
-bundle exec rake assets:precompile
-git add -A .
-git commit -m "ca"
-git push origin master
 git push USER master
 git push API master
-rm -rf public/assets

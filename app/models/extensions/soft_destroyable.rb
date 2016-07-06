@@ -49,7 +49,7 @@ module Extensions
       end
 
       # Unprovision app_addon from Heroku if it's 'heroku_dependent'
-      if self.is_a?(AppAddon) && self.addon.is_heroku_dependent?
+      if self.is_a?(AppAddon) && self.addon.is_heroku_dependent? && !self.addon.prevent_deprovision
         AppServices::UnprovisionAppAddon.new(@current_user, self).perform
       end
 
