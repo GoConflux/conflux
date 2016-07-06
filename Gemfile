@@ -49,6 +49,4 @@ gem 'redis'
 
 gem 'slack-api'
 
-gem 'rack-timeout'
-
 gem 'conflux', '1.0.2'
