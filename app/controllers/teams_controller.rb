@@ -38,7 +38,7 @@ class TeamsController < ApplicationController
           params,
         ).perform.team
 
-        track('Delete Team', { team: @team.slug })
+        track('Create Team', { team: @team.slug })
 
         render json: { url: team.create_link }
       end
