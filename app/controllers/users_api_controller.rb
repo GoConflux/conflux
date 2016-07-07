@@ -17,7 +17,7 @@ class UsersApiController < ApplicationController
 
     user_token.save!
 
-    track('CLI - User Login')
+    track('CLI - User Login', { email: params[:email] })
 
     render json: { user_token: user_token.token }
   end

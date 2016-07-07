@@ -47,7 +47,7 @@ class LoginController < ApplicationController
           data[:redirect_url] = "/#{login_svc.user.teams.first.slug}"
         end
 
-        track(params[:sign_up] ? 'New User' : 'User Login')
+        track(params[:sign_up] ? 'New User' : 'User Login', { email: params[:email] })
 
         render json: data, status: 200
       end
@@ -72,7 +72,7 @@ class LoginController < ApplicationController
 
     assert(user)
 
-    track('Reset Password')
+    track('Reset Password', { email: params[:email] })
 
     begin
       with_transaction do
