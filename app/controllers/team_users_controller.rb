@@ -75,14 +75,7 @@ class TeamUsersController < ApplicationController
         @team_user.destroy!
       end
 
-      EventService.new(
-        @current_user,
-        'Removed User from Team',
-        props: {
-          team: @team.slug,
-          removed: @team_user.user.email
-        }
-      ).delay.perform
+      track('Removed User from Team', { team: @team.slug, removed: @team_user.user.email })
 
       render json: { users: formatted_team_users }
     rescue => e

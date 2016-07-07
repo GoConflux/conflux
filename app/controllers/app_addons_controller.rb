@@ -66,11 +66,7 @@ class AppAddonsController < ApplicationController
           @app
         ).delay.perform
 
-        EventService.new(
-          @current_user,
-          'New Add-on',
-          props: { addon: @addon.slug }
-        ).delay.perform
+        track('New Add-on', { addon: @addon.slug })
 
         render json: {
           monthly_cost: "$#{'%.2f' % @app.est_monthly_cost}",
@@ -127,14 +123,7 @@ class AppAddonsController < ApplicationController
         #   "#{addon.slug}:#{params[:plan]}"
         # ).delay.perform
 
-        EventService.new(
-          @current_user,
-          'Update Add-on Plan',
-          props: {
-            addon: addon.slug,
-            plan: params[:plan]
-          }
-        ).delay.perform
+        track('Update Add-on Plan', { addon: addon.slug, plan: params[:plan] })
 
         render json: { selected: addon.index_for_plan(params[:plan]) }
       end
@@ -170,11 +159,7 @@ class AppAddonsController < ApplicationController
         app
       ).perform
 
-      EventService.new(
-        @current_user,
-        'Remove Add-on',
-        props: { addon: addon.slug }
-      ).delay.perform
+      track('Remove Add-on', { addon: addon.slug })
 
       render json: { url: app.create_link }
     rescue Exception => e

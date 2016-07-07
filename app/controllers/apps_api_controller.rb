@@ -33,11 +33,7 @@ class AppsApiController < ApplicationController
       }
     }
 
-    EventService.new(
-      @current_user,
-      'CLI - New Conflux App Connection',
-      props: { app: app.slug }
-    ).delay.perform
+    track('CLI - New Conflux App Connection', { app: app.slug })
 
     render json: { manifest: manifest, latest_gem_version: ENV['LATEST_RUBY_GEM_VERSION'] }
   end
@@ -55,11 +51,7 @@ class AppsApiController < ApplicationController
   def cost
     cost = @app.est_monthly_cost
 
-    EventService.new(
-      @current_user,
-      'CLI - Checking Cost',
-      props: { app: @app.slug }
-    ).delay.perform
+    track('CLI - Checking Cost', { app: @app.slug })
 
     render json: {
       app_slug: @app.slug,
@@ -70,11 +62,7 @@ class AppsApiController < ApplicationController
   def configs
     configs = ApiServices::FetchConfigsService.new(nil, @app, @app.token).perform.configs
 
-    EventService.new(
-      @current_user,
-      'CLI - Checking Configs',
-      props: { app: @app.slug }
-    ).delay.perform
+    track('CLI - Checking Configs', { app: @app.slug })
 
     render json: configs
   end
@@ -97,11 +85,7 @@ class AppsApiController < ApplicationController
 
     team_user_token.save!
 
-    EventService.new(
-      @current_user,
-      'CLI - New Conflux-Heroku Connection',
-      props: { app: app.slug }
-    ).delay.perform
+    track('CLI - New Conflux-Heroku Connection', { app: app.slug })
 
     render json: {
       'CONFLUX_USER' => team_user_token.token,

@@ -1,7 +1,7 @@
 class EventService < AbstractService
   require 'slack'
 
-  def initialize(executor_user, event, props: {})
+  def initialize(executor_user, event, props = {})
     super(executor_user)
     @email = executor_user.try(:email)
     @event = event
@@ -9,11 +9,8 @@ class EventService < AbstractService
   end
 
   def perform
-    if should_track_events
-      log_to_mixpanel if $mixpanel.present?
-      pipe_event_to_slack if ENV['SLACK_TOKEN'].present?
-    end
-
+    log_to_mixpanel if $mixpanel.present?
+    pipe_event_to_slack if ENV['SLACK_TOKEN'].present?
     self
   end
 
@@ -50,10 +47,6 @@ class EventService < AbstractService
     end
 
     stats
-  end
-
-  def should_track_events
-    ENV['TRACK_EVENTS'] && Rails.env.production? && !@executor_user.try(:is_conflux_admin?)
   end
 
 end

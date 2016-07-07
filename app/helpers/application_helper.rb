@@ -1,4 +1,5 @@
 module ApplicationHelper
+  require 'utils/env'
 
   ALLOWED_CREATION_PARAMS = {
     team: [:name]
@@ -126,6 +127,14 @@ module ApplicationHelper
 
   def slug_blacklisted?(slug)
     SLUGS_BLACKLIST.include?(slug)
+  end
+
+  def should_track_events
+    Utils::Env.is_enabled?('TRACK_EVENTS') && Rails.env.production? && !@current_user.try(:is_conflux_admin?)
+  end
+
+  def track(event, props = {})
+    EventService.new(@current_user, event, props).delay.perform if should_track_events
   end
 
 end

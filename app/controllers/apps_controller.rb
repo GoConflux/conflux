@@ -40,11 +40,7 @@ class AppsController < ApplicationController
           tier_id: @tier.id
         )
 
-        EventService.new(
-          @current_user,
-          'New App',
-          props: { team: @tier.pipeline.team.slug }
-        ).delay.perform
+        track('New App', { team: @tier.pipeline.team.slug })
 
         render json: {
           updated_tier: @tier.uuid,
@@ -109,11 +105,7 @@ class AppsController < ApplicationController
           token_placeholder_app
         ).delay.perform
 
-        EventService.new(
-          @current_user,
-          'Delete App',
-          props: { app: @app.slug }
-        ).delay.perform
+        track('Delete App', { app: @app.slug })
 
         render json: {
           url: pipeline.create_link

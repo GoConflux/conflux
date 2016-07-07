@@ -38,11 +38,7 @@ class TeamsController < ApplicationController
           params,
         ).perform.team
 
-        EventService.new(
-          @current_user,
-          'New Team',
-          props: { team: team.slug }
-        ).delay.perform
+        track('Delete Team', { team: @team.slug })
 
         render json: { url: team.create_link }
       end
@@ -90,11 +86,7 @@ class TeamsController < ApplicationController
           apps_of_team
         ).delay.perform
 
-        EventService.new(
-          @current_user,
-          'Delete Team',
-          props: { team: @team.slug }
-        ).delay.perform
+        track('Delete Team', { team: @team.slug })
 
         render json: {}
       end

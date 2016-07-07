@@ -15,11 +15,7 @@ class AddonsApiController < ApplicationController
       }
     }
 
-    EventService.new(
-      @current_user,
-      'CLI - Fetch Add-ons for App',
-      props: { app: @app.slug }
-    ).delay.perform
+    track('CLI - Fetch Add-ons for App', { app: @app.slug })
 
     render json: addons, status: 200
   end
@@ -33,7 +29,7 @@ class AddonsApiController < ApplicationController
       }
     }
 
-    EventService.new(@current_user, 'CLI - Fetch All Add-ons').delay.perform
+    track('CLI - Fetch All Add-ons')
 
     render json: addons, status: 200
   end
@@ -42,11 +38,7 @@ class AddonsApiController < ApplicationController
     addon = Addon.find_by(slug: params[:addon_slug])
     assert(addon)
 
-    EventService.new(
-      @current_user,
-      'CLI - Fetch Plans for Add-on',
-      props: { addon: addon.slug }
-    ).delay.perform
+    track('CLI - Fetch Plans for Add-on', { addon: addon.slug })
 
     render json: addon.formatted_plans
   end
