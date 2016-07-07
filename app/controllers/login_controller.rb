@@ -49,6 +49,9 @@ class LoginController < ApplicationController
 
         track(params[:sign_up] ? 'New User' : 'User Login', { email: params[:email] })
 
+        # Send welcome email if first time user
+        UserMailer.delay.welcome(login_svc.user) if params[:sign_up]
+
         render json: data, status: 200
       end
     rescue Exception => e

@@ -3,6 +3,11 @@ class UserMailer < ActionMailer::Base
 
   default from: "Conflux <#{ENV['TEAM_EMAIL']}>", return_path: ENV['TEAM_EMAIL']
 
+  def welcome(user)
+    @email = user.email
+    send_email(@email, 'Welcome to Conflux', 'Ben from Conflux <ben@conflux.com>')
+  end
+
   def invite_new_user_to_team(user, inviter, team)
     @temp_password = user.password
     @email = user.email
@@ -26,7 +31,7 @@ class UserMailer < ActionMailer::Base
     send_email(@email, 'Your Conflux Password')
   end
 
-  def send_email(email, subject)
+  def send_email(email, subject, custom_from = nil)
     set_global_template_vars
 
     if email.present?
@@ -34,7 +39,9 @@ class UserMailer < ActionMailer::Base
 
         logger.info { "SENDING EMAIL TO: #{email}" }
 
-        mail(to: (ENV['MAIL_TO_OVERRIDE'] || email), subject: subject)
+        custom_from.present? ?
+          mail(to: ENV['MAIL_TO_OVERRIDE'] || email, subject: subject, from: custom_from) :
+          mail(to: ENV['MAIL_TO_OVERRIDE'] || email, subject: subject)
       else
         logger.info { 'NOT SENDING EMAIL: EMAIL EXISTS, BUT MAILER_PERFORM_DELIVERIES WAS NOT ENABLED' }
       end

@@ -18,7 +18,6 @@ module UserServices
     end
 
     def perform
-      # Either log in existing or sign up new user
       @sign_up ? new_user : existing_user
 
       ut = UserToken.new(user_id: @user.id, token: UUIDTools::UUID.random_create.to_s)
@@ -49,8 +48,6 @@ module UserServices
       )
 
       @user.save!
-
-      # Send Welcome Email
     end
 
   end
