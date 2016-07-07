@@ -53,6 +53,8 @@
   padding-top: 4px;
   white-space: nowrap;
   text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: calc(100% - 53px);
   color: white;
 }
 

@@ -19,11 +19,7 @@ class TeamUsersController < ApplicationController
         ).perform
       end
 
-      EventService.new(
-        @current_user,
-        'New User Invite',
-        props: { invited: params[:emails] }
-      ).delay.perform
+      track('New User Invite', { invited: params[:emails] })
 
       render json: { users: formatted_team_users }
     rescue Exception => e
