@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     get '/' => 'home#index'
     get '/explore' => 'home#explore'
     get '/toolbelt' => 'home#toolbelt'
+    get '/.well-known/acme-challenge/:id' => 'home#lets_encrypt'
 
   # KEYS ------------------------------------
 
