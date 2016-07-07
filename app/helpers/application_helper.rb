@@ -15,6 +15,8 @@ module ApplicationHelper
   }
 
   SLUGS_BLACKLIST = [
+    '.well-known',
+    'acme-challenge',
     'fonts',
     'explore',
     'toolbelt',

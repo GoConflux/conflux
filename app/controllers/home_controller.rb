@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
 
-  before_filter :check_for_current_user
+  before_filter :check_for_current_user, :except => [:lets_encrypt]
 
   def index
     if ENV['IS_CONFLUX_API']
@@ -25,6 +25,10 @@ class HomeController < ApplicationController
     get_user_teams_for_header(toolbelt: true)
     @landing_header = true
     render component: 'Toolbelt', props: { authed: @current_user.present? }
+  end
+
+  def lets_encrypt
+    render text: '1KoCEUuN8Ju1nxqWrOtL4Y9octDrwIwOQsAN1YIQ6Sc.LwOyKaHi5HG9-xeolKLPyl3qwynY6yTYKFN3Mbufst4'
   end
 
 end
