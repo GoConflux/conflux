@@ -41,7 +41,7 @@ var Toolbelt = React.createClass({
             <div className="numbered-title">1. Installing the Toolbelt</div>
             <div className="md-section-description">
               <div className="md-text">Download and install the toolbelt by running the following command in your command shell:</div>
-              <div className="md-shell"><span className="prompt">$</span> <span className="command">wget -O- http://goconflux.com/install.sh | sh</span></div>
+              <div className="md-shell"><span className="prompt">$</span> <span className="command">wget -O- https://goconflux.com/install.sh | sh</span></div>
             </div>
           </div>
           <div className="conflux-md-numbered-section">

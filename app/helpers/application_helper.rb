@@ -114,7 +114,7 @@ module ApplicationHelper
   end
 
   def platform_url
-    ENV['CONFLUX_PLATFORM_URL'] || 'http://www.goconflux.com'
+    ENV['CONFLUX_PLATFORM_URL'] || 'https://www.goconflux.com'
   end
 
   def app_for_user(user)
