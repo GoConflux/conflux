@@ -28,7 +28,7 @@ class HomeController < ApplicationController
   end
 
   def lets_encrypt
-    render text: 'BMBxGzS3lUnf1yhFC5tPWjl2TQ6ZewptQF8ilh-RBEY.LwOyKaHi5HG9-xeolKLPyl3qwynY6yTYKFN3Mbufst4'
+    render text: 'aTDAjdPE7mgbbfuINPUNlxnphGD7YPJNzAWJlKl8tg8.5N1uATCV_IDT70qlJ0nM9Dq3BM9lDMhG3r5qPJmUCkA'
   end
 
 end
