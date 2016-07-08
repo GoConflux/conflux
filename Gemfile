@@ -49,6 +49,6 @@ gem 'redis'
 
 gem 'slack-api'
 
-gem 'conflux', '1.0.2'
+gem 'conflux', '1.0.3'
 
 gem 'mixpanel-ruby'
