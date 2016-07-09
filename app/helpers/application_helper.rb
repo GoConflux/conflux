@@ -15,6 +15,7 @@ module ApplicationHelper
   }
 
   SLUGS_BLACKLIST = [
+    'downloads',
     'conflux-installer.pkg',
     '.well-known',
     'acme-challenge',
