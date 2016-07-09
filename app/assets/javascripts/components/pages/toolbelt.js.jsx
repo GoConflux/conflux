@@ -38,14 +38,14 @@ var Toolbelt = React.createClass({
         <div className="toolbelt-body conflux-container">
           <div className="before-getting-started md-text">Before getting started, make sure you have a Conflux account. If you haven't signed up yet, <a href="/signup">create an account</a>. Also check to <span className="feaux-link" onClick={this.scrollToSupportSection}>make sure your operating system and app's language are supported.</span></div>
           <div className="conflux-md-numbered-section">
-            <div className="numbered-title">1. Installing the Toolbelt</div>
+            <div className="numbered-title">1. Install the Toolbelt</div>
             <div className="md-section-description">
               <div className="md-text">Download and install the toolbelt by running the following command in your command shell:</div>
               <div className="md-shell"><span className="prompt">$</span> <span className="command">wget -O- https://goconflux.com/install.sh | sh</span></div>
             </div>
           </div>
           <div className="conflux-md-numbered-section">
-            <div className="numbered-title">2. Authentication</div>
+            <div className="numbered-title">2. Log in</div>
             <div className="md-section-description">
               <div className="md-text">Once installed, you'll have access to the <span className="md-shell">conflux</span> command from your command shell (Note: type <span className="md-shell">conflux help</span> at any time to see a list of available commands).</div>
               <div className="md-text">Log in using the email address and password you used when creating your Conflux account:</div>
@@ -59,7 +59,7 @@ var Toolbelt = React.createClass({
             </div>
           </div>
           <div className="conflux-md-numbered-section">
-            <div className="numbered-title">3. Connecting your project to a Conflux app</div>
+            <div className="numbered-title">3. Connect your project to a Conflux app</div>
             <div className="md-section-description">
               <div className="md-text">If you haven't created a Conflux team yet, go ahead and <span className="feaux-link" onClick={this.promptNewTeam}>create a new team</span>. Your team should come pre-configured with a local Conflux app &mdash; a group of conflux add-ons mapping to a specific environment.</div>
               <div className="sub-section">
