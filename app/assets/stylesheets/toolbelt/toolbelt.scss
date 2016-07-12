@@ -20,6 +20,89 @@
     max-width: 920px;
   }
 
+  .download-os-options-container {
+    width: 100%;
+    display: block;
+    height: 100px;
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    margin-bottom: 25px;
+  }
+
+  .os-option {
+    width: 33.33%;
+    float: left;
+    height: 100%;
+    display: inline-block;
+    text-align: center;
+    min-width: 140px;
+    cursor: pointer;
+    opacity: 0.3;
+    -webkit-transition: opacity 0.1s;
+    -moz-transition: opacity 0.1s;
+    -ms-transition: opacity 0.1s;
+    -o-transition: opacity 0.1s;
+    transition: opacity 0.1s;
+
+    &.selected,
+    &:hover {
+      opacity: 0.875;
+    }
+
+    .os-icon {
+      height: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  .download-btn-container {
+    width: 100%;
+    display: block;
+    float: left;
+    text-align: center;
+  }
+
+  .download-toolbelt {
+    text-decoration: none;
+    width: 50%;
+    background-color: $conflux-green;
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    height: 42px;
+    padding-top: 10px;
+    border-radius: 3px;
+    font-family: Avenir-Next-Thin;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 21px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    display: inline-block;
+
+    .download-icon {
+      margin-right: 10px;
+    }
+
+    &:hover {
+      text-decoration: none;
+      color: white;
+      background-color: #12D2D8;
+    }
+
+    &:active {
+      background-color: $conflux-green;
+    }
+  }
+
+  .manual-download {
+    display: none;
+    margin-top: 4px;
+  }
+
   .before-getting-started,
   .conflux-md-numbered-section,
   .numbered-title,
@@ -123,6 +206,26 @@
 
     .prompt {
       color: #B4B4BC;
+    }
+  }
+
+  .md-shell.relative {
+    .copy-to {
+      position: absolute;
+      right: 14px;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+      top: 15px;
+      opacity: 0.85;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      &:active {
+        opacity: 0.85;
+      }
     }
   }
 

@@ -1,7 +1,78 @@
 var Toolbelt = React.createClass({
 
+  osList: [
+    {
+      name: 'Mac OS X',
+      link: '/downloads/conflux-toolbelt.pkg'
+    },
+    {
+      name: 'Windows',
+      link: '/downloads/conflux-toolbelt.exe'
+    },
+    {
+      name: 'Linux',
+      link: '#',
+      manualDownload: true
+    }
+  ],
+
+  selectedOS: 0,
+
+  changeOS: function (e) {
+    var selectedIndex = Number($(e.target).closest('.os-option').attr('data-os-index'));
+
+    if (selectedIndex != this.selectedOS) {
+      this.selectedOS = selectedIndex;
+      var $selectedOSEl = $('[data-os-index=' + this.selectedOS + ']');
+      $selectedOSEl.siblings().removeClass('selected');
+      $selectedOSEl.addClass('selected');
+
+      var selectedInfo = this.getSelectedOS();
+
+      if (selectedInfo.manualDownload) {
+        $(this.downloadBtn).hide();
+        $(this.manualDownload).show();
+      } else {
+        $(this.manualDownload).hide();
+        $(this.downloadBtn).find('.btn-text').html('Conflux Toolbelt for ' + this.getSelectedOS().name);
+        $(this.downloadBtn).attr('href', this.getSelectedOS().link);
+        $(this.downloadBtn).show();
+      }
+    }
+  },
+
   setSupportSectionRef: function (ref) {
     this.supportSection = ref;
+  },
+
+  setDownloadBtnRef: function (ref) {
+    this.downloadBtn = ref;
+  },
+
+  setManualDownloadRef: function (ref) {
+    this.manualDownload = ref;
+  },
+
+  copyManualDownloadCmd: function () {
+    // Get command text to copy from .command element.
+    var textToCopy = $('.manual-download').find('.command').text();
+
+    // Create a new temporary input element that's hidden & append it to body.
+    var $tempInput = $('<input>', { class: 'wayyy-back' });
+    $('body').append($tempInput);
+
+    // Select this input element and copy it's text (the text we want).
+    $tempInput.val(textToCopy).select()
+
+    // Copy that shit.
+    document.execCommand("copy");
+
+    // Remove that shit.
+    $tempInput.remove();
+  },
+
+  getSelectedOS: function () {
+    return this.osList[this.selectedOS];
   },
 
   promptNewTeam: function () {
@@ -40,8 +111,24 @@ var Toolbelt = React.createClass({
           <div className="conflux-md-numbered-section">
             <div className="numbered-title">1. Install the Toolbelt</div>
             <div className="md-section-description">
-              <div className="md-text">Download and install the toolbelt by running the following command in your command shell:</div>
-              <div className="md-shell"><span className="prompt">$</span> <span className="command">wget -O- https://goconflux.com/install.sh | sh</span></div>
+              <div className="download-os-options-container">
+                <div className="os-option selected" data-os-index="0" onClick={this.changeOS} title="Max OS X">
+                  <img className="os-icon" src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/osx.svg" />
+                </div>
+                <div className="os-option" data-os-index="1" onClick={this.changeOS} title="Windows">
+                  <img className="os-icon" src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/windows.svg" />
+                </div>
+                <div className="os-option" data-os-index="2" onClick={this.changeOS} title="Linux">
+                  <img className="os-icon" src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/linux.svg" />
+                </div>
+              </div>
+              <div className="download-btn-container">
+                <a className="download-toolbelt" href={this.getSelectedOS().link} ref={this.setDownloadBtnRef}><i className="fa fa-download download-icon"></i><span className="btn-text">Conflux Toolbelt for {this.getSelectedOS().name}</span></a>
+                <div className="manual-download" ref={this.setManualDownloadRef}>
+                  <div className="md-text">For Linux, install the toolbelt by running the following in your command shell:</div>
+                  <div className="md-shell relative"><span className="prompt">$</span> <span className="command">wget -O- https://goconflux.com/install.sh | sh</span><i className="fa fa-clipboard copy-to" title="copy" onClick={this.copyManualDownloadCmd}></i></div>
+                </div>
+              </div>
             </div>
           </div>
           <div className="conflux-md-numbered-section">
@@ -163,8 +250,9 @@ var Toolbelt = React.createClass({
           <div className="support-title">Toolbelt Support</div>
           <div className="support-body">
             <div className="support-body-inner">
-              <div className="support-section"><span className="topic">Operating sytems:&nbsp;&nbsp;</span>Mac OS X, Linux, (Windows coming soon)</div>
+              <div className="support-section"><span className="topic">Operating systems:&nbsp;&nbsp;</span>Mac OS X, Windows, Linux</div>
               <div className="support-section"><span className="topic">Languages:&nbsp;&nbsp;</span>Ruby (Rails)</div>
+              <div className="support-section"><span className="topic">Dependencies:&nbsp;&nbsp;</span>ruby >= 2.0.0, wget/curl</div>
             </div>
           </div>
         </div>

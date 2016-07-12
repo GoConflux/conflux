@@ -101,6 +101,14 @@ ul {
   position: relative;
 }
 
+.hidden {
+  display: none;
+}
+
+.wayyy-back {
+  z-index: -999;
+}
+
 .left {
   float: left;
 }
