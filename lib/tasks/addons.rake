@@ -67,4 +67,29 @@ namespace :addons do
     puts "Successfully added support for Heroku addon #{@addon_name || addon_slug}"
   end
 
+  desc 'Renaming heroku-redis and heroku-postgresql to aws-redis and aws-pg, respectively.'
+  task :rename_heroku_addons => :environment do
+    heroku_redis = Addon.find_by(slug: 'heroku-redis')
+    heroku_pg = Addon.find_by(slug: 'heroku-postgresql')
+
+    if heroku_redis.present?
+      heroku_redis.update_attributes(
+        slug: 'aws-redis',
+        name: 'AWS Redis',
+        icon: 'http://confluxapp.s3-website-us-west-1.amazonaws.com/images/addons/aws-redis.svg',
+        heroku_alias: 'heroku-redis'
+      )
+    end
+
+    if heroku_pg.present?
+      heroku_pg.update_attributes(
+        slug: 'aws-pg',
+        name: 'AWS Postgres',
+        icon: 'http://confluxapp.s3-website-us-west-1.amazonaws.com/images/addons/aws-pg.svg',
+        tagline: 'Reliable and powerful PostgreSQL as a service.',
+        heroku_alias: 'heroku-postgresql'
+      )
+    end
+  end
+
 end

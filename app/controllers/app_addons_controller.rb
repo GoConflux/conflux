@@ -120,7 +120,7 @@ class AppAddonsController < ApplicationController
         # AppServices::ChangeAddonPlan.new(
         #   @current_user,
         #   @app_addon,
-        #   "#{addon.slug}:#{params[:plan]}"
+        #   "#{addon.heroku_slug}:#{params[:plan]}"
         # ).delay.perform
 
         track('Update Add-on Plan', { addon: addon.slug, plan: params[:plan] })

@@ -30,7 +30,7 @@ class Addon < ActiveRecord::Base
   end
 
   def basic_plan
-    "#{slug}:#{$addons[slug]['plans'].first['slug']}"
+    "#{self.heroku_slug}:#{$addons[slug]['plans'].first['slug']}"
   end
 
   def headline_features
@@ -61,6 +61,10 @@ class Addon < ActiveRecord::Base
         'cost' => (price.blank? || price.to_i == 0) ? 'FREE' : "$#{'%.2f' % price}"
       }
     }
+  end
+
+  def heroku_slug
+    heroku_alias || slug
   end
 
 end

@@ -63,17 +63,20 @@ module Heroku
 
     if app.heroku_app.present?
       begin
-        heroku.addon.delete(app.heroku_app, addon.slug)
+        heroku.addon.delete(app.heroku_app, addon.heroku_slug)
       rescue
-        puts "Failed to remove heroku addon #{addon.slug} from app with ID: #{app.id}"
+        puts "Failed to remove heroku addon #{addon.heroku_slug} from app with ID: #{app.id}"
       end
     end
   end
 
   # 'plan' is in format 'addon_slug:plan_slug'
   def self.update_plan(app_addon, plan)
-    if app_addon.app.heroku_app.present?
-      heroku.addon.update(app_addon.app.heroku_app, app_addon.addon.slug, { plan: plan })
+    app = app_addon.app
+    addon = app_addon.addon
+
+    if app.heroku_app.present?
+      heroku.addon.update(app.heroku_app, addon.heroku_slug, { plan: plan })
     end
   end
 

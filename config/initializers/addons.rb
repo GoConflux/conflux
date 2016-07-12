@@ -1,9 +1,13 @@
 require 'json'
 require 'open-uri'
 
-open('http://confluxapp.s3-website-us-west-1.amazonaws.com/files/addons.json') { |io|
-  $addons = JSON.parse(io.read)
-}
+if ENV['USE_LOCAL_ADDONS']
+  $addons = JSON.parse(File.read(File.join(Rails.root, 'config', 'addons.json')))
+else
+  open('http://confluxapp.s3-website-us-west-1.amazonaws.com/files/addons.json') { |io|
+    $addons = JSON.parse(io.read)
+  }
+end
 
 $jobs = {}
 
