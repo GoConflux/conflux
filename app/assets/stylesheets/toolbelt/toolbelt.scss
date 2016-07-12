@@ -37,7 +37,6 @@
     height: 100%;
     display: inline-block;
     text-align: center;
-    min-width: 140px;
     cursor: pointer;
     opacity: 0.3;
     -webkit-transition: opacity 0.1s;
@@ -96,6 +95,12 @@
     &:active {
       background-color: $conflux-green;
     }
+  }
+
+  .help-text {
+    display: none;
+    position: relative;
+    top: 4px;
   }
 
   .manual-download {
@@ -286,8 +291,56 @@
 
 @media (max-width: 699px) {
   #toolbelt {
+
     .subtitle {
       text-align: left;
     }
+
+    .download-toolbelt {
+      width: 90%;
+    }
+
+  }
+}
+
+
+@media (max-width: 599px) {
+  #toolbelt {
+
+    .download-os-options-container {
+      height: 75px;
+    }
+
+    .md-shell.relative {
+      .copy-to {
+        display: none;
+      }
+    }
+
+  }
+}
+
+@media (max-width: 475px) {
+  #toolbelt {
+
+    .download-os-options-container {
+      height: 65px;
+    }
+
+    .manual-download > .md-text,
+    .help-text {
+      font-size: 14px !important;
+    }
+
+  }
+}
+
+@media (max-width: 399px) {
+  #toolbelt {
+
+    .download-os-options-container {
+      height: 45px;
+    }
+
   }
 }

@@ -7,7 +7,8 @@ var Toolbelt = React.createClass({
     },
     {
       name: 'Windows',
-      link: '/downloads/conflux-toolbelt.exe'
+      link: '/downloads/conflux-toolbelt.exe',
+      helpText: "On Windows, make sure to <span class=\"md-text-strong\">Run as Administrator</span> and add <span class=\"md-text-strong no-wrap\">C:\\Program Files\\conflux\\bin</span> to your path."
     },
     {
       name: 'Linux',
@@ -31,12 +32,17 @@ var Toolbelt = React.createClass({
 
       if (selectedInfo.manualDownload) {
         $(this.downloadBtn).hide();
+        $(this.helpText).hide();
         $(this.manualDownload).show();
       } else {
         $(this.manualDownload).hide();
         $(this.downloadBtn).find('.btn-text').html('Conflux Toolbelt for ' + this.getSelectedOS().name);
         $(this.downloadBtn).attr('href', this.getSelectedOS().link);
         $(this.downloadBtn).show();
+
+        selectedInfo.helpText ?
+          $(this.helpText).html(selectedInfo.helpText).show() :
+          $(this.helpText).hide();
       }
     }
   },
@@ -51,6 +57,10 @@ var Toolbelt = React.createClass({
 
   setManualDownloadRef: function (ref) {
     this.manualDownload = ref;
+  },
+
+  setHelpTextRef: function (ref) {
+    this.helpText = ref;
   },
 
   copyManualDownloadCmd: function () {
@@ -123,6 +133,7 @@ var Toolbelt = React.createClass({
                 </div>
               </div>
               <div className="download-btn-container">
+                <div className="help-text md-text" ref={this.setHelpTextRef}></div>
                 <a className="download-toolbelt" href={this.getSelectedOS().link} ref={this.setDownloadBtnRef}><i className="fa fa-download download-icon"></i><span className="btn-text">Conflux Toolbelt for {this.getSelectedOS().name}</span></a>
                 <div className="manual-download" ref={this.setManualDownloadRef}>
                   <div className="md-text">For Linux, install the toolbelt by running the following in your command shell:</div>
