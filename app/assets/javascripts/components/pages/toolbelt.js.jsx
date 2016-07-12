@@ -12,7 +12,6 @@ var Toolbelt = React.createClass({
     },
     {
       name: 'Linux',
-      link: '#',
       manualDownload: true
     }
   ],
@@ -61,6 +60,10 @@ var Toolbelt = React.createClass({
 
   setHelpTextRef: function (ref) {
     this.helpText = ref;
+  },
+
+  registerDownload: function () {
+    mixpanel.track('Toolbelt Download', { os: this.getSelectedOS().name });
   },
 
   copyManualDownloadCmd: function () {
@@ -134,7 +137,7 @@ var Toolbelt = React.createClass({
               </div>
               <div className="download-btn-container">
                 <div className="help-text md-text" ref={this.setHelpTextRef}></div>
-                <a className="download-toolbelt" href={this.getSelectedOS().link} ref={this.setDownloadBtnRef}><i className="fa fa-download download-icon"></i><span className="btn-text">Conflux Toolbelt for {this.getSelectedOS().name}</span></a>
+                <a className="download-toolbelt" href={this.getSelectedOS().link} ref={this.setDownloadBtnRef} onClick={this.registerDownload}><i className="fa fa-download download-icon"></i><span className="btn-text">Conflux Toolbelt for {this.getSelectedOS().name}</span></a>
                 <div className="manual-download" ref={this.setManualDownloadRef}>
                   <div className="md-text">For Linux, install the toolbelt by running the following in your command shell:</div>
                   <div className="md-shell relative"><span className="prompt">$</span> <span className="command">wget -O- https://goconflux.com/install.sh | sh</span><i className="fa fa-clipboard copy-to" title="copy" onClick={this.copyManualDownloadCmd}></i></div>
