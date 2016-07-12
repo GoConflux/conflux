@@ -162,11 +162,11 @@ var Toolbelt = React.createClass({
           <div className="conflux-md-numbered-section">
             <div className="numbered-title">3. Connect your project to a Conflux app</div>
             <div className="md-section-description">
-              <div className="md-text">If you haven't created a Conflux team yet, go ahead and <span className="feaux-link" onClick={this.promptNewTeam}>create a new team</span>. Your team should come pre-configured with a local Conflux app &mdash; a group of conflux add-ons mapping to a specific environment.</div>
+              <div className="md-text">If you haven't created a Conflux team yet, go ahead and <span className="feaux-link" onClick={this.promptNewTeam}>create a new team</span>. Your team should come pre-configured with a local Conflux app (a group of add-ons mapping to a specific app environment).</div>
               <div className="sub-section">
                 <div className="sub-section-title">Local Directory</div>
                 <div className="md-section-description">
-                  <div className="md-text">To establish which Conflux app to use for a local project, run <span className="md-shell">conflux init</span> from inside that project's root directory and choose the app you wish to use:</div>
+                  <div className="md-text">To establish which Conflux app to use with a project's local environment, run <span className="md-shell">conflux init</span> from inside that project's root directory and choose the app you wish to use:</div>
                   <div className="md-shell">
                     <span className="prompt">my-app $</span> <span className="command">conflux init</span><br/>
                     <br/>
@@ -181,39 +181,35 @@ var Toolbelt = React.createClass({
                     <span className="command">1</span><br/>
                     Configuring manifest.json...<br/>
                     Installing conflux ruby gem...<br/>
+                    Adding conflux to Gemfile...<br/>
                     Successfully connected project to conflux app: myteam-local
                   </div>
-                  <div className="md-text">Once this connection is established, run <span className="md-shell">conflux pull</span> to check if any jobs need to be run to finish configuring your add-ons:</div>
+                  <div className="md-text">Once this connection is established, you can go ahead and start provisioning some add-ons for your app. As an example, here is all it takes to spin up a new Redis To Go instance for your app:</div>
                   <div className="md-shell">
-                    <span className="prompt">my-app $</span> <span className="command">conflux pull</span><br/>
+                    <span className="prompt">my-app $</span> <span className="command">conflux addons:add redistogo</span><br/>
+                    Successfully added redistogo to myteam-local.<br/>
                     Writing configs to conflux.yml...<br/>
-                    Found 2 new jobs for redistogo.<br/>
+                    Found 3 new jobs for redistogo...<br/>
                     Installing redis ruby gem...<br/>
-                    Creating file: config/initializers/redis.rb<br/>
-                    Done.<br/>
+                    Adding redis to Gemfile...<br/>
+                    Creating file: config/initializers/redistogo.rb<br/>
+                    Creating file: .conflux/redistogo/getting_started.rb<br/>
+                    Done.
                   </div>
-                  <div className="md-text">At this point, you can view the <span className="md-shell">.conflux/conflux.yml</span> file inside your project's root directory to see which configs will be available when you boot your server. For example:</div>
+                  <div className="md-text">Now that Redis To Go has been provisioned, if you run <span className="md-shell">conflux configs</span>, you should see that <span className="md-shell">REDISTOGO_URL</span> has been added to the list of configs that are automatically made available when you boot your server.</div>
                   <div className="md-shell">
-                    <span className="prompt">my-app $</span> <span className="command">cat .conflux/conflux.yml</span><br/>
-                    <br/>
-                    # CONFLUX CONFIG VARS:<br/>
-                    <br/>
-                    # All config vars seen here are in use and pulled from Conflux.<br/>
-                    # If any are ever overwritten, they will be marked with "Overwritten"<br/>
-                    # If you ever wish to overwrite any of these, do so inside of a config/application.yml file.<br/>
-                    <br/>
-                    # Redis To Go<br/>
+                    <span className="prompt">my-app $</span> <span className="command">conflux configs</span><br/>
                     REDISTOGO_URL<br/>
-                    <br/>
-                    # PubNub<br/>
-                    PUBNUB_PUBLISH_KEY<br/>
-                    PUBNUB_SUBSCRIBE_KEY<br/>
-                    PUBNUB_TEST_CHANNEL  # My custom config<br/>
-                    <br/>
-                    # SendGrid<br/>
-                    SENDGRID_PASSWORD<br/>
-                    SENDGRID_USERNAME<br/>
+                    ...
                   </div>
+                  <div className="md-text">Since Conflux ran a job to create a <span className="md-shell">redistogo.rb</span> initializer file, you should already have a <span className="md-shell">$redis</span> global variable pointing to your new redis instance:</div>
+                  <div className="md-shell">
+                    <span className="prompt">my-app $</span> <span className="command">rails console</span><br/>
+                    Loading development environment (Rails 4.x.x)<br/>
+                    2.x.x :001 > <span className="command">$redis</span><br/>
+                    => #&#60;Redis client v3.3.0 for redis://catfish.redistogo.com:10837/0&#62;
+                  </div>
+                  <div className="md-text">That's it! One command is all it takes to get up and running with almost any add-on. Each add-on also comes with a <span className="md-shell">getting_started</span> file of example code and/or further implementation of the service. You can find these files inside your <span className="md-shell">.conflux/</span> directory.</div>
                 </div>
               </div>
               <div className="sub-section">
