@@ -71,7 +71,7 @@
     color: white;
     font-size: 18px;
     text-align: center;
-    height: 42px;
+    height: 43px;
     padding-top: 10px;
     border-radius: 3px;
     font-family: Avenir-Next-Thin;
@@ -325,6 +325,12 @@
 
     .download-os-options-container {
       height: 65px;
+    }
+
+    .download-toolbelt {
+      font-size: 17px;
+      font-family: Avenir-Next-Regular;
+      height: 44px;
     }
 
     .manual-download > .md-text,
