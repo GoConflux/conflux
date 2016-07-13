@@ -184,7 +184,7 @@ var Toolbelt = React.createClass({
                     Adding conflux to Gemfile...<br/>
                     Successfully connected project to conflux app: myteam-local
                   </div>
-                  <div className="md-text">Once this connection is established, you can go ahead and start provisioning some add-ons for your app. As an example, here is all it takes to spin up a new Redis To Go instance for your app:</div>
+                  <div className="md-text">Once this connection is established, you can go ahead and start provisioning some add-ons for your app. For example, the following is all it takes to spin up a new Redis To Go instance for your app:</div>
                   <div className="md-shell">
                     <span className="prompt">my-app $</span> <span className="command">conflux addons:add redistogo</span><br/>
                     Successfully added redistogo to myteam-local.<br/>
@@ -209,7 +209,7 @@ var Toolbelt = React.createClass({
                     2.x.x :001 > <span className="command">$redis</span><br/>
                     => #&#60;Redis client v3.3.0 for redis://catfish.redistogo.com:10837/0&#62;
                   </div>
-                  <div className="md-text">That's it! One command is all it takes to get up and running with almost any add-on. Each add-on also comes with a <span className="md-shell">getting_started</span> file of example code and/or further implementation of the service. You can find these files inside your <span className="md-shell">.conflux/</span> directory.</div>
+                  <div className="md-text">That's it! One command is all it takes to get up and running with almost all Conflux add-ons. Each add-on also comes with a <span className="md-shell">getting_started</span> file showing example code and further implementation of the service. You can find these files inside of your <span className="md-shell">.conflux/</span> directory.</div>
                 </div>
               </div>
               <div className="sub-section">
