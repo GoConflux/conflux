@@ -13,7 +13,12 @@ class AppAddonsApiController < ApplicationController
       return
     end
 
-    plan = @addon.basic_plan_slug if params[:plan].nil? || !@addon.has_plan?(params[:plan])
+    plan = params[:plan]
+
+    # If no plan passed in or the plan passed in isn't actually valid, default to the basic plan.
+    if plan.nil? || !@addon.has_plan?(plan)
+      plan = @addon.basic_plan_slug
+    end
 
     begin
       with_transaction do
