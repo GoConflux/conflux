@@ -404,6 +404,10 @@
     text-decoration: none;
     background-color: #12D2D8;
   }
+
+  &.extra-padding {
+    padding: 12px 36px;
+  }
 }
 
 @media (max-width: 1048px) {
