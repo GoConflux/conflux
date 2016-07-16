@@ -1,5 +1,6 @@
 class AddonsController < ApplicationController
 
+  before_filter :check_for_current_user, :only => [:suggest]
   before_filter :set_addon, :only => [:addon]
   before_filter :addon_by_uuid, :only => [:modal_info]
 
@@ -55,6 +56,21 @@ class AddonsController < ApplicationController
       plans: @addon.plans,
       headline_features: @addon.headline_features
     }
+  end
+
+  def suggest
+    begin
+      Slack.chat_postMessage(
+        channel: ENV['SLACK_FEEDBACK_CHANNEL'],
+        username: 'New Add-on Suggestion',
+        text: "Add-on: #{params[:addon]}\nFrom#{@current_user.try(:email) || 'Unknown'}",
+        icon_url: 'http://confluxapp.s3-website-us-west-1.amazonaws.com/images/conflux-icon-white-blue-bg.png'
+      )
+    rescue => e
+      puts "Error posting Add-on Suggestion to Slack, with error #{e.message}"
+    end
+
+    render json: {}, status: 200
   end
 
 end

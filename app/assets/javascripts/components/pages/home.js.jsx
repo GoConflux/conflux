@@ -171,9 +171,9 @@ var Home = React.createClass({
               </div>
             </div>
           </div>
-          <a href="/toolbelt" className="toolbelt-link">
+          <a href="/toolbelt" className="sub-footer-action-section">
             <div className="home-section get-toolbelt">
-              <div className="get-toolbelt-text"><i className="fa fa-terminal"></i> Get started with the open source <span className="toolbelt-text">Conflux Toolbelt</span>.</div>
+              <div className="sub-footer-action-text-container"><i className="fa fa-terminal"></i> Get started with the open source <span className="sub-footer-action-text">Conflux Toolbelt</span>.</div>
             </div>
           </a>
         </div>

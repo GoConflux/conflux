@@ -118,6 +118,10 @@ var Modal = React.createClass({
         declineText: 'No',
         headerText: 'Remove Add-on'
       },
+      'addon:suggest': {
+        body: <SuggestAddonModal data={this.data} ref={this.setCurrentModal}/>,
+        confirmText: 'Submit'
+      },
       'key:update': {
         body: <KeyUpdateModal data={this.data} ref={this.setCurrentModal}/>,
         confirmText: 'Save',

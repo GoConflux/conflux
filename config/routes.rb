@@ -50,6 +50,7 @@ Rails.application.routes.draw do
     get '/addons/modal_info' => 'addons#modal_info'
     get '/addons/:addon_slug' => 'addons#addon'
     get '/addons' => 'addons#index'
+    post '/addons/suggest' => 'addons#suggest'
 
     # API:
     get '/api/addons/for_app' => 'addons_api#for_app'

@@ -18,6 +18,10 @@ var Explore = React.createClass({
     $('html, body').animate({ scrollTop: topOfSelectedCategory - 26 }, 500);
   },
 
+  showSuggestAnAddon: function () {
+    React.modal.show('addon:suggest');
+  },
+
   render: function() {
     return (
       <div id="explore">
@@ -32,6 +36,11 @@ var Explore = React.createClass({
             <div className="items">{this.getCategoryNames()}</div>
           </div>
           <CategoryAddons data={this.props} ref={this.setCategoryAddonsRef} />
+        </div>
+        <div onClick={this.showSuggestAnAddon} className="sub-footer-action-section">
+          <div className="sub-footer-action-section-inner">
+            <div className="sub-footer-action-text-container">Have an Add-on suggestion? <span className="sub-footer-action-text">Let us know!</span></div>
+          </div>
         </div>
         <LandingFooter />
       </div>
