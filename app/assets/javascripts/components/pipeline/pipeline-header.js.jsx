@@ -51,7 +51,7 @@ var PipelineHeader = React.createClass({
           <div className="pipeline-description">{this.getDescription()}</div>
         </div>
         <div className="pipeline-header-right">
-          <div onClick={this.onNewAppClick} className="new-app-btn">New App&nbsp;&nbsp;<span className="plus">+</span></div>
+          <div onClick={this.onNewAppClick} className="new-app-btn">New Bundle&nbsp;&nbsp;<span className="plus">+</span></div>
         </div>
       </div>
     );

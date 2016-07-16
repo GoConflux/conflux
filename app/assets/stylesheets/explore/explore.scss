@@ -147,10 +147,32 @@
   }
 }
 
+#explore {
+  .sub-footer-action-section-inner {
+    padding: 60px;
+
+    .sub-footer-action-text-container {
+      font-size: 25px;
+    }
+  }
+}
+
 @media (max-width: 699px) {
   #explore {
     .subtitle {
       text-align: left;
+    }
+  }
+}
+
+@media (max-width: 617px) {
+  #explore {
+    .sub-footer-action-section-inner {
+      padding: 25px;
+
+      .sub-footer-action-text-container {
+        font-size: 24px;
+      }
     }
   }
 }

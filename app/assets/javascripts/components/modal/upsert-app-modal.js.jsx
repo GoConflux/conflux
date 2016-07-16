@@ -84,7 +84,7 @@ var UpsertAppModal = React.createClass({
 
     return (
       <div className="create-app-modal">
-        <ModalNameInput placeholder={'App name'} defaultName={this.props.data.defaultName} onKeyUp={this.onNameInputKeyUp} ref={this.setNameInputRef} />
+        <ModalNameInput placeholder={'Bundle name'} defaultName={this.props.data.defaultName} onKeyUp={this.onNameInputKeyUp} ref={this.setNameInputRef} />
         <ModalSelect data={this.formatSelectData()} ref={function(ref){ self.tierSelectComp = ref; }}/>
       </div>
     );

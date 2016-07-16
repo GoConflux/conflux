@@ -462,3 +462,9 @@ $modal-width: 400px;
   padding-left: 0;
   padding-right: 0;
 }
+
+.suggest-addon-modal {
+  .modal-name-input-container {
+    padding: 9px 15px;
+  }
+}

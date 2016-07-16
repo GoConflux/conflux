@@ -33,7 +33,7 @@
 .pipeline-header-left {
   float: left;
   display: inline-block;
-  width: calc(100% - 105px);
+  width: calc(100% - 125px);
 
   .pipeline-icon,
   .pipeline-name,
@@ -81,7 +81,6 @@
 
   .new-app-btn {
     float: right;
-    width: 95px;
     height: 32px;
     line-height: 28px;
     margin-top: 9px;
@@ -92,6 +91,7 @@
     font-size: 12px;
     font-family: Avenir-Next-Medium;
     cursor: pointer;
+    padding: 0 9px;
 
     .plus {
       font-size: 18px;

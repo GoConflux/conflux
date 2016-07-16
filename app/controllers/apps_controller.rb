@@ -40,7 +40,7 @@ class AppsController < ApplicationController
           tier_id: @tier.id
         )
 
-        track('New App', { team: @tier.pipeline.team.slug })
+        track('New Bundle', { team: @tier.pipeline.team.slug })
 
         render json: {
           updated_tier: @tier.uuid,

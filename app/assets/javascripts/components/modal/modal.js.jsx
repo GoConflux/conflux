@@ -91,18 +91,18 @@ var Modal = React.createClass({
       'app:create': {
         body: <UpsertAppModal data={this.data} isNew={true} ref={this.setCurrentModal}/>,
         confirmText: 'Create',
-        headerText: 'New App'
+        headerText: 'New Bundle'
       },
       'app:update': {
         body: <UpsertAppModal data={this.data} isNew={false} ref={this.setCurrentModal}/>,
         confirmText: 'Save',
-        headerText: 'Edit App'
+        headerText: 'Edit Bundle'
       },
       'app:delete': {
         body: <DeleteAppModal data={this.data} ref={this.setCurrentModal}/>,
         confirmText: 'Yes, delete it.',
         declineText: 'No',
-        headerText: 'Delete App'
+        headerText: 'Delete Bundle'
       },
       'addon:create': {
         body: <UpsertAddonModal data={this.data} isNew={true} ref={this.setCurrentModal}/>,
@@ -120,7 +120,8 @@ var Modal = React.createClass({
       },
       'addon:suggest': {
         body: <SuggestAddonModal data={this.data} ref={this.setCurrentModal}/>,
-        confirmText: 'Submit'
+        confirmText: 'Submit',
+        headerText: 'Suggest an Add-on'
       },
       'key:update': {
         body: <KeyUpdateModal data={this.data} ref={this.setCurrentModal}/>,

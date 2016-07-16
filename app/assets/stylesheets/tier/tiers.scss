@@ -88,7 +88,8 @@
           float: left;
         }
 
-        .app-icon {
+        .app-icon,
+        .clone-icon {
           width: 24px;
           height: 24px;
           margin-top: 16px;
@@ -100,12 +101,38 @@
           color: $header-dark-text-color;
           font-size: 14px;
           padding-top: 17px;
-          width: calc(100% - 72px);
+          width: calc(100% - 72px - 62px);
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
         }
 
+        .clone-icon {
+          float: right;
+          display: inline-block;
+          font-size: 19px;
+          text-align: center;
+          padding-top: 2px;
+          color: rgba(0,0,0,0.3);
+          margin-right: 22px;
+          opacity: 0;
+          -webkit-transition: opacity 0.15s;
+          -moz-transition: opacity 0.15s;
+          -ms-transition: opacity 0.15s;
+          -o-transition: opacity 0.15s;
+          transition: opacity 0.15s;
+        }
+
+      }
+
+      &:hover {
+        .clone-icon {
+          opacity: 1;
+        }
+      }
+
+      .tooltip-inner {
+        max-width: 125px;
       }
 
     }
@@ -116,4 +143,23 @@
 
   }
 
+}
+
+@media (max-width: 579px) {
+  // goddamn it sass
+  #tiersList {
+    .tier-apps-list {
+      li {
+        .app-list-item {
+          .app-name {
+            width: calc(100% - 72px);
+          }
+
+          .clone-icon {
+            display: none;
+          }
+        }
+      }
+    }
+  }
 }

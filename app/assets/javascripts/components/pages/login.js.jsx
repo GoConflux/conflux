@@ -64,7 +64,6 @@ var Login = React.createClass({
   onLoginClick: function () {
     var data = this.state.sign_up ? {
       email: $(this.email).val().trim(),
-      name: $(this.name).val().trim(),
       password: $(this.password).val().trim(),
       sign_up: true
     } : {

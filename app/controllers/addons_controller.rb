@@ -63,7 +63,7 @@ class AddonsController < ApplicationController
       Slack.chat_postMessage(
         channel: ENV['SLACK_FEEDBACK_CHANNEL'],
         username: 'New Add-on Suggestion',
-        text: "Add-on: #{params[:addon]}\nFrom#{@current_user.try(:email) || 'Unknown'}",
+        text: "#{params[:addon]}\nFrom: #{@current_user.try(:email) || 'Unknown'}",
         icon_url: 'http://confluxapp.s3-website-us-west-1.amazonaws.com/images/conflux-icon-white-blue-bg.png'
       )
     rescue => e

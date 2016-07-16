@@ -347,6 +347,7 @@
   width: 100%;
   float: left;
   text-decoration: none;
+  cursor: pointer;
 
   .sub-footer-action-text {
     border-bottom: 1px solid transparent;
@@ -355,6 +356,7 @@
     -ms-transition: all 0.125s;
     -o-transition: all 0.125s;
     transition: all 0.125s;
+    white-space: nowrap;
   }
 
   &:hover {
@@ -483,14 +485,6 @@
       .sub-footer-action-text-container {
         font-size: 24px;
       }
-    }
-  }
-
-  .sub-footer-action-section-inner {
-    padding: 25px;
-
-    .sub-footer-action-text-container {
-      font-size: 24px;
     }
   }
 }

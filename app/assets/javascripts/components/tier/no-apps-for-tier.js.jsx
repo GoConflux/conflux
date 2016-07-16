@@ -34,10 +34,10 @@ var NoAppsForTier = React.createClass({
 
   getText: function () {
     if (this.props.preventNewAppsForTier) {
-      return <span>No apps exist yet for this tier.</span>;
+      return <span>No bundles exist yet for this tier.</span>;
     }
 
-    return <span>No apps exist yet for this tier.&nbsp;&nbsp;<span onClick={this.showAddNewApp} className="add-first-app-to-tier">Click to add one.</span></span>;
+    return <span>No bundles exist yet for this tier.&nbsp;&nbsp;<span onClick={this.showAddNewApp} className="add-first-app-to-tier">Click to add one.</span></span>;
   },
 
   render: function() {

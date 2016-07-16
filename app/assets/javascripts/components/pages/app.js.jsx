@@ -64,7 +64,7 @@ var App = React.createClass({
         }
       },
       {
-        text: 'Delete App',
+        text: 'Delete Bundle',
         iconClasses: 'fa fa-trash',
         onClick: function () {
           self.confirmDeleteApp();

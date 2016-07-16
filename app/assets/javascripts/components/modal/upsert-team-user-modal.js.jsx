@@ -18,29 +18,29 @@ var UpsertTeamUserModal = React.createClass({
   // The order of these maps to the order of roleSelectionData[] above
   roleInfo: [
     {
-      'Read/Write access to all Non-production apps': 'yes',
-      'Read access to Production apps': 'no',
-      'Write access to Production apps': 'no',
+      'Read/Write access to all Non-production bundles': 'yes',
+      'Read access to Production bundles': 'no',
+      'Write access to Production bundles': 'no',
       'Can invite new team members': 'no'
     },
     {
-      'Read/Write access to all Non-production apps': 'yes',
-      'Read access to Production apps': 'yes',
-      'Write access to Production apps': 'no',
+      'Read/Write access to all Non-production bundles': 'yes',
+      'Read access to Production bundles': 'yes',
+      'Write access to Production bundles': 'no',
       'Can invite new team members': 'no'
     },
     {
-      'Read/Write access to all Non-production apps': 'yes',
-      'Read access to Production apps': 'yes',
-      'Write access to Production apps': 'yes',
+      'Read/Write access to all Non-production bundles': 'yes',
+      'Read access to Production bundles': 'yes',
+      'Write access to Production bundles': 'yes',
       'Can invite new team members': 'yes'
     }
   ],
 
   headlineFeatures: [
-    'Read/Write access to all Non-production apps',
-    'Read access to Production apps',
-    'Write access to Production apps',
+    'Read/Write access to all Non-production bundles',
+    'Read access to Production bundles',
+    'Write access to Production bundles',
     'Can invite new team members'
   ],
 

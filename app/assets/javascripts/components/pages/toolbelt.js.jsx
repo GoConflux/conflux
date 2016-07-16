@@ -75,7 +75,7 @@ var Toolbelt = React.createClass({
     $('body').append($tempInput);
 
     // Select this input element and copy it's text (the text we want).
-    $tempInput.val(textToCopy).select()
+    $tempInput.val(textToCopy).select();
 
     // Copy that shit.
     document.execCommand("copy");
@@ -160,17 +160,17 @@ var Toolbelt = React.createClass({
             </div>
           </div>
           <div className="conflux-md-numbered-section">
-            <div className="numbered-title">3. Connect your project to a Conflux app</div>
+            <div className="numbered-title">3. Connect your app to a Conflux bundle</div>
             <div className="md-section-description">
-              <div className="md-text">If you haven't created a Conflux team yet, go ahead and <span className="feaux-link" onClick={this.promptNewTeam}>create a new team</span>. Your team should come pre-configured with a local Conflux app (a group of add-ons mapping to a specific app environment).</div>
+              <div className="md-text">If you haven't created a Conflux team yet, go ahead and <span className="feaux-link" onClick={this.promptNewTeam}>create a new team</span>. Your team should already come pre-configured with an empty Conflux bundle (i.e. a bundle of add-ons).</div>
               <div className="sub-section">
                 <div className="sub-section-title">Local Directory</div>
                 <div className="md-section-description">
-                  <div className="md-text">To establish which Conflux app to use with a project's local environment, run <span className="md-shell">conflux init</span> from inside that project's root directory and choose the app you wish to use:</div>
+                  <div className="md-text">To establish which Conflux bundle to use with your project's local environment, run <span className="md-shell">conflux init</span> from inside that project's root directory and choose the bundle you wish to use:</div>
                   <div className="md-shell">
                     <span className="prompt">my-app $</span> <span className="command">conflux init</span><br/>
                     <br/>
-                    Which Conflux app does this project belong to?<br/>
+                    Which Conflux bundle do you wish to use for this project?<br/>
                     <br/>
                     MyTeam:<br/>
                     <br/>
@@ -182,9 +182,9 @@ var Toolbelt = React.createClass({
                     Configuring manifest.json...<br/>
                     Installing conflux ruby gem...<br/>
                     Adding conflux to Gemfile...<br/>
-                    Successfully connected project to conflux app: myteam-local
+                    Successfully connected project to conflux bundle: myteam-local
                   </div>
-                  <div className="md-text">Once this connection is established, you can go ahead and start provisioning some add-ons for your app. For example, the following is all it takes to spin up a new Redis To Go instance for your app:</div>
+                  <div className="md-text">Once this connection is established, you can go ahead and start provisioning some add-ons for your bundle. For example, the following is all it takes to spin up a new Redis To Go instance for your app:</div>
                   <div className="md-shell">
                     <span className="prompt">my-app $</span> <span className="command">conflux addons:add redistogo</span><br/>
                     Successfully added redistogo to myteam-local.<br/>
@@ -217,11 +217,11 @@ var Toolbelt = React.createClass({
                 <div className="md-section-description">
                   <div className="md-text">Instead of relying on the toolbelt to establish a Conflux connection on a remote server, you can utilize a rake task built into the <a href="https://github.com/GoConflux/conflux-rb" target="_blank">Conflux ruby gem</a> to do just that:</div>
                   <div className="md-shell">
-                    <span className="prompt">my-remote-app $</span> <span className="command">bundle exec rake conflux:set_app</span><br/>
+                    <span className="prompt">my-remote-app $</span> <span className="command">bundle exec rake conflux:use_bundle</span><br/>
                     Email: ben@example.com<br/>
                     Password (typing will be hidden):<br/>
                     <br/>
-                    Which Conflux app does this project belong to?<br/>
+                    Which Conflux bundle does this project belong to?<br/>
                     <br/>
                     MyTeam:<br/>
                     <br/>
@@ -231,19 +231,19 @@ var Toolbelt = React.createClass({
                     <br/>
                     <span className="command">1</span><br/>
                     Configuring manifest.json...<br/>
-                    Successfully connected project to conflux app: myteam-local<br/>
+                    Successfully connected project to conflux bundle: myteam-local<br/>
                   </div>
                 </div>
               </div>
               <div className="sub-section">
                 <div className="sub-section-title">Heroku App</div>
                 <div className="md-section-description">
-                  <div className="md-text">Connecting a Heroku app to a Conflux app can be done in just one command:</div>
-                  <div className="md-shell"><span className="prompt">$</span> <span className="command">conflux apps:heroku_use my-conflux-app -a my-heroku-app</span><br/>
+                  <div className="md-text">Connecting a Heroku app to a Conflux bundle can be done in just one command:</div>
+                  <div className="md-shell"><span className="prompt">$</span> <span className="command">conflux apps:heroku_use my-conflux-bundle -a my-heroku-app</span><br/>
                     Setting CONFLUX_USER, CONFLUX_APP and restarting ⬢ my-heroku-app... done, v133<br/>
                     CONFLUX_APP:  XXXXXXXX-XXXX-XXXX-XXXXX-XXXXXXXXXXXX<br/>
                     CONFLUX_USER: XXXXXXXX-XXXX-XXXX-XXXXX-XXXXXXXXXXXX<br/>
-                    Successfully connected Heroku app 'my-heroku-app' to conflux app 'my-conflux-app'.<br/>
+                    Successfully connected Heroku app 'my-heroku-app' to conflux bundle 'my-conflux-bundle'.<br/>
                   </div>
                 </div>
               </div>
@@ -252,7 +252,7 @@ var Toolbelt = React.createClass({
           <div className="conflux-md-numbered-section">
             <div className="numbered-title">4. Start using your Add-ons</div>
             <div className="md-section-description">
-              <div className="md-text">Once your project is connected to the Conflux app of your choice, your add-ons will automatically be made available any time you start up your server. This way, you can stop worrying about setup and get back to building out your app. Enjoy your add-ons!</div>
+              <div className="md-text">Once your project is connected to the Conflux bundle of your choice, your add-ons will automatically be made available any time you start up your server. This way, you can stop worrying about setup and get back to building out your app. Enjoy your add-ons!</div>
             </div>
           </div>
         </div>
