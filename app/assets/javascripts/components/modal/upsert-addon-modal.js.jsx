@@ -35,7 +35,8 @@ var UpsertAddonModal = React.createClass({
       options: this.props.data.plans.map(function (plan) {
         return {
           text: plan.name + '  -  ' + plan.displayPrice,
-          value: plan.slug
+          value: plan.slug,
+          disabled: plan.disabled == 'true'
         };
       })
     };

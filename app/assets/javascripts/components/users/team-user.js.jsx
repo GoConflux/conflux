@@ -51,7 +51,7 @@ var TeamUser = React.createClass({
 
   getUserPic: function () {
     var classes = this.props.data.pic ? '' : 'no-pic';
-    var src = this.props.data.pic || 'http://confluxapp.s3-website-us-west-1.amazonaws.com/images/user.svg';
+    var src = this.props.data.pic || (React.cloudfront + '/images/user.svg');
     return <img src={src} className={classes} />;
   },
 

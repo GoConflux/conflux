@@ -126,7 +126,7 @@ var AppAddon = React.createClass({
       return;
     }
 
-    return <div className="settings-icon-container"><img src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/gear.png" id="settingsIcon"/><Dropdown customID={'appAddonSettingsDropdown'} data={this.getSettingsDropdownOptions()} ref={this.setDropdownRef} /></div>;
+    return <div className="settings-icon-container"><img src={React.cloudfront + '/images/gear.png'} id="settingsIcon"/><Dropdown customID={'appAddonSettingsDropdown'} data={this.getSettingsDropdownOptions()} ref={this.setDropdownRef} /></div>;
   },
 
   getAddonDescription: function () {

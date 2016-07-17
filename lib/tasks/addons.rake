@@ -76,7 +76,7 @@ namespace :addons do
       heroku_redis.update_attributes(
         slug: 'aws-redis',
         name: 'AWS Redis',
-        icon: 'http://confluxapp.s3-website-us-west-1.amazonaws.com/images/addons/aws-redis.svg',
+        icon: "#{ENV['CLOUDFRONT_URL']}/images/addons/aws-redis.svg",
         heroku_alias: 'heroku-redis'
       )
     end
@@ -85,7 +85,7 @@ namespace :addons do
       heroku_pg.update_attributes(
         slug: 'aws-pg',
         name: 'AWS Postgres',
-        icon: 'http://confluxapp.s3-website-us-west-1.amazonaws.com/images/addons/aws-pg.svg',
+        icon: "#{ENV['CLOUDFRONT_URL']}/images/addons/aws-pg.svg",
         tagline: 'Reliable and powerful PostgreSQL as a service.',
         heroku_alias: 'heroku-postgresql'
       )

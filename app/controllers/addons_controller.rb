@@ -64,7 +64,7 @@ class AddonsController < ApplicationController
         channel: ENV['SLACK_FEEDBACK_CHANNEL'],
         username: 'New Add-on Suggestion',
         text: "#{params[:addon]}\nFrom: #{@current_user.try(:email) || 'Unknown'}",
-        icon_url: 'http://confluxapp.s3-website-us-west-1.amazonaws.com/images/conflux-icon-white-blue-bg.png'
+        icon_url: "#{ENV['CLOUDFRONT_URL']}/images/conflux-icon-white-blue-bg.png"
       )
     rescue => e
       puts "Error posting Add-on Suggestion to Slack, with error #{e.message}"

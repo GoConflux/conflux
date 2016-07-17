@@ -45,7 +45,7 @@ var PipelineHeader = React.createClass({
     return (
       <div id="pipelineHeader">
         <div className="pipeline-header-left">
-          <img src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/pipeline-dark.svg" className="pipeline-icon"/>
+          <img src={React.cloudfront + '/images/pipeline-dark.svg'} className="pipeline-icon"/>
           <div className="pipeline-name">{this.state.name}</div>
           <div className="header-linebreak"></div>
           <div className="pipeline-description">{this.getDescription()}</div>

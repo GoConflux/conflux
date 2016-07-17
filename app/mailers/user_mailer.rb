@@ -57,7 +57,7 @@ class UserMailer < ActionMailer::Base
 
   def set_global_template_vars
     @redirect_base_url = ENV['CONFLUX_USER_ADDRESS']
-    @company_logo = 'http://confluxapp.s3-website-us-west-1.amazonaws.com/images/conflux-long-white-colored-icon.png'
+    @company_logo = "#{ENV['CLOUDFRONT_URL']}/images/conflux-long-white-colored-icon.png"
   end
 
 end

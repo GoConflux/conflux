@@ -122,7 +122,7 @@ var Home = React.createClass({
           <div className="home-section">
             <div className="section-inner">
               <div className="sub-section">
-                <img className="image-section left" src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/platform-agnostic.png" />
+                <img className="image-section left" src={React.cloudfront + '/images/platform-agnostic.png'} />
               </div>
               <div className="sub-section">
                 <div className="text-section">
@@ -141,14 +141,14 @@ var Home = React.createClass({
                 </div>
               </div>
               <div className="sub-section">
-                <img className="image-section right" src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/clone.png" />
+                <img className="image-section right" src={React.cloudfront + '/images/clone.png'} />
               </div>
             </div>
           </div>
           <div className="home-section">
             <div className="section-inner">
               <div className="sub-section">
-                <img className="image-section left" src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/onboard.png" />
+                <img className="image-section left" src={React.cloudfront + '/images/onboard.png'} />
               </div>
               <div className="sub-section">
                 <div className="text-section">
@@ -167,7 +167,7 @@ var Home = React.createClass({
                 </div>
               </div>
               <div className="sub-section">
-                <img className="image-section right" src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/abstract-configs.png" />
+                <img className="image-section right" src={React.cloudfront + '/images/abstract-configs.png'} />
               </div>
             </div>
           </div>

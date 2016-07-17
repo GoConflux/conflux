@@ -9,7 +9,7 @@ class UsersController < ApplicationController
         channel: ENV['SLACK_FEEDBACK_CHANNEL'],
         username: "Feedback from #{@current_user.email}#{@current_user.name.present? ? " (#{@current_user.name})" : ''}",
         text: params[:feedback],
-        icon_url: 'http://confluxapp.s3-website-us-west-1.amazonaws.com/images/conflux-icon-white-blue-bg.png'
+        icon_url: "#{ENV['CLOUDFRONT_URL']}/images/conflux-icon-white-blue-bg.png"
       )
     rescue => e
       puts "Error posting Feedback to Slack, with error #{e.message}"

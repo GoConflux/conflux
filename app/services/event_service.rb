@@ -26,7 +26,7 @@ class EventService < AbstractService
         channel: ENV['SLACK_EVENT_CHANNEL'],
         username: @email.present? ? "#{@event} (#{@email})" : @event,
         text: stats,
-        icon_url: 'http://confluxapp.s3-website-us-west-1.amazonaws.com/images/conflux-icon-white-blue-bg.png'
+        icon_url: "#{ENV['CLOUDFRONT_URL']}/images/conflux-icon-white-blue-bg.png"
       )
     rescue => e
       puts "SLACK ERROR: Piping #{@event} event to #{ENV['SLACK_EVENT_CHANNEL']} channel for user #{@email || 'Unknown User'} failed with error: #{e.message}"
