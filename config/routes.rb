@@ -110,6 +110,7 @@ Rails.application.routes.draw do
 
     # User:
     post '/users/feedback' => 'users#feedback'
+    post '/users/invite_user' => 'users#invite_user'
 
   # API:
     post '/api/users/login' => 'users_api#login'

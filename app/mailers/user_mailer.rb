@@ -31,6 +31,11 @@ class UserMailer < ActionMailer::Base
     send_email(@email, 'Your Conflux Password')
   end
 
+  def invite_user_by_email(email, inviter)
+    @inviter_name = inviter.name || inviter.email
+    send_email(email, 'You\'ve been invited to Conflux')
+  end
+
   def send_email(email, subject, custom_from = nil)
     set_global_template_vars
 

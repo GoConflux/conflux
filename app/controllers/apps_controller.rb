@@ -105,7 +105,7 @@ class AppsController < ApplicationController
           token_placeholder_app
         ).delay.perform
 
-        track('Delete App', { app: @app.slug })
+        track('Delete Bundle', { app: @app.slug })
 
         render json: {
           url: pipeline.create_link

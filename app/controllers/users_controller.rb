@@ -18,4 +18,20 @@ class UsersController < ApplicationController
     render json: {}, status: 200
   end
 
+  def invite_user
+    show_invalid_permissions if @current_user.nil?
+
+    emails = params[:emails] || []
+
+    if emails.blank?
+      render json: { message: 'No emails provided' }, status: 500
+    end
+
+    emails.each { |email|
+      UserMailer.delay.invite_user_by_email(email, @current_user)
+    }
+
+    render json: {}, status: 200
+  end
+
 end
