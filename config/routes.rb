@@ -57,7 +57,6 @@ Rails.application.routes.draw do
     get '/api/addons/all' => 'addons_api#all'
     get '/api/addons/plans' => 'addons_api#plans'
 
-
   # APPS ------------------------------------
 
     # User:
@@ -73,7 +72,6 @@ Rails.application.routes.draw do
     get '/api/apps/configs' => 'apps_api#configs'
     get '/api/pull' => 'apps_api#pull'
 
-
   # PIPELINES -------------------------------
 
     # User:
@@ -81,7 +79,6 @@ Rails.application.routes.draw do
     post '/pipelines' => 'pipelines#create'
     put '/pipelines' => 'pipelines#update'
     delete '/pipelines' => 'pipelines#destroy'
-
 
   # TEAMS -----------------------------------
 
@@ -94,7 +91,6 @@ Rails.application.routes.draw do
     # API:
     get '/api/teams/users' => 'teams_api#users'
 
-
   # TEAM_USERS ------------------------------
 
     # User:
@@ -104,7 +100,6 @@ Rails.application.routes.draw do
 
   # API:
     post '/api/team_users/invite' => 'team_users_api#invite'
-
 
   # USERS -----------------------------------
 
@@ -118,6 +113,12 @@ Rails.application.routes.draw do
     post '/api/users/apps_basic_auth' => 'users_api#apps_basic_auth'
     get '/api/users/teams' => 'users_api#teams'
 
+  # Third Party OAuth -----------------------------
+
+  # User:
+    get '/twitter_sign_in' => 'third_party_oauth#twitter_sign_in'
+    get '/twitter_oauth' => 'third_party_oauth#twitter_oauth'
+
   # MAJOR VIEWS -----------------------------
 
     # User:
@@ -126,7 +127,6 @@ Rails.application.routes.draw do
     get '/:team_slug/:pipeline_slug/:app_slug' => 'apps#index'
     get '/:team_slug/:pipeline_slug' => 'pipelines#index'
     get '/:team_slug' => 'teams#index'
-
 
   # 404 -------------------------------------
   get '*unmatched_route', to: 'application#page_dne'

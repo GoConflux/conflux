@@ -1,5 +1,6 @@
 module ApplicationHelper
   require 'utils/env'
+  require 'twitter_oauth'
 
   ALLOWED_CREATION_PARAMS = {
     team: [:name]
@@ -15,6 +16,8 @@ module ApplicationHelper
   }
 
   SLUGS_BLACKLIST = [
+    'twitter_oauth',
+    'twitter_sign_in',
     'downloads',
     'conflux-installer.pkg',
     'conflux-installer.exe',
@@ -140,6 +143,13 @@ module ApplicationHelper
 
   def track(event, props = {})
     EventService.new(@current_user, event, props).delay.perform if should_track_events
+  end
+
+  def twitter_client
+    TwitterOAuth::Client.new(
+      consumer_key: ENV['TWITTER_CONSUMER_KEY'],
+      consumer_secret: ENV['TWITTER_CONSUMER_SECRET']
+    )
   end
 
 end
