@@ -76,32 +76,58 @@
   }
 }
 
-@media (max-width: 1269px) {
+@media (max-width: 1259px) {
+  #app {
+    .addon-wrapper {
+      width: 33.33%;
+    }
+  }
+}
+
+@media (max-width: 1221px) {
   .addon-wrapper {
     width: 33.33%;
   }
 }
 
-@media (max-width: 1039px) {
-  .addon-wrapper {
-    width: 50%;
+@media (max-width: 1029px) {
+  #app {
+    .addon-wrapper {
+      width: 50%;
+    }
   }
 }
 
 @media (max-width: 991px) {
-  .addon-wrapper {
-    width: 33.333%;
+  #app {
+    .addon-wrapper {
+      width: 33%;
+    }
+  }
+}
+
+@media (max-width: 989px) {
+  #explore {
+    .addon-wrapper {
+      width: 50%;
+    }
   }
 }
 
 @media (max-width: 809px) {
-  .addon-wrapper {
-    width: 50%;
+  #explore,
+  #app {
+    .addon-wrapper {
+      width: 50%;
+    }
   }
 }
 
 @media (max-width: 579px) {
-  .addon-wrapper {
-    width: 100%;
+  #explore,
+  #app {
+    .addon-wrapper {
+      width: 100%;
+    }
   }
 }
