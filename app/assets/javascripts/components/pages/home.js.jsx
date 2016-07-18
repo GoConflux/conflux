@@ -100,7 +100,7 @@ var Home = React.createClass({
       <div id="home">
         <div className="home-header">
           <div className="title">Developer Add-ons that go where you do</div>
-          <div className="subtitle">Group your app's third-party services into bundles accessible from any host or environment.</div>
+          <div className="subtitle">Group your app's third-party services into bundles easily accessible from any host environment.</div>
           <div className="home-main-action-btn-container">{this.getMainActionBtn()}</div>
         </div>
         <div id="homeBody">
