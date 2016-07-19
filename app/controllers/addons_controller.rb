@@ -3,6 +3,7 @@ class AddonsController < ApplicationController
   before_filter :check_for_current_user, :only => [:suggest]
   before_filter :set_addon, :only => [:addon]
   before_filter :addon_by_uuid, :only => [:modal_info]
+  before_filter :app_by_uuid, :only => [:search]
 
   # Get all addons for the Addons page
   def index
@@ -36,7 +37,7 @@ class AddonsController < ApplicationController
 
     match = Addon.arel_table[:name].matches("%#{params[:query]}%")
 
-    addons = Addon.where(match).order('LOWER(name)').map { |addon|
+    addons = Addon.where(match).where.not(slug: @app.addons.map(&:slug)).order('LOWER(name)').map { |addon|
       {
         text: addon.name,
         value: addon.uuid,

@@ -357,6 +357,7 @@
   float: left;
   text-decoration: none;
   cursor: pointer;
+  position: relative;
 
   .sub-footer-action-text {
     border-bottom: 1px solid transparent;
@@ -372,6 +373,31 @@
     .sub-footer-action-text {
       border-bottom-color: white;
     }
+  }
+}
+
+.scroll-top-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  color: white;
+  font-size: 19px;
+  height: 35px;
+  width: 35px;
+  padding-top: 6px;
+  text-align: center;
+  border: 2px solid white;
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0.7;
+  -webkit-transition: opacity 0.175s;
+  -moz-transition: opacity 0.175s;
+  -ms-transition: opacity 0.175s;
+  -o-transition: opacity 0.175s;
+  transition: opacity 0.175s;
+
+  &:hover {
+    opacity: 1;
   }
 }
 
@@ -509,6 +535,23 @@
       .sub-footer-action-text-container {
         font-size: 24px;
       }
+    }
+  }
+
+  #home,
+  #explore {
+    .scroll-top-btn {
+      display: none;
+    }
+  }
+
+  #toolbelt {
+    .scroll-top-btn {
+      opacity: 0.5;
+      height: 32px;
+      width: 32px;
+      font-size: 16px;
+      padding-top: 5px;
     }
   }
 }

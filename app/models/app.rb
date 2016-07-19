@@ -13,6 +13,7 @@ class App < ActiveRecord::Base
   belongs_to :pipeline
   has_many :app_addons, :dependent => :destroy
   has_many :keys, :through => :app_addons
+  has_many :addons, :through => :app_addons
 
   def addons_for_app_view
     self.app_addons.includes(:addon).order('addons.name').map { |app_addon|

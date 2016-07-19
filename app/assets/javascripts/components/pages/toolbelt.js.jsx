@@ -46,6 +46,19 @@ var Toolbelt = React.createClass({
     }
   },
 
+  setScrollTopBtnRef: function (ref) {
+    this.scrollTopBtn = ref;
+
+    this.scrollTopBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      $('html, body').animate({ scrollTop: 0 }, 600);
+
+      return false;
+    });
+  },
+
   setSupportSectionRef: function (ref) {
     this.supportSection = ref;
   },
@@ -257,6 +270,7 @@ var Toolbelt = React.createClass({
           </div>
         </div>
         <div className="toolbelt-support" ref={this.setSupportSectionRef}>
+          <i className="fa fa-arrow-up scroll-top-btn" ref={this.setScrollTopBtnRef}></i>
           <div className="support-title">Toolbelt Support</div>
           <div className="support-body">
             <div className="support-body-inner">

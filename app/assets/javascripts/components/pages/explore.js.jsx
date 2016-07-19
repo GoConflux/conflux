@@ -1,5 +1,18 @@
 var Explore = React.createClass({
   
+  setScrollTopBtnRef: function (ref) {
+    this.scrollTopBtn = ref;
+    
+    this.scrollTopBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      $('html, body').animate({ scrollTop: 0 }, 600);
+      
+      return false;
+    });
+  },
+  
   setCategoryAddonsRef: function (ref) {
     this.categoryAddons = ref;
   },
@@ -38,6 +51,7 @@ var Explore = React.createClass({
           <CategoryAddons data={this.props} ref={this.setCategoryAddonsRef} />
         </div>
         <div onClick={this.showSuggestAnAddon} className="sub-footer-action-section">
+          <i className="fa fa-arrow-up scroll-top-btn" ref={this.setScrollTopBtnRef}></i>
           <div className="sub-footer-action-section-inner">
             <div className="sub-footer-action-text-container">Have an Add-on suggestion? <span className="sub-footer-action-text">Let us know!</span></div>
           </div>

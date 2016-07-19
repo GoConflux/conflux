@@ -65,7 +65,7 @@ var InAppSearchBar = React.createClass({
   },
 
   fetchResults: function (query, cb) {
-    React.get('/addons/search', { query: query }, {
+    React.get('/addons/search', { query: query, app_uuid: this.props.appUUID }, {
       success: function (results) {
         cb(results);
       }

@@ -27,6 +27,19 @@ var Home = React.createClass({
     }
   ],
 
+  setScrollTopBtnRef: function (ref) {
+    this.scrollTopBtn = ref;
+
+    this.scrollTopBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      $('html, body').animate({ scrollTop: 0 }, 600);
+
+      return false;
+    });
+  },
+
   setTerminalContainerRef: function (ref) {
     this.terminalContainer = ref;
   },
@@ -172,6 +185,7 @@ var Home = React.createClass({
             </div>
           </div>
           <a href="/toolbelt" className="sub-footer-action-section">
+            <i className="fa fa-arrow-up scroll-top-btn" ref={this.setScrollTopBtnRef}></i>
             <div className="home-section get-toolbelt">
               <div className="sub-footer-action-text-container"><i className="fa fa-terminal"></i> Get started with the open source <span className="sub-footer-action-text">Conflux Toolbelt</span>.</div>
             </div>

@@ -40,7 +40,7 @@ var AppHeader = React.createClass({
 
   getSearchBar: function () {
     if (this.props.data.write_access) {
-      return <InAppSearchBar onAddonSelected={this.onAddonSelected} />;
+      return <InAppSearchBar appUUID={this.props.data.app_uuid} onAddonSelected={this.onAddonSelected} />;
     } else {
       var count = this.props.data.addons.length;
       var model = ' add-on';
