@@ -416,7 +416,7 @@
 }
 
 .new-contrib {
-  box-shadow: 5px 8px 36px rgba(45,45,45,0.67);
+  box-shadow: 5px 8px 34px rgba(45,45,45,0.67);
   border-radius: 4px;
   margin-right: 70px;
 }
@@ -548,6 +548,10 @@
       }
     }
 
+  }
+
+  .new-contrib {
+    box-shadow: 5px 8px 34px rgba(45,45,45,0.4);
   }
 }
 
