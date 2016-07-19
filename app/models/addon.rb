@@ -21,6 +21,11 @@ class Addon < ActiveRecord::Base
     $addons[slug]['plans'].map { |plan| plan['slug'] }.include?(plan_slug)
   end
 
+  def plan_disabled?(plan_slug)
+    plan_info = $addons[slug]['plans'].find { |plan| plan['slug'] == plan_slug }
+    plan_info.nil? || (plan_info['disabled'] == 'true')
+  end
+
   def plans
     $addons[slug]['plans']
   end
@@ -58,7 +63,8 @@ class Addon < ActiveRecord::Base
       {
         'slug' => plan['slug'],
         'name' => plan['name'],
-        'cost' => (price.blank? || price.to_i == 0) ? 'FREE' : "$#{'%.2f' % price}"
+        'cost' => (price.blank? || price.to_i == 0) ? 'FREE' : "$#{'%.2f' % price}",
+        'status' => (plan['disabled'] == 'true') ? 'Not Available' : 'Available'
       }
     }
   end

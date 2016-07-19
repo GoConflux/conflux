@@ -32,7 +32,7 @@ var Header = React.createClass({
         <div className="header-inner">
           {this.configureBackBtn()}
           <i className="fa fa-bars" id="headerMenuBtn"></i>
-          <a href="/"><img src={React.cloudfront + '/images/conflux-icon-dark.svg'} className="conflux-icon"/></a>
+          <a href="/"><img src="https://ds8ypexjwou5.cloudfront.net/images/conflux-icon-dark.svg" className="conflux-icon"/></a>
           <div id="lh-teams-button" className="dark"><i className="fa fa-th-large teams-grid-icon"></i><div className="teams-text">My Teams</div></div>
           <div className="header-right header-right-text-btn"><a className="header-action-btn" href="/explore">Explore</a></div>
           <div className="header-right header-right-text-btn"><a className="header-action-btn" href="/toolbelt">Toolbelt</a></div>

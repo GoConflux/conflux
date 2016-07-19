@@ -20,6 +20,12 @@ class AppAddonsApiController < ApplicationController
       plan = @addon.basic_plan_slug
     end
 
+    # If plan is disabled, say so.
+    if @addon.plan_disabled?(plan)
+      render json: { plan_disabled: true }
+      return
+    end
+
     begin
       with_transaction do
         app_addon = AppAddon.create!(

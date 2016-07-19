@@ -122,7 +122,7 @@ var Home = React.createClass({
           <div className="home-section">
             <div className="section-inner">
               <div className="sub-section">
-                <img className="image-section left" src={React.cloudfront + '/images/platform-agnostic-3.png'} />
+                <img className="image-section left" src="https://ds8ypexjwou5.cloudfront.net/images/platform-agnostic-3.png" />
               </div>
               <div className="sub-section">
                 <div className="text-section">
@@ -141,14 +141,14 @@ var Home = React.createClass({
                 </div>
               </div>
               <div className="sub-section">
-                <img className="image-section right" src={React.cloudfront + '/images/clone-5.png'} />
+                <img className="image-section right" src="https://ds8ypexjwou5.cloudfront.net/images/clone-5.png" />
               </div>
             </div>
           </div>
           <div className="home-section">
             <div className="section-inner">
               <div className="sub-section">
-                <img className="image-section left" src={React.cloudfront + '/images/abstract-configs.png'} />
+                <img className="image-section left" src="https://ds8ypexjwou5.cloudfront.net/images/abstract-configs.png" />
               </div>
               <div className="sub-section">
                 <div className="text-section">
@@ -167,7 +167,7 @@ var Home = React.createClass({
                 </div>
               </div>
               <div className="sub-section">
-                <img className="image-section right new-contrib" src={React.cloudfront + '/images/invite-user-3.png'} />
+                <img className="image-section right new-contrib" src="https://ds8ypexjwou5.cloudfront.net/images/invite-user-3.png" />
               </div>
             </div>
           </div>

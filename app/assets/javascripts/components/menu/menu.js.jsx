@@ -92,7 +92,7 @@ var Menu = React.createClass({
     } else {
       return this.state.pipelines.map(function (pipeline) {
         var classes = pipeline.selected ? 'selected' : '';
-        return <a href={pipeline.link} className={classes}><li key={pipeline.name} className="menu-pipeline"><img src={React.cloudfront + '/images/pipeline-white.svg'} /><div className="pipeline-name">{pipeline.name}</div></li></a>;
+        return <a href={pipeline.link} className={classes}><li key={pipeline.name} className="menu-pipeline"><img src="https://ds8ypexjwou5.cloudfront.net/images/pipeline-white.svg" /><div className="pipeline-name">{pipeline.name}</div></li></a>;
       });
     }
   },
@@ -185,7 +185,7 @@ var Menu = React.createClass({
       return;
     }
 
-    return <a href="javascript:void(0)" className="menu-footer-link" data-action="settings"><img src={React.cloudfront + '/images/gear-white.svg'} /></a>;
+    return <a href="javascript:void(0)" className="menu-footer-link" data-action="settings"><img src="https://ds8ypexjwou5.cloudfront.net/images/gear-white.svg" /></a>;
   },
 
   render: function() {

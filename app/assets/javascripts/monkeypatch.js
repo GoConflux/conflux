@@ -54,5 +54,3 @@ React.setCookie = function (name, value) {
   var expires = "expires=" + date.toUTCString();
   document.cookie = name + "=" + value + "; " + expires;
 };
-
-React.cloudfront = 'https://ds8ypexjwou5.cloudfront.net';

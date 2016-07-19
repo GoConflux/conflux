@@ -126,13 +126,13 @@ var Toolbelt = React.createClass({
             <div className="md-section-description">
               <div className="download-os-options-container">
                 <div className="os-option selected" data-os-index="0" onClick={this.changeOS} title="Max OS X">
-                  <img className="os-icon" src={React.cloudfront + '/images/osx.svg'} />
+                  <img className="os-icon" src="https://ds8ypexjwou5.cloudfront.net/images/osx.svg" />
                 </div>
                 <div className="os-option" data-os-index="1" onClick={this.changeOS} title="Windows">
-                  <img className="os-icon" src={React.cloudfront + '/images/windows.svg'} />
+                  <img className="os-icon" src="https://ds8ypexjwou5.cloudfront.net/images/windows.svg" />
                 </div>
                 <div className="os-option" data-os-index="2" onClick={this.changeOS} title="Linux">
-                  <img className="os-icon" src={React.cloudfront + '/images/linux.svg'} />
+                  <img className="os-icon" src="https://ds8ypexjwou5.cloudfront.net/images/linux.svg" />
                 </div>
               </div>
               <div className="download-btn-container">

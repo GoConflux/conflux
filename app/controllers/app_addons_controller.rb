@@ -41,7 +41,13 @@ class AppAddonsController < ApplicationController
 
     # If App already has an instance of the Addon, respond with a message explaining that you can't do that.
     if current_addon_ids_for_app.include?(@addon.id)
-      render json: { addon_already_exists: true } and return
+      render json: { addon_already_exists: true }, status: 500
+      return
+    end
+
+    if @addon.plan_disabled?(params[:plan])
+      render json: { message: 'Plan Not Available' }, status: 500
+      return
     end
 
     begin
@@ -49,10 +55,11 @@ class AppAddonsController < ApplicationController
         app_addon = AppAddon.create!(
           app_id: @app.id,
           addon_id: @addon.id,
-          plan: params[:plan]
+          plan: @addon.basic_plan # hardcoding basic plan until Stripe integration is added
         )
 
-        plan = params[:plan].present? ? "#{@addon.slug}:#{params[:plan]}" : @addon.basic_plan
+        # For later:
+        # plan = params[:plan].present? ? "#{@addon.slug}:#{params[:plan]}" : @addon.basic_plan
 
         AppServices::ProvisionAppAddon.new(
           @current_user,
@@ -110,11 +117,17 @@ class AppAddonsController < ApplicationController
   end
 
   def update_plan
+    addon = @app_addon.addon
+    plan = params[:plan]
+
+    if addon.plan_disabled?(plan)
+      render json: { message: 'Plan Not Available' }, status: 500
+      return
+    end
+
     begin
       with_transaction do
-        @app_addon.update_attributes(plan: params[:plan])
-
-        addon = @app_addon.addon
+        @app_addon.update_attributes(plan: plan)
 
         # Also keeping commented out until Stripe integration is added
         # AppServices::ChangeAddonPlan.new(
@@ -123,9 +136,9 @@ class AppAddonsController < ApplicationController
         #   "#{addon.heroku_slug}:#{params[:plan]}"
         # ).delay.perform
 
-        track('Update Add-on Plan', { addon: addon.slug, plan: params[:plan] })
+        track('Update Add-on Plan', { addon: addon.slug, plan: plan })
 
-        render json: { selected: addon.index_for_plan(params[:plan]) }
+        render json: { selected: addon.index_for_plan(plan) }
       end
     rescue Exception => e
       error = "#{ConfluxErrors::AppAddonUpdateFailed} - #{e}"

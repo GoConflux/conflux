@@ -144,7 +144,7 @@ var Pipeline = React.createClass({
       return;
     }
 
-    return <div className="settings-icon-container"><img src={React.cloudfront + '/images/gear.png'} id="settingsIcon"/><Dropdown customID={'pipelineSettingsDropdown'} data={this.getSettingsDropdownOptions()} ref={this.setDropdownRef} /></div>;
+    return <div className="settings-icon-container"><img src="https://ds8ypexjwou5.cloudfront.net/images/gear.png" id="settingsIcon"/><Dropdown customID={'pipelineSettingsDropdown'} data={this.getSettingsDropdownOptions()} ref={this.setDropdownRef} /></div>;
   },
 
   render: function() {

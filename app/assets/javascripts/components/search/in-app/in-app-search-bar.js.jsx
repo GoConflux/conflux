@@ -75,7 +75,7 @@ var InAppSearchBar = React.createClass({
   render: function() {
     return (
       <div className="in-app-search-bar" ref={this.setSearchBarRef}>
-        <img className="search-icon" src={React.cloudfront + '/images/search.png'} />
+        <img className="search-icon" src="https://ds8ypexjwou5.cloudfront.net/images/search.png" />
         <input type="text" className="autocomplete-input" placeholder="Find add-ons to add"/>
       </div>
     );

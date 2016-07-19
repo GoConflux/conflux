@@ -45,14 +45,28 @@
     color: white;
   }
 
+  .plan-option.na {
+    opacity: 0.3;
+    border: 1px solid rgba(0,0,0,0.3);
+    cursor: not-allowed;
+
+    // Don't change on hover
+    &:hover {
+      border: 1px solid rgba(0,0,0,0.3);
+      background-color: white;
+    }
+  }
+
   &.no-write {
     .plan-option {
+      opacity: 0.3;
+      border: 1px solid rgba(0,0,0,0.3);
       cursor: not-allowed;
 
       &:hover,
       &:active {
+        border: 1px solid rgba(0,0,0,0.3);
         background-color: white;
-        border: 1px solid #E7E7EC;
       }
     }
 
@@ -67,4 +81,19 @@
     }
   }
 
+  .tooltip {
+    &.in {
+      opacity: 1;
+    }
+  }
+
+  .tooltip-arrow {
+    border-top-color: $conflux-green;
+  }
+
+  .tooltip-inner {
+    background-color: $conflux-green;
+    color: white;
+    padding: 10px;
+  }
 }

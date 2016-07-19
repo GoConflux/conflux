@@ -5,7 +5,7 @@ var LandingFooter = React.createClass({
       <div id="landingFooter">
         <div className="footer-inner">
           <div className="footer-left footer-section">
-            <a href="/"><img className="footer-icon" src={React.cloudfront + '/images/conflux-icon-footer.svg'} /></a>
+            <a href="/"><img className="footer-icon" src="https://ds8ypexjwou5.cloudfront.net/images/conflux-icon-footer.svg" /></a>
           </div>
           <div className="footer-middle footer-section">
             <div className="made-with-love">Made with <i className="fa fa-heart"></i> by Conflux</div>

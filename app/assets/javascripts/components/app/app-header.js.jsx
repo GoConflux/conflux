@@ -60,7 +60,7 @@ var AppHeader = React.createClass({
   render: function() {
     return (
       <div id="appHeader" key={Date.now()}>
-        <img src={React.cloudfront + '/images/app-gray.svg'} className="app-header-icon"/>
+        <img src="https://ds8ypexjwou5.cloudfront.net/images/app-gray.svg" className="app-header-icon"/>
         <div className="left-header-title">{this.state.name}</div>
         <div className="header-linebreak"></div>
         {this.getSearchBar()}
