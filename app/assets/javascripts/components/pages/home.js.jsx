@@ -141,7 +141,7 @@ var Home = React.createClass({
                 </div>
               </div>
               <div className="sub-section">
-                <img className="image-section right" src={React.cloudfront + '/images/clone-4.png'} />
+                <img className="image-section right" src={React.cloudfront + '/images/clone-5.png'} />
               </div>
             </div>
           </div>
