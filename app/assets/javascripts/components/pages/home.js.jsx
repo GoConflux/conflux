@@ -122,12 +122,12 @@ var Home = React.createClass({
           <div className="home-section">
             <div className="section-inner">
               <div className="sub-section">
-                <img className="image-section left" src={React.cloudfront + '/images/platform-agnostic.png'} />
+                <img className="image-section left" src={React.cloudfront + '/images/platform-agnostic-3.png'} />
               </div>
               <div className="sub-section">
                 <div className="text-section">
                   <div className="feature">Configure once. Use anywhere.</div>
-                  <div className="sub-text">Whether locally or in the cloud, where you host your app shouldn't matter when it comes to your third-party services. <span className="highlight">Conflux Add-ons are platform-agnostic,</span> so once they're provisioned, you can access them from any platform or share them across multiple. One command is all it takes to connect to the Add-on bundle you desire.</div>
+                  <div className="sub-text">Whether locally or in the cloud, where you host your app shouldn't matter when it comes to your third-party services. <span className="highlight">Conflux Add-ons are platform-agnostic,</span> so once they're provisioned, you can access them from any platform or share them across multiple. One command is all it takes to connect to the Add-on bundle you see fit.</div>
                 </div>
               </div>
             </div>
@@ -141,7 +141,7 @@ var Home = React.createClass({
                 </div>
               </div>
               <div className="sub-section">
-                <img className="image-section right" src={React.cloudfront + '/images/clone.png'} />
+                <img className="image-section right" src={React.cloudfront + '/images/clone-4.png'} />
               </div>
             </div>
           </div>
