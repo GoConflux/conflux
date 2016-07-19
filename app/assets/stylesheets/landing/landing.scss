@@ -345,10 +345,22 @@
 }
 
 .action-button-break {
-  padding: 35px;
+  padding: 25px;
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+  border-bottom: 1px solid #E5E5E5;
+
+  &:hover,
+  &:active {
+    text-decoration: none;
+    color: white;
+  }
 
   .sub-footer-action-text-container {
-    font-size: 23px;
+    font-size: 22px;
   }
 }
 
