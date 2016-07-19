@@ -275,7 +275,7 @@ var Toolbelt = React.createClass({
           <div className="support-body">
             <div className="support-body-inner">
               <div className="support-section"><span className="topic">Operating systems:&nbsp;&nbsp;</span>Mac OS X, Windows, Linux</div>
-              <div className="support-section"><span className="topic">Languages:&nbsp;&nbsp;</span>Ruby (Rails)</div>
+              <div className="support-section"><span className="topic">Languages:&nbsp;&nbsp;</span>Ruby (Rails), (Node and Python coming soon)</div>
               <div className="support-section"><span className="topic">Dependencies:&nbsp;&nbsp;</span>ruby >= 2.0.0, wget/curl</div>
             </div>
           </div>
