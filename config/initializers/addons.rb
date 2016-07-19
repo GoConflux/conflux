@@ -4,7 +4,7 @@ require 'open-uri'
 if ENV['USE_LOCAL_ADDONS']
   $addons = JSON.parse(File.read(File.join(Rails.root, 'config', 'addons.json')))
 else
-  open("#{ENV['CLOUDFRONT_URL']}/files/addons.json") { |io|
+  open("#{ENV['S3_URL']}/files/addons.json") { |io|
     $addons = JSON.parse(io.read)
   }
 end
