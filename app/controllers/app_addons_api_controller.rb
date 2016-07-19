@@ -9,7 +9,7 @@ class AppAddonsApiController < ApplicationController
 
     # If App already has an instance of the Addon, respond with a message explaining that you can't do that.
     if current_addon_ids_for_app.include?(@addon.id)
-      render json: { addon_already_exists: true }, status: 500
+      render json: { addon_already_exists: true }
       return
     end
 
