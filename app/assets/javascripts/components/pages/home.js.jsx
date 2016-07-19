@@ -153,7 +153,7 @@ var Home = React.createClass({
               <div className="sub-section">
                 <div className="text-section">
                   <div className="feature">Abstract out config management.</div>
-                  <div className="sub-text">Forget about each developer having to maintain his own local copy of your integration configs in order for his app to work. Conflux <span className="highlight">consolidates all of your Add-ons' configs into one secure location</span> that's always in sync with every developer on your team. <span className="new-section">Existing configs won't ever go stale, <span className="highlight">new Add-on configs will be instantly available to other team members</span>, and you won't have to worry about excess copies of configs floating around.</span></div>
+                  <div className="sub-text">Forget needing to maintain a local copy of integration configs in order for your app to work. Conflux <span className="highlight">consolidates all of your Add-ons' configs into one secure location</span> that's always in sync with every developer on your team. <span className="new-section">Existing configs won't ever go stale, <span className="highlight">new Add-on configs will be instantly available to other team members</span>, and you won't have to worry about excess copies of configs floating around.</span></div>
                 </div>
               </div>
             </div>
@@ -162,12 +162,12 @@ var Home = React.createClass({
             <div className="section-inner">
               <div className="sub-section">
                 <div className="text-section">
-                  <div className="feature">On-board new team members with one click.</div>
-                  <div className="sub-text">Rather than managing your team members from each service's site, <span className="highlight">manage them all in one place.</span> One invitation is all it takes to get new members up and running with the Add-ons they need to start developing. <span className="new-section">Custom user roles make it possible to <span className="highlight">specify which Add-ons each user has access to</span> for better internal security.</span></div>
+                  <div className="feature">Built-in user roles for better internal security.</div>
+                  <div className="sub-text">Not every developer on your team needs access to all of your third-party services, especially those in production. Built-in user roles make it easy to <span className="highlight">specify exactly who on your team has access to the tools that matter most.</span></div>
                 </div>
               </div>
               <div className="sub-section">
-                <img className="image-section right" src={React.cloudfront + '/images/onboard.png'} />
+                <img className="image-section right new-contrib" src={React.cloudfront + '/images/invite-user-3.png'} />
               </div>
             </div>
           </div>
