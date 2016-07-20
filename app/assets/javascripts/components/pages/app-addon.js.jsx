@@ -69,8 +69,14 @@ var AppAddon = React.createClass({
       success: function (data) {
         data.app_uuid = self.props.app_uuid;
         data.selectedIndex = Number($(e.target).closest('li').attr('data-plan-index')) || 0;
-
+  
         React.modal.show('addon:update', data, { onConfirm: self.updatePlan });
+  
+        var planInfo = self.props.plan_data.plans[data.selectedIndex];
+
+        if (planInfo.disabled == 'true') {
+          mixpanel.track('Paid plan selected', { addon: self.props.name, plan: planInfo.slug });
+        }
       }
     });
   },

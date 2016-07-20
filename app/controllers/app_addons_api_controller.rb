@@ -22,6 +22,7 @@ class AppAddonsApiController < ApplicationController
 
     # If plan is disabled, say so.
     if @addon.plan_disabled?(plan)
+      $mixpanel.track('Paid plan selected', { addon: @addon.name, plan: plan }) if $mixpanel.present?
       render json: { plan_disabled: true }
       return
     end

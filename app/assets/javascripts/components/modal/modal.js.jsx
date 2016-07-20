@@ -4,6 +4,8 @@ var Modal = React.createClass({
 
   options: {},
 
+  allowConfirm: true,
+
   getInitialState: function () {
     return {
       usecase: 'addon:create'
@@ -185,7 +187,18 @@ var Modal = React.createClass({
     if (currentModal.confirmText && currentModal.declineText) {
       return <div className="double-footer-btns"><a onClick={this.onDecline} className="modal-action-link" href="javascript:void(0)"><div className="modal-action-btn decline">{this.getDeclineText()}</div></a><a onClick={this.onConfirm} className="modal-action-link" href="javascript:void(0)"><div className="modal-action-btn confirm">{this.getConfirmText()}</div><HorizontalSpinner ref={this.setSpinnerRef} /></a></div>;
     } else {
-      return <a onClick={this.onConfirm} className="modal-action-link" href="javascript:void(0)"><div className="modal-action-btn confirm">{this.getConfirmText()}</div><HorizontalSpinner ref={this.setSpinnerRef} /></a>;
+      var confirmClasses = 'modal-action-btn confirm';
+      var confirmText = this.getConfirmText();
+      this.enableConfirm();
+
+      // hardcoding cause fuck it
+      if (this.state.usecase == 'addon:update' && this.data.plans[this.data.selectedIndex].disabled == 'true') {
+        confirmClasses += ' plan-na';
+        confirmText = <span><i className="fa fa-lock lock-icon"></i>Plan not currently available</span>;
+        this.disableConfirm();
+      }
+
+      return <a onClick={this.onConfirm} className="modal-action-link" href="javascript:void(0)"><div className={confirmClasses}>{confirmText}</div><HorizontalSpinner ref={this.setSpinnerRef} /></a>;
     }
   },
 
@@ -204,6 +217,10 @@ var Modal = React.createClass({
   },
 
   onConfirm: function () {
+    if (!this.allowConfirm) {
+      return;
+    }
+
     if (this.currentModal.validate) {
       var valid = this.currentModal.validate();
 
@@ -239,6 +256,14 @@ var Modal = React.createClass({
     }
 
     this.hide();
+  },
+
+  enableConfirm: function () {
+    this.allowConfirm = true;
+  },
+
+  disableConfirm: function () {
+    this.allowConfirm = false;
   },
 
   render: function() {

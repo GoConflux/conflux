@@ -94,6 +94,18 @@ $modal-width: 400px;
 
 .modal-action-btn.confirm {
   background-color: $conflux-green;
+
+  &.plan-na {
+    background-color: #c4c5ca;
+    cursor: default;
+
+    .lock-icon {
+      margin-right: 10px;
+      font-size: 16px;
+      position: relative;
+      top: 1px;
+    }
+  }
 }
 
 .modal-action-btn.decline {

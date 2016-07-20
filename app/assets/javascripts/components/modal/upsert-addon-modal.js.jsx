@@ -13,6 +13,7 @@ var UpsertAddonModal = React.createClass({
   onHide: function () {
     if (this.props.isNew) {
       this.forceSelectPlan(0);
+      this.enableConfirmBtn();
     }
   },
 
@@ -25,7 +26,29 @@ var UpsertAddonModal = React.createClass({
   },
 
   onPlanChange: function (val) {
-    this.planDescription.updateAttrs(_.findIndex(this.props.data.plans, function(plan){ return plan.slug == val; }));
+    var plans = this.props.data.plans;
+    var index = _.findIndex(plans, function(plan){ return plan.slug == val; });
+
+    this.planDescription.updateAttrs(index);
+
+    var planInfo = plans[index];
+
+    if (planInfo.disabled == 'true') {
+      this.disableConfirmBtn();
+      mixpanel.track('Paid plan selected', { addon: this.props.data.name, plan: planInfo.slug });
+    } else {
+      this.enableConfirmBtn();
+    }
+  },
+
+  disableConfirmBtn: function () {
+    React.modal.disableConfirm();
+    $('.modal-action-btn.confirm').html('<span><i class="fa fa-lock lock-icon"></i>Plan not currently available</span>').addClass('plan-na');
+  },
+
+  enableConfirmBtn: function () {
+    React.modal.enableConfirm();
+    $('.modal-action-btn.confirm').html((this.props.isNew ? 'Provision' : 'Update')).removeClass('plan-na');
   },
 
   formatSelectData: function () {
@@ -35,8 +58,7 @@ var UpsertAddonModal = React.createClass({
       options: this.props.data.plans.map(function (plan) {
         return {
           text: plan.name + '  -  ' + plan.displayPrice,
-          value: plan.slug,
-          disabled: plan.disabled == 'true'
+          value: plan.slug
         };
       })
     };

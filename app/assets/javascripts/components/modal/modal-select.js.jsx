@@ -1,10 +1,8 @@
 var ModalSelect = React.createClass({
 
   getSelectOptions: function () {
-    return this.props.data.options.map(function (data, i) {
-      return data.disabled ?
-        <option value={data.value} disabled>{data.text}</option> :
-        <option value={data.value}>{data.text}</option>;
+    return this.props.data.options.map(function (data) {
+      return <option value={data.value}>{data.text}</option>;
     });
   },
 

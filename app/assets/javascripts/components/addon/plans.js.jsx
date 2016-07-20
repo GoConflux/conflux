@@ -16,12 +16,7 @@ var Plans = React.createClass({
         classes += ' selected';
       }
 
-      if (plan.disabled == 'true') {
-        classes += ' na';
-        return <li className={classes} data-plan-index={i}><div className="name">{plan.name}</div><div className="price">{plan.displayPrice}</div></li>;
-      } else {
-        return <li className={classes} data-plan-index={i} onClick={self.props.onPlanSelected}><div className="name">{plan.name}</div><div className="price">{plan.displayPrice}</div></li>;
-      }
+      return <li className={classes} data-plan-index={i} onClick={self.props.onPlanSelected}><div className="name">{plan.name}</div><div className="price">{plan.displayPrice}</div></li>;
     });
   },
 
