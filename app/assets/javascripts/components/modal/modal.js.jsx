@@ -113,6 +113,12 @@ var Modal = React.createClass({
         confirmText: 'Clone',
         headerText: 'Clone Bundle'
       },
+      'app:no-addons': {
+        body: <NoAddonsYetModal data={this.data} ref={this.setCurrentModal}/>,
+        confirmText: 'Okay',
+        headerText: 'Clone Bundle',
+        hideLoadingAnimation: true
+      },
       'addon:create': {
         body: <UpsertAddonModal data={this.data} isNew={true} ref={this.setCurrentModal}/>,
         confirmText: 'Provision'
@@ -205,6 +211,8 @@ var Modal = React.createClass({
         this.disableConfirm();
       }
 
+      this.hideLoadingAnimation = !!currentModal.hideLoadingAnimation;
+
       return <a onClick={this.onConfirm} className="modal-action-link" href="javascript:void(0)"><div className={confirmClasses}>{confirmText}</div><HorizontalSpinner ref={this.setSpinnerRef} /></a>;
     }
   },
@@ -236,7 +244,9 @@ var Modal = React.createClass({
       }
     }
 
-    this.showSpinner();
+    if (!this.hideLoadingAnimation) {
+      this.showSpinner();
+    }
 
     if (this.currentModal.onConfirm) {
       this.currentModal.onConfirm();

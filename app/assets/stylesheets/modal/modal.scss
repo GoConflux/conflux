@@ -649,3 +649,14 @@ $modal-width: 400px;
     }
   }
 }
+
+.no-addons-yet-modal {
+  padding: 15px;
+
+  .message {
+    font-size: 13px;
+    text-align: center;
+    color: $conflux-black;
+    line-height: 24px;
+  }
+}

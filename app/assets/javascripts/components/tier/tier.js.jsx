@@ -30,11 +30,10 @@ var Tier = React.createClass({
     React.get('/apps/clone_info', { app_uuid: appUUID }, {
       success: function (data) {
         if (data.no_addons === true) {
-          alert('No addons to clone!');
-          return;
+          React.modal.show('app:no-addons');
+        } else {
+          React.modal.show('app:clone', data, { extraDialogClasses: ['clone'] });
         }
-
-        React.modal.show('app:clone', data, { extraDialogClasses: ['clone'] });
       }
     })
   },
