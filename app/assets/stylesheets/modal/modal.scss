@@ -3,7 +3,6 @@
 $modal-width: 400px;
 
 #confluxModal > div:first-child {
-  width: $modal-width;
   margin-left: auto;
   margin-right: auto;
 }
@@ -11,6 +10,10 @@ $modal-width: 400px;
 .modal-dialog {
   width: $modal-width;
   margin-top: 100px;
+
+  &.clone {
+    width: 600px;
+  }
 }
 
 .modal-content {
@@ -478,5 +481,95 @@ $modal-width: 400px;
 .suggest-addon-modal {
   .modal-name-input-container {
     padding: 9px 15px;
+  }
+}
+
+.clone-app-modal {
+
+  .clone-app-addons-list {
+    float: left;
+    width: 100%;
+    padding: 15px 20px;
+    padding-bottom: 0;
+    margin-bottom: 15px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 305px;
+
+    .clone-app-addon-header,
+    .clone-app-addon-item {
+      width: 100%;
+      float: left;
+      border-bottom: 1px solid #efefef;
+    }
+
+    .clone-app-addon-header {
+      height: 80px;
+      position: relative;
+
+      .cloned-app-name {
+        width: 55%;
+        margin: 0 auto;
+        margin-top: 2px;
+
+        .modal-name-input-container {
+          padding: 0;
+          margin-bottom: 0;
+
+          .modal-name-input {
+            height: 34px;
+            border-radius: 0;
+            border-left: none;
+            border-right: none;
+            border-top: none;
+            padding-left: 30px;
+            text-align: center;
+          }
+
+          .name-available-indicator-icon {
+            top: 9px;
+          }
+        }
+      }
+
+      .tier-select-container {
+        position: absolute;
+        right: 8px;
+        top: 2px;
+        width: 36px;
+        border: 1px solid rgba(0,0,0,0.1);
+        border-radius: 4px;
+
+        .modal-select-container {
+          padding: 0;
+
+          .conflux-select {
+            color: rgba(0,0,0,0);
+            background: url("http://confluxapp.s3-website-us-west-1.amazonaws.com/images/tiers.svg") right center no-repeat;
+            border: 8px solid white;
+            opacity: 0.6;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .selected-tier {
+        position: absolute;
+        top: -15px;
+        right: 8px;
+        display: inline-block;
+        color: rgba(140,140,160,0.6);
+        text-transform: uppercase;
+        font-size: 8px;
+      }
+    }
+
+    .clone-app-addon-item {
+      height: 70px;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
   }
 }

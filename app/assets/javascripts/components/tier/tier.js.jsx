@@ -11,6 +11,8 @@ var Tier = React.createClass({
   },
 
   formatApps: function () {
+    var self = this;
+
     if (this.props.hideProd) {
       return <li className="none"><div className="pipeline-view-apps-off-limits">You currently don't have access to production apps.</div></li>;
     }
@@ -20,8 +22,21 @@ var Tier = React.createClass({
     }
 
     return this.state.apps.map(function (app) {
-      return <a href={app.link}><li><AppListItem data={app} /></li></a>;
+      return <a href={app.link}><li><AppListItem data={app} onClone={self.onClone} /></li></a>;
     });
+  },
+  
+  onClone: function (appUUID) {
+    React.get('/apps/clone_info', { app_uuid: appUUID }, {
+      success: function (data) {
+        if (data.no_addons === true) {
+          alert('No addons to clone!');
+          return;
+        }
+
+        React.modal.show('app:clone', data, { extraDialogClasses: ['clone'] });
+      }
+    })
   },
 
   render: function() {

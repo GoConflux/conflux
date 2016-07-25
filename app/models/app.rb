@@ -81,4 +81,18 @@ class App < ActiveRecord::Base
     all_app_job_ids
   end
 
+  def clone_info
+    app_addons.includes(:addon).map { |app_addon|
+      addon = app_addon.addon
+
+      {
+        name: addon.name,
+        addon_uuid: addon.uuid,
+        icon: addon.icon,
+        plans: addon.plans,
+        selected_plan: app_addon.plan
+      }
+    }
+  end
+
 end

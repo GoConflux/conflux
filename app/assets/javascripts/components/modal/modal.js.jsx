@@ -8,7 +8,8 @@ var Modal = React.createClass({
 
   getInitialState: function () {
     return {
-      usecase: 'addon:create'
+      usecase: 'addon:create',
+      extraDialogClasses: []
     };
   },
 
@@ -33,8 +34,9 @@ var Modal = React.createClass({
   show: function (usecase, data, options) {
     this.data = data || {};
     this.options = options || {};
+    var extraDialogClasses = this.options.extraDialogClasses || [];
 
-    this.setState({ usecase: usecase });
+    this.setState({ usecase: usecase, extraDialogClasses: extraDialogClasses });
 
     $('#confluxModal').modal('show');
   },
@@ -105,6 +107,11 @@ var Modal = React.createClass({
         confirmText: 'Yes, delete it.',
         declineText: 'No',
         headerText: 'Delete Bundle'
+      },
+      'app:clone': {
+        body: <CloneAppModal data={this.data} ref={this.setCurrentModal}/>,
+        confirmText: 'Clone',
+        headerText: 'Clone Bundle'
       },
       'addon:create': {
         body: <UpsertAddonModal data={this.data} isNew={true} ref={this.setCurrentModal}/>,
@@ -267,8 +274,14 @@ var Modal = React.createClass({
   },
 
   render: function() {
+    var dialogClasses = 'modal-dialog';
+
+    this.state.extraDialogClasses.forEach(function (className) {
+      dialogClasses += (' ' + className);
+    });
+
     return (
-      <div className="modal-dialog">
+      <div className={dialogClasses}>
         <div className="modal-content">
           <div className="modal-header">
             <div className="modal-header-title">{this.getHeaderText()}</div>

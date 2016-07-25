@@ -16,6 +16,7 @@ module ApplicationHelper
   }
 
   SLUGS_BLACKLIST = [
+    'clone_info',
     'twitter_oauth',
     'twitter_sign_in',
     'downloads',

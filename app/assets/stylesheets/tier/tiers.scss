@@ -121,6 +121,15 @@
           -ms-transition: opacity 0.15s;
           -o-transition: opacity 0.15s;
           transition: opacity 0.15s;
+
+          &:hover {
+            color: rgba(0,0,0,0.2);
+          }
+
+          &:active {
+            color: rgba(0,0,0,0.3);
+          }
+
         }
 
       }

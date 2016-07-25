@@ -61,6 +61,7 @@ Rails.application.routes.draw do
 
     # User:
     get '/apps/name_available' => 'apps#name_available'
+    get '/apps/clone_info' => 'apps#clone_info'
     post '/apps' => 'apps#create'
     put '/apps' => 'apps#update'
     delete '/apps' => 'apps#destroy'

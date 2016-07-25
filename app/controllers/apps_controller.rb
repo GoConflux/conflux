@@ -126,4 +126,22 @@ class AppsController < ApplicationController
     render json: { available: available }
   end
 
+  def clone_info
+    app = App.includes(:tier => [:pipeline => :team]).find_by(uuid: params[:app_uuid])
+    assert(app, StatusCodes::AppNotFound)
+
+    if app.addons.count == 0
+      render json: { no_addons: true }
+      return
+    end
+
+    current_team_user = TeamUser.find_by(user_id: @current_user.id, team_id: app.tier.pipeline.team.id)
+
+    render json: {
+      addons: app.clone_info,
+      includeProd: current_team_user.can_write_production_apps?,
+      sourceAppTierIndex: app.tier.stage
+    }
+  end
+
 end
