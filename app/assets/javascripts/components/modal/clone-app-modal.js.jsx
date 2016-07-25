@@ -30,6 +30,10 @@ var CloneAppModal = React.createClass({
 
   onHide: function () {
     this.nameInput.setValue('');
+
+    this.addonsInfo.forEach(function (item) {
+      item.include();
+    });
   },
 
   formatSelectData: function () {

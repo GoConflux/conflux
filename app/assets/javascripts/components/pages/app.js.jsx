@@ -64,6 +64,17 @@ var App = React.createClass({
         }
       },
       {
+        text: 'Clone',
+        iconClasses: 'fa fa-clone',
+        onClick: function () {
+          self.onClone();
+
+          setTimeout(function () {
+            self.settingsDropdown.hideDropdown();
+          }, 50);
+        }
+      },
+      {
         text: 'Delete Bundle',
         iconClasses: 'fa fa-trash',
         onClick: function () {
@@ -120,6 +131,18 @@ var App = React.createClass({
         });
       }
     });
+  },
+
+  onClone: function () {
+    React.get('/apps/clone_info', { app_uuid: this.props.app_uuid }, {
+      success: function (data) {
+        if (data.no_addons === true) {
+          React.modal.show('app:no-addons');
+        } else {
+          React.modal.show('app:clone', data, { extraDialogClasses: ['clone'] });
+        }
+      }
+    })
   },
 
   getSettingsIcon: function () {

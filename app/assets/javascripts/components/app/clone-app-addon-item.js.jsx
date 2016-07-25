@@ -1,6 +1,6 @@
 var CloneAppAddonItem = React.createClass({
 
-  include: true,
+  included: true,
 
   setItemRef: function (ref) {
     this.item = ref;
@@ -28,19 +28,23 @@ var CloneAppAddonItem = React.createClass({
   },
 
   onExcludeAddon: function () {
-    if ($(this.item).hasClass('exclude')) {
-      $(this.item).removeClass('exclude');
-      $(this.excludeAddon).html('<span>&times;</span>');
-      this.include = true;
-    } else {
-      $(this.item).addClass('exclude');
-      $(this.excludeAddon).html('+');
-      this.include = false;
-    }
+    $(this.item).hasClass('exclude') ? this.include() : this.exclude();
+  },
+
+  include: function () {
+    $(this.item).removeClass('exclude');
+    $(this.excludeAddon).html('<span>&times;</span>');
+    this.included = true;
+  },
+
+  exclude: function () {
+    $(this.item).addClass('exclude');
+    $(this.excludeAddon).html('+');
+    this.included = false;
   },
 
   isIncluded: function () {
-    return this.include;
+    return this.included;
   },
 
   serialize: function () {
