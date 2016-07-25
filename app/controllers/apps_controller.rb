@@ -8,6 +8,7 @@ class AppsController < ApplicationController
   before_filter :required_app_update_params, :only => [:update]
   before_filter :required_app_destroy_params, :only => [:destroy]
   before_filter :app_by_uuid, :only => [:update, :destroy]
+  before_filter :pipeline_by_uuid, :only => [:clone]
 
   def index
     data = {
@@ -140,8 +141,63 @@ class AppsController < ApplicationController
     render json: {
       addons: app.clone_info,
       includeProd: current_team_user.can_write_production_apps?,
-      sourceAppTierIndex: app.tier.stage
+      sourceAppTierIndex: app.tier.stage,
+      pipeline_uuid: app.tier.pipeline.uuid
     }
+  end
+
+  def clone
+    tier = @pipeline.tiers.find_by(stage: params[:tierStage])
+    assert(tier)
+
+    addons_info = params[:addons] || []
+    addon_uuids = addons_info.map { |info| info[:addon_uuid] }
+    addons = Addon.where(uuid: addon_uuids)
+
+    binding.pry
+
+    begin
+      with_transaction do
+        app = App.new(
+          name: params[:name],
+          token: UUIDTools::UUID.random_create.to_s,
+          tier_id: tier.id
+        )
+
+        app.save!
+
+        team_slug = @pipeline.team.slug
+
+        track('New Bundle', { team: team_slug })
+
+        addons.each { |addon|
+          # For later:
+          # plan_slug = addons_info.find { |info| info[:addon_uuid] == addon.uuid  }.try(:plan)
+          # plan = "#{addon.slug}:#{plan_slug}"
+          plan = addon.basic_plan
+
+          app_addon = AppAddon.new(
+            app_id: app.id,
+            addon_id: addon.id,
+            plan: plan
+          )
+
+          app_addon.save!
+
+          AppServices::ProvisionAppAddon.new(
+            @current_user,
+            app_addon,
+            plan
+          ).delay.perform
+        }
+
+        render json: { url: "/#{team_slug}/#{@pipeline.slug}/#{app.slug}" }
+      end
+    rescue Exception => e
+      error = "#{ConfluxErrors::AppCreationFailed} - #{e}"
+      logger.error { error }
+      render json: { message: error }, status: 500
+    end
   end
 
 end

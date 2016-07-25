@@ -82,15 +82,16 @@ class App < ActiveRecord::Base
   end
 
   def clone_info
-    app_addons.includes(:addon).map { |app_addon|
+    app_addons.includes(:addon).order('addons.name').map { |app_addon|
       addon = app_addon.addon
+      plans = addon.plans
 
       {
         name: addon.name,
         addon_uuid: addon.uuid,
         icon: addon.icon,
-        plans: addon.plans,
-        selected_plan: app_addon.plan
+        plans: plans,
+        selected_plan_index: plans.find_index { |p| p['slug'] == app_addon.plan } || 0
       }
     }
   end

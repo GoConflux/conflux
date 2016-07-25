@@ -9,7 +9,10 @@ var ModalNameInput = React.createClass({
   componentDidMount: function () {
     try {
       this.addKeyUpListener();
-      this.addBlurListener();
+
+      if (!this.props.preventBlurListener) {
+        this.addBlurListener();
+      }
     } catch (e) {}
   },
 

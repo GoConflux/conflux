@@ -1,5 +1,11 @@
 var CloneAppModal = React.createClass({
 
+  addonsInfo: [],
+
+  pushRefToList: function (ref) {
+    this.addonsInfo.push(ref);
+  },
+
   setNameInputRef: function (ref) {
     this.nameInput = ref;
   },
@@ -48,13 +54,56 @@ var CloneAppModal = React.createClass({
   },
 
   getAddons: function () {
-    var items = [<div className="clone-app-addon-header"><div className="cloned-app-name"><ModalNameInput placeholder={'New bundle name'} onKeyUp={this.onNameInputKeyUp} ref={this.setNameInputRef} /></div><div className="tier-select-container"><ModalSelect data={this.formatSelectData()} onChange={this.onTierChange} ref={this.setTierSelectRef}/></div><div className="selected-tier" ref={this.setSelectedTierRef}>{this.tiers()[this.props.data.sourceAppTierIndex]}</div></div>];
+    var self = this;
+
+    var items = [<div className="clone-app-addon-header"><div className="cloned-app-name"><ModalNameInput placeholder={'New bundle name'} onKeyUp={this.onNameInputKeyUp} preventBlurListener={true} ref={this.setNameInputRef} /></div><div className="tier-select-container"><ModalSelect data={this.formatSelectData()} onChange={this.onTierChange} ref={this.setTierSelectRef}/></div><div className="selected-tier" ref={this.setSelectedTierRef}>{this.tiers()[this.props.data.sourceAppTierIndex]}</div></div>];
 
     this.props.data.addons.forEach(function (data) {
-      items.push(<CloneAppAddonItem data={data} />);
+      items.push(<CloneAppAddonItem data={data} ref={self.pushRefToList} />);
     });
 
     return items;
+  },
+
+  serializeAddonData: function () {
+    var data = [];
+
+    this.addonsInfo.forEach(function (addonItem) {
+      if (addonItem.isIncluded()) {
+        data.push(addonItem.serialize());
+      }
+    });
+
+    return data;
+  },
+
+  validate: function () {
+    var valid = !_.isEmpty(this.nameInput.getValue()) && this.nameInput.isAvailable();
+
+    if (!valid) {
+      this.nameInput.showInvalid();
+    }
+
+    return valid;
+  },
+
+  onConfirm: function () {
+    var data = this.serialize();
+
+    React.post('/apps/clone', data, { success: function (info) {
+      if (info.url) {
+        window.location = info.url;
+      }
+    }});
+  },
+
+  serialize: function () {
+    return {
+      name: this.nameInput.getValue(),
+      tierStage: this.tiers().indexOf(this.tierSelect.getValue()),
+      addons: this.serializeAddonData(),
+      pipeline_uuid: this.props.data.pipeline_uuid
+    }
   },
 
   render: function() {
