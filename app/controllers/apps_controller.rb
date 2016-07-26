@@ -154,8 +154,6 @@ class AppsController < ApplicationController
     addon_uuids = addons_info.map { |info| info[:addon_uuid] }
     addons = Addon.where(uuid: addon_uuids)
 
-    binding.pry
-
     begin
       with_transaction do
         app = App.new(
@@ -168,7 +166,7 @@ class AppsController < ApplicationController
 
         team_slug = @pipeline.team.slug
 
-        track('New Bundle', { team: team_slug })
+        track('Cloned Bundle', { team: team_slug })
 
         addons.each { |addon|
           # For later:

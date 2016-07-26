@@ -72,7 +72,10 @@ Rails.application.routes.draw do
     get '/api/apps/team_user_app_tokens' => 'apps_api#team_user_app_tokens'
     get '/api/apps/cost' => 'apps_api#cost'
     get '/api/apps/configs' => 'apps_api#configs'
+    get '/api/apps/exists' => 'apps_api#exists'
+    post '/api/apps/clone' => 'apps_api#clone'
     get '/api/pull' => 'apps_api#pull'
+
 
   # PIPELINES -------------------------------
 

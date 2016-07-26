@@ -20,15 +20,17 @@ var Modal = React.createClass({
   componentDidMount: function () {
     var self = this;
 
-    try {
-      $('#confluxModal').on('hidden.bs.modal', function () {
-        setTimeout(function () {
-          if (self.currentModal.onHide) {
-            self.currentModal.onHide();
-          }
-        }, 400);
-      });
-    } catch (e) {}
+    $('#confluxModal').on('hidden.bs.modal', function () {
+      setTimeout(function () {
+        if (self.currentModal.onHide) {
+          self.currentModal.onHide();
+        }
+      }, 400);
+    });
+
+    $('#confluxModal').on('shown.bs.modal', function () {
+      $('[data-react-class=Modal]').width($('.modal-dialog').width());
+    });
   },
 
   show: function (usecase, data, options) {

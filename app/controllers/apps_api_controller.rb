@@ -1,8 +1,9 @@
 class AppsApiController < ApplicationController
 
-  before_filter :current_api_user, :only => [:manifest, :team_user_app_tokens]
+  before_filter :current_api_user, :only => [:manifest, :team_user_app_tokens, :exists, :clone]
   before_filter :validate_api_tokens, :only => [:pull]
   before_filter :set_app_conditional, :only => [:cost, :configs]
+  before_filter :app_by_uuid, :only => [:clone]
 
   def manifest
     app = @current_user.app(params[:app_slug])
@@ -91,6 +92,63 @@ class AppsApiController < ApplicationController
       'CONFLUX_USER' => team_user_token.token,
       'CONFLUX_APP' => app.token
     }
+  end
+
+  def exists
+    app = @current_user.app(params[:app_slug])
+    render json: { 'exists' => app.present?, 'uuid' => app.try(:uuid) }
+  end
+
+  def clone
+    app_tier = @app.tier
+
+    if app_tier.stage == params[:tier_stage]
+      tier = app_tier
+    else
+      tier = app_tier.pipeline.tiers.find_by(stage: params[:tier_stage])
+    end
+
+    assert(tier)
+
+    begin
+      with_transaction do
+        new_app = App.new(
+          name: params[:dest_app_name],
+          token: UUIDTools::UUID.random_create.to_s,
+          tier_id: tier.id
+        )
+
+        new_app.save!
+
+        team_slug = app_tier.pipeline.team.slug
+
+        track('Cloned Bundle', { team: team_slug })
+
+        @app.addons.each { |addon|
+          plan = addon.basic_plan
+
+          app_addon = AppAddon.new(
+            app_id: new_app.id,
+            addon_id: addon.id,
+            plan: plan
+          )
+
+          app_addon.save!
+
+          AppServices::ProvisionAppAddon.new(
+            @current_user,
+            app_addon,
+            plan
+          ).delay.perform
+        }
+
+        render json: {}, status: 200
+      end
+    rescue Exception => e
+      error = "#{ConfluxErrors::AppCreationFailed} - #{e}"
+      logger.error { error }
+      render json: { message: error }, status: 500
+    end
   end
 
 end
