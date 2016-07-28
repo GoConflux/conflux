@@ -69,11 +69,17 @@ var UpsertTeamUserModal = React.createClass({
     return true;
   },
 
+  getEmails: function () {
+    return $(this.input).val().split(',').map(function (email) {
+      return email.trim();
+    });
+  },
+
   serialize: function () {
     if (this.props.isNew) {
       return {
         team_uuid: this.props.data.team_uuid,
-        emails: [$(this.input).val().trim()], // backend still supports multiple emails, comma-delimited. Limiting to 1 for now.
+        emails: this.getEmails(), // backend still supports multiple emails, comma-delimited. Limiting to 1 for now.
         role: this.role.getValue()
       };
     } else {
