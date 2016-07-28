@@ -20,7 +20,7 @@ class KeysController < ApplicationController
         # Remove all keys from Redis mapping to each of these apps
         AppServices::RemoveAppKeysFromRedis.new(
           @current_user,
-          @app_addon.app
+          @app_addon.app_scope.app
         ).delay.perform
 
         track('New Key')
@@ -42,7 +42,7 @@ class KeysController < ApplicationController
         # Remove all keys from Redis mapping to each of these apps
         AppServices::RemoveAppKeysFromRedis.new(
           @current_user,
-          @key.app_addon.app
+          @key.app_addon.app_scope.app
         ).delay.perform
 
         render json: @key.app_addon.keys_for_app_addon_view
@@ -64,7 +64,7 @@ class KeysController < ApplicationController
         # Remove all keys from Redis mapping to each of these apps
         AppServices::RemoveAppKeysFromRedis.new(
           @current_user,
-          app_addon.app
+          app_addon.app_scope.app
         ).delay.perform
 
         render json: app_addon.keys_for_app_addon_view

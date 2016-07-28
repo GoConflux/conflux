@@ -39,8 +39,14 @@ var ModalSelect = React.createClass({
   },
 
   render: function() {
+    var classes = 'modal-select-container';
+
+    if (this.props.customClasses) {
+      classes += (' ' + this.props.customClasses);
+    }
+
     return (
-      <div className="modal-select-container">
+      <div className={classes}>
         <div className="select-title">{this.props.data.title}</div>
         <select key={Date.now()} ref={this.setSelectRef} className="conflux-select" defaultValue={this.getDefault()} onChange={this.onSelectChange}>{this.getSelectOptions()}</select>
       </div>

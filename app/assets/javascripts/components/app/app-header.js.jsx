@@ -13,6 +13,10 @@ var AppHeader = React.createClass({
       success: function (data) {
         data.app_uuid = self.props.data.app_uuid;
         data.selectedIndex = 0;
+        data.addonsMap = {
+          '0': self.props.data.addons.shared.map(function(addon){ return addon.addon_uuid; }),
+          '1': self.props.data.addons.personal.map(function(addon){ return addon.addon_uuid; })
+        };
 
         React.modal.show('addon:create', data, { onConfirm: self.createNewAddon });
       }
@@ -25,7 +29,8 @@ var AppHeader = React.createClass({
     React.post('/app_addons', {
       app_uuid: data.app_uuid,
       addon_uuid: data.addon_uuid,
-      plan: data.plan
+      plan: data.plan,
+      scope: data.scope
     }, {
       success: function (newData) {
         if (newData.addon_already_exists) {
@@ -42,7 +47,7 @@ var AppHeader = React.createClass({
     if (this.props.data.write_access) {
       return <InAppSearchBar appUUID={this.props.data.app_uuid} onAddonSelected={this.onAddonSelected} />;
     } else {
-      var count = this.props.data.addons.length;
+      var count = this.props.data.addons.shared.length;
       var model = ' add-on';
 
       if (count != 1) {

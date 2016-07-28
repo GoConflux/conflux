@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160717054257) do
+ActiveRecord::Schema.define(version: 20160728025627) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 20160717054257) do
 
   create_table "app_addons", force: :cascade do |t|
     t.string   "uuid"
-    t.integer  "app_id"
+    t.integer  "app_scope_id"
     t.integer  "addon_id"
     t.text     "description"
     t.boolean  "is_destroyed", default: false
@@ -54,9 +54,24 @@ ActiveRecord::Schema.define(version: 20160717054257) do
     t.string   "plan"
   end
 
-  add_index "app_addons", ["app_id", "addon_id"], name: "index_app_addons_on_app_id_and_addon_id", using: :btree
+  add_index "app_addons", ["app_scope_id", "addon_id"], name: "index_app_addons_on_app_scope_id_and_addon_id", using: :btree
   add_index "app_addons", ["is_destroyed"], name: "index_app_addons_on_is_destroyed", using: :btree
   add_index "app_addons", ["uuid"], name: "index_app_addons_on_uuid", using: :btree
+
+  create_table "app_scopes", force: :cascade do |t|
+    t.integer  "app_id"
+    t.integer  "scope"
+    t.integer  "team_user_id"
+    t.string   "heroku_app"
+    t.boolean  "is_destroyed", default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "app_scopes", ["app_id"], name: "index_app_scopes_on_app_id", using: :btree
+  add_index "app_scopes", ["is_destroyed"], name: "index_app_scopes_on_is_destroyed", using: :btree
+  add_index "app_scopes", ["scope"], name: "index_app_scopes_on_scope", using: :btree
+  add_index "app_scopes", ["team_user_id"], name: "index_app_scopes_on_team_user_id", using: :btree
 
   create_table "apps", force: :cascade do |t|
     t.string   "uuid"

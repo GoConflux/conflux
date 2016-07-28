@@ -1,5 +1,6 @@
 module PipelineServices
   class AddDefaultTiers < AbstractService
+    include AppsHelper
 
     def initialize(executor_user, pipeline, add_default_local_app: true)
       super(executor_user)
@@ -30,11 +31,11 @@ module PipelineServices
         # Afterwards, name the default local apps as "<PipelineName> Local"
         app_name = (@pipeline.team.pipelines.count == 1) ? "#{@pipeline.team.name} Local" : "#{@pipeline.name} Local"
 
-        App.create!(
+        create_new_app({
           name: app_name,
           token: UUIDTools::UUID.random_create.to_s,
           tier_id: local_dev_tier_id
-        )
+        })
       end
 
       self

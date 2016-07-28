@@ -1,4 +1,6 @@
 class AppAddonsController < ApplicationController
+  include AppsHelper
+
   before_filter :set_current_user
   before_filter :set_app_addon, :only => [:index]
   before_filter :protect_app_addon, :only => [:index]
@@ -17,7 +19,7 @@ class AppAddonsController < ApplicationController
       icon: addon.icon,
       description: @app_addon.description || addon.tagline,
       keys: @app_addon.keys_for_app_addon_view,
-      app_uuid: @app_addon.app.uuid,
+      app_uuid: @app_addon.app_scope.app.uuid,
       addon_uuid: addon.uuid,
       app_addon_uuid: @app_addon.uuid,
       plan_data: {
@@ -28,7 +30,7 @@ class AppAddonsController < ApplicationController
       write_access: @current_team_user.can_edit_addon?(@app_addon)
     }
 
-    pipeline = @app_addon.app.tier.pipeline
+    pipeline = @app_addon.app_scope.app.tier.pipeline
 
     configure_menu_data(pipeline.team, selected_pipeline_slug: pipeline.slug)
     configure_header_data(app_addon: @app_addon)
@@ -37,10 +39,15 @@ class AppAddonsController < ApplicationController
   end
 
   def create
-    current_addon_ids_for_app = @app.app_addons.includes(:addon).map { |app_addon| app_addon.addon.id }
+    scope = params[:scope] || 0
 
-    # If App already has an instance of the Addon, respond with a message explaining that you can't do that.
-    if current_addon_ids_for_app.include?(@addon.id)
+    addons_for_scope = @app.app_addons
+      .includes(:app_scope, :addon)
+      .where(app_scopes: { scope: scope })
+      .map { |app_addon| app_addon.addon.id }
+
+    # Return if app_scope already has that addon
+    if addons_for_scope.include?(@addon.id)
       render json: { addon_already_exists: true }, status: 500
       return
     end
@@ -50,10 +57,22 @@ class AppAddonsController < ApplicationController
       return
     end
 
+    # Ensure @current_team_user has write permissions to this app
+    protect_app(true)
+
+    case scope
+      when AppScope::SHARED
+        app_scope = @app.shared_app_scope
+      when AppScope::PERSONAL
+        app_scope = personal_app_scope  # find_or_create_by
+    end
+
+    assert(app_scope)
+
     begin
       with_transaction do
         app_addon = AppAddon.create!(
-          app_id: @app.id,
+          app_scope_id: app_scope.id,
           addon_id: @addon.id,
           plan: @addon.basic_plan # hardcoding basic plan until Stripe integration is added
         )
@@ -77,7 +96,7 @@ class AppAddonsController < ApplicationController
 
         render json: {
           monthly_cost: "$#{'%.2f' % @app.est_monthly_cost}",
-          addons: @app.addons_for_app_view
+          addons: addons_for_app_view
         }
       end
     rescue Exception => e
@@ -98,7 +117,7 @@ class AppAddonsController < ApplicationController
           # Remove all keys from Redis mapping to each of these apps
           AppServices::RemoveAppKeysFromRedis.new(
             @current_user,
-            @app_addon.app
+            @app_addon.app_scope.app
           ).delay.perform
         end
 
@@ -162,7 +181,7 @@ class AppAddonsController < ApplicationController
 
   def destroy
     begin
-      app = @app_addon.app
+      app = @app_addon.app_scope.app
       addon = @app_addon.addon
 
       @app_addon.destroy!

@@ -90,7 +90,7 @@
   text-align: right;
   padding-right: 8px;
   display: inline-block;
-  color: rgba(91, 91, 91, 0.8);
+  color: rgba(64, 75, 85, 0.8);
   font-size: 14px;
   margin-bottom: 42px;
 
@@ -100,12 +100,21 @@
 }
 
 .no-addons-view {
-  width: 100%;
+  width: 98%;
   text-align: center;
-  line-height: 30px;
-  color: rgba(0,0,0,0.45);
-  font-size: 16px;
-  margin-top: 120px;
+  line-height: 24px;
+  color: rgba(64, 75, 85, 0.8);
+  font-size: 13px;
+  margin-top: 25px;
+  background-color: #F5F5F9;
+  border-radius: 3px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 68px 30px;
+
+  &.no-write-access {
+    padding: 79px;
+  }
 }
 
 #app.full-width-search {

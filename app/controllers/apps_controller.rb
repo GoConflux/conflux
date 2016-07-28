@@ -1,4 +1,5 @@
 class AppsController < ApplicationController
+  include AppsHelper
 
   before_filter :set_current_user
   before_filter :set_app, :only => [:index]
@@ -15,7 +16,7 @@ class AppsController < ApplicationController
       name: @app.name,
       app_uuid: @app.uuid,
       tier_stage: @app.tier.stage,
-      addons: @app.addons_for_app_view,
+      addons: addons_for_app_view,
       monthly_cost: "$#{'%.2f' % @app.est_monthly_cost}",
       api_key: @app.token,
       can_bump_to_prod: @current_team_user.can_write_production_apps?,
@@ -34,12 +35,12 @@ class AppsController < ApplicationController
   def create
     begin
       with_transaction do
-        App.create!(
+        create_new_app({
           name: params[:name],
           description: params[:description],
           token: UUIDTools::UUID.random_create.to_s,
           tier_id: @tier.id
-        )
+        })
 
         track('New Bundle', { team: @tier.pipeline.team.slug })
 
@@ -156,13 +157,11 @@ class AppsController < ApplicationController
 
     begin
       with_transaction do
-        app = App.new(
+        app, shared_app_scope = create_new_app({
           name: params[:name],
           token: UUIDTools::UUID.random_create.to_s,
           tier_id: tier.id
-        )
-
-        app.save!
+        })
 
         team_slug = @pipeline.team.slug
 
@@ -175,7 +174,7 @@ class AppsController < ApplicationController
           plan = addon.basic_plan
 
           app_addon = AppAddon.new(
-            app_id: app.id,
+            app_scope_id: shared_app_scope.id,
             addon_id: addon.id,
             plan: plan
           )

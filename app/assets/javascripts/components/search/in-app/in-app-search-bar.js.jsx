@@ -65,7 +65,7 @@ var InAppSearchBar = React.createClass({
   },
 
   fetchResults: function (query, cb) {
-    React.get('/addons/search', { query: query, app_uuid: this.props.appUUID }, {
+    React.get('/addons/search', { query: query }, {
       success: function (results) {
         cb(results);
       }
@@ -76,7 +76,7 @@ var InAppSearchBar = React.createClass({
     return (
       <div className="in-app-search-bar" ref={this.setSearchBarRef}>
         <img className="search-icon" src="https://ds8ypexjwou5.cloudfront.net/images/search.png" />
-        <input type="text" className="autocomplete-input" placeholder="Find add-ons to add"/>
+        <input type="text" className="autocomplete-input" placeholder="Search Add-ons"/>
       </div>
     );
   }

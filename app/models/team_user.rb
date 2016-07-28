@@ -69,7 +69,7 @@ class TeamUser < ActiveRecord::Base
   end
 
   def can_edit_addon?(app_addon)
-    app_addon.app.tier.is_prod? ? at_least_admin? : true
+    app_addon.app_scope.app.tier.is_prod? ? at_least_admin? : true
   end
 
   def allow_pipeline_write_access?

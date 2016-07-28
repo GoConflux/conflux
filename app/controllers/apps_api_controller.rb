@@ -1,4 +1,5 @@
 class AppsApiController < ApplicationController
+  include AppsHelper
 
   before_filter :current_api_user, :only => [:manifest, :team_user_app_tokens, :exists, :clone]
   before_filter :validate_api_tokens, :only => [:pull]
@@ -40,11 +41,11 @@ class AppsApiController < ApplicationController
   end
 
   def pull
-    configs = ApiServices::FetchConfigsService.new(nil, @app, @app_token).perform.configs
+    configs = ApiServices::FetchConfigsService.new(nil, @app, @app_token, @current_team_user).perform.configs
 
     past_jobs = params[:past_jobs].blank? ? [] : params[:past_jobs].split(',')
 
-    jobs = ApiServices::FetchJobsService.new(nil, @app, @app_token, past_jobs).perform.jobs
+    jobs = ApiServices::FetchJobsService.new(nil, @app, @app_token, past_jobs, @current_team_user).perform.jobs
 
     render json: { configs: configs, jobs: jobs }
   end
@@ -61,7 +62,10 @@ class AppsApiController < ApplicationController
   end
 
   def configs
-    configs = ApiServices::FetchConfigsService.new(nil, @app, @app.token).perform.configs
+    @current_team_user ||= TeamUser.find_by(team_id: @app.tier.pipeline.team.id, user_id: @current_user.id)
+    assert(@current_team_user)
+
+    configs = ApiServices::FetchConfigsService.new(nil, @app, @app.token, @current_team_user).perform.configs
 
     track('CLI - Checking Configs', { app: @app.slug })
 
@@ -112,13 +116,11 @@ class AppsApiController < ApplicationController
 
     begin
       with_transaction do
-        new_app = App.new(
+        new_app, shared_app_scope = create_new_app({
           name: params[:dest_app_name],
           token: UUIDTools::UUID.random_create.to_s,
           tier_id: tier.id
-        )
-
-        new_app.save!
+        })
 
         team_slug = app_tier.pipeline.team.slug
 
@@ -128,7 +130,7 @@ class AppsApiController < ApplicationController
           plan = addon.basic_plan
 
           app_addon = AppAddon.new(
-            app_id: new_app.id,
+            app_scope_id: shared_app_scope.id,
             addon_id: addon.id,
             plan: plan
           )

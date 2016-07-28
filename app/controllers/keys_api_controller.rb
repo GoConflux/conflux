@@ -4,7 +4,7 @@ class KeysApiController < ApplicationController
   before_filter :ensure_top_level_token, :only => [:remove_keys_from_redis]
 
   def index
-    configs = ApiServices::FetchConfigsService.new(nil, @app, @app_token).perform.configs
+    configs = ApiServices::FetchConfigsService.new(nil, @app, @app_token, @current_team_user).perform.configs
     render json: configs
   end
 

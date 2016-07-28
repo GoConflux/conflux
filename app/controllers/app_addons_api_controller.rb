@@ -1,14 +1,19 @@
 class AppAddonsApiController < ApplicationController
+  include AppsHelper
 
   before_filter :set_addon
   before_filter :set_app_conditional
-  before_filter :protect_app
 
   def create
-    current_addon_ids_for_app = @app.app_addons.includes(:addon).map { |app_addon| app_addon.addon.id }
+    scope = params[:scope] || 0
 
-    # If App already has an instance of the Addon, respond with a message explaining that you can't do that.
-    if current_addon_ids_for_app.include?(@addon.id)
+    addons_for_scope = @app.app_addons
+      .includes(:app_scope, :addon)
+      .where(app_scopes: { scope: scope })
+      .map { |app_addon| app_addon.addon.id }
+
+    # Return if app_scope already has that addon
+    if addons_for_scope.include?(@addon.id)
       render json: { addon_already_exists: true }
       return
     end
@@ -27,10 +32,21 @@ class AppAddonsApiController < ApplicationController
       return
     end
 
+    protect_app(true)
+
+    case scope
+      when AppScope::SHARED
+        app_scope = @app.shared_app_scope
+      when AppScope::PERSONAL
+        app_scope = personal_app_scope  # find_or_create_by
+    end
+
+    assert(app_scope)
+
     begin
       with_transaction do
         app_addon = AppAddon.create!(
-          app_id: @app.id,
+          app_scope_id: app_scope.id,
           addon_id: @addon.id,
           plan: plan
         )
@@ -57,6 +73,8 @@ class AppAddonsApiController < ApplicationController
   end
 
   def destroy
+    protect_app(true)
+
     begin
       app_addon = @app.app_addons.find_by(addon_id: @addon.id)
       assert(app_addon)
