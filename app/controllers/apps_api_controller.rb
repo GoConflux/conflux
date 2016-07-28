@@ -120,6 +120,9 @@ class AppsApiController < ApplicationController
 
         new_app.save!
 
+        shared_app_scope = AppScope.new(app_id: new_app.id, scope: AppScope::SHARED)
+        shared_app_scope.save!
+
         team_slug = app_tier.pipeline.team.slug
 
         track('Cloned Bundle', { team: team_slug })
@@ -128,7 +131,7 @@ class AppsApiController < ApplicationController
           plan = addon.basic_plan
 
           app_addon = AppAddon.new(
-            app_id: new_app.id,
+            app_scope_id: shared_app_scope.id,
             addon_id: addon.id,
             plan: plan
           )

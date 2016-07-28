@@ -19,7 +19,7 @@ class AppAddonsController < ApplicationController
       icon: addon.icon,
       description: @app_addon.description || addon.tagline,
       keys: @app_addon.keys_for_app_addon_view,
-      app_uuid: @app_addon.app.uuid,
+      app_uuid: @app_addon.app_scope.app.uuid,
       addon_uuid: addon.uuid,
       app_addon_uuid: @app_addon.uuid,
       plan_data: {
@@ -30,7 +30,7 @@ class AppAddonsController < ApplicationController
       write_access: @current_team_user.can_edit_addon?(@app_addon)
     }
 
-    pipeline = @app_addon.app.tier.pipeline
+    pipeline = @app_addon.app_scope.app.tier.pipeline
 
     configure_menu_data(pipeline.team, selected_pipeline_slug: pipeline.slug)
     configure_header_data(app_addon: @app_addon)
@@ -106,7 +106,7 @@ class AppAddonsController < ApplicationController
           # Remove all keys from Redis mapping to each of these apps
           AppServices::RemoveAppKeysFromRedis.new(
             @current_user,
-            @app_addon.app
+            @app_addon.app_scope.app
           ).delay.perform
         end
 
@@ -170,7 +170,7 @@ class AppAddonsController < ApplicationController
 
   def destroy
     begin
-      app = @app_addon.app
+      app = @app_addon.app_scope.app
       addon = @app_addon.addon
 
       @app_addon.destroy!

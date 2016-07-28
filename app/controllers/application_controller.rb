@@ -224,7 +224,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_app_addon
-    @app_addon = AppAddon.includes(:addon).joins(app: { tier: { pipeline: :team } }).where({
+    @app_addon = AppAddon.includes(:addon).joins(app_scope: { app: { tier: { pipeline: :team } } }).where({
       addons: {
         slug: params[:addon_slug]
       },
@@ -280,10 +280,10 @@ class ApplicationController < ActionController::Base
   end
 
   def protect_app_addon
-    @current_team_user ||= TeamUser.find_by(user_id: @current_user.id, team_id: @app_addon.app.tier.pipeline.team.id)
+    @current_team_user ||= TeamUser.find_by(user_id: @current_user.id, team_id: @app_addon.app_scope.app.tier.pipeline.team.id)
     assert(@current_team_user)
 
-    if @app_addon.app.tier.is_prod? && !@current_team_user.can_read_production_apps?
+    if @app_addon.app_scope.app.tier.is_prod? && !@current_team_user.can_read_production_apps?
       show_invalid_permissions
     end
   end

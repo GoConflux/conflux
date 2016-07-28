@@ -53,7 +53,7 @@ module KeyServices
     def remove_app_keys_from_redis
       AppServices::RemoveAppKeysFromRedis.new(
         @executor_user,
-        @app_addon.app
+        @app_addon.app_scope.app
       ).perform
     end
 

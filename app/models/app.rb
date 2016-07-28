@@ -74,7 +74,7 @@ class App < ActiveRecord::Base
   end
 
   def clone_info
-    app_addons.includes(:addon).order('addons.name').map { |app_addon|
+    self.app_addons.includes(:app_scope, :addon).where(app_scopes: { scope: AppScope::SHARED }).map { |app_addon|
       addon = app_addon.addon
       plans = addon.plans
 
@@ -85,7 +85,7 @@ class App < ActiveRecord::Base
         plans: plans,
         selected_plan_index: plans.find_index { |p| p['slug'] == app_addon.plan } || 0
       }
-    }
+    }.sort_by { |_| _[:name].downcase }
   end
 
 end

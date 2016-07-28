@@ -44,11 +44,11 @@ class AppAddon < ActiveRecord::Base
   end
 
   def get_back_data
-    pipeline = self.app.tier.pipeline
+    pipeline = self.app_scope.app.tier.pipeline
 
     {
-      url: "/#{pipeline.team.slug}/#{pipeline.slug}/#{self.app.slug}",
-      text: self.app.name
+      url: "/#{pipeline.team.slug}/#{pipeline.slug}/#{self.app_scope.app.slug}",
+      text: self.app_scope.app.name
     }
   end
 
