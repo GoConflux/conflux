@@ -1,4 +1,6 @@
 class AppAddonsController < ApplicationController
+  include AppsHelper
+
   before_filter :set_current_user
   before_filter :set_app_addon, :only => [:index]
   before_filter :protect_app_addon, :only => [:index]
@@ -50,10 +52,16 @@ class AppAddonsController < ApplicationController
       return
     end
 
+    # Ensure @current_team_user has write permissions to this app
+    protect_app(true)
+
+    # Get either the personal scope for this TeamUser or the shared app scope for this app based on the personal param
+    app_scope = params[:personal] ? personal_app_scope : @app.shared_app_scope
+
     begin
       with_transaction do
         app_addon = AppAddon.create!(
-          app_id: @app.id,
+          app_scope_id: app_scope.id,
           addon_id: @addon.id,
           plan: @addon.basic_plan # hardcoding basic plan until Stripe integration is added
         )
@@ -77,7 +85,7 @@ class AppAddonsController < ApplicationController
 
         render json: {
           monthly_cost: "$#{'%.2f' % @app.est_monthly_cost}",
-          addons: @app.addons_for_app_view
+          addons: addons_for_app_view
         }
       end
     rescue Exception => e

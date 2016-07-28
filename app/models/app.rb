@@ -11,21 +11,13 @@ class App < ActiveRecord::Base
 
   belongs_to :tier
   belongs_to :pipeline
-  has_many :app_addons, :dependent => :destroy
+  has_many :app_scopes, :dependent => :destroy
+  has_many :app_addons, :through => :app_scopes
   has_many :keys, :through => :app_addons
   has_many :addons, :through => :app_addons
 
-  def addons_for_app_view
-    self.app_addons.includes(:addon).order('addons.name').map { |app_addon|
-      addon = app_addon.addon
-
-      {
-        name: addon.name,
-        icon: addon.icon,
-        tagline: addon.tagline,
-        link: app_addon.create_link
-      }
-    }
+  def shared_app_scope
+    self.app_scopes.find_by(scope: AppScope::SHARED)
   end
 
   def create_link

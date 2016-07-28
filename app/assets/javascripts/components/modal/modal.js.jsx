@@ -8,7 +8,7 @@ var Modal = React.createClass({
 
   getInitialState: function () {
     return {
-      usecase: 'addon:create',
+      usecase: 'empty',
       extraDialogClasses: []
     };
   },
@@ -24,6 +24,7 @@ var Modal = React.createClass({
       setTimeout(function () {
         if (self.currentModal.onHide) {
           self.currentModal.onHide();
+          self.setState({ usecase: 'empty', extraDialogClasses: [] });
         }
       }, 400);
     });
@@ -176,6 +177,11 @@ var Modal = React.createClass({
         body: <ForgotPasswordModal data={this.data} ref={this.setCurrentModal}/>,
         confirmText: 'Send email',
         headerText: 'Forgot Password'
+      },
+      'empty': {
+        body: <div></div>,
+        confirmText: '',
+        headerText: ''
       }
     }[this.state.usecase];
   },
@@ -198,22 +204,27 @@ var Modal = React.createClass({
 
   getFooterButtons: function () {
     var currentModal = this.getCurrentModal() || {};
-
+    var confirmClasses = 'modal-action-btn confirm';
+    var confirmText = this.getConfirmText();
+    this.enableConfirm();
+    
     if (currentModal.confirmText && currentModal.declineText) {
       return <div className="double-footer-btns"><a onClick={this.onDecline} className="modal-action-link" href="javascript:void(0)"><div className="modal-action-btn decline">{this.getDeclineText()}</div></a><a onClick={this.onConfirm} className="modal-action-link" href="javascript:void(0)"><div className="modal-action-btn confirm">{this.getConfirmText()}</div><HorizontalSpinner ref={this.setSpinnerRef} /></a></div>;
     } else {
-      var confirmClasses = 'modal-action-btn confirm';
-      var confirmText = this.getConfirmText();
-      this.enableConfirm();
+      this.hideLoadingAnimation = !!currentModal.hideLoadingAnimation;
 
-      // hardcoding cause fuck it
+      // hardcoding cause fuck it - tech debt here we come!
       if (this.state.usecase == 'addon:update' && this.data.plans[this.data.selectedIndex].disabled == 'true') {
         confirmClasses += ' plan-na';
         confirmText = <span><i className="fa fa-lock lock-icon"></i>Plan not currently available</span>;
         this.disableConfirm();
       }
 
-      this.hideLoadingAnimation = !!currentModal.hideLoadingAnimation;
+      if (this.state.usecase == 'addon:create' && !_.isEmpty(this.data) && this.data.addonsMap && _.contains(this.data.addonsMap['0'], this.data.addon_uuid)) {
+        confirmClasses += ' scope-na';
+        confirmText = <span><i className="fa fa-lock lock-icon"></i>Add-on already exists for this scope</span>;
+        this.disableConfirm();
+      }
 
       return <a onClick={this.onConfirm} className="modal-action-link" href="javascript:void(0)"><div className={confirmClasses}>{confirmText}</div><HorizontalSpinner ref={this.setSpinnerRef} /></a>;
     }

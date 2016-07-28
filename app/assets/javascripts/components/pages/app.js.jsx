@@ -27,8 +27,12 @@ var App = React.createClass({
     }
   },
 
-  setGridRef: function (ref) {
-    this.addonGrid = ref;
+  setSharedGridRef: function (ref) {
+    this.sharedAddonGrid = ref;
+  },
+
+  setPersonalGridRef: function (ref) {
+    this.personalAddonGrid = ref;
   },
 
   setDropdownRef: function (ref) {
@@ -44,7 +48,12 @@ var App = React.createClass({
   },
 
   onCreateNewAddon: function (data) {
-    this.addonGrid.setState({ addons: data.addons });
+    this.sharedAddonGrid.setState({ addons: data.addons.shared });
+
+    if (this.personalAddonGrid) {
+      this.personalAddonGrid.setState({ addons: data.addons.personal });
+    }
+
     $('.monthly-cost > .figure').html(data.monthly_cost);
   },
 
@@ -153,12 +162,17 @@ var App = React.createClass({
     return <div className="settings-icon-container"><img src="https://ds8ypexjwou5.cloudfront.net/images/gear.png" id="settingsIcon"/><Dropdown customID={'appSettingsDropdown'} data={this.getSettingsDropdownOptions()} ref={this.setDropdownRef} /></div>;
   },
 
+  getPersonalAddonsGrid: function () {
+    return this.props.write_access ? <AddonGrid addons={this.props.addons.personal} group={'Personal'} personal={true} writeAccess={this.props.write_access} ref={this.setPersonalGridRef} /> : null;
+  },
+
   render: function() {
     return (
       <div id="app">
         {this.getSettingsIcon()}
         <AppHeader data={this.props} onCreateNewAddon={this.onCreateNewAddon} ref={this.setHeaderRef} />
-        <AddonGrid data={this.props} writeAccess={this.props.write_access} ref={this.setGridRef} />
+        <AddonGrid addons={this.props.addons.shared} personal={false} group={'Shared'} writeAccess={this.props.write_access} ref={this.setSharedGridRef} />
+        {this.getPersonalAddonsGrid()}
         <div className="monthly-cost">Estimated Monthly Cost:<span className="figure">{this.props.monthly_cost}</span></div>
       </div>
     );

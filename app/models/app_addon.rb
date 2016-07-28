@@ -6,7 +6,7 @@ class AppAddon < ActiveRecord::Base
 
   before_create :generate_uuid
 
-  belongs_to :app
+  belongs_to :app_scope
   belongs_to :addon
   has_many :keys, :dependent => :destroy
 
@@ -38,9 +38,9 @@ class AppAddon < ActiveRecord::Base
   end
 
   def create_link
-    pipeline = self.app.tier.pipeline
+    pipeline = self.app_scope.app.tier.pipeline
 
-    "/#{pipeline.team.slug}/#{pipeline.slug}/#{self.app.slug}/#{self.addon.slug}"
+    "/#{pipeline.team.slug}/#{pipeline.slug}/#{self.app_scope.app.slug}/#{self.addon.slug}"
   end
 
   def get_back_data

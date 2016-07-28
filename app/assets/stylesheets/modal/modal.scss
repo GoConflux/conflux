@@ -98,7 +98,8 @@ $modal-width: 400px;
 .modal-action-btn.confirm {
   background-color: $conflux-green;
 
-  &.plan-na {
+  &.plan-na,
+  &.scope-na {
     background-color: #c4c5ca;
     cursor: default;
 
@@ -145,6 +146,10 @@ $modal-width: 400px;
   padding: 15px;
   width: 100%;
   padding-bottom: 10px;
+
+  &.scope-select {
+    padding-bottom: 0;
+  }
 }
 
 .conflux-select {

@@ -267,11 +267,14 @@ class ApplicationController < ActionController::Base
     assert(@team_user, StatusCodes::ResourceNotFound)
   end
 
-  def protect_app
+  def protect_app(check_for_write_perms = false)
     @current_team_user ||= TeamUser.find_by(user_id: @current_user.id, team_id: @app.tier.pipeline.team.id)
     assert(@current_team_user)
 
-    if @app.tier.is_prod? && !@current_team_user.can_read_production_apps?
+    perm_check = check_for_write_perms ?
+      @current_team_user.can_write_production_apps? : @current_team_user.can_read_production_apps?
+
+    if @app.tier.is_prod? && !perm_check
       show_invalid_permissions
     end
   end

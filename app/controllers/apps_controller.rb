@@ -1,4 +1,5 @@
 class AppsController < ApplicationController
+  include AppsHelper
 
   before_filter :set_current_user
   before_filter :set_app, :only => [:index]
@@ -15,7 +16,7 @@ class AppsController < ApplicationController
       name: @app.name,
       app_uuid: @app.uuid,
       tier_stage: @app.tier.stage,
-      addons: @app.addons_for_app_view,
+      addons: addons_for_app_view,
       monthly_cost: "$#{'%.2f' % @app.est_monthly_cost}",
       api_key: @app.token,
       can_bump_to_prod: @current_team_user.can_write_production_apps?,
