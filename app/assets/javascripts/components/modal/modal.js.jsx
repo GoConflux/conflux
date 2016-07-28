@@ -220,7 +220,7 @@ var Modal = React.createClass({
         this.disableConfirm();
       }
 
-      if (this.state.usecase == 'addon:create' && !_.isEmpty(this.data) && this.data.addonsMap && _.contains(this.data.addonsMap['0'], this.data.addon_uuid)) {
+      if (this.state.usecase == 'addon:create' && _.contains(this.data.addonsMap['0'], this.data.addon_uuid)) {
         confirmClasses += ' scope-na';
         confirmText = <span><i className="fa fa-lock lock-icon"></i>Add-on already exists for this scope</span>;
         this.disableConfirm();

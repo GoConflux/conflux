@@ -3,18 +3,24 @@ class AddonsApiController < ApplicationController
   before_filter :set_app_conditional, :only => [:for_app]
 
   def for_app
-    addons = @app.app_addons.includes(:app_scope, :addon).map { |app_addon|
-      addon = app_addon.addon
-      plan = app_addon.plan
+    @current_team_user = TeamUser.find_by(team_id: @app.tier.pipeline.team.id, user_id: @current_user.id)
+    assert(@current_team_user)
 
-      {
-        'slug' => addon.slug,
-        'name' => addon.name,
-        'scope' => app_addon.app_scope.scope == AppScope::PERSONAL ? 'Personal' : 'Shared',
-        'plan' => plan,
-        'cost' => addon.cost_for_plan(plan)
-      }
-    }.sort_by { |a| [a['scope'], a['slug']] }
+    addons = @app.app_addons
+      .includes(:app_scope, :addon)
+      .where(app_scopes: { team_user_id: [nil, @current_team_user.id] })
+      .map { |app_addon|
+        addon = app_addon.addon
+        plan = app_addon.plan
+
+        {
+          'slug' => addon.slug,
+          'name' => addon.name,
+          'scope' => app_addon.app_scope.scope == AppScope::PERSONAL ? 'Personal' : 'Shared',
+          'plan' => plan,
+          'cost' => addon.cost_for_plan(plan)
+        }
+      }.sort_by { |a| [a['scope'], a['slug']] }
 
     track('CLI - Fetch Add-ons for App', { app: @app.slug })
 

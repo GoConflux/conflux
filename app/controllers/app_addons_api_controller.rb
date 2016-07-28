@@ -1,4 +1,5 @@
 class AppAddonsApiController < ApplicationController
+  include AppsHelper
 
   before_filter :set_addon
   before_filter :set_app_conditional
