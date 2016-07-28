@@ -3,17 +3,18 @@ class AddonsApiController < ApplicationController
   before_filter :set_app_conditional, :only => [:for_app]
 
   def for_app
-    addons = @app.app_addons.includes(:addon).order('addons.slug').map { |app_addon|
+    addons = @app.app_addons.includes(:app_scope, :addon).map { |app_addon|
       addon = app_addon.addon
       plan = app_addon.plan
 
       {
         'slug' => addon.slug,
         'name' => addon.name,
+        'scope' => app_addon.app_scope.scope == AppScope::PERSONAL ? 'Personal' : 'Shared',
         'plan' => plan,
         'cost' => addon.cost_for_plan(plan)
       }
-    }
+    }.sort_by { |a| [a['scope'], a['slug']] }
 
     track('CLI - Fetch Add-ons for App', { app: @app.slug })
 

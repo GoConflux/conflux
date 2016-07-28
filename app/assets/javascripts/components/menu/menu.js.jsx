@@ -20,7 +20,9 @@ var Menu = React.createClass({
       this.addMouseUpListener();
 
       document.addEventListener('click', function () {
-        self.settingsDropdown.hideDropdown();
+        if (self.settingsDropdown) {
+          self.settingsDropdown.hideDropdown();
+        }
       });
 
       var settingsIcon = $('[data-action=settings]')[0];

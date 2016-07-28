@@ -26,27 +26,28 @@ var AppHeader = React.createClass({
   createNewAddon: function (data) {
     var self = this;
 
-    // React.post('/app_addons', {
-    //   app_uuid: data.app_uuid,
-    //   addon_uuid: data.addon_uuid,
-    //   plan: data.plan
-    // }, {
-    //   success: function (newData) {
-    //     if (newData.addon_already_exists) {
-    //       alert('Addon alredy exists for this app!');
-    //     } else {
-    //       React.modal.hide();
-    //       self.props.onCreateNewAddon(newData);
-    //     }
-    //   }
-    // });
+    React.post('/app_addons', {
+      app_uuid: data.app_uuid,
+      addon_uuid: data.addon_uuid,
+      plan: data.plan,
+      scope: data.scope
+    }, {
+      success: function (newData) {
+        if (newData.addon_already_exists) {
+          alert('Addon alredy exists for this app!');
+        } else {
+          React.modal.hide();
+          self.props.onCreateNewAddon(newData);
+        }
+      }
+    });
   },
 
   getSearchBar: function () {
     if (this.props.data.write_access) {
       return <InAppSearchBar appUUID={this.props.data.app_uuid} onAddonSelected={this.onAddonSelected} />;
     } else {
-      var count = this.props.data.addons.length;
+      var count = this.props.data.addons.shared.length;
       var model = ' add-on';
 
       if (count != 1) {

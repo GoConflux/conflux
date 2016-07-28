@@ -39,10 +39,15 @@ class AppAddonsController < ApplicationController
   end
 
   def create
-    current_addon_ids_for_app = @app.app_addons.includes(:addon).map { |app_addon| app_addon.addon.id }
+    scope = params[:scope] || 0
 
-    # If App already has an instance of the Addon, respond with a message explaining that you can't do that.
-    if current_addon_ids_for_app.include?(@addon.id)
+    addons_for_scope = @app.app_addons
+      .includes(:app_scope, :addon)
+      .where(app_scopes: { scope: scope })
+      .map { |app_addon| app_addon.addon.id }
+
+    # Return if app_scope already has that addon
+    if addons_for_scope.include?(@addon.id)
       render json: { addon_already_exists: true }, status: 500
       return
     end
@@ -55,8 +60,14 @@ class AppAddonsController < ApplicationController
     # Ensure @current_team_user has write permissions to this app
     protect_app(true)
 
-    # Get either the personal scope for this TeamUser or the shared app scope for this app based on the personal param
-    app_scope = params[:personal] ? personal_app_scope : @app.shared_app_scope
+    case scope
+      when AppScope::SHARED
+        app_scope = @app.shared_app_scope
+      when AppScope::PERSONAL
+        app_scope = personal_app_scope  # find_or_create_by
+    end
+
+    assert(app_scope)
 
     begin
       with_transaction do

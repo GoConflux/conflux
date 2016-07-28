@@ -36,4 +36,12 @@ module AppsHelper
     )
   end
 
+  def create_new_app(attrs)
+    app = App.new(attrs)
+    app.save!
+    app_scope = AppScope.new(app_id: app.id, scope: AppScope::SHARED)
+    app_scope.save!
+    [app, app_scope]
+  end
+
 end

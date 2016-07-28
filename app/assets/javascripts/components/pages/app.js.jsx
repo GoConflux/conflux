@@ -171,7 +171,7 @@ var App = React.createClass({
       <div id="app">
         {this.getSettingsIcon()}
         <AppHeader data={this.props} onCreateNewAddon={this.onCreateNewAddon} ref={this.setHeaderRef} />
-        <AddonGrid addons={this.props.addons.shared} personal={false} group={'Shared'} writeAccess={this.props.write_access} ref={this.setSharedGridRef} />
+        <AddonGrid addons={this.props.addons.shared} personal={false} group={this.props.write_access ? 'Shared' : null} writeAccess={this.props.write_access} ref={this.setSharedGridRef} />
         {this.getPersonalAddonsGrid()}
         <div className="monthly-cost">Estimated Monthly Cost:<span className="figure">{this.props.monthly_cost}</span></div>
       </div>

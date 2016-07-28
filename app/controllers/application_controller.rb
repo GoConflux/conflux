@@ -117,18 +117,18 @@ class ApplicationController < ActionController::Base
       return
     end
 
-    team_user = team_user_token.team_user
+    @current_team_user = team_user_token.team_user
 
-    if team_user.nil?
+    if @current_team_user.nil?
       render json: { message: 'TeamUser not found for TeamUserToken' }, status: 500
       return
     end
 
-    @current_user ||= team_user.user
+    @current_user ||= @current_team_user.user
 
     @app_token = request.headers[CONFLUX_APP_TOKEN]
 
-    @app = team_user.team.apps.find_by(token: @app_token)
+    @app = @current_team_user.team.apps.find_by(token: @app_token)
 
     if @app.nil?
       render json: { message: 'App not found' }, status: 500
@@ -163,7 +163,6 @@ class ApplicationController < ActionController::Base
       current_api_user
 
       @app = @current_user.app(params[:app_slug])
-
       assert(@app, StatusCodes::AppNotFound)
 
     # otherwise, validate header tokens --> which also defines @app
@@ -224,9 +223,16 @@ class ApplicationController < ActionController::Base
   end
 
   def set_app_addon
+    addon_slug = params[:addon_slug]
+    scope = addon_slug.match(/-personal/).present? ? AppScope::PERSONAL : AppScope::SHARED
+    addon_slug = addon_slug.gsub('-personal', '')
+
     @app_addon = AppAddon.includes(:addon).joins(app_scope: { app: { tier: { pipeline: :team } } }).where({
+      app_scopes: {
+        scope: scope
+      },
       addons: {
-        slug: params[:addon_slug]
+        slug: addon_slug
       },
       apps: {
         slug: params[:app_slug],

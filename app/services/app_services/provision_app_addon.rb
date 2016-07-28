@@ -6,7 +6,6 @@ module AppServices
       super(executor_user)
       @app_addon = app_addon
       @addon = app_addon.addon
-      @app = app_addon.app
       @plan = plan
     end
 

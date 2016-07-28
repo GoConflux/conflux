@@ -35,12 +35,12 @@ class AppsController < ApplicationController
   def create
     begin
       with_transaction do
-        App.create!(
+        create_new_app({
           name: params[:name],
           description: params[:description],
           token: UUIDTools::UUID.random_create.to_s,
           tier_id: @tier.id
-        )
+        })
 
         track('New Bundle', { team: @tier.pipeline.team.slug })
 
@@ -157,16 +157,11 @@ class AppsController < ApplicationController
 
     begin
       with_transaction do
-        app = App.new(
+        app, shared_app_scope = create_new_app({
           name: params[:name],
           token: UUIDTools::UUID.random_create.to_s,
           tier_id: tier.id
-        )
-
-        app.save!
-
-        shared_app_scope = AppScope.new(app_id: app.id, scope: AppScope::SHARED)
-        shared_app_scope.save!
+        })
 
         team_slug = @pipeline.team.slug
 

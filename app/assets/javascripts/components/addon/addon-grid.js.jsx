@@ -14,9 +14,7 @@ var AddonGrid = React.createClass({
           <div className="no-addons-view">You currently don't have any personal Add-ons for this bundle.<br />Use the search above to add some.</div> :
           <div className="no-addons-view">No shared Add-ons exist yet for this bundle.<br />Use the search above to add some.</div>;
       } else {
-        return this.props.personal ?
-          <div className="no-addons-view no-write-access">You currently don't have any personal Add-ons for this bundle.</div> :
-          <div className="no-addons-view no-write-access">No shared Add-ons exist yet for this bundle.</div>;
+        return <div className="no-addons-view no-write-access">No shared Add-ons exist yet for this bundle.</div>;
       }
     } else {
       return this.state.addons.map(function (addon) {

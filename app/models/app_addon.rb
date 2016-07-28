@@ -39,8 +39,9 @@ class AppAddon < ActiveRecord::Base
 
   def create_link
     pipeline = self.app_scope.app.tier.pipeline
+    addon_slug = "#{self.addon.slug}#{self.app_scope.scope == AppScope::PERSONAL ? '-personal' : ''}"
 
-    "/#{pipeline.team.slug}/#{pipeline.slug}/#{self.app_scope.app.slug}/#{self.addon.slug}"
+    "/#{pipeline.team.slug}/#{pipeline.slug}/#{self.app_scope.app.slug}/#{addon_slug}"
   end
 
   def get_back_data
@@ -58,6 +59,14 @@ class AppAddon < ActiveRecord::Base
 
   def monthly_cost
     self.plan_info['price'].to_f
+  end
+
+  def personal?
+    self.app_scope.personal?
+  end
+
+  def shared?
+    self.app_scope.shared?
   end
 
 end

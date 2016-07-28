@@ -11,4 +11,12 @@ class AppScope < ActiveRecord::Base
   SHARED = 0
   PERSONAL = 1
 
+  def shared?
+    scope == SHARED
+  end
+
+  def personal?
+    scope == PERSONAL
+  end
+
 end
