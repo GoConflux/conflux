@@ -216,4 +216,18 @@ class AppAddonsController < ApplicationController
     end
   end
 
+  def import_data
+    target = AppAddon.find_by(uuid: params[:target_uuid])
+    source = params[:is_remote_source] ? params[:source_url] : AppAddon.find_by(uuid: params[:source_uuid])
+
+    AddonServices::ImportData.new(
+      @current_user,
+      source,
+      target,
+      is_remote_source: params[:is_remote_source]
+    ).delay.perform
+
+    render json: {}, status: 200
+  end
+
 end
