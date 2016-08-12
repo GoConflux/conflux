@@ -6,18 +6,14 @@ module AddonServices
     end
 
     def perform
-
+      ensure_target_db_empty
 
       self
     end
 
-    def ensure_target_pg_db_empty
-      sql = 'select count(*) = 0 from pg_stat_user_tables;'
-      result = exec_sql_on_pg_uri(sql, @target)
-
-      if result != " ?column? \n----------\n t\n(1 row)\n\n"
-        raise 'Target database is not empty.'
-      end
+    def ensure_target_db_empty
+      target_keys = `redis-cli -h #{@target.host} -p #{@target.port} -a #{@target.password} && keys`
+      target_keys.empty?
     end
 
   end

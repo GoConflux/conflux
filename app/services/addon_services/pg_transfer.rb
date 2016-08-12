@@ -6,14 +6,14 @@ module AddonServices
     end
 
     def perform
-      ensure_target_pg_db_empty
+      ensure_target_db_empty
       system dump_restore_cmd
       self
     end
 
     private
 
-    def ensure_target_pg_db_empty
+    def ensure_target_db_empty
       sql = 'select count(*) = 0 from pg_stat_user_tables;'
       result = exec_sql_on_pg_uri(sql, @target)
 
