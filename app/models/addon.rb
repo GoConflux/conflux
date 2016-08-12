@@ -9,6 +9,14 @@ class Addon < ActiveRecord::Base
   has_many :app_addons, :dependent => :destroy
   belongs_to :addon_category
 
+  POSTGRES_ADDONS = ['aws-pg']
+  REDIS_ADDONS = ['aws-redis', 'redistogo']
+  MONGODB_ADDONS = ['mongolab']
+
+  POSTGRES_URL_PREFIX = 'postgres://'
+  REDIS_URL_PREFIX = 'redis://'
+  MONGODB_URL_PREFIX = 'mongodb://'
+
   def is_heroku_dependent?
     self.heroku_dependent
   end
@@ -71,6 +79,24 @@ class Addon < ActiveRecord::Base
 
   def heroku_slug
     heroku_alias || slug
+  end
+
+  def compatible_with?(addon)
+    (is_postgres? && is_postgres?(addon)) ||
+      (is_redis? && is_redis?(addon)) ||
+      (is_mongodb? && is_mongodb?(addon))
+  end
+
+  def is_postgres?(addon = nil)
+    POSTGRES_ADDONS.include?((addon || self).try(:slug))
+  end
+
+  def is_redis?(addon = nil)
+    REDIS_ADDONS.include?((addon || self).try(:slug))
+  end
+
+  def is_mongodb?(addon = nil)
+    MONGODB_ADDONS.include?((addon || self).try(:slug))
   end
 
 end
