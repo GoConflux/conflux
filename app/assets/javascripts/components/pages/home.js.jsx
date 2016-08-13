@@ -152,7 +152,7 @@ var Home = React.createClass({
               </div>
               <div className="sub-section">
                 <div className="text-section">
-                  <div className="feature">Abstract out config management.</div>
+                  <div className="feature">Abstract away config management.</div>
                   <div className="sub-text">Forget needing to maintain a local copy of integration configs in order for your app to work. Conflux <span className="highlight">consolidates all of your services' configs into one secure location</span> that's always in sync with every developer on your team.</div>
                 </div>
               </div>
@@ -162,7 +162,7 @@ var Home = React.createClass({
             <div className="section-inner">
               <div className="sub-section">
                 <div className="text-section">
-                  <div className="feature">Built-in user roles for better internal security.</div>
+                  <div className="feature">Define user roles for improved security.</div>
                   <div className="sub-text">Not every developer on your team needs access to all of your third-party services, especially those in production. Built-in user roles make it easy to <span className="highlight">specify exactly who on your team has access to the tools that matter most.</span></div>
                 </div>
               </div>

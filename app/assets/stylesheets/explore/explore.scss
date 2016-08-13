@@ -113,6 +113,10 @@
 
         .addon {
           margin-left: 0;
+
+          &:hover {
+            border: 1px solid #E7E7EC;
+          }
         }
       }
     }

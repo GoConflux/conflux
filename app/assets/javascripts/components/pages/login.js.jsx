@@ -110,7 +110,7 @@ var Login = React.createClass({
   },
 
   getSubtitle: function () {
-    return this.state.sign_up ? null : <div className="subtitle">Enter your <span className="bold-me">email</span> and <span className="bold-me">password</span>.</div>;
+    return this.state.sign_up ? null : <div className="subtitle">Enter your email and password.</div>;
   },
 
   getFooterButtons: function () {
