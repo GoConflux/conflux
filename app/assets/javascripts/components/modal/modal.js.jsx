@@ -134,12 +134,12 @@ var Modal = React.createClass({
         body: <DeleteAddonModal data={this.data} ref={this.setCurrentModal}/>,
         confirmText: 'Yes, remove it.',
         declineText: 'No',
-        headerText: 'Remove Add-on'
+        headerText: 'Remove Service'
       },
       'addon:suggest': {
         body: <SuggestAddonModal data={this.data} ref={this.setCurrentModal}/>,
         confirmText: 'Submit',
-        headerText: 'Suggest an Add-on'
+        headerText: 'Suggest a Service'
       },
       'key:update': {
         body: <KeyUpdateModal data={this.data} ref={this.setCurrentModal}/>,
@@ -222,7 +222,7 @@ var Modal = React.createClass({
 
       if (this.state.usecase == 'addon:create' && _.contains(this.data.addonsMap['0'], this.data.addon_uuid)) {
         confirmClasses += ' scope-na';
-        confirmText = <span><i className="fa fa-lock lock-icon"></i>Add-on already exists for this scope</span>;
+        confirmText = <span><i className="fa fa-lock lock-icon"></i>Service already exists for this scope</span>;
         this.disableConfirm();
       }
 

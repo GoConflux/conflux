@@ -62,12 +62,12 @@ class AddonsController < ApplicationController
     begin
       Slack.chat_postMessage(
         channel: ENV['SLACK_FEEDBACK_CHANNEL'],
-        username: 'New Add-on Suggestion',
+        username: 'New Service Suggestion',
         text: "#{params[:addon]}\nFrom: #{@current_user.try(:email) || 'Unknown'}",
         icon_url: "#{ENV['CLOUDFRONT_URL']}/images/conflux-icon-white-blue-bg.png"
       )
     rescue => e
-      puts "Error posting Add-on Suggestion to Slack, with error #{e.message}"
+      puts "Error posting service Suggestion to Slack, with error #{e.message}"
     end
 
     render json: {}, status: 200

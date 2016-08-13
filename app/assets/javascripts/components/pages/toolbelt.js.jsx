@@ -130,7 +130,7 @@ var Toolbelt = React.createClass({
         <div className="home-header"></div>
         <div className="toolbelt-subheader conflux-container">
           <div className="title">Conflux Toolbelt</div>
-          <div className="subtitle">Get up and running with Conflux by downloading the developer toolbelt. Connect to your add-ons, add new team members, and much more, straight from the command line. Follow the guide below to get started, or <a href="https://github.com/GoConflux/conflux-cli" target="_blank">view the source code on Github</a>.</div>
+          <div className="subtitle">Get up and running with Conflux by downloading the developer toolbelt. Connect to your services, add new team members, and much more, straight from the command line. Follow the guide below to get started, or <a href="https://github.com/GoConflux/conflux-cli" target="_blank">view the source code on Github</a>.</div>
         </div>
         <div className="toolbelt-body conflux-container">
           <div className="before-getting-started md-text">Before getting started, make sure you have a Conflux account. If you haven't signed up yet, <a href="/signup">create an account</a>. Also check to <span className="feaux-link" onClick={this.scrollToSupportSection}>make sure your operating system and app's language are supported.</span></div>
@@ -175,7 +175,7 @@ var Toolbelt = React.createClass({
           <div className="conflux-md-numbered-section">
             <div className="numbered-title">3. Connect your app to a Conflux bundle</div>
             <div className="md-section-description">
-              <div className="md-text">If you haven't created a Conflux team yet, go ahead and <span className="feaux-link" onClick={this.promptNewTeam}>create a new team</span>. Your team should already come pre-configured with an empty Conflux bundle (i.e. a bundle of add-ons).</div>
+              <div className="md-text">If you haven't created a Conflux team yet, go ahead and <span className="feaux-link" onClick={this.promptNewTeam}>create a new team</span>. Your team should already come pre-configured with an empty Conflux bundle (i.e. a bundle of services).</div>
               <div className="sub-section">
                 <div className="sub-section-title">Local Directory</div>
                 <div className="md-section-description">
@@ -197,9 +197,9 @@ var Toolbelt = React.createClass({
                     Adding conflux to Gemfile...<br/>
                     Successfully connected project to conflux bundle: myteam-local
                   </div>
-                  <div className="md-text">Once this connection is established, you can go ahead and start provisioning some add-ons for your bundle. For example, the following is all it takes to spin up a new Redis To Go instance for your app:</div>
+                  <div className="md-text">Once this connection is established, you can go ahead and start provisioning some services for your bundle. For example, the following is all it takes to spin up a new Redis To Go instance for your app:</div>
                   <div className="md-shell">
-                    <span className="prompt">my-app $</span> <span className="command">conflux addons:add redistogo</span><br/>
+                    <span className="prompt">my-app $</span> <span className="command">conflux services:add redistogo</span><br/>
                     Successfully added redistogo to myteam-local.<br/>
                     Writing configs to conflux.yml...<br/>
                     Found 3 new jobs for redistogo...<br/>
@@ -222,7 +222,7 @@ var Toolbelt = React.createClass({
                     2.x.x :001 > <span className="command">$redis</span><br/>
                     => #&#60;Redis client v3.3.0 for redis://catfish.redistogo.com:10837/0&#62;
                   </div>
-                  <div className="md-text">That's it! One command is all it takes to get up and running with almost all Conflux add-ons. Each add-on also comes with a <span className="md-shell">getting_started</span> file showing example code and further implementation of the service. You can find these files inside of your <span className="md-shell">.conflux/</span> directory.</div>
+                  <div className="md-text">That's it! One command is all it takes to get up and running with almost any Conflux service. Each service also comes with a <span className="md-shell">getting_started</span> file showing example code and other helpful tips. You can find these files inside of your <span className="md-shell">.conflux/</span> directory.</div>
                 </div>
               </div>
               <div className="sub-section">
@@ -263,9 +263,9 @@ var Toolbelt = React.createClass({
             </div>
           </div>
           <div className="conflux-md-numbered-section">
-            <div className="numbered-title">4. Start using your Add-ons</div>
+            <div className="numbered-title">4. Start using your services</div>
             <div className="md-section-description">
-              <div className="md-text">Once your project is connected to the Conflux bundle of your choice, your add-ons will automatically be made available any time you start up your server. This way, you can stop worrying about setup and get back to building out your app. Enjoy your add-ons!</div>
+              <div className="md-text">Once your project is connected to the Conflux bundle of your choice, your services will automatically be made available any time you start up your server. This way, you can stop worrying about setup and get back to building out your app. Enjoy your services!</div>
             </div>
           </div>
         </div>

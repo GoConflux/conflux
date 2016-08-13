@@ -1,18 +1,5 @@
 var Explore = React.createClass({
   
-  setScrollTopBtnRef: function (ref) {
-    this.scrollTopBtn = ref;
-    
-    this.scrollTopBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      
-      $('html, body').animate({ scrollTop: 0 }, 600);
-      
-      return false;
-    });
-  },
-  
   setCategoryAddonsRef: function (ref) {
     this.categoryAddons = ref;
   },
@@ -40,8 +27,8 @@ var Explore = React.createClass({
       <div id="explore">
         <div className="home-header"></div>
         <div className="explore-subheader conflux-container">
-          <div className="title">Explore the Add-ons ready to integrate with your app.</div>
-          <div className="subtitle">Add-ons are self-hosted, third-party services, ready to be integrated with your app in one command. They provide services for caching, persistence, email, messaging, and more.</div>
+          <div className="title">Explore the services ready to integrate with your app.</div>
+          <div className="subtitle">Conflux services are self-hosted, third-party developer services, ready to be integrated with your app in one command. They provide tools for caching, persistence, email, messaging, and more.</div>
         </div>
         <div className="explore-body conflux-container">
           <div id="categoriesList">
@@ -51,9 +38,8 @@ var Explore = React.createClass({
           <CategoryAddons data={this.props} ref={this.setCategoryAddonsRef} />
         </div>
         <div onClick={this.showSuggestAnAddon} className="sub-footer-action-section">
-          <i className="fa fa-arrow-up scroll-top-btn" ref={this.setScrollTopBtnRef}></i>
           <div className="sub-footer-action-section-inner">
-            <div className="sub-footer-action-text-container">Have an Add-on suggestion? <span className="sub-footer-action-text">Let us know!</span></div>
+            <div className="sub-footer-action-text-container">Have a service suggestion? <span className="sub-footer-action-text">Let us know!</span></div>
           </div>
         </div>
         <LandingFooter />

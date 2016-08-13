@@ -37,7 +37,7 @@ var SuggestAddonModal = React.createClass({
     return (
       <div className="suggest-addon-modal">
         <div className="modal-name-input-container" ref={this.setInputContainerRef}>
-          <input type="text" className="modal-name-input" placeholder="Add-on name" onKeyUp={this.onKeyUp} ref={this.setInputRef} />
+          <input type="text" className="modal-name-input" placeholder="Service name" onKeyUp={this.onKeyUp} ref={this.setInputRef} />
         </div>
       </div>
     );

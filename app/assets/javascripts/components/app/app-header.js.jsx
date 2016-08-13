@@ -34,7 +34,7 @@ var AppHeader = React.createClass({
     }, {
       success: function (newData) {
         if (newData.addon_already_exists) {
-          alert('Add-on already exists for this bundle and scope.');
+          alert('Service already exists for this bundle and scope.');
         } else {
           React.modal.hide();
           self.props.onCreateNewAddon(newData);
@@ -48,7 +48,7 @@ var AppHeader = React.createClass({
       return <InAppSearchBar appUUID={this.props.data.app_uuid} onAddonSelected={this.onAddonSelected} />;
     } else {
       var count = this.props.data.addons.shared.length;
-      var model = ' add-on';
+      var model = ' service';
 
       if (count != 1) {
         model += 's';

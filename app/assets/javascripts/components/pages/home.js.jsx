@@ -2,7 +2,7 @@ var Home = React.createClass({
 
   terminalOutputs: [
     {
-      text: "Provisioning redistogo add-on...",
+      text: "Provisioning redistogo service...",
       delay: 1000
     },
     {
@@ -27,19 +27,6 @@ var Home = React.createClass({
     }
   ],
 
-  setScrollTopBtnRef: function (ref) {
-    this.scrollTopBtn = ref;
-
-    this.scrollTopBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-
-      $('html, body').animate({ scrollTop: 0 }, 600);
-
-      return false;
-    });
-  },
-
   setTerminalContainerRef: function (ref) {
     this.terminalContainer = ref;
   },
@@ -56,7 +43,7 @@ var Home = React.createClass({
     var self = this;
 
     $(this.terminal).typed({
-      strings: ['$ conflux addons:add redistogo'],
+      strings: ['$ conflux services:add redistogo'],
       typeSpeed: 0,
       onStringTyped: function () {
         setTimeout(function () {
@@ -112,7 +99,7 @@ var Home = React.createClass({
     return (
       <div id="home">
         <div className="home-header">
-          <div className="title">Developer Add-ons that go where you do</div>
+          <div className="title">Developer services that go where you do</div>
           <div className="subtitle">Group your app's third-party services into bundles easily accessible from any host environment.</div>
           <div className="home-main-action-btn-container">{this.getMainActionBtn()}</div>
         </div>
@@ -121,8 +108,8 @@ var Home = React.createClass({
             <div className="section-inner">
               <div className="sub-section">
                 <div className="text-section">
-                  <div className="feature">Provision & configure Add-ons in one command.</div>
-                  <div className="sub-text">Conflux makes it possible to provision new Add-ons in one simple command. <span className="highlight">Further configuration &mdash; new libraries, config vars, or Add-on specific files &mdash; is taken care of for you</span>, reducing setup time and allowing you to focus more on your product.</div>
+                  <div className="feature">Provision & configure services in one command.</div>
+                  <div className="sub-text">Conflux makes it possible to provision new developer services in one simple command. <span className="highlight">Further configuration &mdash; new libraries, config vars, or service-specific files &mdash; is taken care of for you</span>, reducing setup time and allowing you to focus more on your product.</div>
                 </div>
               </div>
               <div className="sub-section">
@@ -140,7 +127,7 @@ var Home = React.createClass({
               <div className="sub-section">
                 <div className="text-section">
                   <div className="feature">Configure once. Use anywhere.</div>
-                  <div className="sub-text">Whether locally or in the cloud, where you host your app shouldn't matter when it comes to your third-party services. <span className="highlight">Conflux Add-ons are platform-agnostic,</span> so once they're provisioned, you can access them from any platform or share them across multiple. One command is all it takes to connect to the Add-on bundle you see fit.</div>
+                  <div className="sub-text">Whether locally or in the cloud, where you host your app shouldn't matter when it comes to your third-party services. <span className="highlight">Conflux services are platform-agnostic,</span> so once they're provisioned, you can access them from any platform or share them across multiple. One command is all it takes to connect to the service bundle you see fit.</div>
                 </div>
               </div>
             </div>
@@ -149,8 +136,8 @@ var Home = React.createClass({
             <div className="section-inner">
               <div className="sub-section">
                 <div className="text-section">
-                  <div className="feature">Clone & scale Add-ons across environments.</div>
-                  <div className="sub-text">Spinning up a new dev environment shouldn't require you to manually configure a whole new set of services. Conflux lets you <span className="highlight">clone your Add-on bundles in one click</span>, with an easy means of scaling up services along the way. Not only does this reduce setup time, but it also helps <span className="highlight">ensure parity across dev environments.</span></div>
+                  <div className="feature">Clone & scale services across environments.</div>
+                  <div className="sub-text">Spinning up a new dev environment shouldn't require you to manually configure a whole new set of services. Conflux lets you <span className="highlight">clone your service bundles in one click</span>, with an easy means of scaling up services along the way. Not only does this reduce setup time, but it also helps <span className="highlight">ensure parity across dev environments.</span></div>
                 </div>
               </div>
               <div className="sub-section">
@@ -166,7 +153,7 @@ var Home = React.createClass({
               <div className="sub-section">
                 <div className="text-section">
                   <div className="feature">Abstract out config management.</div>
-                  <div className="sub-text">Forget needing to maintain a local copy of integration configs in order for your app to work. Conflux <span className="highlight">consolidates all of your Add-ons' configs into one secure location</span> that's always in sync with every developer on your team. <span className="new-section">Existing configs won't ever go stale, <span className="highlight">new Add-on configs will be instantly available to other team members</span>, and you won't have to worry about excess copies of configs floating around.</span></div>
+                  <div className="sub-text">Forget needing to maintain a local copy of integration configs in order for your app to work. Conflux <span className="highlight">consolidates all of your services' configs into one secure location</span> that's always in sync with every developer on your team.</div>
                 </div>
               </div>
             </div>
@@ -185,7 +172,6 @@ var Home = React.createClass({
             </div>
           </div>
           <a href="/toolbelt" className="sub-footer-action-section">
-            <i className="fa fa-arrow-up scroll-top-btn" ref={this.setScrollTopBtnRef}></i>
             <div className="home-section get-toolbelt">
               <div className="sub-footer-action-text-container"><i className="fa fa-terminal"></i> Get started with the open source <span className="sub-footer-action-text">Conflux Toolbelt</span>.</div>
             </div>

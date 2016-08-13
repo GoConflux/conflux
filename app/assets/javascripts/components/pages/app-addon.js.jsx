@@ -100,7 +100,7 @@ var AppAddon = React.createClass({
 
     return [
       {
-        text: 'Remove Add-on',
+        text: 'Remove Service',
         iconClasses: 'fa fa-trash',
         onClick: function () {
           self.confirmRemoveAddon();

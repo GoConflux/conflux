@@ -12,7 +12,7 @@ class HomeController < ApplicationController
     end
   end
 
-  def explore
+  def services
     get_user_teams_for_header(explore: true)
     @landing_header = true
 
@@ -21,7 +21,7 @@ class HomeController < ApplicationController
     render component: 'Explore', props: { addons: addons }
   end
 
-  def toolbelt
+  def download
     get_user_teams_for_header(toolbelt: true)
     @landing_header = true
     render component: 'Toolbelt', props: { authed: @current_user.present? }

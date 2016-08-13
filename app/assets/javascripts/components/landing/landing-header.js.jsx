@@ -65,10 +65,10 @@ var LandingHeader = React.createClass({
         <div className="lh-right">
           {this.getRightestButton()}
           <div className="lh-right-button">
-            <a className={this.getExploreClasses()} href="/explore">Explore</a>
+            <a className={this.getExploreClasses()} href="/services">Services</a>
           </div>
           <div className="lh-right-button">
-            <a className={this.getToolbeltClasses()} href="/toolbelt">Toolbelt</a>
+            <a className={this.getToolbeltClasses()} href="/download">Download</a>
           </div>
         </div>
       </div>

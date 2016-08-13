@@ -61,7 +61,7 @@ var UpsertAddonModal = React.createClass({
     React.modal.disableConfirm();
     var $btn = $('.modal-action-btn.confirm');
 
-    $btn.html('<span><i class="fa fa-lock lock-icon"></i>Add-on already exists for this scope</span>');
+    $btn.html('<span><i class="fa fa-lock lock-icon"></i>Service already exists for this scope</span>');
 
     if (!$btn.hasClass('scope-na')) {
       $btn.addClass('scope-na');
