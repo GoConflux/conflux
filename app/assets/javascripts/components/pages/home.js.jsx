@@ -89,7 +89,7 @@ var Home = React.createClass({
 
   getMainActionBtn: function () {
     if (this.props.authed) {
-      return <a className="home-main-action-btn" href="/toolbelt">Get Started</a>;
+      return <a className="home-main-action-btn" href="/download">Get Started</a>;
     } else {
       return <a className="home-main-action-btn extra-padding" href="/signup">Sign Up</a>;
     }
@@ -171,7 +171,7 @@ var Home = React.createClass({
               </div>
             </div>
           </div>
-          <a href="/toolbelt" className="sub-footer-action-section">
+          <a href="/download" className="sub-footer-action-section">
             <div className="home-section get-toolbelt">
               <div className="sub-footer-action-text-container"><i className="fa fa-terminal"></i> Get started with the open source <span className="sub-footer-action-text">Conflux Toolbelt</span>.</div>
             </div>
