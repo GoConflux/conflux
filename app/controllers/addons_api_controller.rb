@@ -1,3 +1,5 @@
+require 'helpers/manifest_test'
+
 class AddonsApiController < ApplicationController
 
   before_filter :set_app_conditional, :only => [:for_app]
@@ -52,7 +54,44 @@ class AddonsApiController < ApplicationController
   end
 
   def push
+    begin
+      manifest = params[:manifest]
+      manifest_valid = Conflux::ManifestTest.new(manifest).call!
 
+      # Make sure manifest is valid in structure
+      raise 'Unknown Manifest Error' unless manifest_valid
+
+      # Make sure slug is available
+      raise 'Slug/ID is already taken' unless is_name_available(Addon, manifest['id'])
+
+      api = manifest['api'] || {}
+
+      # Create new draft Addon
+      addon = Addon.create!(
+        slug: manifest['id'],
+        configs: api['config_vars'],
+        password: api['password'],
+        sso_salt: api['sso_salt'],
+        api: {
+          production: api['production'],
+          test: api['production']
+        },
+        status: Addon::Status::DRAFT
+      )
+
+      # Create new AddonAdmin so that this addon has an owner
+      AddonAdmin.create!(
+        addon_id: addon.id,
+        user_id: @current_user.id,
+        is_owner: true
+      )
+
+      # Send back the url for the new draft service so that the owner can
+      # go there and finish the submission process
+      render json: { url: "#{ENV['CONFLUX_USER_ADDRESS']}/services/#{addon.slug}" }, status: 200
+    rescue Exception => e
+      render json: { message: "Invalid Manifest: #{e.message}" }, status: 500
+    end
   end
 
 end

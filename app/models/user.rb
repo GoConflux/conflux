@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :team_users, :dependent => :destroy
   has_many :teams, :through => :team_users
   has_many :user_tokens, :dependent => :destroy
+  has_many :addon_admins, :dependent => :destroy
 
   DEFAULT_PIC = "#{ENV['CLOUDFRONT_URL']}/images/user.svg"
 

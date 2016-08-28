@@ -7,7 +7,13 @@ class Addon < ActiveRecord::Base
   before_create :generate_uuid
 
   has_many :app_addons, :dependent => :destroy
+  has_many :addon_admins, :dependent => :destroy
   belongs_to :addon_category
+
+  scope :drafts, -> { unscoped.where(status: Status::DRAFT, is_destroyed: false) }
+  scope :pending, -> { unscoped.where(status: Status::PENDING, is_destroyed: false) }
+  scope :inactive, -> { unscoped.where(is_destroyed: false).where.not(status: Status::ACTIVE) }
+  default_scope -> { where(status: Status::ACTIVE) }
 
   module Status
     DRAFT = -1
@@ -81,6 +87,14 @@ class Addon < ActiveRecord::Base
 
   def heroku_slug
     heroku_alias || slug
+  end
+
+  def is_active?
+    status == Status::ACTIVE
+  end
+
+  def service_page_info
+    {}
   end
 
 end

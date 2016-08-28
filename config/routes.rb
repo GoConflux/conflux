@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     # User:
     get '/' => 'home#index'
     get '/services' => 'home#services'
+    get '/services/:addon_slug' => 'home#service'
     get '/download' => 'home#download'
     get '/.well-known/acme-challenge/:id' => 'home#lets_encrypt'
 

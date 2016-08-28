@@ -21,6 +21,23 @@ class HomeController < ApplicationController
     render component: 'Explore', props: { addons: addons }
   end
 
+  def service
+    addon = Addon.unscoped.where(slug: params[:addon_slug], is_destroyed: false)
+    page_dne && return if addon.nil?
+
+    current_user_addon_admin = addon.addon_admins.where(user_id: @current_user.id)
+
+    if addon.is_active? || current_user_addon_admin.present?
+      render component: 'Service', props: {
+        info: addon.service_page_info,
+        is_admin: current_user_addon_admin.present?,
+        is_owner: current_user_addon_admin.is_owner,
+      }
+    else
+      page_dne
+    end
+  end
+
   def download
     get_user_teams_for_header(toolbelt: true)
     @landing_header = true
