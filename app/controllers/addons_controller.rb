@@ -73,4 +73,16 @@ class AddonsController < ApplicationController
     render json: {}, status: 200
   end
 
+  def modify_draft
+
+  end
+
+  def submit
+
+  end
+
+  def approve
+
+  end
+
 end

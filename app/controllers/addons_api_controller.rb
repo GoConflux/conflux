@@ -1,6 +1,7 @@
 class AddonsApiController < ApplicationController
 
   before_filter :set_app_conditional, :only => [:for_app]
+  before_filter :current_api_user, :only => [:push]
 
   def for_app
     @current_team_user = TeamUser.find_by(team_id: @app.tier.pipeline.team.id, user_id: @current_user.id)
@@ -48,6 +49,10 @@ class AddonsApiController < ApplicationController
     track('CLI - Fetch Plans for Add-on', { addon: addon.slug })
 
     render json: addon.formatted_plans
+  end
+
+  def push
+
   end
 
 end

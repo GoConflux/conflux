@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
   # HOME ------------------------------------
 
     # User:
@@ -51,11 +50,15 @@ Rails.application.routes.draw do
     get '/addons/:addon_slug' => 'addons#addon'
     get '/addons' => 'addons#index'
     post '/addons/suggest' => 'addons#suggest'
+    put '/addons/modify_draft' => 'addons#modify_draft'
+    put '/addons/submit' => 'addons#submit'
+    put '/addons/approve' => 'addons#approve'
 
     # API:
     get '/api/addons/for_app' => 'addons_api#for_app'
     get '/api/addons/all' => 'addons_api#all'
     get '/api/addons/plans' => 'addons_api#plans'
+    post '/api/addons/push' => 'addons_api#push'
 
   # APPS ------------------------------------
 
