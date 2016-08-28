@@ -170,5 +170,17 @@ namespace :addons do
     }
   end
 
+  desc 'Set Ben Whittle as owner of all heroku_dependent addons'
+  task :give_heroku_addons_an_owner => :environment do
+    user = User.find_by(email: 'benwhittle31@gmail.com')
+
+    Addon.where(heroku_dependent: true).each { |addon|
+      AddonAdmin.create!(
+        addon_id: addon.id,
+        user_id: user.id,
+        is_owner: true
+      )
+    }
+  end
 
 end

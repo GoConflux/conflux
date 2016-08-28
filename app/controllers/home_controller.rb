@@ -22,10 +22,10 @@ class HomeController < ApplicationController
   end
 
   def service
-    addon = Addon.unscoped.where(slug: params[:addon_slug], is_destroyed: false)
+    addon = Addon.unscoped.find_by(slug: params[:addon_slug], is_destroyed: false)
     page_dne && return if addon.nil?
 
-    current_user_addon_admin = addon.addon_admins.where(user_id: @current_user.id)
+    current_user_addon_admin = addon.addon_admins.find_by(user_id: @current_user.id)
 
     if addon.is_active? || current_user_addon_admin.present?
       render component: 'Service', props: {

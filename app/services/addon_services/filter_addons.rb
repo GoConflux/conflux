@@ -21,7 +21,8 @@ module AddonServices
           {
             name: addon.name,
             icon: addon.icon,
-            tagline: addon.tagline
+            tagline: addon.tagline,
+            link: "/services/#{addon.slug}"
           }
         }
 
