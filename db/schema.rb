@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160728025627) do
+ActiveRecord::Schema.define(version: 20160827231509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addon_admins", force: :cascade do |t|
+    t.integer  "addon_id"
+    t.integer  "user_id"
+    t.boolean  "is_owner",   default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "addon_admins", ["addon_id", "user_id"], name: "index_addon_admins_on_addon_id_and_user_id", using: :btree
 
   create_table "addon_categories", force: :cascade do |t|
     t.string "category"
@@ -37,6 +47,15 @@ ActiveRecord::Schema.define(version: 20160728025627) do
     t.integer  "addon_category_id"
     t.boolean  "prevent_deprovision", default: false
     t.string   "heroku_alias"
+    t.integer  "status",              default: -1
+    t.string   "url"
+    t.string   "password"
+    t.string   "sso_salt"
+    t.json     "configs",             default: []
+    t.json     "plans",               default: []
+    t.json     "features",            default: []
+    t.json     "jobs",                default: {}
+    t.json     "api",                 default: {}
   end
 
   add_index "addons", ["is_destroyed"], name: "index_addons_on_is_destroyed", using: :btree
@@ -48,10 +67,12 @@ ActiveRecord::Schema.define(version: 20160728025627) do
     t.integer  "app_scope_id"
     t.integer  "addon_id"
     t.text     "description"
-    t.boolean  "is_destroyed", default: false
+    t.boolean  "is_destroyed",      default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "plan"
+    t.string   "external_uuid"
+    t.string   "external_username"
   end
 
   add_index "app_addons", ["app_scope_id", "addon_id"], name: "index_app_addons_on_app_scope_id_and_addon_id", using: :btree

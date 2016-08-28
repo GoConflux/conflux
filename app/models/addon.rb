@@ -9,45 +9,55 @@ class Addon < ActiveRecord::Base
   has_many :app_addons, :dependent => :destroy
   belongs_to :addon_category
 
-  def is_heroku_dependent?
-    self.heroku_dependent
+  module Status
+    DRAFT = -1
+    PENDING = 0
+    ACTIVE = 1
   end
 
-  def config_vars
-    $addons[slug]['configs']
+  def is_heroku_dependent?
+    heroku_dependent
+  end
+
+  def config_keys
+    configs.map { |c| c['name'] }
   end
 
   def has_plan?(plan_slug)
-    $addons[slug]['plans'].map { |plan| plan['slug'] }.include?(plan_slug)
+    plan(plan_slug).present?
+  end
+
+  def plan(plan_slug)
+    plans.find { |plan| plan['slug'] == plan_slug }
   end
 
   def plan_disabled?(plan_slug)
-    plan_info = $addons[slug]['plans'].find { |plan| plan['slug'] == plan_slug }
-    plan_info.nil? || (plan_info['disabled'] == 'true')
-  end
-
-  def plans
-    $addons[slug]['plans']
+    plan_info = plan(plan_slug)
+    plan_info.nil? || (plan_info['disabled'] === true)
   end
 
   def basic_plan_slug
-    $addons[slug]['plans'].first['slug']
+    plans.first['slug']
   end
 
   def basic_plan
-    "#{self.heroku_slug}:#{$addons[slug]['plans'].first['slug']}"
+    "#{heroku_slug}:#{basic_plan_slug}"
   end
 
   def headline_features
-    $addons[slug]['headlineFeatures']
+    hf = []
+
+    features.each { |data|
+      hf.push(data['feature']) if data['headlineFeature'] === true
+    }
   end
 
   def index_for_plan(slug)
-    self.plans.find_index { |plan| plan['slug'] == slug } || 0
+    plans.find_index { |plan| plan['slug'] == slug } || 0
   end
 
   def cost_for_plan(plan_slug)
-    price = ($addons[slug]['plans'].find { |plan| plan['slug'] == plan_slug } || {})['price']
+    price = (plan(plan_slug) || {})['price']
 
     if price.blank? || price.to_i == 0
       'FREE'
@@ -57,7 +67,7 @@ class Addon < ActiveRecord::Base
   end
 
   def formatted_plans
-    $addons[slug]['plans'].map { |plan|
+    plans.map { |plan|
       price = plan['price']
 
       {

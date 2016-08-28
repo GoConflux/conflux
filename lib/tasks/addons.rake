@@ -1,5 +1,6 @@
 require 'json'
 require 'platform-api'
+require 'open-uri'
 
 namespace :addons do
 
@@ -91,5 +92,83 @@ namespace :addons do
       )
     end
   end
+
+  desc 'Importing addons.json data into their respective Postgres addon records'
+  task :migrate_addons_json => :environment do
+    addons_json = nil
+
+    open("#{ENV['S3_URL']}/files/addons.json") { |io|
+      addons_json = JSON.parse(io.read) rescue {}
+    }
+
+    addons_json.each { |slug, info|
+      addon = Addon.find_by(slug: slug)
+      next if addon.nil?
+
+      # STATUS
+      updates = {
+        status: Addon::Status::ACTIVE,
+        jobs: info['jobs']
+      }
+
+      # CONFIGS
+      updates[:configs] = info['configs'].map { |name|
+        {
+          name: name,
+          description: ''
+        }
+      }
+
+      # PLANS
+      updates[:plans] = info['plans'].map { |plan|
+        data = {
+          slug: plan['slug'],
+          name: plan['name'],
+          price: plan['price']
+        }
+
+        data[:disabled] = true if plan['disabled'] === 'true'
+
+        data
+      }
+
+      # FEATURES
+      updates[:features] = info['headlineFeatures'].map { |feature|
+        values_map = {}
+
+        info['plans'].each { |plan|
+          values_map[plan['slug']] = plan[feature]
+        }
+
+        {
+          feature: feature,
+          values: values_map,
+          headlineFeature: true
+        }
+      }
+
+      addon.update_attributes(updates)
+    }
+  end
+
+  desc 'Manually adding urls to addon records for first set of addons'
+  task :add_urls => :environment do
+    url_map = {
+      'blitline' => 'https://www.blitline.com',
+      'mongolab' => 'https://www.mlab.com',
+      'pubnub' => 'https://www.pubnub.com',
+      'redistogo' => 'https://www.redistogo.com',
+      'sendgrid' => 'https://www.sendgrid.com',
+      'stream' => 'https://www.getstream.io',
+      'websolr' => 'https://www.websolr.com',
+    }
+
+    Addon.all.each { |addon|
+      if url_map.key?(addon.slug)
+        addon.update_attributes(url: url_map[addon.slug])
+      end
+    }
+  end
+
 
 end
