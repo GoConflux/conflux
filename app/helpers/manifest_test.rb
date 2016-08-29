@@ -10,6 +10,15 @@ module Conflux
       raise "Test failed: #{msg}" unless block.call
     end
 
+    def call
+      begin
+        call!
+        true
+      rescue
+        false
+      end
+    end
+
     def call!
       test 'id key exists' do
         data.has_key?('id')
