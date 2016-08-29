@@ -3,6 +3,7 @@ class AddonsController < ApplicationController
   before_filter :check_for_current_user, :only => [:suggest]
   before_filter :set_addon, :only => [:addon]
   before_filter :addon_by_uuid, :only => [:modal_info]
+  before_filter :set_current_user, :only => [:modify_draft, :submit, :approve]
 
   # Get all addons for the Addons page
   def index
@@ -74,15 +75,65 @@ class AddonsController < ApplicationController
   end
 
   def modify_draft
+    addon = Addon.drafts.find_by(uuid: params[:addon_uuid])
+    assert(addon)
 
+    begin
+      AddonServices::SaveDraft.new(addon, draft_params).perform
+    rescue Exception => e
+      puts "Error modifying draft service: #{e.message}"
+      render json: { message: 'Error modifying draft service'}, status: 500
+    end
   end
 
   def submit
+    addon = Addon.drafts.find_by(uuid: params[:addon_uuid])
+    assert(addon)
 
+    begin
+      with_transaction do
+        AddonServices::SaveDraft.new(addon, draft_params).perform
+        addon.update_attributes(status: Addon::Status::PENDING)
+      end
+
+      render json: {}, status: 200
+    rescue Exception => e
+      puts "Error submitting service: #{e.message}"
+      render json: { message: 'Error submitting service'}, status: 500
+    end
   end
 
   def approve
+    addon = Addon.drafts.find_by(uuid: params[:addon_uuid])
+    assert(addon)
 
+    begin
+      with_transaction do
+        addon.update_attributes(status: Addon::Status::ACTIVE)
+        UserMailer.delay.service_approved(@current_user, addon)
+      end
+
+      render json: {}, status: 200
+    rescue Exception => e
+      puts "Error approving service: #{e.message}"
+      render json: { message: 'Error approving service'}, status: 500
+    end
+  end
+
+  def draft_params
+    {
+      name: params[:name],
+      icon: params[:icon],
+      url: params[:url],
+      tagline: params[:tagline],
+      description: params[:description],
+      category: params[:category],
+      plans: params[:plans],
+      features: params[:features],
+      jobs: params[:jobs],
+      configs: params[:configs],
+      api: params[:api]
+    }
   end
 
 end
