@@ -79,7 +79,7 @@ class AddonsController < ApplicationController
     assert(addon)
 
     begin
-      AddonServices::SaveDraft.new(addon, draft_params).perform
+      AddonServices::SaveDraft.new(@current_user, addon, draft_params).perform
     rescue Exception => e
       puts "Error modifying draft service: #{e.message}"
       render json: { message: 'Error modifying draft service'}, status: 500
@@ -92,7 +92,7 @@ class AddonsController < ApplicationController
 
     begin
       with_transaction do
-        AddonServices::SaveDraft.new(addon, draft_params).perform
+        AddonServices::SaveDraft.new(@current_user, addon, draft_params).perform
         addon.update_attributes(status: Addon::Status::PENDING)
       end
 
