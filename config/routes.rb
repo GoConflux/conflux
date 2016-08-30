@@ -51,7 +51,7 @@ Rails.application.routes.draw do
     get '/addons/:addon_slug' => 'addons#addon'
     get '/addons' => 'addons#index'
     post '/addons/suggest' => 'addons#suggest'
-    put '/addons/modify_draft' => 'addons#modify_draft'
+    put '/addons/modify' => 'addons#modify'
     put '/addons/submit' => 'addons#submit'
     put '/addons/approve' => 'addons#approve'
 
