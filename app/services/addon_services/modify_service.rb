@@ -66,12 +66,14 @@ module AddonServices
       end
     end
 
+    # I considered delaying this...but if you do, remember to move
+    # your file format checks outside of the delayed job
     def update_icon
       UploadIconService.new(
         @executor_user,
         @addon,
         @attrs[:icon]
-      ).delay.perform
+      ).perform
     end
 
     def update_plans

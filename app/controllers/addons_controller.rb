@@ -98,6 +98,13 @@ class AddonsController < ApplicationController
         addon.update_attributes(status: Addon::Status::PENDING)
       end
 
+      Slack.chat_postMessage(
+        channel: ENV['SLACK_EVENT_CHANNEL'],
+        username: "New Service Submitted",
+        text: "Name: #{addon.name}\nURL: #{ENV['CONFLUX_USER_ADDRESS']}/services/#{addon.slug}",
+        icon_url: "#{ENV['CLOUDFRONT_URL']}/images/conflux-icon-white-blue-bg.png"
+      )
+
       render json: {}, status: 200
     rescue Exception => e
       puts "Error submitting service: #{e.message}"
