@@ -79,7 +79,9 @@ class AddonsController < ApplicationController
     assert(addon)
 
     begin
-      AddonServices::ModifyService.new(@current_user, addon, draft_params).perform
+      with_transaction do
+        AddonServices::ModifyService.new(@current_user, addon, draft_params).perform
+      end
     rescue Exception => e
       puts "Error modifying draft service: #{e.message}"
       render json: { message: 'Error modifying draft service'}, status: 500
@@ -127,7 +129,7 @@ class AddonsController < ApplicationController
       url: params[:url],
       tagline: params[:tagline],
       description: params[:description],
-      category: params[:category],
+      category_uuid: params[:category_uuid],
       plans: params[:plans],
       features: params[:features],
       jobs: params[:jobs],

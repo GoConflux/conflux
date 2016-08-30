@@ -183,4 +183,13 @@ namespace :addons do
     }
   end
 
+  desc 'Add uuid\'s to addon_categories without them'
+  task :add_uuids_to_addon_categories => :environment do
+    AddonCategory.all.each { |ac|
+      if ac.uuid.nil?
+        ac.update_attributes(uuid: UUIDTools::UUID.random_create.to_s)
+      end
+    }
+  end
+
 end

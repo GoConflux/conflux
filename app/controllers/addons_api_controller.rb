@@ -1,5 +1,4 @@
 class AddonsApiController < ApplicationController
-  require 'manifest_test'
 
   before_filter :set_app_conditional, :only => [:for_app]
   before_filter :current_api_user, :only => [:push]
@@ -55,7 +54,7 @@ class AddonsApiController < ApplicationController
   def push
     begin
       manifest = params[:manifest]
-      manifest_valid = Conflux::ManifestTest.new(manifest).call
+      manifest_valid = ManifestTest.new(manifest).call
 
       # Make sure manifest is valid in structure
       raise 'Unknown Manifest Error' unless manifest_valid
