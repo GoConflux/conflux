@@ -1,5 +1,23 @@
 class ManifestTest < AbstractJsonTest
 
+  # Example Manifest:
+  # {
+  #   "id": "myservice",
+  #   "api": {
+  #     "config_vars": ["MYSERVICE_URL"],
+  #     "password": "#{password_gen}",
+  #     "sso_salt": "#{password_gen}",
+  #     "production": {
+  #       "base_url": "https://yourapp.com/conflux/resources",
+  #       "sso_url": "https://yourapp.com/conflux/sso"
+  #     },
+  #     "test": {
+  #       "base_url": "http://localhost:#{default_port}/conflux/resources",
+  #       "sso_url": "http://localhost:#{default_port}/conflux/sso"
+  #     }
+  #   }
+  # }
+
   def call!
     test 'id key exists' do
       data.has_key?('id')
