@@ -22,15 +22,13 @@ module AddonServices
       # Upload the icon to S3.
       update_icon
 
-      # ** PLANS AND FEATURES DATA MIGHT HAVE TO BE BUNCHED TOGETHER
-
       # Update pricing plans.
       update_plans
 
       # Update list of features for each plan.
       update_features
 
-      # Update addon-specific jobs to be run post-addon-provisioning.
+      # Update addon-specific jobs which run post-addon-provisioning.
       update_jobs
 
       # Update config vars for this addon, including descriptions.
@@ -68,14 +66,24 @@ module AddonServices
       end
     end
 
-    # I considered delaying this...but decided not to. If you do delay it, move the file format
-    # checks outside of the service and into here.
     def update_icon
-      UploadIconService.new(
+      icon_file = ''
+      icon_file_ext = ''
+
+      if !['png', 'jpg'].include?(icon_file_ext)
+        raise "Invalid File Extension, #{icon_file_ext}. Allowed extensions are png or jpg"
+      end
+
+      icon_file_path = "/images/addons/#{@addon.slug}.#{icon_file_ext}"
+      icon_url = "#{ENV['CLOUDFRONT_URL']}#{icon_file_path}"
+
+      FileServices::CloudUploadService.new(
         @executor_user,
-        @addon,
-        @attrs[:icon]
-      ).perform
+        icon_file,
+        icon_file_path
+      ).delay.perform
+
+      @addon.update_attributes(icon: icon_url) if @addon.icon != icon_url
     end
 
     def update_plans
@@ -88,8 +96,9 @@ module AddonServices
       @addon.update_attributes(features: formatted_features)
     end
 
+    # Will also require uploading files to S3
     def update_jobs
-      formatted_jobs = format_jobs(@attrs[:jobs])
+      formatted_jobs = format_jobs(@attrs[:jobs], @addon.slug)
       @addon.update_attributes(jobs: formatted_jobs)
     end
 

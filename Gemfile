@@ -54,3 +54,5 @@ gem 'conflux', '1.0.8'
 gem 'mixpanel-ruby'
 
 gem 'twitter_oauth'
+
+gem 'aws-sdk', '2.3.19'

@@ -20,6 +20,7 @@ class JobsTest < AbstractJsonTest
   # }
 
   ALLOWED_ACTIONS = ['new_library', 'new_file']
+  ALLOWED_LANGS = ['ruby']
 
   def call!
     test 'jobs is a hash' do
@@ -61,6 +62,12 @@ class JobsTest < AbstractJsonTest
               raise "Missing or blank new_library job key, #{key}"
             end
           }
+
+          lang = asset['lang']
+
+          unless ALLOWED_LANGS.include?(lang)
+            raise "Lang not supported, #{lang}. Available langs are #{ALLOWED_LANGS.join(', ')}"
+          end
         end
       }
 
@@ -82,6 +89,16 @@ class JobsTest < AbstractJsonTest
 
       true
     end
+
+    test 'all new_file jobs have unique paths' do
+      new_file_paths = data.map { |job_id, job_info|
+        job_info['action'] == 'new_file' ? job_info['asset']['path'] : nil
+      }.compact
+
+      new_file_paths.length == new_file_paths.uniq.length
+    end
+
+    # Eventually need to make sure that new_file paths are unique across all addons too...
 
   end
 

@@ -8,8 +8,6 @@ module AddonServices
 
     def perform
       # Ensure @executor_user is an addon_admin for this addon.
-      check_permissions
-
       icon_extension = '' # figure out this shit (either png or jpg)
 
       if !['png', 'jpg'].include?(icon_extension)
@@ -25,11 +23,6 @@ module AddonServices
       @addon.update_attributes(icon: icon_url) if @addon.icon != icon_url
 
       self
-    end
-
-    def check_permissions
-      @addon_admin = @addon.addon_admins.find_by(user_id: @executor_user.id).nil?
-      raise 'Invalid Permissions' if @addon_admin.nil?
     end
 
   end
