@@ -38,8 +38,8 @@ class UserMailer < ActionMailer::Base
 
   def service_approved(user, addon)
     @email = user.email
-    @name = user.name
     @service = addon.name
+    @service_link = "#{ENV['CONFLUX_USER_ADDRESS']}/services/#{addon.slug}"
     send_email(@email, "Your Conflux service, #{@service}, has been approved")
   end
 
