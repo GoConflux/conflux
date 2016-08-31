@@ -22,16 +22,22 @@ class FeaturesTest < AbstractJsonTest
 
     test 'all values are hashes' do
       data.each { |feature|
-        feature.is_a?(Hash)
+        raise 'Feature is not a hash' unless feature.is_a?(Hash)
       }
+
+      true
     end
 
     test 'each feature contains the correct keys' do
       data.each { |feature|
-        feature.has_key?('feature') && feature['feature'].is_a?(String)
-        feature.has_key?('values') && feature['values'].is_a?(Hash)
-        feature.has_key?('headlineFeature') && feature['headlineFeature'].is_a?(Boolean)
+        feature_check = feature.has_key?('feature') && feature['feature'].is_a?(String) && feature['feature'].present?
+        values_check = feature.has_key?('values') && feature['values'].is_a?(Hash)
+        hf_check = feature.has_key?('headlineFeature') && feature['headlineFeature'].is_a?(Boolean)
+
+        raise 'Invalid Feature Keys' unless feature_check && values_check && hf_check
       }
+
+      true
     end
 
     # Eventually, do a test to check that all the plan slugs and features match up

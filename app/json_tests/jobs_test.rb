@@ -34,15 +34,21 @@ class JobsTest < AbstractJsonTest
 
     test 'each job has action and asset keys' do
       data.each { |job_id, job_info|
-        job_info.has_key?('action') && job_info['action'].is_a?(String)
-        job_info.has_key?('asset') && job_info['asset'].is_a?(Hash)
+        action_check = job_info.has_key?('action') && job_info['action'].is_a?(String) && job_info['action'].present?
+        asset_check = job_info.has_key?('asset') && job_info['asset'].is_a?(Hash)
+
+        raise 'Invalid Job Keys' unless action_check && asset_check
       }
+
+      true
     end
 
     test 'all actions are allowed' do
       data.each { |job_id, job_info|
-        ALLOWED_ACTIONS.include?(job_info['action'])
+        raise 'Invalid Job Action' unless ALLOWED_ACTIONS.include?(job_info['action'])
       }
+
+      true
     end
 
     test 'new_library jobs have lang, name, and version string keys for their assets' do
@@ -51,10 +57,14 @@ class JobsTest < AbstractJsonTest
           asset = job_info['asset']
 
           ['lang', 'name', 'version'].each { |key|
-            asset.has_key?(key) && asset[key].is_a?(String)
+            unless asset.has_key?(key) && asset[key].is_a?(String) && asset[key].present?
+              raise "Missing or blank new_library job key, #{key}"
+            end
           }
         end
       }
+
+      true
     end
 
     test 'new_file jobs have path and contents string keys for their assets' do
@@ -63,10 +73,14 @@ class JobsTest < AbstractJsonTest
           asset = job_info['asset']
 
           ['path', 'contents'].each { |key|
-            asset.has_key?(key) && asset[key].is_a?(String)
+            unless asset.has_key?(key) && asset[key].is_a?(String) && asset[key].present?
+              raise "Missing or blank new_file job key, #{key}"
+            end
           }
         end
       }
+
+      true
     end
 
   end

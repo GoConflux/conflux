@@ -13,7 +13,8 @@ class AbstractJsonTest
     begin
       call!
       true
-    rescue
+    rescue Exception => e
+      puts "Abstract JSON Error: #{e.message}"
       false
     end
   end

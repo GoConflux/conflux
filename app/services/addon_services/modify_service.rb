@@ -22,6 +22,8 @@ module AddonServices
       # Upload the icon to S3.
       update_icon
 
+      # ** PLANS AND FEATURES DATA MIGHT HAVE TO BE BUNCHED TOGETHER
+
       # Update pricing plans.
       update_plans
 
@@ -31,7 +33,7 @@ module AddonServices
       # Update addon-specific jobs to be run post-addon-provisioning.
       update_jobs
 
-      # Update config vars for this addon, including descriptions
+      # Update config vars for this addon, including descriptions.
       update_configs
 
       # Update API for this addon (which endpoints to hit for provisioning/sso/etc.)
@@ -66,8 +68,8 @@ module AddonServices
       end
     end
 
-    # I considered delaying this...but if you do, remember to move
-    # your file format checks outside of the delayed job
+    # I considered delaying this...but decided not to. If you do delay it, move the file format
+    # checks outside of the service and into here.
     def update_icon
       UploadIconService.new(
         @executor_user,
@@ -92,13 +94,14 @@ module AddonServices
     end
 
     def update_configs
-      formatted_configs = format_configs(@attrs[:configs])
-      @addon.update_attributes(configs: formatted_configs)
+      configs_data = { configs: @attrs[:configs], addon_slug: @addon.slug }
+      validate_addon_json_column(ConfigsTest, configs_data)
+      @addon.update_attributes(configs: @attrs[:configs])
     end
 
     def update_api
-      formatted_api = format_api(@attrs[:api])
-      @addon.update_attributes(api: formatted_api)
+      validate_addon_json_column(ServiceApiTest, @attrs[:api])
+      @addon.update_attributes(api: @attrs[:api])
     end
 
   end
