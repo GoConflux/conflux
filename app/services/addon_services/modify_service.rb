@@ -96,10 +96,19 @@ module AddonServices
       @addon.update_attributes(features: formatted_features)
     end
 
-    # Will also require uploading files to S3
     def update_jobs
-      formatted_jobs = format_jobs(@attrs[:jobs], @addon.slug)
-      @addon.update_attributes(jobs: formatted_jobs)
+      jobs_for_db, jobs_with_files = format_jobs(@attrs[:jobs], @addon.slug)
+      @addon.update_attributes(jobs: jobs_for_db)
+
+      jobs_with_files.each { |job_id, job_info|
+        if job_info[:action] == 'new_file'
+          FileServices::CloudUploadService.new(
+            @executor_user,
+            job_info[:asset][:file],
+            job_info[:asset][:contents]
+          ).delay.perform
+        end
+      }
     end
 
     def update_configs
