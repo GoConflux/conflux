@@ -11,7 +11,7 @@ module AppServices
 
     def perform
       @addon.is_heroku_dependent? ?
-        Heroku.update_plan(@app_addon, @plan) :
+        Heroku.update_plan(@app_addon, "#{@addon.heroku_slug}:#{@plan}") :
         ChangePlan.new(@app_addon, @plan).perform
 
       self

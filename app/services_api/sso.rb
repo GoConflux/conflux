@@ -10,7 +10,6 @@ class Sso < AbstractServicesApi
     timestamp = Time.now.to_i.to_s
     token = create_sso_token(timestamp)
 
-    # Do you need 'nav_data' or 'app' params?
     Mechanize.new.post(
       @url,
       {

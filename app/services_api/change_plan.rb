@@ -2,7 +2,7 @@ class ChangePlan < AbstractServicesApi
 
   def initialize(app_addon, plan)
     super(app_addon)
-    @plan = plan || 'test'
+    @plan = plan
   end
 
   def perform

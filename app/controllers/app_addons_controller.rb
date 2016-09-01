@@ -2,8 +2,8 @@ class AppAddonsController < ApplicationController
   include AppsHelper
 
   before_filter :set_current_user
-  before_filter :set_app_addon, :only => [:index]
-  before_filter :protect_app_addon, :only => [:index]
+  before_filter :set_app_addon, :only => [:index, :sso]
+  before_filter :protect_app_addon, :only => [:index, :sso]
   before_filter :required_app_addon_creation_params, :only => [:create]
   before_filter :required_app_addon_update_params, :only => [:update]
   before_filter :required_app_addon_destroy_params, :only => [:destroy]
@@ -52,7 +52,14 @@ class AppAddonsController < ApplicationController
       return
     end
 
-    if @addon.plan_disabled?(params[:plan])
+    plan = params[:plan]
+
+    # If no plan passed in or the plan passed in isn't actually valid, default to the basic plan.
+    if plan.nil? || !@addon.has_plan?(plan)
+      plan = @addon.basic_plan_slug
+    end
+
+    if @addon.plan_disabled?(plan)
       render json: { message: 'Plan Not Available' }, status: 500
       return
     end
@@ -74,16 +81,13 @@ class AppAddonsController < ApplicationController
         app_addon = AppAddon.create!(
           app_scope_id: app_scope.id,
           addon_id: @addon.id,
-          plan: @addon.basic_plan # hardcoding basic plan until Stripe integration is added
+          plan: plan
         )
-
-        # For later:
-        # plan = params[:plan].present? ? "#{@addon.slug}:#{params[:plan]}" : @addon.basic_plan
 
         AppServices::ProvisionAppAddon.new(
           @current_user,
           app_addon,
-          @addon.basic_plan # hardcoding basic plan until Stripe integration is added
+          plan
         ).delay.perform
 
         # Remove all keys from Redis mapping to each of these apps
@@ -139,7 +143,12 @@ class AppAddonsController < ApplicationController
     addon = @app_addon.addon
     plan = params[:plan]
 
-    if addon.plan_disabled?(plan)
+    if @app_addon.plan == plan
+      render json: { message: 'Plan Already Selected' }, status: 500
+      return
+    end
+
+    if addon.plan_disabled?(plan) || !addon.has_plan?(plan)
       render json: { message: 'Plan Not Available' }, status: 500
       return
     end
@@ -148,12 +157,11 @@ class AppAddonsController < ApplicationController
       with_transaction do
         @app_addon.update_attributes(plan: plan)
 
-        # Also keeping commented out until Stripe integration is added
-        # AppServices::ChangeAddonPlan.new(
-        #   @current_user,
-        #   @app_addon,
-        #   "#{addon.heroku_slug}:#{params[:plan]}"
-        # ).delay.perform
+        AppServices::ChangeAddonPlan.new(
+          @current_user,
+          @app_addon,
+          plan
+        ).delay.perform
 
         track('Update Add-on Plan', { addon: addon.slug, plan: plan })
 
@@ -199,6 +207,10 @@ class AppAddonsController < ApplicationController
       logger.error { error }
       render json: { message: error }, status: 500
     end
+  end
+
+  def sso
+    Sso.new(@app_addon).perform
   end
 
 end

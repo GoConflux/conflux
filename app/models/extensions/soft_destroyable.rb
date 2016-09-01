@@ -48,9 +48,9 @@ module Extensions
         self.update_attributes(attrs)
       end
 
-      # Unprovision app_addon from Heroku if it's 'heroku_dependent'
-      if self.is_a?(AppAddon) && self.addon.is_heroku_dependent? && !self.addon.prevent_deprovision
-        AppServices::UnprovisionAppAddon.new(@current_user, self).perform
+      # If destroying an AppAddon, deprovision it as well
+      if self.is_a?(AppAddon)
+        AppServices::DeprovisionAppAddon.new(@current_user, self).perform
       end
 
       super # call destroy on all dependent models
