@@ -28,6 +28,9 @@ class HomeController < ApplicationController
     current_user_addon_admin = addon.addon_admins.find_by(user_id: @current_user.id)
 
     if addon.is_active? || current_user_addon_admin.present?
+      get_user_teams_for_header(service: true)
+      @landing_header = true
+
       render component: 'Service', props: {
         info: addon.service_page_info,
         is_admin: current_user_addon_admin.present?,

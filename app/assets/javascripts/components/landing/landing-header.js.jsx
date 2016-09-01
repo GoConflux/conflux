@@ -33,6 +33,8 @@ var LandingHeader = React.createClass({
       return 'explore';
     } else if (!!this.props.toolbelt) {
       return 'toolbelt';
+    } else if (!!this.props.service) {
+      return 'service';
     }
   },
 

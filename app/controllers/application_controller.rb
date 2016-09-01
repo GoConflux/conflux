@@ -63,11 +63,12 @@ class ApplicationController < ActionController::Base
     }
   end
 
-  def get_user_teams_for_header(home: false, explore: false, toolbelt: false)
+  def get_user_teams_for_header(home: false, explore: false, toolbelt: false, service: false)
     @header_team_data = {}
     @header_team_data[:home] = true if home
     @header_team_data[:explore] = true if explore
     @header_team_data[:toolbelt] = true if toolbelt
+    @header_team_data[:service] = true if service
 
     if @current_user
       @header_team_data[:authed] = true

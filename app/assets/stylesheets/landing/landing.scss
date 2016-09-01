@@ -66,7 +66,8 @@
 
   &.home,
   &.explore,
-  &.toolbelt {
+  &.toolbelt,
+  &.service {
     box-shadow: none;
     background: none;
 
@@ -88,7 +89,8 @@
 
 #landingHeader.home,
 #landingHeader.explore,
-#landingHeader.toolbelt {
+#landingHeader.toolbelt,
+#landingHeader.service {
   .lh-logo {
     background: url("https://ds8ypexjwou5.cloudfront.net/images/conflux-long-white-colored-icon.svg");
   }
