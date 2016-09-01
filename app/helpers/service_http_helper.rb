@@ -5,22 +5,22 @@ module ServiceHttpHelper
 
   def get(url, path, params = {})
     path = "#{path}?" + params.map { |k, v| "#{k}=#{v}" }.join('&') unless params.empty?
-    request(:get, [], url, path)
+    make_request(:get, [], url, path)
   end
 
   def post(credentials, url, path, payload = nil)
-    request(:post, credentials, url, path, payload)
+    make_request(:post, credentials, url, path, payload)
   end
 
-  def put(credentials, url, path, payload = nil)
+  def make_put(credentials, url, path, payload = nil)
     request(:put, credentials, url, path, payload)
   end
 
-  def delete(credentials, url, path, payload = nil)
+  def make_delete(credentials, url, path, payload = nil)
     request(:delete, credentials, url, path, payload)
   end
 
-  def request(method, credentials, url, path, payload = nil)
+  def make_request(method, credentials, url, path, payload = nil)
     code = nil
     body = nil
 

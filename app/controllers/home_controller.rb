@@ -16,7 +16,7 @@ class HomeController < ApplicationController
     get_user_teams_for_header(explore: true)
     @landing_header = true
 
-    addons = AddonServices::FilterAddons.new(@current_user, nil).perform.addons
+    addons = AddonServices::FilterAddons.new(@current_user).perform.addons
 
     render component: 'Explore', props: { addons: addons }
   end

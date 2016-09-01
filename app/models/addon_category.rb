@@ -1,7 +1,7 @@
 class AddonCategory < ActiveRecord::Base
   include Extensions::UUID
 
-  has_many :addons
+  has_many :addons # leaving off :dependent => :destroy here bc I don't wanna risk it
 
   before_create :generate_uuid
 
