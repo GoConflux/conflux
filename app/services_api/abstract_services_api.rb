@@ -1,5 +1,5 @@
 class AbstractServicesApi
-  include ServiceHTTPHelper
+  include ServiceHttpHelper
 
   attr_accessor :addon, :url, :path
 

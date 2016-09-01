@@ -1,6 +1,6 @@
 require 'rest-client'
 
-module ServiceHTTPHelper
+module ServiceHttpHelper
   extend self
 
   def get(url, path, params = {})

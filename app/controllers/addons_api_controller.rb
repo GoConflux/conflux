@@ -75,29 +75,33 @@ class AddonsApiController < ApplicationController
         }
       }
 
-      # Create new draft Addon
-      addon = Addon.create!(
-        slug: manifest['id'],
-        configs: configs,
-        password: api['password'],
-        sso_salt: api['sso_salt'],
-        api: {
-          production: api['production'],
-          test: api['test']
-        },
-        status: Addon::Status::DRAFT
-      )
+      addon = nil
 
-      # Create new AddonAdmin so that this addon has an owner
-      AddonAdmin.create!(
-        addon_id: addon.id,
-        user_id: @current_user.id,
-        is_owner: true
-      )
+      with_transaction do
+        # Create new draft Addon
+        addon = Addon.create!(
+          slug: manifest['id'],
+          configs: configs,
+          password: api['password'],
+          sso_salt: api['sso_salt'],
+          api: {
+            production: api['production'],
+            test: api['test']
+          },
+          status: Addon::Status::DRAFT
+        )
+
+        # Create new AddonAdmin so that this addon has an owner
+        AddonAdmin.create!(
+          addon_id: addon.id,
+          user_id: @current_user.id,
+          is_owner: true
+        )
+      end
 
       # Send back the url for the new draft service so that the owner can
       # go there and finish the submission process
-      render json: { url: "#{ENV['CONFLUX_USER_ADDRESS']}/services/#{addon.slug}" }, status: 200
+      render json: { url: "#{ENV['CONFLUX_USER_ADDRESS']}/services/#{addon.try(:slug)}" }, status: 200
     rescue Exception => e
       render json: { message: e.message }, status: 500
     end
