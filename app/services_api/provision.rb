@@ -3,7 +3,6 @@ class Provision < AbstractServicesApi
   def initialize(app_addon, plan)
     super(app_addon)
     @plan = plan || 'test'
-    @purpose = 'provision service'
     @external_username = conflux_id
     @external_uuid = SecureRandom.uuid
   end

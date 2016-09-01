@@ -10,12 +10,11 @@ module AppServices
     end
 
     def perform
-      @addon.is_heroku_dependent? ? Heroku.update_plan(@app_addon, @plan) : change_plan_for_conflux_addon
-      self
-    end
+      @addon.is_heroku_dependent? ?
+        Heroku.update_plan(@app_addon, @plan) :
+        ChangePlan.new(@app_addon, @plan).perform
 
-    def change_plan_for_conflux_addon
-      # Do pretty much exactly what Heroku does to change a plan
+      self
     end
 
   end
