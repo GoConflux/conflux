@@ -92,8 +92,8 @@ module AddonServices
     end
 
     def update_features
-      formatted_features = format_features(@attrs[:features])
-      @addon.update_attributes(features: formatted_features)
+      validate_addon_json_column(FeaturesTest, @attrs[:features])
+      @addon.update_attributes(features: @attrs[:features])
     end
 
     def update_jobs

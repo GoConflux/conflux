@@ -30,11 +30,18 @@ class HomeController < ApplicationController
     if addon.is_active? || current_user_addon_admin.present?
       get_user_teams_for_header(service: true)
       @landing_header = true
+      is_admin = current_user_addon_admin.present?
+      is_owner = current_user_addon_admin.is_owner
 
       render component: 'Service', props: {
         info: addon.service_page_info,
-        is_admin: current_user_addon_admin.present?,
-        is_owner: current_user_addon_admin.is_owner,
+        permissions: {
+          can_edit: is_admin,
+          can_delete: is_owner,
+          can_add_admins: is_owner,
+          show_configs: is_admin,
+          show_api: is_admin
+        }
       }
     else
       page_dne

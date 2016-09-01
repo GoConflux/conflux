@@ -15,11 +15,6 @@ module AddonsHelper
     plans
   end
 
-  def format_features(features_arr)
-    validate_addon_json_column(FeaturesTest, features)
-    features
-  end
-
   def format_jobs(jobs_arr, addon_slug)
     jobs_for_db = {}
     jobs_with_files = {}
