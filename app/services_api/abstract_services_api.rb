@@ -7,14 +7,16 @@ class AbstractServicesApi
     @app_addon = app_addon
     @addon = app_addon.addon
 
-    url_method = sso ? 'sso_url' : 'base_url'
-    path_method = sso ? 'sso_path' : 'resources_path'
+    if sso
+      @url = @addon.sso_full_url
+      raise "No sso_url exists for addon: #{@addon.slug}" if @url.blank?
+    else
+      @url = @addon.base_url
+      raise "No base_url exists for addon: #{@addon.slug}" if @url.blank?
 
-    @url = @addon.send(url_method)
-    raise "No #{url_method} exists for addon: #{@addon.slug}" if @url.blank?
-
-    @path = @addon.send(path_method)
-    raise "No #{path_method} exists for addon: #{@addon.slug}" if @path.blank?
+      @path = @addon.resources_path
+      raise "No resources_path exists for addon: #{@addon.slug}" if @path.blank?
+    end
   end
 
   def perform

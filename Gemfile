@@ -56,3 +56,5 @@ gem 'mixpanel-ruby'
 gem 'twitter_oauth'
 
 gem 'aws-sdk', '2.3.19'
+
+gem 'mechanize', '~> 2.6.0'

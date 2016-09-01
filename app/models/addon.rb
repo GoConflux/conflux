@@ -111,17 +111,8 @@ class Addon < ActiveRecord::Base
     URI.parse(base).path
   end
 
-  def sso_url
-    base = api['production']['sso_url'] rescue ''
-    uri = URI.parse(base)
-    uri.query = nil
-    uri.path = ''
-    uri.to_s
-  end
-
-  def sso_path
-    base = api['production']['sso_url'] rescue ''
-    URI.parse(base).path
+  def sso_full_url
+    api['production']['sso_url'] rescue ''
   end
 
   def request_creds
