@@ -81,10 +81,10 @@ class TeamsController < ApplicationController
           .where(pipelines: { team_id: @team.id })
 
         # Remove all keys from Redis mapping to each of these apps
-        AppServices::RemoveAppKeysFromRedis.new(
-          @current_user,
-          apps_of_team
-        ).delay.perform
+        # AppServices::RemoveAppKeysFromRedis.new(
+        #   @current_user,
+        #   apps_of_team
+        # ).delay.perform
 
         track('Delete Team', { team: @team.slug })
 

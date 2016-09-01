@@ -1,4 +1,5 @@
 class Addon < ActiveRecord::Base
+  require 'uri'
   include Extensions::UUID
   include Extensions::SoftDestroyable
 
@@ -95,6 +96,40 @@ class Addon < ActiveRecord::Base
 
   def service_page_info
     {}
+  end
+
+  def base_url
+    base = api['production']['base_url'] rescue ''
+    uri = URI.parse(base)
+    uri.query = nil
+    uri.path = ''
+    uri.to_s
+  end
+
+  def resources_path
+    base = api['production']['base_url'] rescue ''
+    URI.parse(base).path
+  end
+
+  def sso_url
+    base = api['production']['sso_url'] rescue ''
+    uri = URI.parse(base)
+    uri.query = nil
+    uri.path = ''
+    uri.to_s
+  end
+
+  def sso_path
+    base = api['production']['sso_url'] rescue ''
+    URI.parse(base).path
+  end
+
+  def request_creds
+    [ @addon.slug, @addon.password ]
+  end
+
+  def api_requires_syslog_drain
+    false # Don't have time to deal with this for now
   end
 
 end

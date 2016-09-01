@@ -2,6 +2,11 @@ module AppServices
   class RemoveAppKeysFromRedis < AbstractService
     require 'rest-client'
 
+
+    # If you start using this service again, make sure it works with rest-client version 2.0.0...
+    # This was originally written with version 1.6.7...
+
+
     def initialize(executor_user, apps)
       super(executor_user)
       @apps = apps

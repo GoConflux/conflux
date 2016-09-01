@@ -9,7 +9,7 @@ class AppAddonsController < ApplicationController
   before_filter :required_app_addon_destroy_params, :only => [:destroy]
   before_filter :addon_by_uuid, :only => [:create]
   before_filter :app_by_uuid, :only => [:create]
-  before_filter :app_addon_by_uuid, :only => [:update, :update_plan, :update_description, :destroy, :revoke_keys]
+  before_filter :app_addon_by_uuid, :only => [:update, :update_plan, :update_description, :destroy]
 
   def index
     addon = @app_addon.addon
@@ -87,10 +87,10 @@ class AppAddonsController < ApplicationController
         ).delay.perform
 
         # Remove all keys from Redis mapping to each of these apps
-        AppServices::RemoveAppKeysFromRedis.new(
-          @current_user,
-          @app
-        ).delay.perform
+        # AppServices::RemoveAppKeysFromRedis.new(
+        #   @current_user,
+        #   @app
+        # ).delay.perform
 
         track('New Add-on', { addon: @addon.slug })
 
@@ -115,10 +115,10 @@ class AppAddonsController < ApplicationController
           @app_addon.update_keys(params[:keys])
 
           # Remove all keys from Redis mapping to each of these apps
-          AppServices::RemoveAppKeysFromRedis.new(
-            @current_user,
-            @app_addon.app_scope.app
-          ).delay.perform
+          # AppServices::RemoveAppKeysFromRedis.new(
+          #   @current_user,
+          #   @app_addon.app_scope.app
+          # ).delay.perform
         end
 
         updated_data = {
@@ -186,31 +186,16 @@ class AppAddonsController < ApplicationController
 
       @app_addon.destroy!
 
-      AppServices::RemoveAppKeysFromRedis.new(
-        @current_user,
-        app
-      ).perform
+      # AppServices::RemoveAppKeysFromRedis.new(
+      #   @current_user,
+      #   app
+      # ).perform
 
       track('Remove Add-on', { addon: addon.slug })
 
       render json: { url: app.create_link }
     rescue Exception => e
       error = "#{ConfluxErrors::AppAddonDestroyFailed} - #{e}"
-      logger.error { error }
-      render json: { message: error }, status: 500
-    end
-  end
-
-  def revoke_keys
-    begin
-      with_transaction do
-        KeyServices::RevokeKeys.new(
-          @current_user,
-          @app_addon
-        ).delay.perform
-      end
-    rescue Exception => e
-      error = "Error Revoking Keys for AppAddon with ID #{@app_addon.id}: #{e}"
       logger.error { error }
       render json: { message: error }, status: 500
     end
