@@ -54,25 +54,36 @@ class AddonsApiController < ApplicationController
   def push
     begin
       manifest = params[:manifest]
-      manifest_valid = ManifestTest.new(manifest).call
+      manifest_test = ManifestTest.new(manifest)
 
-      # Make sure manifest is valid in structure
-      raise 'Unknown Manifest Error' unless manifest_valid
+      # Make sure manifest is valid.
+      raise "Invalid Manifest: #{manifest_test.err_message}" unless manifest_test.call
 
-      # Make sure slug is available
-      raise 'Slug/ID is already taken' unless is_name_available(Addon, manifest['id'])
+      # Make sure slug is available.
+      unless is_name_available(Addon, manifest['id'])
+        raise 'id for service is unavailable. Change the "id" field in your Conflux manifest and then try again.'
+      end
 
       api = manifest['api'] || {}
+
+      # Ex: ["MY_CONFIG", ...] --> [{ name: "MY_CONFIG", description: "" }, ...]
+      # Owner can update the descriptions from the UI later.
+      configs = (api['config_vars'] || []).map { |key|
+        {
+          name: key,
+          description: ''
+        }
+      }
 
       # Create new draft Addon
       addon = Addon.create!(
         slug: manifest['id'],
-        configs: api['config_vars'],
+        configs: configs,
         password: api['password'],
         sso_salt: api['sso_salt'],
         api: {
           production: api['production'],
-          test: api['production']
+          test: api['test']
         },
         status: Addon::Status::DRAFT
       )
@@ -88,7 +99,7 @@ class AddonsApiController < ApplicationController
       # go there and finish the submission process
       render json: { url: "#{ENV['CONFLUX_USER_ADDRESS']}/services/#{addon.slug}" }, status: 200
     rescue Exception => e
-      render json: { message: "Invalid Manifest: #{e.message}" }, status: 500
+      render json: { message: e.message }, status: 500
     end
   end
 

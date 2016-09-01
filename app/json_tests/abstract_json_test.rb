@@ -1,12 +1,13 @@
 class AbstractJsonTest
   attr_accessor :data
+  attr_reader :err_message
 
   def initialize(data)
     @data = data
   end
 
   def test(msg, &block)
-    raise "Test failed: #{msg}" unless block.call
+    raise msg unless block.call
   end
 
   def call
@@ -14,7 +15,7 @@ class AbstractJsonTest
       call!
       true
     rescue Exception => e
-      puts "Abstract JSON Error: #{e.message}"
+      @err_message = e.message
       false
     end
   end
