@@ -10,6 +10,7 @@ class Addon < ActiveRecord::Base
   has_many :app_addons, :dependent => :destroy
   has_many :addon_admins, :dependent => :destroy
   belongs_to :addon_category
+  has_many :addon_likes
 
   scope :drafts, -> { unscoped.where(status: Status::DRAFT, is_destroyed: false) }
   scope :pending, -> { unscoped.where(status: Status::PENDING, is_destroyed: false) }

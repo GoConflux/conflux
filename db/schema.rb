@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160903025228) do
+ActiveRecord::Schema.define(version: 20160903025739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,11 @@ ActiveRecord::Schema.define(version: 20160903025228) do
   end
 
   add_index "addon_categories", ["category"], name: "index_addon_categories_on_category", using: :btree
+
+  create_table "addon_likes", force: :cascade do |t|
+    t.integer "addon_id"
+    t.integer "user_id"
+  end
 
   create_table "addons", force: :cascade do |t|
     t.string   "uuid"
