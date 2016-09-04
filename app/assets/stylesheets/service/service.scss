@@ -1,0 +1,160 @@
+@import 'global-vars';
+
+.service-container {
+  max-width: 950px;
+}
+
+.service-header,
+.service-body {
+  width: 100%;
+  float: left;
+  display: block;
+}
+
+.service-header {
+  padding-top: 55px;
+  padding-left: 40px;
+  padding-right: 40px;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.primary-info-container {
+  margin: 0 auto;
+  margin-bottom: 15px;
+  display: block;
+  width: 70%;
+  text-align: center;
+
+  .service-icon {
+    margin-left: auto;
+    margin-right: auto;
+    width: 70px;
+    height: 70px;
+    display: block;
+  }
+
+  .service-name {
+    display: block;
+    width: 100%;
+    font-size: 24px;
+    font-family: Avenir-Next-Medium;
+    color: $conflux-black;
+    text-align: center;
+    height: 33px;
+    margin-top: 20px;
+  }
+
+  .service-tagline {
+    display: block;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 15px;
+    color: rgba(0,0,0,0.65);
+    text-align: center;
+    height: 20px;
+    margin-top: 11px;
+  }
+
+}
+
+.secondary-info-container {
+  width: 100%;
+  display: block;
+  padding: 12px 0;
+  float: left;
+  color: #919191;
+
+  .likes-links-container {
+    display: inline-block;
+    float: left;
+    width: 50%;
+
+    .likes {
+      float: left;
+      display: inline-block;
+      position: relative;
+      top: 1px;
+
+      .likes-icon {
+        height: 24px;
+        display: inline-block;
+        margin-right: 5px;
+        position: relative;
+        top: -2px;
+      }
+
+      .likes-count {
+        font-size: 15px;
+        display: inline-block;
+      }
+
+    }
+
+    .service-middot {
+      font-size: 24px;
+      height: 16px;
+      opacity: 0.8;
+      margin: 0 13px;
+      float: left;
+      display: inline-block;
+      margin-top: -6px;
+    }
+
+    .service-links {
+      float: left;
+
+      .service-link {
+        float: left;
+        cursor: pointer;
+      }
+
+      .service-link-icon {
+        float: left;
+        height: 17px;
+        margin: 0 5px;
+
+        &:hover {
+          opacity: 0.8;
+        }
+
+        &:active {
+          opacity: 1;
+        }
+
+        &.home {
+          position: relative;
+          top: 1px;
+          margin-left: 0 !important;
+        }
+
+        &.facebook,
+        &.github {
+          height: 19px;
+        }
+
+        &.twitter {
+          height: 22px;
+          position: relative;
+          top: -1px;
+        }
+      }
+
+    }
+
+  }
+
+  .starting-at-container {
+    display: inline-block;
+    float: right;
+    width: 50%;
+
+    .starting-at {
+      display: inline-block;
+      float: right;
+      font-size: 15px;
+    }
+
+  }
+}

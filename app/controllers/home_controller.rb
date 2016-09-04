@@ -1,6 +1,9 @@
 class HomeController < ApplicationController
+  include AddonsHelper
 
   before_filter :check_for_current_user, :except => [:lets_encrypt]
+  before_filter :unscoped_addon_by_slug, :only => [:service, :edit_service]
+  before_filter :current_addon_admin, :only => [:service, :edit_service]
 
   def index
     if ENV['IS_CONFLUX_API']
@@ -22,27 +25,33 @@ class HomeController < ApplicationController
   end
 
   def service
-    addon = Addon.unscoped.find_by(slug: params[:addon_slug], is_destroyed: false)
-    page_dne && return if addon.nil?
-
-    current_user_addon_admin = addon.addon_admins.find_by(user_id: @current_user.id)
-
-    if addon.is_active? || current_user_addon_admin.present?
+    # Only show this page if the service is active or the user is an admin to this service.
+    if @addon.is_active? || @current_addon_admin.present?
       get_user_teams_for_header(service: true)
       @landing_header = true
-      is_admin = current_user_addon_admin.present?
-      is_owner = current_user_addon_admin.is_owner
 
-      render component: 'Service', props: {
-        info: addon.service_page_info,
-        permissions: {
-          can_edit: is_admin,
-          can_delete: is_owner,
-          can_add_admins: is_owner,
-          show_configs: is_admin,
-          show_api: is_admin
-        }
-      }
+      is_admin = @current_addon_admin.present?
+      is_owner = is_admin && @current_addon_admin.is_owner
+
+      props = service_page_info(@addon, is_admin: is_admin, is_owner: is_owner)
+
+      render component: 'Service', props: props
+    else
+      page_dne
+    end
+  end
+
+  def edit_service
+    if @current_addon_admin.present?
+      get_user_teams_for_header(service: true)
+      @landing_header = true
+
+      is_admin = @current_addon_admin.present?
+      is_owner = is_admin && @current_addon_admin.is_owner
+
+      props = service_page_info(@addon, is_admin: is_admin, is_owner: is_owner, edit_mode: true)
+
+      render component: 'EditService', props: props
     else
       page_dne
     end

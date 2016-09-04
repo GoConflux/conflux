@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     get '/' => 'home#index'
     get '/services' => 'home#services'
     get '/services/:addon_slug' => 'home#service'
+    get '/services/:addon_slug/edit' => 'home#edit_service'
     get '/download' => 'home#download'
     get '/.well-known/acme-challenge/:id' => 'home#lets_encrypt'
 

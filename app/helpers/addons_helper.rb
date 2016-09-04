@@ -57,4 +57,49 @@ module AddonsHelper
     SecureRandom.hex(3)
   end
 
+  def service_page_info(addon, is_admin: false, is_owner: false, edit_mode: false)
+    edit_mode = false unless is_admin
+
+    data = {
+      slug: addon.slug,
+      name: addon.name,
+      icon: addon.icon,
+      tagline: addon.tagline,
+      description: addon.description,
+      category_uuid: addon.addon_category.try(:uuid),
+      links: {
+        url: addon.url,
+        facebook_url: addon.facebook_url,
+        twitter_url: addon.twitter_url,
+        github_url: addon.github_url
+      },
+      plans: addon.plans,
+      features: addon.features
+    }
+
+    if edit_mode
+      data.merge!({
+        jobs: addon.jobs,
+        configs: addon.configs,
+        api: addon.api
+      })
+    else
+      addon_likes = addon.addon_likes
+
+      data.merge!({
+        likes: {
+          count: addon_likes.count,
+          has_liked: addon_likes.find { |_| _.user_id == @current_user.try(:id) }.present?
+        },
+        starting_at: addon.starting_at,
+        permissions: {
+          can_edit: is_admin,
+          can_add_admin: is_owner
+        }
+      })
+    end
+
+    data
+  end
+
 end

@@ -95,10 +95,6 @@ class Addon < ActiveRecord::Base
     status == Status::ACTIVE
   end
 
-  def service_page_info
-    {}
-  end
-
   def base_url
     base = api['production']['base_url'] rescue ''
     uri = URI.parse(base)
@@ -122,6 +118,11 @@ class Addon < ActiveRecord::Base
 
   def api_requires_syslog_drain
     false # Don't have time to deal with this for now
+  end
+
+  def starting_at
+    price = ((plans || []).first || {})['price']
+    (price.to_i == price.to_f ? price.to_i : price.to_f.round).to_s
   end
 
 end

@@ -299,6 +299,16 @@ class ApplicationController < ActionController::Base
     render json: { message: 'Invalid Permissions' }, status: 403
   end
 
+  def unscoped_addon_by_slug
+    @addon = Addon.unscoped.find_by(slug: params[:addon_slug], is_destroyed: false)
+    page_dne if @addon.nil?
+  end
+
+  # Make sure @addon has been set before calling this.
+  def current_addon_admin
+    @current_addon_admin = @current_user.present? ? @addon.addon_admins.find_by(user_id: @current_user.id) : nil
+  end
+
   # ---------- Helpers ----------
 
   def required_params(required_keys)
