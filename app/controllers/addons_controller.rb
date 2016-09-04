@@ -1,10 +1,9 @@
 class AddonsController < ApplicationController
-  include MarkdownHelper
 
   before_filter :check_for_current_user, :only => [:suggest]
   before_filter :set_addon, :only => [:addon]
-  before_filter :addon_by_uuid, :only => [:modal_info, :md_preview]
-  before_filter :set_current_user, :only => [:modify_draft, :submit, :approve]
+  before_filter :addon_by_uuid, :only => [:modal_info, :md_preview, :like, :unlike]
+  before_filter :set_current_user, :only => [:modify, :submit, :approve, :like, :unlike]
 
   # Get all addons for the Addons page
   def index
@@ -131,7 +130,41 @@ class AddonsController < ApplicationController
   end
 
   def md_preview
-    render json: { description: MarkdownHelper.render(@addon.description) }
+    render json: { description: to_markdown(@addon.description) }
+  end
+
+  def like
+    begin
+      count = 0
+
+      with_transaction do
+        AddonLike.find_or_create_by!(user_id: @current_user.id, addon_id: @addon.id)
+        count = @addon.addon_likes.count
+      end
+
+      render json: { count: count }
+    rescue Exception => e
+      puts "Error Liking Service, #{@addon.name}: #{e.message}"
+      render json: { message: 'Error Liking Service' }, status: 500
+    end
+  end
+
+  def unlike
+    begin
+      count = 0
+
+      with_transaction do
+        addon_like = AddonLike.find_by(user_id: @current_user.id, addon_id: @addon.id)
+        assert(addon_like)
+
+        addon_like.destroy!
+      end
+
+      render json: { count: count }
+    rescue Exception => e
+      puts "Error Unliking Service, #{@addon.name}: #{e.message}"
+      render json: { message: 'Error Unliking Service' }, status: 500
+    end
   end
 
   def draft_params

@@ -97,20 +97,29 @@
       display: inline-block;
       position: relative;
       top: 1px;
+      cursor: pointer;
 
       .likes-icon {
         height: 24px;
+        width: 24px;
+        font-size: 19px;
+        padding-top: 1px;
         display: inline-block;
         margin-right: 5px;
-        position: relative;
-        top: -2px;
+        color: #919191;
+        float: left;
+
+        &:hover,
+        &.has-liked {
+          color: $conflux-green;
+        }
       }
 
       .likes-count {
         font-size: 15px;
+        float: left;
         display: inline-block;
       }
-
     }
 
     .service-middot {

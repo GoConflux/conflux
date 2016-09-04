@@ -8,11 +8,6 @@ var Service = React.createClass({
     this.plans = ref;
   },
 
-  getLikesIcon: function () {
-    var icon = this.props.likes.has_liked ? 'heart-icon-solid' : 'heart-icon-hollow';
-    return 'https://ds8ypexjwou5.cloudfront.net/images/' + icon + '.svg';
-  },
-
   getLikesLinksSeparator: function () {
     var hasLink = false;
     var self = this;
@@ -84,10 +79,7 @@ var Service = React.createClass({
             </div>
             <div className="secondary-info-container">
               <div className="likes-links-container">
-                <div className="likes">
-                  <img src={this.getLikesIcon()} className="likes-icon"/>
-                  <div className="likes-count">{this.props.likes.count}</div>
-                </div>
+                <LikeService authed={this.props.authed} count={this.props.likes.count} hasLiked={this.props.likes.has_liked} addonUuid={this.props.addon_uuid}/>
                 {this.getLikesLinksSeparator()}
                 <ServiceLinks data={this.props.links} />
               </div>

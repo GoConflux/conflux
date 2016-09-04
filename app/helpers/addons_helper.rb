@@ -62,6 +62,7 @@ module AddonsHelper
     edit_mode = false unless is_admin
 
     data = {
+      addon_uuid: addon.uuid,
       slug: addon.slug,
       name: addon.name,
       icon: addon.icon,
@@ -74,7 +75,8 @@ module AddonsHelper
         github_url: addon.github_url
       },
       plans: addon.plans,
-      features: addon.ordered_features
+      features: addon.ordered_features,
+      authed: @current_user.present?
     }
 
     if edit_mode
@@ -97,11 +99,15 @@ module AddonsHelper
           can_edit: is_admin,
           can_add_admin: is_owner
         },
-        description: MarkdownHelper.render(addon.description)
+        description: to_markdown(addon.description)
       })
     end
 
     data
+  end
+
+  def to_markdown(content)
+    MarkdownHelper.format(content)
   end
 
 end
