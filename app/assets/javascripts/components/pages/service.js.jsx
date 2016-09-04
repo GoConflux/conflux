@@ -34,14 +34,18 @@ var Service = React.createClass({
     }
   },
 
-  editLink: function () {
-    return '/services/' + this.props.slug + '/edit';
-  },
-  
   onPlanSelected: function (e) {
     this.plans.setState({
       selected: Number($(e.target).closest('li').attr('data-plan-index')) || 0
     });
+  },
+
+  editButton: function () {
+    if (!this.props.permissions.can_edit) {
+      return;
+    }
+
+    return <a className="edit-service-btn" href={'/services/' + this.props.slug + '/edit'}>Edit</a>;
   },
 
   render: function() {
@@ -87,7 +91,7 @@ var Service = React.createClass({
             </div>
           </div>
         </div>
-        <a className="edit-service-btn" href={this.editLink()}>Edit</a>
+        {this.editButton()}
       </div>
     );
   }
