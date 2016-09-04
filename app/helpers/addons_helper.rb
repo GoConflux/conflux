@@ -1,6 +1,6 @@
 module AddonsHelper
   require 'slugify'
-  include Markdown
+  require 'markdown_helper'
 
   def format_plans(plans_arr)
     plans = plans_arr.map { |plan|
@@ -97,7 +97,7 @@ module AddonsHelper
           can_edit: is_admin,
           can_add_admin: is_owner
         },
-        description: Markdown.render(addon.description)
+        description: MarkdownHelper.render(addon.description)
       })
     end
 

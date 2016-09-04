@@ -1,5 +1,5 @@
 class AddonsController < ApplicationController
-  include Markdown
+  include MarkdownHelper
 
   before_filter :check_for_current_user, :only => [:suggest]
   before_filter :set_addon, :only => [:addon]
@@ -131,7 +131,7 @@ class AddonsController < ApplicationController
   end
 
   def md_preview
-    render json: { description: Markdown.render(@addon.description) }
+    render json: { description: MarkdownHelper.render(@addon.description) }
   end
 
   def draft_params
