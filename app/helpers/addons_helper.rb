@@ -1,5 +1,6 @@
 module AddonsHelper
   require 'slugify'
+  include Markdown
 
   def format_plans(plans_arr)
     plans = plans_arr.map { |plan|
@@ -65,7 +66,6 @@ module AddonsHelper
       name: addon.name,
       icon: addon.icon,
       tagline: addon.tagline,
-      description: addon.description,
       category_uuid: addon.addon_category.try(:uuid),
       links: {
         url: addon.url,
@@ -81,7 +81,8 @@ module AddonsHelper
       data.merge!({
         jobs: addon.jobs,
         configs: addon.configs,
-        api: addon.api
+        api: addon.api,
+        description: addon.description
       })
     else
       addon_likes = addon.addon_likes
@@ -95,7 +96,8 @@ module AddonsHelper
         permissions: {
           can_edit: is_admin,
           can_add_admin: is_owner
-        }
+        },
+        description: Markdown.render(addon.description)
       })
     end
 

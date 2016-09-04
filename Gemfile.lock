@@ -137,6 +137,7 @@ GEM
     pkg-config (1.1.7)
     platform-api (0.6.0)
       heroics
+    posix-spawn (0.3.11)
     postgres_ext (3.0.0)
       activerecord (>= 4.0.0)
       arel (>= 4.0.1)
@@ -151,6 +152,9 @@ GEM
     pry-doc (0.9.0)
       pry (~> 0.9)
       yard (~> 0.8)
+    pygments.rb (0.6.3)
+      posix-spawn (~> 0.3.6)
+      yajl-ruby (~> 1.2.0)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -194,6 +198,7 @@ GEM
       execjs
       rails (>= 3.2)
       tilt
+    redcarpet (3.3.4)
     redis (3.3.1)
     rest-client (2.0.0)
       http-cookie (>= 1.0.2, < 2.0)
@@ -248,6 +253,7 @@ GEM
     websocket-driver (0.6.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
+    yajl-ruby (1.2.1)
     yard (0.9.5)
 
 PLATFORMS
@@ -272,10 +278,12 @@ DEPENDENCIES
   pry
   pry-byebug
   pry-doc
+  pygments.rb
   rails (~> 4.2)
   rails4_upgrade
   rails_12factor (= 0.0.2)
   react-rails (= 1.5.0)
+  redcarpet
   redis
   rest-client (~> 2.0.0)
   sass-rails (~> 4.0.0)

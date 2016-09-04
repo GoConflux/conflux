@@ -1,8 +1,9 @@
 class AddonsController < ApplicationController
+  include Markdown
 
   before_filter :check_for_current_user, :only => [:suggest]
   before_filter :set_addon, :only => [:addon]
-  before_filter :addon_by_uuid, :only => [:modal_info]
+  before_filter :addon_by_uuid, :only => [:modal_info, :md_preview]
   before_filter :set_current_user, :only => [:modify_draft, :submit, :approve]
 
   # Get all addons for the Addons page
@@ -127,6 +128,10 @@ class AddonsController < ApplicationController
       puts "Error approving service: #{e.message}"
       render json: { message: 'Error approving service'}, status: 500
     end
+  end
+
+  def md_preview
+    render json: { description: Markdown.render(@addon.description) }
   end
 
   def draft_params

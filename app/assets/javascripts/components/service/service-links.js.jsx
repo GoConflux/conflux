@@ -31,7 +31,7 @@ var ServiceLinks = React.createClass({
         var iconUrl = 'https://ds8ypexjwou5.cloudfront.net/images/' + iconInfo.icon;
         var iconClasses = 'service-link-icon ' + iconInfo.classes;
 
-        links.push(<a className="service-link" href={linkUrl}><img className={iconClasses} src={iconUrl} /></a>);
+        links.push(<a className="service-link" href={linkUrl} target="_blank"><img className={iconClasses} src={iconUrl} /></a>);
       }
     });
 
