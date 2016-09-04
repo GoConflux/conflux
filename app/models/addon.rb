@@ -125,4 +125,8 @@ class Addon < ActiveRecord::Base
     (price.to_i == price.to_f ? price.to_i : price.to_f.round).to_s
   end
 
+  def ordered_features
+    (features || []).sort_by { |feature| feature['index'] }
+  end
+
 end

@@ -74,7 +74,7 @@ module AddonsHelper
         github_url: addon.github_url
       },
       plans: addon.plans,
-      features: addon.features
+      features: addon.ordered_features
     }
 
     if edit_mode

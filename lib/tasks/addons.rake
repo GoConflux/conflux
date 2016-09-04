@@ -192,4 +192,17 @@ namespace :addons do
     }
   end
 
+  desc 'Add indexes to features'
+  task :add_index_to_features => :environment do
+    Addon.unscoped.where(is_destroyed: false).each { |addon|
+      features = addon.features.clone || []
+
+      features.each_with_index { |feature, i|
+        feature['index'] = i
+      }
+
+      addon.update_attributes(features: features)
+    }
+  end
+
 end
