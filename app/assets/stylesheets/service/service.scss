@@ -13,8 +13,8 @@
 
 .service-header {
   padding-top: 55px;
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-left: 42px;
+  padding-right: 42px;
   border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 
@@ -156,5 +156,39 @@
       font-size: 15px;
     }
 
+  }
+}
+
+.edit-service-btn {
+  background-image: url(https://ds8ypexjwou5.cloudfront.net/images/edit.svg);
+  background-repeat: no-repeat;
+  background-color: #14c07b;
+  padding: 9px 15px 9px 36px;
+  font-size: 13px;
+  background-position: 15px 11px;
+  background-size: 11px;
+  border-radius: 3px;
+  border: 0;
+  letter-spacing: 1px;
+  text-align: center;
+  height: 36px;
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  position: absolute;
+  left: 20px;
+  bottom: 24px;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+    color: #fff;
+    background-color: #14C77F;
+  }
+
+  &:active {
+    background-color: #14c07b;
   }
 }

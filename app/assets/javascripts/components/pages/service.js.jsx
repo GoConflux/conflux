@@ -26,6 +26,10 @@ var Service = React.createClass({
     }
   },
 
+  editLink: function () {
+    return '/services/' + this.props.slug + '/edit';
+  },
+
   render: function() {
     return (
       <div id="service">
@@ -54,6 +58,7 @@ var Service = React.createClass({
           <div className="service-body">
           </div>
         </div>
+        <a className="edit-service-btn" href={this.editLink()}>Edit</a>
       </div>
     );
   }
