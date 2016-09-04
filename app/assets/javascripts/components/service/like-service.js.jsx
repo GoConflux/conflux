@@ -23,7 +23,10 @@ var LikeService = React.createClass({
     var self = this;
 
     if (!this.props.authed) {
-      // show modal promting them to login
+      React.modal.show('like-service:unauthed', {
+        message: 'You must be logged into your Conflux account in order to like a service.'
+      });
+
       return;
     }
 

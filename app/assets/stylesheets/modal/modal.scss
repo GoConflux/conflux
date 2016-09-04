@@ -665,3 +665,14 @@ $modal-width: 400px;
     line-height: 24px;
   }
 }
+
+.action-requires-auth-modal {
+  padding: 15px;
+
+  .message {
+    font-size: 13px;
+    text-align: center;
+    color: $conflux-black;
+    line-height: 24px;
+  }
+}

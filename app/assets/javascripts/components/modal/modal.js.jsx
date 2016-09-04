@@ -178,6 +178,10 @@ var Modal = React.createClass({
         confirmText: 'Send email',
         headerText: 'Forgot Password'
       },
+      'like-service:unauthed': {
+        body: <ActionRequiresAuth data={this.data} ref={this.setCurrentModal}/>,
+        confirmText: 'Login'
+      },
       'empty': {
         body: <div></div>,
         confirmText: '',
