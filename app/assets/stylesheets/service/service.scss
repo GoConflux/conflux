@@ -284,6 +284,7 @@
     .name {
       float: left;
       display: inline-block;
+      color: $conflux-black;
     }
 
     .value {
@@ -291,6 +292,18 @@
       display: inline-block;
       float: right;
       font-family: Avenir-Next-Medium;
+
+      .feature-check {
+        width: 17px;
+        display: inline-block;
+        float: right;
+      }
+    }
+
+    &.disabled {
+      .name {
+        color: #D9DDE4;
+      }
     }
   }
 }

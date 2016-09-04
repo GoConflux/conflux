@@ -11,7 +11,16 @@ var Features = React.createClass({
     var self = this;
 
     return this.state.features.map(function (data) {
-      return <div className="feature"><div className="name">{data.feature}</div><div className="value">{data.values[self.state.plan]}</div></div>;
+      var classes = 'feature';
+      var value = data.values[self.state.plan];
+
+      if (!value) {
+        classes += ' disabled';
+      } else if (value === 'CHECK') {
+        value = <img className="feature-check" src="https://ds8ypexjwou5.cloudfront.net/images/check.svg" />;
+      }
+
+      return <div className={classes}><div className="name">{data.feature}</div><div className="value">{value}</div></div>;
     });
   },
 
