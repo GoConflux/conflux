@@ -53,6 +53,24 @@ var Service = React.createClass({
     return <a className="edit-service-btn" href={'/services/' + this.props.slug + '/edit'}>Edit</a>;
   },
 
+  copyProvisionCmd: function () {
+    // Get command text to copy from .command element.
+    var textToCopy = $('.provision-section').find('.command').text();
+
+    // Create a new temporary input element that's hidden & append it to body.
+    var $tempInput = $('<input>', { class: 'wayyy-back' });
+    $('body').append($tempInput);
+
+    // Select this input element and copy it's text (the text we want).
+    $tempInput.val(textToCopy).select();
+
+    // Copy that shit.
+    document.execCommand("copy");
+
+    // Remove that shit.
+    $tempInput.remove();
+  },
+
   render: function() {
     return (
       <div id="service">
@@ -93,6 +111,10 @@ var Service = React.createClass({
             </div>
             <div id="provisioning" className="service-section">
               <div className="service-section-title">Provisioning</div>
+              <div className="provision-section">
+                <div className="provision-text">To provision a new instance of <span className="bold-me">{this.props.name}</span> with the <a href="/download" className="provision-link">Conflux toolbelt</a>, run the following command from inside your project's directory:</div>
+                <div className="md-shell relative"><span className="prompt">$</span> <span className="command">conflux services:add {this.props.slug}</span><i className="fa fa-clipboard copy-to" title="copy" onClick={this.copyProvisionCmd}></i></div>
+              </div>
             </div>
           </div>
         </div>

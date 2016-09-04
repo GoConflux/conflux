@@ -11,6 +11,10 @@
   display: block;
 }
 
+.service-body {
+  margin-bottom: 15px;
+}
+
 .service-header {
   padding-top: 55px;
   padding-left: 42px;
@@ -222,7 +226,7 @@
   color: $conflux-green;
   width: 100%;
   display: block;
-  padding: 20px 15px;
+  padding: 20px 12px;
   padding-top: 0;
   margin-bottom: 20px;
   border-bottom: 1px solid rgba(0,0,0,0.08);
@@ -304,6 +308,34 @@
       .name {
         color: #D9DDE4;
       }
+    }
+  }
+}
+
+.provision-section {
+  width: 100%;
+  float: left;
+  margin-top: 7px;
+
+  .provision-text {
+    width: 100%;
+    float: left;
+    margin-bottom: 17px;
+  }
+
+  div.md-shell {
+    width: 100%;
+    float: left;
+    text-align: center;
+  }
+
+  .provision-link {
+    text-decoration: none;
+    color: $conflux-green;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
     }
   }
 }

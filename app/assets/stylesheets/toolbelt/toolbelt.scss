@@ -189,51 +189,6 @@
     }
   }
 
-  // Multi-line
-  div.md-shell {
-    font-family: Monaco, monospace;
-    font-size: 13px;
-    background: #434e56;
-    border: 1px solid #3f464c;
-    color: #adc6ee;
-    border-radius: 3px;
-    line-height: 19px;
-    margin: 5px 0 11px 0;
-    padding: 12px;
-    word-spacing: normal;
-    word-wrap: normal;
-    white-space: pre;
-    overflow: auto;
-
-    .command {
-      color: #F8F8F8;
-    }
-
-    .prompt {
-      color: #B4B4BC;
-    }
-  }
-
-  .md-shell.relative {
-    .copy-to {
-      position: absolute;
-      right: 14px;
-      color: white;
-      font-size: 14px;
-      cursor: pointer;
-      top: 15px;
-      opacity: 0.85;
-
-      &:hover {
-        opacity: 1;
-      }
-
-      &:active {
-        opacity: 0.85;
-      }
-    }
-  }
-
   // Single-line
   span.md-shell {
     font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
@@ -286,6 +241,54 @@
       }
     }
 
+  }
+}
+
+#toolbelt,
+#service {
+  // Multi-line
+  div.md-shell {
+    font-family: Monaco, monospace;
+    font-size: 13px;
+    background: #434e56;
+    border: 1px solid #3f464c;
+    color: #adc6ee;
+    border-radius: 3px;
+    line-height: 19px;
+    margin: 5px 0 11px 0;
+    padding: 12px;
+    word-spacing: normal;
+    word-wrap: normal;
+    white-space: pre;
+    overflow: auto;
+
+    .command {
+      color: #F8F8F8;
+    }
+
+    .prompt {
+      color: #B4B4BC;
+    }
+  }
+
+  .md-shell.relative {
+    .copy-to {
+      position: absolute;
+      right: 14px;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+      top: 15px;
+      opacity: 0.85;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      &:active {
+        opacity: 0.85;
+      }
+    }
   }
 }
 
