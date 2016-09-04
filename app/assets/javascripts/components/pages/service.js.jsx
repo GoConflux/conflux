@@ -75,8 +75,12 @@ var Service = React.createClass({
             </div>
             <div id="plans" className="service-section">
               <div className="service-section-title">Plans & Pricing</div>
-              <Plans data={this.props} writeAccess={true} hideSubsectionTitle={true} onPlanSelected={this.onPlanSelected} ref={this.setPlansRef} />
-              <Features data={this.props.features} ref={this.setFeaturesRef} />
+              <div className="plans-container">
+                <Plans data={this.props} writeAccess={true} hideSubsectionTitle={true} onPlanSelected={this.onPlanSelected} ref={this.setPlansRef} />
+              </div>
+              <div className="features-container">
+                <Features data={this.props.features} ref={this.setFeaturesRef} />
+              </div>
             </div>
             <div id="provisioning" className="service-section">
               <div className="service-section-title">Provisioning</div>

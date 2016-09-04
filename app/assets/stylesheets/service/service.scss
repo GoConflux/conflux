@@ -210,3 +210,35 @@
   margin-bottom: 20px;
   border-bottom: 1px solid rgba(0,0,0,0.08);
 }
+
+.service-section#plans {
+  .plans-list {
+    margin-top: 7px;
+
+    .plan-option {
+      color: #919191;
+
+      .name {
+        font-family: Avenir-Next-Medium;
+      }
+
+      .price {
+        opacity: 0.82;
+      }
+
+      &.selected {
+        color: white;
+      }
+    }
+  }
+}
+
+.plans-container {
+  float: left;
+  width: 250px;
+  margin-right: 10px;
+}
+
+.features-container {
+  float: left;
+}
