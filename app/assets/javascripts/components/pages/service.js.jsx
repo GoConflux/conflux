@@ -35,8 +35,13 @@ var Service = React.createClass({
   },
 
   onPlanSelected: function (e) {
-    this.plans.setState({
-      selected: Number($(e.target).closest('li').attr('data-plan-index')) || 0
+    var planIndex = Number($(e.target).closest('li').attr('data-plan-index')) || 0;
+
+    this.plans.setState({ selected: planIndex });
+
+    this.features.setState({
+      features: this.props.features,
+      plan: this.props.plans[planIndex].slug
     });
   },
 
@@ -83,7 +88,7 @@ var Service = React.createClass({
                 <Plans data={this.props} writeAccess={true} hideSubsectionTitle={true} onPlanSelected={this.onPlanSelected} ref={this.setPlansRef} />
               </div>
               <div className="features-container">
-                <Features data={this.props.features} ref={this.setFeaturesRef} />
+                <Features features={this.props.features} plan={this.props.plans[0].slug} ref={this.setFeaturesRef} />
               </div>
             </div>
             <div id="provisioning" className="service-section">
