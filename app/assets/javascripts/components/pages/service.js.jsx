@@ -1,5 +1,13 @@
 var Service = React.createClass({
 
+  setFeaturesRef: function (ref) {
+    this.features = ref;
+  },
+
+  setPlansRef: function (ref) {
+    this.plans = ref;
+  },
+
   getLikesIcon: function () {
     var icon = this.props.likes.has_liked ? 'heart-icon-solid' : 'heart-icon-hollow';
     return 'https://ds8ypexjwou5.cloudfront.net/images/' + icon + '.svg';
@@ -29,6 +37,12 @@ var Service = React.createClass({
   editLink: function () {
     return '/services/' + this.props.slug + '/edit';
   },
+  
+  onPlanSelected: function (e) {
+    this.plans.setState({
+      selected: Number($(e.target).closest('li').attr('data-plan-index')) || 0
+    });
+  },
 
   render: function() {
     return (
@@ -56,6 +70,17 @@ var Service = React.createClass({
             </div>
           </div>
           <div className="service-body">
+            <div id="description" className="service-section">
+              <Markdown content={this.props.description} />
+            </div>
+            <div id="plans" className="service-section">
+              <div className="service-section-title">Plans & Pricing</div>
+              <Plans data={this.props} writeAccess={true} hideSubsectionTitle={true} onPlanSelected={this.onPlanSelected} ref={this.setPlansRef} />
+              <Features data={this.props.features} ref={this.setFeaturesRef} />
+            </div>
+            <div id="provisioning" className="service-section">
+              <div className="service-section-title">Provisioning</div>
+            </div>
           </div>
         </div>
         <a className="edit-service-btn" href={this.editLink()}>Edit</a>
