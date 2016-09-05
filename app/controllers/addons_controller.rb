@@ -2,8 +2,8 @@ class AddonsController < ApplicationController
 
   before_filter :check_for_current_user, :only => [:suggest]
   before_filter :set_addon, :only => [:addon]
-  before_filter :addon_by_uuid, :only => [:modal_info, :md_preview, :like, :unlike]
-  before_filter :set_current_user, :only => [:modify, :submit, :approve, :like, :unlike]
+  before_filter :addon_by_uuid, :only => [:modal_info, :md_preview, :like, :unlike, :add_admin]
+  before_filter :set_current_user, :only => [:modify, :submit, :approve, :like, :unlike, :add_admin]
 
   # Get all addons for the Addons page
   def index
@@ -164,6 +164,38 @@ class AddonsController < ApplicationController
     rescue Exception => e
       puts "Error Unliking Service, #{@addon.name}: #{e.message}"
       render json: { message: 'Error Unliking Service' }, status: 500
+    end
+  end
+
+  def add_admin
+    begin
+      addon_admins = @addon.addon_admins
+
+      # First make sure the current_user is the owner of this addon
+      assert(addon_admins.find { |aa| aa.user_id == @current_user.id && aa.is_owner })
+
+      # Then ensure a user exists for the email provided (the user to add as an admin)
+      assert(params[:email])
+      user_to_add = User.find_by(email: params[:email])
+
+      # eventually handle this on the FE and return a 404, but for now just return a 200
+      if user_to_add.nil?
+        render json: {}, status: 200
+        return
+      end
+
+      # Error out if user is already an admin for this addon
+      if addon_admins.find { |aa| aa.user_id == user_to_add.id }.present?
+        raise 'User is already an admin for this service.'
+      end
+
+      # Add this user an an admin to this addon
+      AddonAdmin.create!(user_id: user_to_add.id, addon_id: @addon.id)
+
+      render json: {}, status: 200
+    rescue Exception => e
+      puts "Error adding new AddonAdmin. Email: #{params[:email]}; Addon: #{@addon.slug}; Error: #{e.message}"
+      render json: { message: 'Error adding new admin to service.' }, status: 500
     end
   end
 
