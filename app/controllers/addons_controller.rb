@@ -2,8 +2,9 @@ class AddonsController < ApplicationController
 
   before_filter :check_for_current_user, :only => [:suggest]
   before_filter :set_addon, :only => [:addon]
-  before_filter :addon_by_uuid, :only => [:modal_info, :md_preview, :like, :unlike, :add_admin]
-  before_filter :set_current_user, :only => [:modify, :submit, :approve, :like, :unlike, :add_admin]
+  before_filter :addon_by_uuid, :only => [:modal_info, :md_preview, :like, :unlike, :add_admin, :admin]
+  before_filter :set_current_user, :only => [:modify, :submit, :approve, :like, :unlike, :add_admin, :admin]
+  before_filter :current_addon_admin, :only => [:add_admin, :admin]
 
   # Get all addons for the Addons page
   def index
@@ -169,10 +170,8 @@ class AddonsController < ApplicationController
 
   def add_admin
     begin
-      addon_admins = @addon.addon_admins
-
       # First make sure the current_user is the owner of this addon
-      assert(addon_admins.find { |aa| aa.user_id == @current_user.id && aa.is_owner })
+      assert(@current_addon_admin.is_owner)
 
       # Then ensure a user exists for the email provided (the user to add as an admin)
       assert(params[:email])
@@ -185,7 +184,7 @@ class AddonsController < ApplicationController
       end
 
       # Error out if user is already an admin for this addon
-      if addon_admins.find { |aa| aa.user_id == user_to_add.id }.present?
+      if @addon.addon_admins.find_by(user_id: user_to_add.id).present?
         raise 'User is already an admin for this service.'
       end
 
@@ -197,6 +196,12 @@ class AddonsController < ApplicationController
       puts "Error adding new AddonAdmin. Email: #{params[:email]}; Addon: #{@addon.slug}; Error: #{e.message}"
       render json: { message: 'Error adding new admin to service.' }, status: 500
     end
+  end
+
+  def admin
+    assert(@current_addon_admin.is_owner)
+    admin_emails = @addon.addon_admins.includes(:user).map { |aa| aa.user.email }.sort
+    render json: admin_emails
   end
 
   def draft_params
