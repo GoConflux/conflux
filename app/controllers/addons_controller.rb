@@ -2,9 +2,10 @@ class AddonsController < ApplicationController
 
   before_filter :check_for_current_user, :only => [:suggest]
   before_filter :set_addon, :only => [:addon]
-  before_filter :addon_by_uuid, :only => [:modal_info, :md_preview, :like, :unlike, :add_admin, :admin]
-  before_filter :set_current_user, :only => [:modify, :submit, :approve, :like, :unlike, :add_admin, :admin]
-  before_filter :current_addon_admin, :only => [:add_admin, :admin]
+  before_filter :addon_by_uuid, :only => [:modal_info, :md_preview, :like, :unlike, :add_admin, :remove_admin, :admin]
+  before_filter :set_current_user, :only => [:modify, :submit, :approve, :like, :unlike, :add_admin, :remove_admin, :admin]
+  before_filter :current_addon_admin, :only => [:add_admin, :remove_admin, :admin]
+  before_filter :user_by_uuid, :only => [:remove_admin]
 
   # Get all addons for the Addons page
   def index
@@ -188,20 +189,51 @@ class AddonsController < ApplicationController
         raise 'User is already an admin for this service.'
       end
 
-      # Add this user an an admin to this addon
-      AddonAdmin.create!(user_id: user_to_add.id, addon_id: @addon.id)
+      with_transaction do
+        # Add this user an an admin to this addon
+        AddonAdmin.create!(user_id: user_to_add.id, addon_id: @addon.id)
 
-      render json: {}, status: 200
+        admin
+      end
     rescue Exception => e
       puts "Error adding new AddonAdmin. Email: #{params[:email]}; Addon: #{@addon.slug}; Error: #{e.message}"
       render json: { message: 'Error adding new admin to service.' }, status: 500
     end
   end
 
+  def remove_admin
+    begin
+      # First make sure the current_user is the owner of this addon
+      assert(@current_addon_admin.is_owner)
+
+      with_transaction do
+        addon_admin = AddonAdmin.find_by(user_id: @user.id, addon_id: @addon.id)
+        assert(addon_admin)
+
+        addon_admin.destroy!
+
+        admin
+      end
+    rescue Exception => e
+      puts "Error removing AddonAdmin. User UUID: #{params[:user_uuid]}; Addon: #{@addon.slug}; Error: #{e.message}"
+      render json: { message: 'Error adding new admin to service.' }, status: 500
+    end
+  end
+
   def admin
     assert(@current_addon_admin.is_owner)
-    admin_emails = @addon.addon_admins.includes(:user).map { |aa| aa.user.email }.sort
-    render json: admin_emails
+
+    admin_emails = @addon.addon_admins
+      .includes(:user)
+      .where(is_owner: false)
+      .map { |aa|
+        {
+          user_uuid: aa.user.uuid,
+          email: aa.user.email
+        }
+    }.sort
+
+    render json: { owner: @current_user.email, others: admin_emails }
   end
 
   def draft_params

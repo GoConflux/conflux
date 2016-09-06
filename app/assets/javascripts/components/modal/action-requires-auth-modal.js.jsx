@@ -1,4 +1,4 @@
-var ActionRequiresAuth = React.createClass({
+var ActionRequiresAuthModal = React.createClass({
 
   onConfirm: function () {
     window.location = '/login';

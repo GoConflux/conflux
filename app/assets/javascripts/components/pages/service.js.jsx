@@ -48,6 +48,25 @@ var Service = React.createClass({
     return <a className="edit-service-btn" href={'/services/' + this.props.slug + '/edit'}>Edit</a>;
   },
 
+
+  adminButton: function () {
+    if (!this.props.permissions.can_add_admin) {
+      return;
+    }
+
+    return <div className="add-admin-btn" onClick={this.onAdminClick}>Admins</div>;
+  },
+  
+  onAdminClick: function () {
+    var self = this;
+
+    React.get('/addons/admin', { addon_uuid: this.props.addon_uuid }, {
+      success: function (data) {
+        React.modal.show('addon:admins', _.extend(data, { addon_uuid: self.props.addon_uuid }));
+      }
+    });
+  },
+
   copyProvisionCmd: function () {
     // Get command text to copy from .command element.
     var textToCopy = $('.provision-section').find('.command').text();
@@ -110,6 +129,7 @@ var Service = React.createClass({
             </div>
           </div>
         </div>
+        {this.adminButton()}
         {this.editButton()}
       </div>
     );

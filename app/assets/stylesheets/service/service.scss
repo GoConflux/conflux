@@ -218,8 +218,48 @@
     background-color: #14C77F;
   }
 
-  &:active {
+  &:active,
+  &:focus {
     background-color: #14c07b;
+    text-decoration: none;
+    color: #fff;
+  }
+}
+
+.add-admin-btn {
+  background-color: #249cf2;
+  padding: 9px 14px;
+  font-size: 13px;
+  border-radius: 3px;
+  border: 0;
+  letter-spacing: 1px;
+  text-align: center;
+  height: 36px;
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  position: fixed;
+  left: 20px;
+  bottom: 73px;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+    color: #fff;
+    background-color: #269DF7;
+  }
+
+  &:active,
+  &:focus {
+    background-color: #249cf2;
+    text-decoration: none;
+    color: #fff;
+  }
+
+  .plus-icon {
+    margin-right: 8px;
   }
 }
 

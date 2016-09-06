@@ -274,6 +274,11 @@ class ApplicationController < ActionController::Base
     assert(@team_user, StatusCodes::ResourceNotFound)
   end
 
+  def user_by_uuid
+    @user = User.find_by(uuid: params[:user_uuid])
+    assert(@user, StatusCodes::ResourceNotFound)
+  end
+
   def protect_app(check_for_write_perms = false)
     @current_team_user ||= TeamUser.find_by(user_id: @current_user.id, team_id: @app.tier.pipeline.team.id)
     assert(@current_team_user)

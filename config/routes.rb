@@ -51,7 +51,7 @@ Rails.application.routes.draw do
     get '/addons/search' => 'addons#search'
     get '/addons/modal_info' => 'addons#modal_info'
     get '/addons/md_preview' => 'addons#md_preview'
-    get '/addons/admin' => 'addon#admin'
+    get '/addons/admin' => 'addons#admin'
     get '/addons/:addon_slug' => 'addons#addon'
     get '/addons' => 'addons#index'
     post '/addons/suggest' => 'addons#suggest'
@@ -61,6 +61,7 @@ Rails.application.routes.draw do
     put '/addons/modify' => 'addons#modify'
     put '/addons/submit' => 'addons#submit'
     put '/addons/approve' => 'addons#approve'
+    delete '/addons/remove_admin' => 'addons#remove_admin'
 
     # API:
     get '/api/addons/for_app' => 'addons_api#for_app'

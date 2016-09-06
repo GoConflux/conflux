@@ -667,12 +667,116 @@ $modal-width: 400px;
 }
 
 .action-requires-auth-modal {
-  padding: 15px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 13px;
 
   .message {
-    font-size: 13px;
+    font-size: 13.5px;
     text-align: center;
     color: $conflux-black;
     line-height: 24px;
   }
+}
+
+.addon-admins-modal {
+  padding: 15px;
+  border-top: 1px solid #E7E7EC;
+
+  .admin-list {
+    width: 100%;
+    float: left;
+    padding: 3px 0;
+
+    .admin {
+      width: 100%;
+      float: left;
+      padding: 11px 7px;
+      line-height: 13px;
+      border-top: 1px solid #eee;
+
+      &:first-child {
+        border-top: none;
+      }
+
+      &:last-child {
+        border-bottom: 1px solid #eee;
+      }
+
+      .email {
+        font-size: 13px;
+        float: left;
+        display: inline-block;
+        color: $conflux-black;
+      }
+
+      .owner {
+        font-size: 11px;
+        color: #249cf2;
+        float: right;
+        display: inline-block;
+      }
+
+      .remove-btn {
+        color: #b0b0b8;
+        font-size: 24px;
+        font-family: Avenir-Next-Thin;
+        cursor: pointer;
+        float: right;
+        display: inline-block;
+
+        &:hover {
+          opacity: 0.8;
+        }
+
+        &:active {
+          opacity: 1;
+        }
+      }
+
+    }
+
+  }
+
+  .new-admin-container {
+    float: left;
+    width: 100%;
+    padding-bottom: 7px;
+    padding-top: 20px;
+
+    .new-admin-input {
+      float: left;
+      width: calc(100% - 60px);
+      margin-right: 10px;
+      border-radius: 3px;
+      box-shadow: none;
+      outline: none;
+      border: 1px solid #e0e0e8;
+      padding-bottom: 5px;
+      padding-top: 7px;
+      padding-left: 9px;
+      padding-right: 9px;
+      font-size: 13px;
+    }
+
+    .add-new-admin-btn {
+      border-radius: 3px;
+      float: right;
+      padding: 6.5px 12px;
+      font-size: 13px;
+      background-color: $conflux-green;
+      color: white;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $conflux-green-hover;
+      }
+
+      &:active {
+        background-color: $conflux-green;
+      }
+    }
+
+  }
+
 }
