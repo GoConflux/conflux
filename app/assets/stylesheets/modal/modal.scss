@@ -699,7 +699,7 @@ $modal-width: 400px;
         border-top: none;
       }
 
-      &:last-child {
+      &:last-child:not(:first-child) {
         border-bottom: 1px solid #eee;
       }
 
@@ -765,15 +765,21 @@ $modal-width: 400px;
       padding: 6.5px 12px;
       font-size: 13px;
       background-color: $conflux-green;
-      color: white;
       cursor: pointer;
+      color: white;
+      text-decoration: none;
 
-      &:hover {
+      &:hover,
+      &:focus {
         background-color: $conflux-green-hover;
+        color: white;
+        text-decoration: none;
       }
 
       &:active {
         background-color: $conflux-green;
+        color: white;
+        text-decoration: none;
       }
     }
 

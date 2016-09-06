@@ -57,7 +57,7 @@ Rails.application.routes.draw do
     post '/addons/suggest' => 'addons#suggest'
     post '/addons/like' => 'addons#like'
     post '/addons/unlike' => 'addons#unlike'
-    post '/addons/add_admin' => 'addon#add_admin'
+    post '/addons/add_admin' => 'addons#add_admin'
     put '/addons/modify' => 'addons#modify'
     put '/addons/submit' => 'addons#submit'
     put '/addons/approve' => 'addons#approve'

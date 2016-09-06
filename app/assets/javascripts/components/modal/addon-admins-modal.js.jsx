@@ -14,7 +14,7 @@ var AddonAdminsModal = React.createClass({
     var self = this;
 
     return this.state.others.map(function (data) {
-      return <div className="admin" data-uuid={data.uuid}><div className="email">{data.email}</div><div className="remove-btn" onClick={self.removeAdmin}>&times;</div></div>;
+      return <div className="admin"><div className="email">{data.email}</div><div className="remove-btn" onClick={self.removeAdmin}>&times;</div></div>;
     });
   },
 
@@ -38,17 +38,26 @@ var AddonAdminsModal = React.createClass({
     this.setState({ others: data.others });
   },
 
+  // not the best way to do this right now, relying on the element's index to get the
+  // user's uuid from...but doing it this way for now until react figures out how to
+  // support custom attributes.
   removeAdmin: function (e) {
     var self = this;
-    var userUuid = $(e.target).closest('.admin').attr('data-uuid');
+    var adminIndex = $(e.target).closest('.admin').index() - 1;
 
-    if (!userUuid) {
+    if (adminIndex < 0) {
+      return;
+    }
+
+    var user_uuid = this.state.others[adminIndex].user_uuid;
+
+    if (!user_uuid) {
       return;
     }
 
     var payload = {
       addon_uuid: this.props.data.addon_uuid,
-      user_uuid: userUuid
+      user_uuid: user_uuid
     };
 
     React.delete('/addons/remove_admin', payload, {
@@ -74,7 +83,7 @@ var AddonAdminsModal = React.createClass({
         </div>
         <div className="new-admin-container">
           <input type="text" className="new-admin-input" placeholder="New admin email" ref={this.setEmailInputRef}/>
-          <div className="add-new-admin-btn" onClick={this.addAdmin}>Add</div>
+          <a href="javascript:void(0)" className="add-new-admin-btn" onClick={this.addAdmin}>Add</a>
         </div>
       </div>
     );

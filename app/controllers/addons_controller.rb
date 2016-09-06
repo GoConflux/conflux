@@ -180,7 +180,7 @@ class AddonsController < ApplicationController
 
       # eventually handle this on the FE and return a 404, but for now just return a 200
       if user_to_add.nil?
-        render json: {}, status: 200
+        admin
         return
       end
 
