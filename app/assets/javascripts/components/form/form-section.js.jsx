@@ -7,6 +7,8 @@ var FormSection = React.createClass({
       case 'input':
         comp = <FormInput required={this.props.required} data={this.props.compData} />;
         break;
+      case 'select':
+        comp = <FormSelect required={this.props.required} data={this.props.compData} />;
     }
 
     return comp;

@@ -84,7 +84,13 @@ module AddonsHelper
         jobs: addon.jobs,
         configs: addon.configs,
         api: addon.api,
-        description: addon.description
+        description: addon.description,
+        categories: AddonCategory.all.order('category').map { |c|
+          {
+            value: c.uuid,
+            text: c.category
+          }
+        }
       })
     else
       addon_likes = addon.addon_likes

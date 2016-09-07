@@ -89,6 +89,7 @@
 
   .form-input {
     width: 100%;
+    float: left;
     padding: 18px;
     border-radius: 3px;
     border: 1px solid #eaeaea;
@@ -96,8 +97,27 @@
     font-size: 17px;
     box-shadow: none;
     outline: none;
-    width: 100%;
-    float: left;
   }
 }
 
+.form-select-container {
+  width: 100%;
+  float: left;
+
+  .form-select {
+    width: 100%;
+    float: left;
+    padding: 18px;
+    border-radius: 3px;
+    border: 1px solid #eaeaea;
+    color: #333;
+    font-size: 17px;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: white;
+    background: url("http://confluxapp.s3-website-us-west-1.amazonaws.com/images/big-select-arrows.svg") right 20px center no-repeat;
+    background-size: 12px;
+  }
+}

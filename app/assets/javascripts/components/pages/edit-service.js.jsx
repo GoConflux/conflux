@@ -4,6 +4,10 @@ var EditService = React.createClass({
     this.name = ref;
   },
 
+  setCategoryRef: function (ref) {
+    this.category = ref;
+  },
+
   setUrlRef: function (ref) {
     this.url = ref;
   },
@@ -36,6 +40,14 @@ var EditService = React.createClass({
       defaultValue: defaultValue
     };
   },
+  
+  categoryCompData: function () {
+    return {
+      type: 'select',
+      defaultValue: this.props.category_uuid,
+      options: this.props.categories
+    };
+  },
 
   serialize: function () {
   },
@@ -50,6 +62,7 @@ var EditService = React.createClass({
           </div>
           <div className="edit-service-body">
             <FormSection label={'Name'} required={true} compData={this.inputCompData(this.props.name)} ref={this.setNameRef}/>
+            <FormSection label={'Category'} required={true} compData={this.categoryCompData()} ref={this.setCategoryRef}/>
             <FormSection label={'Website URL'} required={false} compData={this.inputCompData(this.props.links.url)} ref={this.setUrlRef}/>
             <FormSection label={'Facebook URL'} required={false} compData={this.inputCompData(this.props.links.facebook_url)} ref={this.setFacebookUrlRef}/>
             <FormSection label={'Twitter URL'} required={false} compData={this.inputCompData(this.props.links.twitter_url)} ref={this.setTwitterUrlRef}/>
