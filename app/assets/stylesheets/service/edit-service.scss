@@ -1,0 +1,103 @@
+@import 'global-vars';
+
+.edit-service-container {
+  max-width: 860px;
+}
+
+.edit-service-header,
+.edit-service-body,
+.edit-service-footer {
+  float: left;
+  width: 100%;
+  display: block;
+}
+
+.edit-service-header {
+  border-bottom: 1px solid #e5e5e5;
+  padding-top: 35px;
+  margin-bottom: 40px;
+  width: 100%;
+  float: left;
+
+  .header-text {
+    font-size: 42px;
+    letter-spacing: 0.1px;
+    display: inline-block;
+    font-family: Avenir-Next-Thin;
+    padding-bottom: 4px;
+  }
+}
+
+.edit-service-footer {
+  margin-top: 40px;
+  margin-bottom: 100px;
+
+  .save-service-btn {
+    background-color: #14c07b;
+    width: 100%;
+    float: left;
+    border-radius: 3px;
+    color: white;
+    height: 60px;
+    text-align: center;
+    -webkit-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
+    font-size: 16px;
+    line-height: 60px;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      background-color: #14C77F;
+    }
+
+    &:active {
+      background-color: #14c07b;
+    }
+
+  }
+}
+
+.form-section {
+  width: 100%;
+  float: left;
+  margin-bottom: 40px;
+
+  .form-section-label {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 8px;
+    display: block;
+    float: left;
+    width: 100%;
+    text-align: left;
+    font-family: Avenir-Next-Medium;
+    font-weight: 600;
+
+    .required {
+      font-size: 17px;
+      font-family: Avenir-Next-Regular;
+      margin-left: 1px;
+    }
+  }
+}
+
+.form-input-container {
+  width: 100%;
+  float: left;
+
+  .form-input {
+    width: 100%;
+    padding: 18px;
+    border-radius: 3px;
+    border: 1px solid #eaeaea;
+    color: #333;
+    font-size: 17px;
+    box-shadow: none;
+    outline: none;
+    width: 100%;
+    float: left;
+  }
+}
+
