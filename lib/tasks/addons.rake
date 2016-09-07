@@ -205,4 +205,22 @@ namespace :addons do
     }
   end
 
+  desc 'transfer features from Heroku'
+  task :transfer_heroku_features => :environment do
+    Addon.all.each { |addon|
+      addon_features_file = File.join(Rails.root, 'features-json', "#{addon.slug}.json")
+
+      if File.exists?(addon_features_file)
+        begin
+          ActiveRecord::Base.transaction do
+            features = JSON.parse(File.read(addon_features_file))
+            addon.update_attributes(features: features)
+          end
+        rescue Exception => e
+          puts "Error copying features over for #{addon.slug}: #{e.message}"
+        end
+      end
+    }
+  end
+
 end

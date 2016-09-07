@@ -58,6 +58,8 @@ class Addon < ActiveRecord::Base
     features.each { |data|
       hf.push(data['feature']) if data['headlineFeature'] === true
     }
+
+    hf
   end
 
   def index_for_plan(slug)
