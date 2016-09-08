@@ -9,7 +9,8 @@ class FeaturesTest < AbstractJsonTest
   #       "plan1": "amount",
   #       "plan2": "amount"
   #     },
-  #     "headlineFeature": true
+  #     "headlineFeature": true,
+  #     "index": "0"
   #   }
   # ]
 

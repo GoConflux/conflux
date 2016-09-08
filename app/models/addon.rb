@@ -127,8 +127,36 @@ class Addon < ActiveRecord::Base
     (price.to_i == price.to_f ? price.to_i : price.to_f.round).to_s
   end
 
-  def ordered_features
-    (features || []).sort_by { |feature| feature['index'] }
+  def ordered_features(arg_features = nil)
+    arg_features = arg_features || features || []
+    arg_features.sort_by { |feature| feature['index'] }
+  end
+
+  def editable_plans
+    mod_plans = (plans || []).clone
+    mod_features = (features || []).clone
+    id_for_slug_map = {}
+
+    # Add id's to each plan
+    mod_plans.each { |plan|
+      id = SecureRandom.hex(3)
+      plan['id'] = id
+      id_for_slug_map[plan['slug']] = id
+      plan.delete('slug')
+    }
+
+    # Go through all features and replace the keys in the 'values' hash with these new id's
+    mod_features.each { |feature|
+      new_values = {}
+
+      feature['values'].each { |plan_slug, value|
+        new_values[id_for_slug_map[plan_slug]] = value
+      }
+
+      feature['values'] = new_values
+    }
+
+    [mod_plans, ordered_features(mod_features)]
   end
 
 end

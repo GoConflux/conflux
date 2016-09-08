@@ -10,8 +10,15 @@ var FormDoubleInput = React.createClass({
     var self = this;
 
     return this.state.rows.map(function (data) {
-      return <div className="form-double-input-row" key={Math.random()}><input type="text" className={self.colClasses(0)} defaultValue={data.one} onKeyUp={self.removeInvalid} placeholder={self.props.data.placeholders[0]} /><input type="text" className={self.colClasses(1)} defaultValue={data.two} onKeyUp={self.removeInvalid} placeholder={self.props.data.placeholders[1]} />{self.getRemoveBtn()}</div>;
+      return <div className="form-double-input-row" key={Math.random()}><input type="text" className={self.colClasses(0)} defaultValue={data.one} onKeyUp={self.removeInvalid} onBlur={self.onBlurFirstCol} placeholder={self.props.data.placeholders[0]} /><input type="text" className={self.colClasses(1)} defaultValue={data.two} onKeyUp={self.removeInvalid} placeholder={self.props.data.placeholders[1]} />{self.getRemoveBtn()}</div>;
     });
+  },
+
+  onBlurFirstCol: function (e) {
+    if (this.props.onBlurFirstCol) {
+      var index = $(e.target).closest('.form-double-input-row').index();
+      this.props.onBlurFirstCol($(e.target).val().trim(), this.state.rows[index].id);
+    }
   },
 
   removeInvalid: function (e) {
@@ -50,10 +57,27 @@ var FormDoubleInput = React.createClass({
     return classes;
   },
 
+  emptyRow: function () {
+    return [
+      {
+        one: '',
+        two: '',
+        id: Math.round(Math.random() * 1000000)
+      }
+    ];
+  },
+
   addNewRow: function () {
-    var currentData = this.serialize();
-    currentData.push([ { one: '', two: '' } ]);
-    this.setState({ rows: currentData });
+    var rowsData = this.serialize();
+    var emptyRowData = this.emptyRow();
+
+    rowsData.push(emptyRowData);
+
+    this.setState({ rows: rowsData });
+
+    if (this.props.onNewRow) {
+      this.props.onNewRow(emptyRowData.id);
+    }
   },
 
   serialize: function (validate) {

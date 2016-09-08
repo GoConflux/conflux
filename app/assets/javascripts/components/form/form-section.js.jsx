@@ -22,7 +22,7 @@ var FormSection = React.createClass({
         comp = <EditableMarkdown required={this.props.required} data={this.props.compData} ref={this.setCompRef} />;
         break;
       case 'form-double-input':
-        comp = <FormDoubleInput required={this.props.required} data={this.props.compData} onRemoveRow={this.props.onRemoveRow} ref={this.setCompRef} />;
+        comp = <FormDoubleInput required={this.props.required} data={this.props.compData} onRemoveRow={this.props.onRemoveRow} onNewRow={this.props.onNewRow} onBlurFirstCol={this.props.onBlurFirstCol} ref={this.setCompRef} />;
         break;
       case 'editable-features':
         comp = <EditableFeatures required={this.props.required} data={this.props.compData} ref={this.setCompRef} />;

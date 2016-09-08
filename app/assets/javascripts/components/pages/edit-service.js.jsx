@@ -75,24 +75,29 @@ var EditService = React.createClass({
         return {
           one: plan.name,
           two: parseFloat(plan.price).toFixed(2),
-          id: plan.fe_id // front-end id (added on backend)
+          id: plan.id
         };
       }),
       placeholders: ['Plan name', '0.00'],
       extraSecondColClasses: ['dollars'],
       removeButtons: true
-    }
+    };
   },
   
   featureData: function () {
     return {
       type: 'editable-features',
-      features: this.props.features
-    }
+      features: this.props.features,
+      plans: this.props.plans
+    };
   },
 
-  onRemovePlan: function (fePlanId) {
-    this.features.removePlan(fePlanId);
+  onRemovePlan: function (id) {
+    this.features.removePlan(id);
+  },
+
+  onNewPlan: function (id) {
+    this.features.addPlan(id);
   },
 
   serialize: function () {
@@ -106,6 +111,10 @@ var EditService = React.createClass({
         window.location = data.url;
       }
     });
+  },
+  
+  onPlanNameBlur: function (planName, planId) {
+    this.features.updatePlanName(planName, planId);
   },
 
   render: function() {
@@ -125,7 +134,7 @@ var EditService = React.createClass({
             <FormSection label={'GitHub URL'} required={false} compData={this.inputCompData(this.props.links.github_url)} ref={this.setGithubUrlRef}/>
             <FormSection label={'Short Description'} required={true} description={'This is a description of your project in 50 characters or less for the services page.'} compData={this.inputCompData(this.props.tagline, 50)} ref={this.setTaglineRef}/>
             <FormSection label={'Long Description'} required={true} description={'In greater detail, write a longer description about your service and its offerings.'} compData={this.descriptionData()} ref={this.setDescriptionRef}/>
-            <FormSection label={'Plans & Pricing'} required={true} description={'Add the different pricing plans your service will support, in order of increasing price.'} compData={this.planData()} onRemoveRow={this.onRemovePlan} ref={this.setPlansRef}/>
+            <FormSection label={'Plans & Pricing'} required={true} description={'Add the different pricing plans your service will support, in order of increasing price.'} compData={this.planData()} onRemoveRow={this.onRemovePlan} onNewRow={this.onNewPlan} onBlurFirstCol={this.onPlanNameBlur} ref={this.setPlansRef}/>
             <FormSection label={'Features'} required={true} description={'Add your service\'s features and their values for each plan.'} compData={this.featureData()} ref={this.setFeaturesRef}/>
           </div>
           <div className="edit-service-footer">

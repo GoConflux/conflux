@@ -74,17 +74,19 @@ module AddonsHelper
         twitter_url: addon.twitter_url,
         github_url: addon.github_url
       },
-      plans: addon.plans,
-      features: addon.ordered_features,
       authed: @current_user.present?
     }
 
     if edit_mode
+      plans, features = addon.editable_plans
+
       data.merge!({
         jobs: addon.jobs,
         configs: addon.configs,
         api: addon.api,
         description: addon.description,
+        plans: plans,
+        features: features,
         categories: AddonCategory.all.order('category').map { |c|
           {
             value: c.uuid,
@@ -92,10 +94,6 @@ module AddonsHelper
           }
         }
       })
-
-      data[:plans].each { |plan|
-        plan[:fe_id] = SecureRandom.hex(3)
-      }
     else
       addon_likes = addon.addon_likes
 
@@ -109,7 +107,9 @@ module AddonsHelper
           can_edit: is_admin,
           can_add_admin: is_owner
         },
-        description: to_markdown(addon.description)
+        description: to_markdown(addon.description),
+        plans: addon.plans,
+        features: addon.ordered_features,
       })
     end
 
