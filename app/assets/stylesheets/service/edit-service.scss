@@ -224,7 +224,7 @@
       }
 
       &.dollars {
-        padding-left: 28px;
+        padding-left: 24px;
         background: url("https://ds8ypexjwou5.cloudfront.net/images/dollar-sign.svg") left 13px center no-repeat;
         background-size: 8px;
       }
@@ -249,35 +249,32 @@
       }
     }
   }
+}
 
-  .new-plan-btn {
+.new-row-btn {
+  background-color: #249cf2;
+  width: 100%;
+  float: left;
+  border-radius: 3px;
+  color: white;
+  margin-top: 8px;
+  height: 45px;
+  line-height: 45px;
+  text-align: center;
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+  font-size: 16px;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background-color: #269DF7;
+  }
+
+  &:active {
     background-color: #249cf2;
-    width: 100%;
-    float: left;
-    border-radius: 3px;
-    color: white;
-    margin-top: 8px;
-    height: 45px;
-    line-height: 45px;
-    text-align: center;
-    -webkit-transition: all .1s ease-in-out;
-    transition: all .1s ease-in-out;
-    font-size: 16px;
-    letter-spacing: 1.5px;
-    cursor: pointer;
-
-    &:hover,
-    &:focus {
-      background-color: #269DF7;
-    }
-
-    &:active {
-      background-color: #249cf2;
-    }
-
-    .plus-icon {
-      margin-right: 7px;
-    }
-
   }
 }
+
+

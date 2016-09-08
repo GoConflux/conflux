@@ -80,7 +80,7 @@ var FormDoubleInput = React.createClass({
     return (
       <div className="form-double-input-container">
         <div className="rows">{this.getRows()}</div>
-        <div className="new-row-btn" onClick={this.addNewRow}><span className="plus-icon">+</span>New Plan</div>
+        <div className="new-row-btn" onClick={this.addNewRow}>New Plan</div>
       </div>
     );
   }

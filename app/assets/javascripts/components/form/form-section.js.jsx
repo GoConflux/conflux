@@ -24,6 +24,9 @@ var FormSection = React.createClass({
       case 'form-double-input':
         comp = <FormDoubleInput required={this.props.required} data={this.props.compData} onRemoveRow={this.props.onRemoveRow} ref={this.setCompRef} />;
         break;
+      case 'editable-features':
+        comp = <EditableFeatures required={this.props.required} data={this.props.compData} ref={this.setCompRef} />;
+        break;
     }
 
     return comp;

@@ -32,18 +32,12 @@ var EditService = React.createClass({
     this.description = ref;
   },
 
-  setPlanRef: function (ref) {
+  setPlansRef: function (ref) {
     this.plans = ref;
   },
 
-  saveService: function () {
-    var payload = this.serialize();
-
-    React.post('/addons/modify', _.extend(payload, { addon_uuid: this.props.addon_uuid }), {
-      success: function (data) {
-        window.location = data.url;
-      }
-    });
+  setFeaturesRef: function (ref) {
+    this.features = ref;
   },
 
   inputCompData: function (defaultValue, maxLength) {
@@ -59,7 +53,7 @@ var EditService = React.createClass({
     return data;
   },
   
-  categoryCompData: function () {
+  categoryData: function () {
     return {
       type: 'select',
       defaultValue: this.props.category_uuid,
@@ -74,7 +68,7 @@ var EditService = React.createClass({
     };
   },
 
-  planData: function (ref) {
+  planData: function () {
     return {
       type: 'form-double-input',
       data: this.props.plans.map(function (plan) {
@@ -89,12 +83,29 @@ var EditService = React.createClass({
       removeButtons: true
     }
   },
+  
+  featureData: function () {
+    return {
+      type: 'editable-features',
+      features: this.props.features
+    }
+  },
 
   onRemovePlan: function (fePlanId) {
     this.features.removePlan(fePlanId);
   },
 
   serialize: function () {
+  },
+
+  saveService: function () {
+    var payload = this.serialize();
+
+    React.post('/addons/modify', _.extend(payload, { addon_uuid: this.props.addon_uuid }), {
+      success: function (data) {
+        window.location = data.url;
+      }
+    });
   },
 
   render: function() {
@@ -107,14 +118,15 @@ var EditService = React.createClass({
           </div>
           <div className="edit-service-body">
             <FormSection label={'Name'} required={true} compData={this.inputCompData(this.props.name)} ref={this.setNameRef}/>
-            <FormSection label={'Category'} required={true} compData={this.categoryCompData()} ref={this.setCategoryRef}/>
+            <FormSection label={'Category'} required={true} compData={this.categoryData()} ref={this.setCategoryRef}/>
             <FormSection label={'Website URL'} required={false} compData={this.inputCompData(this.props.links.url)} ref={this.setUrlRef}/>
             <FormSection label={'Facebook URL'} required={false} compData={this.inputCompData(this.props.links.facebook_url)} ref={this.setFacebookUrlRef}/>
             <FormSection label={'Twitter URL'} required={false} compData={this.inputCompData(this.props.links.twitter_url)} ref={this.setTwitterUrlRef}/>
             <FormSection label={'GitHub URL'} required={false} compData={this.inputCompData(this.props.links.github_url)} ref={this.setGithubUrlRef}/>
             <FormSection label={'Short Description'} required={true} description={'This is a description of your project in 50 characters or less for the services page.'} compData={this.inputCompData(this.props.tagline, 50)} ref={this.setTaglineRef}/>
-            <FormSection label={'Long Description'} required={true} description={'In greater detail, write a longer description about your service and what it offers.'} compData={this.descriptionData()} ref={this.setDescriptionRef}/>
-            <FormSection label={'Plans & Pricing'} required={true} description={'Add the different pricing plans your service will support, in order of increasing price.'} compData={this.planData()} onRemoveRow={this.onRemovePlan} ref={this.setPlanRef}/>
+            <FormSection label={'Long Description'} required={true} description={'In greater detail, write a longer description about your service and its offerings.'} compData={this.descriptionData()} ref={this.setDescriptionRef}/>
+            <FormSection label={'Plans & Pricing'} required={true} description={'Add the different pricing plans your service will support, in order of increasing price.'} compData={this.planData()} onRemoveRow={this.onRemovePlan} ref={this.setPlansRef}/>
+            <FormSection label={'Features'} required={true} description={'Add your service\'s features and their values for each plan.'} compData={this.featureData()} ref={this.setFeaturesRef}/>
           </div>
           <div className="edit-service-footer">
             <div className="save-service-btn" onClick={this.saveService}>Save Service</div>
