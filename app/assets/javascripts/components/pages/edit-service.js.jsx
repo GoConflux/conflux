@@ -28,6 +28,10 @@ var EditService = React.createClass({
     this.tagline = ref;
   },
 
+  setDescriptionRef: function (ref) {
+    this.description = ref;
+  },
+
   saveService: function () {
     var payload = this.serialize();
 
@@ -59,6 +63,13 @@ var EditService = React.createClass({
     };
   },
 
+  descriptionData: function () {
+    return {
+      type: 'markdown',
+      defaultValue: this.props.description
+    };
+  },
+
   serialize: function () {
   },
 
@@ -77,7 +88,8 @@ var EditService = React.createClass({
             <FormSection label={'Facebook URL'} required={false} compData={this.inputCompData(this.props.links.facebook_url)} ref={this.setFacebookUrlRef}/>
             <FormSection label={'Twitter URL'} required={false} compData={this.inputCompData(this.props.links.twitter_url)} ref={this.setTwitterUrlRef}/>
             <FormSection label={'GitHub URL'} required={false} compData={this.inputCompData(this.props.links.github_url)} ref={this.setGithubUrlRef}/>
-            <FormSection label={'Short Description'} required={true} description={'This is a description of your project in 50 characters or less for the services page'} compData={this.inputCompData(this.props.tagline, 50)} ref={this.setTaglineRef}/>
+            <FormSection label={'Short Description'} required={true} description={'This is a description of your project in 50 characters or less for the services page.'} compData={this.inputCompData(this.props.tagline, 50)} ref={this.setTaglineRef}/>
+            <FormSection label={'Long Description'} required={true} description={'In greater detail, write a longer description about your service and what it offers.'} compData={this.descriptionData()} ref={this.setDescriptionRef}/>
           </div>
           <div className="edit-service-footer">
             <div className="save-service-btn" onClick={this.saveService}>Save Service</div>

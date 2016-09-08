@@ -1,8 +1,9 @@
 class AddonsController < ApplicationController
+  include AddonsHelper
 
   before_filter :check_for_current_user, :only => [:suggest]
   before_filter :set_addon, :only => [:addon]
-  before_filter :addon_by_uuid, :only => [:modal_info, :md_preview, :like, :unlike, :add_admin, :remove_admin, :admin]
+  before_filter :addon_by_uuid, :only => [:modal_info, :like, :unlike, :add_admin, :remove_admin, :admin]
   before_filter :set_current_user, :only => [:modify, :submit, :approve, :like, :unlike, :add_admin, :remove_admin, :admin]
   before_filter :current_addon_admin, :only => [:add_admin, :remove_admin, :admin]
   before_filter :user_by_uuid, :only => [:remove_admin]
@@ -132,7 +133,7 @@ class AddonsController < ApplicationController
   end
 
   def md_preview
-    render json: { description: to_markdown(@addon.description) }
+    render json: { content: to_markdown(params[:content]) }
   end
 
   def like

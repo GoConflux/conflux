@@ -4,15 +4,23 @@ var FormSection = React.createClass({
     this.charCounter = ref;
   },
 
+  setCompRef: function (ref) {
+    this.comp = ref;
+  },
+
   getFormComponent: function () {
     var comp;
 
     switch (this.props.compData.type) {
       case 'input':
-        comp = <FormInput required={this.props.required} data={this.props.compData} onKeyUp={this.onInputKeyUp} />;
+        comp = <FormInput required={this.props.required} data={this.props.compData} onKeyUp={this.onInputKeyUp} ref={this.setCompRef} />;
         break;
       case 'select':
-        comp = <FormSelect required={this.props.required} data={this.props.compData} />;
+        comp = <FormSelect required={this.props.required} data={this.props.compData} ref={this.setCompRef} />;
+        break;
+      case 'markdown':
+        comp = <EditableMarkdown required={this.props.required} data={this.props.compData} ref={this.setCompRef} />;
+        break;
     }
 
     return comp;
@@ -48,12 +56,31 @@ var FormSection = React.createClass({
     }
   },
 
+  getMarkdownPreviewIcon: function () {
+    if (this.props.compData.type == 'markdown') {
+      return <i className="fa fa-eye preview-markdown-icon" onClick={this.toggleMarkdownPreview} data-toggle="tooltip" data-placement="top" title="Preview Markdown" data-delay='{"show":"500", "hide":"100"}' ref={this.enablePreviewIconTooltip}></i>;
+    } else {
+      return;
+    }
+  },
+
+  enablePreviewIconTooltip: function (ref) {
+    $(ref).tooltip();
+  },
+
+  toggleMarkdownPreview: function () {
+    if (this.comp.toggleMarkdownPreview) {
+      this.comp.toggleMarkdownPreview();
+    }
+  },
+
   render: function() {
     return (
       <div className="form-section">
         <div className="form-section-label">
           {this.getLabel()}
           {this.getCharCounter()}
+          {this.getMarkdownPreviewIcon()}
           {this.getSectionDescription()}
         </div>
         {this.getFormComponent()}

@@ -105,6 +105,20 @@
       font-family: Avenir-Next-Thin;
       line-height: 15px;
     }
+
+    .preview-markdown-icon {
+      position: absolute;
+      right: 8px;
+      display: inline-block;
+      cursor: pointer;
+      padding: 5px;
+      font-size: 19px;
+
+      &:hover,
+      &.preview {
+        color: #249cf2;
+      }
+    }
   }
 }
 
@@ -145,4 +159,40 @@
     background: url("http://confluxapp.s3-website-us-west-1.amazonaws.com/images/big-select-arrows.svg") right 20px center no-repeat;
     background-size: 12px;
   }
+}
+
+.editable-markdown {
+  float: left;
+  width: 100%;
+
+  .markdown-editor-container,
+  .markdown-preview-container {
+    float: left;
+    width: 100%;
+  }
+
+  .markdown-editor {
+    width: 100%;
+    float: left;
+    resize: none;
+    outline: none;
+    box-shadow: none;
+    overflow: hidden;
+    padding: 20px;
+    border-radius: 3px;
+    border: 1px solid #eaeaea;
+    color: #333;
+    font-size: 17px;
+    min-height: 175px !important;
+    -webkit-transition: all .2s;
+    transition: all .2s;
+  }
+
+  .markdown-preview-container {
+    .markdown {
+      padding: 20px;
+      border: 2px solid #eaeaea;
+    }
+  }
+
 }

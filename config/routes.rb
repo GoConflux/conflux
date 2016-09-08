@@ -50,10 +50,10 @@ Rails.application.routes.draw do
     # User:
     get '/addons/search' => 'addons#search'
     get '/addons/modal_info' => 'addons#modal_info'
-    get '/addons/md_preview' => 'addons#md_preview'
     get '/addons/admin' => 'addons#admin'
     get '/addons/:addon_slug' => 'addons#addon'
     get '/addons' => 'addons#index'
+    post '/addons/md_preview' => 'addons#md_preview'
     post '/addons/suggest' => 'addons#suggest'
     post '/addons/like' => 'addons#like'
     post '/addons/unlike' => 'addons#unlike'
