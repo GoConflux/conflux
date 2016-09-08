@@ -21,6 +21,9 @@ var FormSection = React.createClass({
       case 'markdown':
         comp = <EditableMarkdown required={this.props.required} data={this.props.compData} ref={this.setCompRef} />;
         break;
+      case 'form-double-input':
+        comp = <FormDoubleInput required={this.props.required} data={this.props.compData} onRemoveRow={this.props.onRemoveRow} ref={this.setCompRef} />;
+        break;
     }
 
     return comp;

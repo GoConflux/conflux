@@ -156,7 +156,7 @@
     -moz-appearance: none;
     appearance: none;
     background-color: white;
-    background: url("http://confluxapp.s3-website-us-west-1.amazonaws.com/images/big-select-arrows.svg") right 20px center no-repeat;
+    background: url("https://ds8ypexjwou5.cloudfront.net/images/big-select-arrows.svg") right 20px center no-repeat;
     background-size: 12px;
   }
 }
@@ -195,4 +195,89 @@
     }
   }
 
+}
+
+.form-double-input-container {
+  width: 100%;
+  float: left;
+
+  .form-double-input-row {
+    width: 100%;
+    float: left;
+    margin-bottom: 8px;
+    position: relative;
+
+    .form-double-input {
+      width: calc(50% - 5px);
+      float: left;
+      padding: 12px;
+      display: inline-block;
+      border-radius: 3px;
+      border: 1px solid #eaeaea;
+      color: #333;
+      font-size: 17px;
+      box-shadow: none;
+      outline: none;
+
+      &:first-child {
+        margin-right: 10px;
+      }
+
+      &.dollars {
+        padding-left: 28px;
+        background: url("https://ds8ypexjwou5.cloudfront.net/images/dollar-sign.svg") left 13px center no-repeat;
+        background-size: 8px;
+      }
+    }
+
+    .remove-btn {
+      color: #b0b0b8;
+      font-size: 29px;
+      font-family: Avenir-Next-Thin;
+      cursor: pointer;
+      display: inline-block;
+      position: absolute;
+      right: -30px;
+      top: 5px;
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      &:active {
+        opacity: 1;
+      }
+    }
+  }
+
+  .new-plan-btn {
+    background-color: #249cf2;
+    width: 100%;
+    float: left;
+    border-radius: 3px;
+    color: white;
+    margin-top: 8px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    -webkit-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
+    font-size: 16px;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      background-color: #269DF7;
+    }
+
+    &:active {
+      background-color: #249cf2;
+    }
+
+    .plus-icon {
+      margin-right: 7px;
+    }
+
+  }
 }

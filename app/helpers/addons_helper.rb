@@ -92,6 +92,10 @@ module AddonsHelper
           }
         }
       })
+
+      data[:plans].each { |plan|
+        plan[:fe_id] = SecureRandom.hex(3)
+      }
     else
       addon_likes = addon.addon_likes
 

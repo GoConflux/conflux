@@ -32,6 +32,10 @@ var EditService = React.createClass({
     this.description = ref;
   },
 
+  setPlanRef: function (ref) {
+    this.plans = ref;
+  },
+
   saveService: function () {
     var payload = this.serialize();
 
@@ -70,6 +74,26 @@ var EditService = React.createClass({
     };
   },
 
+  planData: function (ref) {
+    return {
+      type: 'form-double-input',
+      data: this.props.plans.map(function (plan) {
+        return {
+          one: plan.name,
+          two: parseFloat(plan.price).toFixed(2),
+          id: plan.fe_id // front-end id (added on backend)
+        };
+      }),
+      placeholders: ['Plan name', '0.00'],
+      extraSecondColClasses: ['dollars'],
+      removeButtons: true
+    }
+  },
+
+  onRemovePlan: function (fePlanId) {
+    this.features.removePlan(fePlanId);
+  },
+
   serialize: function () {
   },
 
@@ -90,6 +114,7 @@ var EditService = React.createClass({
             <FormSection label={'GitHub URL'} required={false} compData={this.inputCompData(this.props.links.github_url)} ref={this.setGithubUrlRef}/>
             <FormSection label={'Short Description'} required={true} description={'This is a description of your project in 50 characters or less for the services page.'} compData={this.inputCompData(this.props.tagline, 50)} ref={this.setTaglineRef}/>
             <FormSection label={'Long Description'} required={true} description={'In greater detail, write a longer description about your service and what it offers.'} compData={this.descriptionData()} ref={this.setDescriptionRef}/>
+            <FormSection label={'Plans & Pricing'} required={true} description={'Add the different pricing plans your service will support, in order of increasing price.'} compData={this.planData()} onRemoveRow={this.onRemovePlan} ref={this.setPlanRef}/>
           </div>
           <div className="edit-service-footer">
             <div className="save-service-btn" onClick={this.saveService}>Save Service</div>
