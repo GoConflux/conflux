@@ -24,6 +24,10 @@ var EditService = React.createClass({
     this.githubUrl = ref;
   },
 
+  setTaglineRef: function (ref) {
+    this.tagline = ref;
+  },
+
   saveService: function () {
     var payload = this.serialize();
 
@@ -34,11 +38,17 @@ var EditService = React.createClass({
     });
   },
 
-  inputCompData: function (defaultValue) {
-    return {
+  inputCompData: function (defaultValue, maxLength) {
+    var data = {
       type: 'input',
       defaultValue: defaultValue
     };
+
+    if (maxLength) {
+      data.maxLength = maxLength.toString();
+    }
+
+    return data;
   },
   
   categoryCompData: function () {
@@ -67,6 +77,7 @@ var EditService = React.createClass({
             <FormSection label={'Facebook URL'} required={false} compData={this.inputCompData(this.props.links.facebook_url)} ref={this.setFacebookUrlRef}/>
             <FormSection label={'Twitter URL'} required={false} compData={this.inputCompData(this.props.links.twitter_url)} ref={this.setTwitterUrlRef}/>
             <FormSection label={'GitHub URL'} required={false} compData={this.inputCompData(this.props.links.github_url)} ref={this.setGithubUrlRef}/>
+            <FormSection label={'Short Description'} required={true} description={'This is a description of your project in 50 characters or less for the services page'} compData={this.inputCompData(this.props.tagline, 50)} ref={this.setTaglineRef}/>
           </div>
           <div className="edit-service-footer">
             <div className="save-service-btn" onClick={this.saveService}>Save Service</div>
