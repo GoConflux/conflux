@@ -1,5 +1,7 @@
 var EditableFeatures = React.createClass({
 
+  featureRefs: [],
+
   getInitialState: function () {
     return {
       features: this.props.data.features,
@@ -9,14 +11,32 @@ var EditableFeatures = React.createClass({
 
   getFeatures: function () {
     var self = this;
+    this.featureRefs = [];
 
     return this.state.features.map(function (feature) {
-      return <EditableFeature feature={feature} plans={self.state.plans} />
+      return <EditableFeature feature={feature} plans={self.state.plans} ref={self.pushFeatureRef} />
     });
   },
 
-  removePlan: function (planId) {
+  pushFeatureRef: function (ref) {
+    this.featureRefs.push(ref);
+  },
 
+  removePlan: function (planId) {
+    var features = this.serialize();
+    var plans = _.clone(this.state.plans);
+
+    var planIndex = _.findIndex(plans, function (plan) {
+      return plan.id == planId;
+    });
+
+    plans.splice(planIndex, 1);
+
+    _.each(features, function (feature) {
+      delete feature.values[planId];
+    });
+
+    this.setState({ features: features, plans: plans });
   },
 
   addPlan: function (planId) {
@@ -62,6 +82,12 @@ var EditableFeatures = React.createClass({
     var features = this.serialize();
     features.push(this.emptyFeature());
     this.setState({ features: features, plans: this.state.plans });
+  },
+  
+  serialize: function () {
+    return _.map(this.featureRefs, function (feature, i) {
+      return _.extend(feature.serialize(), { index: i });
+    });
   },
 
   render: function() {
