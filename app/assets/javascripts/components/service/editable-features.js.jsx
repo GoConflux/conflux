@@ -13,8 +13,8 @@ var EditableFeatures = React.createClass({
     var self = this;
     this.featureRefs = [];
 
-    return this.state.features.map(function (feature) {
-      return <EditableFeature feature={feature} plans={self.state.plans} ref={self.pushFeatureRef} />
+    return this.state.features.map(function (feature, i) {
+      return <EditableFeature key={Math.random()} feature={feature} plans={self.state.plans} last={i == (self.state.features.length - 1)} ref={self.pushFeatureRef} />
     });
   },
 
@@ -83,7 +83,7 @@ var EditableFeatures = React.createClass({
     features.push(this.emptyFeature());
     this.setState({ features: features, plans: this.state.plans });
   },
-  
+
   serialize: function () {
     return _.map(this.featureRefs, function (feature, i) {
       return _.extend(feature.serialize(), { index: i });

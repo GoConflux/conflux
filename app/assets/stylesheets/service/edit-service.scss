@@ -277,4 +277,185 @@
   }
 }
 
+.editable-features {
+  float: left;
+  width: 100%;
 
+  .editable-feature {
+    float: left;
+    width: 100%;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+
+    &:first-child {
+      padding-top: 5px;
+    }
+
+    &.last {
+      border-bottom: none;
+    }
+
+    .feature-name-container {
+      float: left;
+      width: 100%;
+      position: relative;
+
+      .feature-name {
+        width: calc(100% - 183px);
+        float: left;
+        padding: 12px;
+        display: inline-block;
+        border-radius: 3px;
+        border: 1px solid #eaeaea;
+        color: #333;
+        font-size: 17px;
+        box-shadow: none;
+        outline: none;
+      }
+
+      .headline-feature {
+        float: right;
+        width: 140px;
+        display: inline-block;
+        font-weight: 400;
+        margin-top: 13px;
+        margin-bottom: 0;
+        margin-right: 17px;
+        cursor: pointer;
+
+        .checkbox {
+          margin-left: 12px;
+          margin-top: 2px;
+        }
+      }
+
+      .remove-btn {
+        display: inline-block;
+        color: #b0b0b8;
+        font-size: 29px;
+        font-family: Avenir-Next-Thin;
+        cursor: pointer;
+        position: absolute;
+        right: -30px;
+        top: 1px;
+
+        &:hover {
+          opacity: 0.8;
+        }
+
+        &:active {
+          opacity: 1;
+        }
+      }
+    }
+
+    .plans-container {
+      float: left;
+      width: 100%;
+      padding-left: 30px;
+      margin-top: 12px;
+
+      .feature-for-plan {
+        float: left;
+        width: 100%;
+        font-size: 15px;
+        height: 50px;
+
+        .plan-name {
+          display: inline-block;
+          float: left;
+          color: #919191;
+          width: 135px;
+          margin-right: 15px;
+          padding-top: 15px;
+        }
+
+        .feature-value-container {
+          display: inline-block;
+          float: right;
+          width: calc(100% - 150px);
+          padding-top: 5px;
+
+          .feature-value {
+            width: calc(100% - 45px - 138px);
+            float: right;
+            padding: 8px;
+            display: inline-block;
+            border-radius: 3px;
+            border: 1px solid #eaeaea;
+            color: #333;
+            box-shadow: none;
+            outline: none;
+          }
+
+          .feature-value[disabled='disabled'] {
+
+          }
+
+          // outer width is 45
+          .or {
+            float: right;
+            display: inline-block;
+            width: 30px;
+            font-size: 12px;
+            color: #919191;
+            text-transform: uppercase;
+            padding-top: 13px;
+            text-align: center;
+            margin-left: 15px;
+          }
+
+          // outer width is 138
+          .feature-included {
+            width: 123px;
+            padding-right: 16px;
+            padding-top: 10px;
+            margin-left: 15px;
+            font-weight: 400;
+            cursor: pointer;
+            float: right;
+
+            .checkbox {
+              margin-top: 2px;
+            }
+
+            .checkbox-label {
+              margin-right: 12px;
+            }
+          }
+
+        }
+      }
+    }
+  }
+
+}
+
+.checkbox-wrap {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.checkbox-label,
+.checkbox {
+  float: right;
+  display: inline-block;
+}
+
+.checkbox {
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  border: 1px solid #cecece;
+  border-radius: 3px;
+  box-shadow: inset 0 2px 2px -2px rgba(0,0,0,0.15);
+  background: none;
+}
+
+.checkbox-wrap.checked {
+  .checkbox {
+    background: url("http://confluxapp.s3-website-us-west-1.amazonaws.com/images/checkbox.svg") center no-repeat;
+    box-shadow: none;
+    border: 1px solid #dedede;
+  }
+}
