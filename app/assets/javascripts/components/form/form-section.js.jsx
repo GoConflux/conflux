@@ -27,6 +27,9 @@ var FormSection = React.createClass({
       case 'editable-features':
         comp = <EditableFeatures required={this.props.required} data={this.props.compData} ref={this.setCompRef} />;
         break;
+      case 'api':
+        comp = <Api required={this.props.required} data={this.props.compData} ref={this.setCompRef} />;
+        break;
     }
 
     return comp;

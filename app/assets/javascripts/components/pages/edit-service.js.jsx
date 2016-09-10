@@ -44,6 +44,10 @@ var EditService = React.createClass({
     this.configs = ref;
   },
 
+  setApiRef: function (ref) {
+    this.api = ref;
+  },
+
   inputCompData: function (defaultValue, maxLength) {
     var data = {
       type: 'input',
@@ -115,6 +119,13 @@ var EditService = React.createClass({
     }
   },
 
+  apiData: function () {
+    return {
+      type: 'api',
+      api: this.props.api
+    };
+  },
+  
   onRemovePlan: function (id) {
     this.features.comp.removePlan(id);
   },
@@ -166,6 +177,7 @@ var EditService = React.createClass({
             <FormSection label={'Plans & Pricing'} required={true} description={'Add the different pricing plans your service will support, in order of increasing price.'} compData={this.planData()} onRemoveRow={this.onRemovePlan} onNewRow={this.onNewPlan} onBlurFirstCol={this.onPlanNameBlur} ref={this.setPlansRef}/>
             <FormSection label={'Features'} required={true} description={'Add your service\'s features and their values for each plan.'} compData={this.featureData()} ref={this.setFeaturesRef}/>
             <FormSection label={'Config Vars'} required={false} description={this.configSectionDescription()} compData={this.configData()} ref={this.setConfigsRef}/>
+            <FormSection label={'API'} required={true} description={'Add the URLs that Conflux will use to interact with your service.'} compData={this.apiData()} ref={this.setApiRef}/>
           </div>
           <div className="edit-service-footer">
             <div className="save-service-btn" onClick={this.saveService}>Save Service</div>
