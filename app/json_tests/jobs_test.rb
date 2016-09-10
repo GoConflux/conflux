@@ -1,4 +1,4 @@
-class JobsTest < AbstractJsonTest
+ class JobsTest < AbstractJsonTest
 
   # Example Jobs:
   # {

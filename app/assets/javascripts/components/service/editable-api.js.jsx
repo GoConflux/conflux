@@ -1,4 +1,4 @@
-var Api = React.createClass({
+var EditableApi = React.createClass({
 
   setBaseUrlRef: function (ref) {
     this.baseUrl = ref;
@@ -17,11 +17,11 @@ var Api = React.createClass({
 
   render: function() {
     return (
-      <div id="api">
-        <div className="api-input">
+      <div className="editable-api">
+        <div className="editable-api-input">
           <FormInput required={this.props.required} data={this.props.data} inputTitle={'Base URL'} ref={this.setBaseUrlRef} />
         </div>
-        <div className="api-input">
+        <div className="editable-api-input">
           <FormInput required={this.props.required} data={this.props.data} inputTitle={'SSO URL'} ref={this.setSsoUrlRef} />
         </div>
       </div>

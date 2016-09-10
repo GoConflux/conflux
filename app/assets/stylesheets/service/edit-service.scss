@@ -122,10 +122,20 @@
   }
 }
 
-.api-input {
-  width: 100%;
+.editable-api {
   float: left;
-  margin-top: 8px;
+  width: 100%;
+
+  .editable-api-input {
+    width: 100%;
+    float: left;
+    margin-top: 8px;
+    padding: 0 10px;
+
+    .form-input-title {
+      color: #919191;
+    }
+  }
 }
 
 .form-input-container {
@@ -495,4 +505,118 @@
     box-shadow: none;
     border: 1px solid #dedede;
   }
+}
+
+.editable-jobs {
+  width: 100%;
+  float: left;
+
+  .ej-section {
+    width: 100%;
+    float: left;
+    padding: 0 10px;
+    margin-top: 10px;
+
+    .ej-section-title {
+      width: 100%;
+      float: left;
+      font-size: 17px;
+      font-family: Avenir-Next-Medium;
+      color: #919191;
+    }
+
+    .ej-section-content {
+      width: 100%;
+      float: left;
+
+      .editable-job {
+        width: 100%;
+        float: left;
+      }
+    }
+
+    .ej-input-title {
+      float: left;
+      display: inline-block;
+      padding-top: 12px;
+      font-size: 17px;
+
+      &.dest {
+        width: 205px;
+      }
+
+      &.file {
+        width: 100px;
+      }
+
+      &.lang {
+        width: 100px;
+      }
+    }
+
+    .dest-path {
+      width: calc(100% - 205px - 100px - 100px);
+      float: left;
+      padding: 12px;
+      display: inline-block;
+      color: #333;
+      font-size: 17px;
+    }
+
+    div.dest-path {
+      border: none;
+    }
+
+    input.dest-path {
+      border-radius: 3px;
+      border: 1px solid #eaeaea;
+      box-shadow: none;
+      outline: none;
+    }
+
+    .upload-file-btn {
+      display: inline-block;
+      width: 100px;
+      float: left;
+      background-color: #249cf2;
+      padding: 14px 0;
+      font-size: 15px;
+      color: #fff;
+      text-align: center;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #269DF7;
+      }
+
+      &:active {
+        background-color: #249cf2;
+      }
+    }
+
+    .editable-library-input {
+      width: calc((100% - 100px - 200px - 34px)/2);
+      float: left;
+      padding: 12px;
+      display: inline-block;
+      margin-left: 17px;
+      color: #333;
+      font-size: 17px;
+      border-radius: 3px;
+      border: 1px solid #eaeaea;
+      box-shadow: none;
+      outline: none;
+    }
+
+    .form-select-container {
+      width: 200px;
+      display: inline-block;
+      float: left;
+
+      .form-select {
+        padding: 12px;
+      }
+    }
+  }
+
 }

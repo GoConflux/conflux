@@ -48,6 +48,10 @@ var EditService = React.createClass({
     this.api = ref;
   },
 
+  setJobsRef: function (ref) {
+    this.jobs = ref;
+  },
+
   inputCompData: function (defaultValue, maxLength) {
     var data = {
       type: 'input',
@@ -121,9 +125,17 @@ var EditService = React.createClass({
 
   apiData: function () {
     return {
-      type: 'api',
+      type: 'editable-api',
       api: this.props.api
     };
+  },
+
+  jobsData: function () {
+    return {
+      type: 'editable-jobs',
+      jobs: this.props.jobs,
+      slug: this.props.slug
+    }
   },
   
   onRemovePlan: function (id) {
@@ -176,6 +188,7 @@ var EditService = React.createClass({
             <FormSection label={'Long Description'} required={true} description={'In greater detail, write a longer description about your service and its offerings.'} compData={this.descriptionData()} ref={this.setDescriptionRef}/>
             <FormSection label={'Plans & Pricing'} required={true} description={'Add the different pricing plans your service will support, in order of increasing price.'} compData={this.planData()} onRemoveRow={this.onRemovePlan} onNewRow={this.onNewPlan} onBlurFirstCol={this.onPlanNameBlur} ref={this.setPlansRef}/>
             <FormSection label={'Features'} required={true} description={'Add your service\'s features and their values for each plan.'} compData={this.featureData()} ref={this.setFeaturesRef}/>
+            <FormSection label={'Jobs'} required={false} description={'Add any files or libraries you would like to be automatically added to users\' projects when provisioning your service. These "jobs" will help get users up and running with your service even quicker.'} compData={this.jobsData()} ref={this.setJobsRef}/>
             <FormSection label={'Config Vars'} required={false} description={this.configSectionDescription()} compData={this.configData()} ref={this.setConfigsRef}/>
             <FormSection label={'API'} required={true} description={'Add the URLs that Conflux will use to interact with your service.'} compData={this.apiData()} ref={this.setApiRef}/>
           </div>
