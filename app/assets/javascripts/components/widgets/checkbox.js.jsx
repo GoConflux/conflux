@@ -22,11 +22,11 @@ var Checkbox = React.createClass({
     return classes;
   },
 
-  onClick: function () {
+  onClick: function (e) {
     $(this.checkboxWrap).toggleClass('checked');
 
     if (this.props.clickHandler) {
-      this.props.clickHandler($(this.checkboxWrap).hasClass('checked'));
+      this.props.clickHandler(e, $(this.checkboxWrap).hasClass('checked'));
     }
   },
 

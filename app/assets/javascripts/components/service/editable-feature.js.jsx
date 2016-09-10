@@ -24,12 +24,14 @@ var EditableFeature = React.createClass({
     var self = this;
 
     return this.props.plans.map(function (plan) {
-      return <div className="feature-for-plan" key={Math.random()}><div className="plan-name">{plan.name}:</div><div className="feature-value-container"><Checkbox label={'Checkmark'} customClasses={['feature-included']} clickHandler={self.onCheckmarkClick} /><span className="or">OR</span><input type="text" className="feature-value" defaultValue={self.props.feature.values[plan.id]} placeholder="Value" ref={self.setValueInputRef} /></div></div>
+      return <div className="feature-for-plan" key={Math.random()}><div className="plan-name">{plan.name}:</div><div className="feature-value-container"><Checkbox label={'Checkmark'} customClasses={['feature-included']} clickHandler={self.onCheckmarkClick} /><span className="or">OR</span><input type="text" key={Math.random()} className="feature-value" defaultValue={self.props.feature.values[plan.id]} placeholder="Value" ref={self.setValueInputRef} /></div></div>
     });
   },
 
-  onCheckmarkClick: function (checked) {
-    console.log(checked);
+  onCheckmarkClick: function (e, checked) {
+    var $row = $(e.target).closest('.feature-for-plan');
+    var $input = $row.find('.feature-value');
+    checked ? $input.attr('disabled', 'disabled') : $input.removeAttr('disabled');
   },
 
   serialize: function () {
