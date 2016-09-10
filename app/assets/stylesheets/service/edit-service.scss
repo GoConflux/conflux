@@ -191,7 +191,7 @@
   .markdown-preview-container {
     .markdown {
       padding: 20px;
-      border: 2px solid #eaeaea;
+      border: 1px solid #eaeaea;
     }
   }
 
@@ -228,6 +228,14 @@
         padding-left: 24px;
         background: url("https://ds8ypexjwou5.cloudfront.net/images/dollar-sign.svg") left 13px center no-repeat;
         background-size: 8px;
+      }
+
+      &.config-name {
+        width: calc(40% - 5px);
+      }
+
+      &.config-description {
+        width: calc(60% - 5px);
       }
     }
 

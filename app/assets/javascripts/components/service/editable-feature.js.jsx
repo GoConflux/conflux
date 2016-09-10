@@ -31,7 +31,15 @@ var EditableFeature = React.createClass({
   onCheckmarkClick: function (e, checked) {
     var $row = $(e.target).closest('.feature-for-plan');
     var $input = $row.find('.feature-value');
-    checked ? $input.attr('disabled', 'disabled') : $input.removeAttr('disabled');
+    checked ? this.disableInput($input) : this.enableInput($input);
+  },
+
+  disableInput: function () {
+    $input.attr('disabled', 'disabled');
+  },
+
+  enableInput: function () {
+    $input.removeAttr('disabled');
   },
 
   serialize: function () {

@@ -6,18 +6,45 @@ var FormDoubleInput = React.createClass({
     }
   },
 
+  setContainerRef: function (ref) {
+    this.container = ref;
+  },
+
   getRows: function () {
     var self = this;
 
     return this.state.rows.map(function (data) {
-      return <div className="form-double-input-row" key={Math.random()}><input type="text" className={self.colClasses(0)} defaultValue={data.one} onKeyUp={self.removeInvalid} onBlur={self.onBlurFirstCol} placeholder={self.props.data.placeholders[0]} /><DollarInput classes={self.colClasses(1)} val={data.two} placeholder={self.props.data.placeholders[1]} onKeyUp={self.removeInvalid} />{self.getRemoveBtn()}</div>;
+      return <div className="form-double-input-row" key={Math.random()}>{self.firstInput(data)}{self.secondInput(data)}{self.getRemoveBtn()}</div>;
     });
+  },
+  
+  firstInput: function (data) {
+    if (this.props.data.firstDollar) {
+      return <DollarInput classes={this.colClasses(0)} val={data.one} placeholder={this.props.data.placeholders[0]} onKeyUp={this.removeInvalid} />;
+    } else {
+      return <input type="text" className={this.colClasses(0)} defaultValue={data.one} onKeyUp={this.removeInvalid} onBlur={this.onBlurFirstCol} placeholder={this.props.data.placeholders[0]} />;
+    }
+  },
+
+  secondInput: function (data) {
+    if (this.props.data.secondDollar) {
+      return <DollarInput classes={this.colClasses(1)} val={data.two} placeholder={this.props.data.placeholders[1]} onKeyUp={this.removeInvalid} />;
+    } else {
+      return <input type="text" className={this.colClasses(1)} defaultValue={data.two} onKeyUp={this.removeInvalid} onBlur={this.onBlurSecondCol} placeholder={this.props.data.placeholders[1]} />;
+    }
   },
 
   onBlurFirstCol: function (e) {
     if (this.props.onBlurFirstCol) {
       var index = $(e.target).closest('.form-double-input-row').index();
       this.props.onBlurFirstCol($(e.target).val().trim(), this.state.rows[index].id);
+    }
+  },
+
+  onBlurSecondCol: function (e) {
+    if (this.props.onBlurSecondCol) {
+      var index = $(e.target).closest('.form-double-input-row').index();
+      this.props.onBlurSecondCol($(e.target).val().trim(), this.state.rows[index].id);
     }
   },
 
@@ -81,7 +108,7 @@ var FormDoubleInput = React.createClass({
   },
 
   serialize: function (validate) {
-    return _.map($('.form-double-input-row'), function (el) {
+    return _.map($(this.container).find('.form-double-input-row'), function (el) {
       var inputs = $(el).find('.form-double-input');
       var $input1 = $(inputs[0]);
       var $input2 = $(inputs[1]);
@@ -102,9 +129,9 @@ var FormDoubleInput = React.createClass({
 
   render: function() {
     return (
-      <div className="form-double-input-container">
+      <div className="form-double-input-container" ref={this.setContainerRef}>
         <div className="rows">{this.getRows()}</div>
-        <div className="new-row-btn" onClick={this.addNewRow}>New Plan</div>
+        <div className="new-row-btn" onClick={this.addNewRow}>{this.props.data.newRowName || 'New Row'}</div>
       </div>
     );
   }

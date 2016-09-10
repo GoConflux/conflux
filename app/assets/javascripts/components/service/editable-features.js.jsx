@@ -32,6 +32,8 @@ var EditableFeatures = React.createClass({
       return plan.id == planId;
     });
 
+    console.log(plans, planId);
+
     plans.splice(planIndex, 1);
 
     _.each(features, function (feature) {

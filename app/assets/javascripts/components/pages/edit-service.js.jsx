@@ -40,6 +40,10 @@ var EditService = React.createClass({
     this.features = ref;
   },
 
+  setConfigsRef: function (ref) {
+    this.configs = ref;
+  },
+
   inputCompData: function (defaultValue, maxLength) {
     var data = {
       type: 'input',
@@ -80,7 +84,9 @@ var EditService = React.createClass({
       }),
       placeholders: ['Plan name', '0.00'],
       extraSecondColClasses: ['dollars'],
-      removeButtons: true
+      secondDollar: true,
+      removeButtons: true,
+      newRowName: 'New Plan'
     };
   },
   
@@ -90,6 +96,23 @@ var EditService = React.createClass({
       features: this.props.features,
       plans: this.props.plans
     };
+  },
+
+  configData: function () {
+    return {
+      type: 'form-double-input',
+      data: this.props.configs.map(function (info) {
+        return {
+          one: info.name,
+          two: info.description
+        };
+      }),
+      placeholders: ['Config Var', 'Description'],
+      extraFirstColClasses: ['config-name'],
+      extraSecondColClasses: ['config-description'],
+      removeButtons: true,
+      newRowName: 'New Config Var'
+    }
   },
 
   onRemovePlan: function (id) {
@@ -116,6 +139,12 @@ var EditService = React.createClass({
   onPlanNameBlur: function (planName, planId) {
     this.features.comp.updatePlanName(planName, planId);
   },
+  
+  configSectionDescription: function () {
+    var message = 'List the config vars that your API will return to users upon the successful provisioning of your service. Make sure each config var is in all-caps and is prefixed with ';
+    var configPrefix = this.props.slug.toUpperCase().replace('-', '_');
+    return message + '"' + configPrefix + '_".';
+  },
 
   render: function() {
     return (
@@ -136,6 +165,7 @@ var EditService = React.createClass({
             <FormSection label={'Long Description'} required={true} description={'In greater detail, write a longer description about your service and its offerings.'} compData={this.descriptionData()} ref={this.setDescriptionRef}/>
             <FormSection label={'Plans & Pricing'} required={true} description={'Add the different pricing plans your service will support, in order of increasing price.'} compData={this.planData()} onRemoveRow={this.onRemovePlan} onNewRow={this.onNewPlan} onBlurFirstCol={this.onPlanNameBlur} ref={this.setPlansRef}/>
             <FormSection label={'Features'} required={true} description={'Add your service\'s features and their values for each plan.'} compData={this.featureData()} ref={this.setFeaturesRef}/>
+            <FormSection label={'Config Vars'} required={false} description={this.configSectionDescription()} compData={this.configData()} ref={this.setConfigsRef}/>
           </div>
           <div className="edit-service-footer">
             <div className="save-service-btn" onClick={this.saveService}>Save Service</div>
