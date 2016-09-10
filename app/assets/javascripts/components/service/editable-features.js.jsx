@@ -55,6 +55,7 @@ var EditableFeatures = React.createClass({
   },
 
   updatePlanName: function (planName, planId) {
+    planName = planName || 'Untitled';
     var plans = _.clone(this.state.plans);
 
     _.each(plans, function (plan) {
