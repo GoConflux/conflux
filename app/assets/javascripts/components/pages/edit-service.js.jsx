@@ -93,11 +93,11 @@ var EditService = React.createClass({
   },
 
   onRemovePlan: function (id) {
-    this.features.removePlan(id);
+    this.features.comp.removePlan(id);
   },
 
   onNewPlan: function (id) {
-    this.features.addPlan(id);
+    this.features.comp.addPlan(id);
   },
 
   serialize: function () {
@@ -114,7 +114,7 @@ var EditService = React.createClass({
   },
   
   onPlanNameBlur: function (planName, planId) {
-    this.features.updatePlanName(planName, planId);
+    this.features.comp.updatePlanName(planName, planId);
   },
 
   render: function() {

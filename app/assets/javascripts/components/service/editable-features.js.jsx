@@ -19,7 +19,9 @@ var EditableFeatures = React.createClass({
   },
 
   pushFeatureRef: function (ref) {
-    this.featureRefs.push(ref);
+    if (ref) {
+      this.featureRefs.push(ref);
+    }
   },
 
   removePlan: function (planId) {
