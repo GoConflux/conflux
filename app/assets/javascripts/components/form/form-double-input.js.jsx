@@ -10,7 +10,7 @@ var FormDoubleInput = React.createClass({
     var self = this;
 
     return this.state.rows.map(function (data) {
-      return <div className="form-double-input-row" key={Math.random()}><input type="text" className={self.colClasses(0)} defaultValue={data.one} onKeyUp={self.removeInvalid} onBlur={self.onBlurFirstCol} placeholder={self.props.data.placeholders[0]} /><input type="text" className={self.colClasses(1)} defaultValue={data.two} onKeyUp={self.removeInvalid} placeholder={self.props.data.placeholders[1]} />{self.getRemoveBtn()}</div>;
+      return <div className="form-double-input-row" key={Math.random()}><input type="text" className={self.colClasses(0)} defaultValue={data.one} onKeyUp={self.removeInvalid} onBlur={self.onBlurFirstCol} placeholder={self.props.data.placeholders[0]} /><DollarInput classes={self.colClasses(1)} val={data.two} placeholder={self.props.data.placeholders[1]} onKeyUp={self.removeInvalid} />{self.getRemoveBtn()}</div>;
     });
   },
 

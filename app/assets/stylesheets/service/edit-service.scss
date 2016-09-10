@@ -224,10 +224,16 @@
       }
 
       &.dollars {
+        width: 100%;
         padding-left: 24px;
         background: url("https://ds8ypexjwou5.cloudfront.net/images/dollar-sign.svg") left 13px center no-repeat;
         background-size: 8px;
       }
+    }
+
+    .dollar-input-container {
+      width: calc(50% - 5px);
+      display: inline-block;
     }
 
     .remove-btn {
