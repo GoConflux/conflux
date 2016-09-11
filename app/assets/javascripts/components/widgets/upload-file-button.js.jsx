@@ -13,7 +13,7 @@ var UploadFileButton = React.createClass({
   render: function() {
     return (
       <div className="upload-file">
-        <div className="upload-file-btn">Upload File</div>
+        <div className="upload-file-btn">{this.props.btnText || 'Upload File'}</div>
         <div className={this.getFileNameClasses()}>{this.props.fileName || 'No file selected'}</div>
       </div>
     );

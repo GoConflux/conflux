@@ -670,3 +670,39 @@
     }
   }
 }
+
+.upload-icon {
+  width: 100%;
+  float: left;
+
+  .icon-preview-container,
+  .icon-upload-container {
+    width: 100%;
+    float: left;
+  }
+
+  .icon-preview-container {
+    margin-top: 15px;
+    margin-bottom: 30px;
+  }
+
+  .icon-preview {
+    float: left;
+    display: inline-block;
+    max-width: 250px;
+  }
+  
+  .upload-file-btn {
+    background-color: #249cf2;
+
+    &:hover,
+    &:focus {
+      background-color: #269DF7;
+    }
+
+    &:active {
+      background-color: #249cf2;
+    }
+  }
+
+}

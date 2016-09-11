@@ -33,6 +33,9 @@ var FormSection = React.createClass({
       case 'editable-jobs':
         comp = <EditableJobs required={this.props.required} data={this.props.compData} ref={this.setCompRef} />;
         break;
+      case 'icon':
+        comp = <UploadIcon required={this.props.required} data={this.props.compData} ref={this.setCompRef} />;
+        break;
     }
 
     return comp;

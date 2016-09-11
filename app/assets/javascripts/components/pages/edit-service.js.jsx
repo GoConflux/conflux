@@ -24,6 +24,10 @@ var EditService = React.createClass({
     this.githubUrl = ref;
   },
 
+  setIconRef: function (ref) {
+    this.icon = ref;
+  },
+
   setTaglineRef: function (ref) {
     this.tagline = ref;
   },
@@ -70,6 +74,13 @@ var EditService = React.createClass({
       type: 'select',
       defaultValue: this.props.category_uuid,
       options: this.props.categories
+    };
+  },
+
+  iconData: function () {
+    return {
+      type: 'icon',
+      icon: this.props.icon
     };
   },
 
@@ -184,6 +195,7 @@ var EditService = React.createClass({
             <FormSection label={'Facebook URL'} required={false} compData={this.inputCompData(this.props.links.facebook_url)} ref={this.setFacebookUrlRef}/>
             <FormSection label={'Twitter URL'} required={false} compData={this.inputCompData(this.props.links.twitter_url)} ref={this.setTwitterUrlRef}/>
             <FormSection label={'GitHub URL'} required={false} compData={this.inputCompData(this.props.links.github_url)} ref={this.setGithubUrlRef}/>
+            <FormSection label={'Icon'} required={true} compData={this.iconData()} ref={this.setIconRef}/>
             <FormSection label={'Short Description'} required={true} description={'This is a description of your project in 50 characters or less for the services page.'} compData={this.inputCompData(this.props.tagline, 50)} ref={this.setTaglineRef}/>
             <FormSection label={'Long Description'} required={true} description={'In greater detail, write a longer description about your service and its offerings.'} compData={this.descriptionData()} ref={this.setDescriptionRef}/>
             <FormSection label={'Plans & Pricing'} required={true} description={'Add the different pricing plans your service will support, in order of increasing price.'} compData={this.planData()} onRemoveRow={this.onRemovePlan} onNewRow={this.onNewPlan} onBlurFirstCol={this.onPlanNameBlur} ref={this.setPlansRef}/>
