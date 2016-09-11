@@ -10,6 +10,7 @@ var FormSelect = React.createClass({
     });
   },
 
+  // always assume it's valid for now since it currently always has a default value
   serialize: function () {
     return { valid: true, value: $(this.select).val() };
   },

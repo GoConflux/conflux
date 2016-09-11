@@ -2,6 +2,10 @@ var EditableFeatures = React.createClass({
 
   featureRefs: [],
 
+  setEditableFeaturesRef: function (ref) {
+    this.editableFeatures = ref;
+  },
+
   getInitialState: function () {
     return {
       features: this.props.data.features,
@@ -14,7 +18,7 @@ var EditableFeatures = React.createClass({
     this.featureRefs = [];
 
     return this.state.features.map(function (feature, i) {
-      return <EditableFeature key={Math.random()} feature={feature} plans={self.state.plans} last={i == (self.state.features.length - 1)} ref={self.pushFeatureRef} />
+      return <EditableFeature key={Math.random()} feature={feature} plans={self.state.plans} last={i == (self.state.features.length - 1)} index={i} onRemove={self.removeFeature} ref={self.pushFeatureRef} />
     });
   },
 
@@ -25,14 +29,12 @@ var EditableFeatures = React.createClass({
   },
 
   removePlan: function (planId) {
-    var features = this.serialize();
+    var features = this.serialize(false).value;
     var plans = _.clone(this.state.plans);
 
     var planIndex = _.findIndex(plans, function (plan) {
       return plan.id == planId;
     });
-
-    console.log(plans, planId);
 
     plans.splice(planIndex, 1);
 
@@ -44,7 +46,7 @@ var EditableFeatures = React.createClass({
   },
 
   addPlan: function (planId) {
-    var features = this.serialize();
+    var features = this.serialize(false).value;
     var plans = _.clone(this.state.plans);
 
     plans.push({ id: planId, name: 'Untitled' });
@@ -66,7 +68,7 @@ var EditableFeatures = React.createClass({
       }
     });
 
-    this.setState({ features: this.serialize(), plans: plans });
+    this.setState({ features: this.serialize(false).value, plans: plans });
   },
 
   emptyFeature: function () {
@@ -84,20 +86,47 @@ var EditableFeatures = React.createClass({
   },
 
   addNewFeature: function () {
-    var features = this.serialize();
+    var features = this.serialize(false).value;
     features.push(this.emptyFeature());
+    $(this.editableFeatures).removeClass('invalid');
     this.setState({ features: features, plans: this.state.plans });
   },
 
-  serialize: function () {
-    return _.map(this.featureRefs, function (feature, i) {
-      return _.extend(feature.serialize(), { index: i });
+  removeFeature: function (index) {
+    var features = this.serialize(false).value;
+    features.splice(index, 1);
+    this.setState({ features: features, plans: this.state.plans });
+  },
+
+  serialize: function (validate) {
+    var data = [];
+    var valid = true;
+
+    if (validate == null) {
+      validate = this.props.required;
+    }
+
+    _.each(this.featureRefs, function (feature, i) {
+      var featureInfo = feature.serialize(validate);
+      var featureData = _.extend(featureInfo.value, { index: i});
+
+      if (!featureInfo.valid) {
+        valid = false;
+      }
+
+      data.push(featureData);
     });
+
+    if (validate && _.isEmpty(data)) {
+      $(this.editableFeatures).addClass('invalid');
+    }
+
+    return { valid: valid, value: data };
   },
 
   render: function() {
     return (
-      <div className="editable-features">
+      <div className="editable-features" ref={this.setEditableFeaturesRef}>
         {this.getFeatures()}
         <div className="new-row-btn" onClick={this.addNewFeature}>New Feature</div>
       </div>

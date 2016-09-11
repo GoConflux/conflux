@@ -7,6 +7,10 @@ var EditableMarkdown = React.createClass({
     }
   },
 
+  setEditableMarkdownRef: function (ref) {
+    this.editableMarkdown = ref;
+  },
+
   setEditorRef: function (ref) {
     this.editor = ref;
     $(this.editor).autoGrow();
@@ -18,6 +22,10 @@ var EditableMarkdown = React.createClass({
     } else {
       return <div className="markdown-editor-container"><textarea className="markdown-editor" defaultValue={this.state.content} ref={this.setEditorRef} onKeyUp={this.onKeyUp}></textarea></div>;
     }
+  },
+
+  onKeyUp: function () {
+    $(this.editableMarkdown).removeClass('invalid');
   },
 
   toggleMarkdownPreview: function () {
@@ -32,7 +40,7 @@ var EditableMarkdown = React.createClass({
   previewMarkdown: function () {
     var self = this;
     $('.preview-markdown-icon').addClass('preview');
-    this.cachedMarkdown = $(this.editor).val();
+    this.cachedMarkdown = $(this.editor).val().trim();
 
     React.post('/addons/md_preview', { content: this.cachedMarkdown }, {
       success: function (data) {
@@ -40,10 +48,26 @@ var EditableMarkdown = React.createClass({
       }
     });
   },
+
+  showInvalid: function () {
+    $(this.editableMarkdown).addClass('invalid');
+  },
+
+  serialize: function () {
+    var valid = true;
+    var value = this.state.preview ? this.cachedMarkdown : $(this.editor).val().trim();
+
+    if (this.props.required && _.isEmpty(value)) {
+      valid = false;
+      this.showInvalid();
+    }
+
+    return { valid: valid, value: value };
+  },
   
   render: function() {
     return (
-      <div className="editable-markdown">{this.getContent()}</div>
+      <div className="editable-markdown" ref={this.setEditableMarkdownRef}>{this.getContent()}</div>
     );
   }
 });

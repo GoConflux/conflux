@@ -1,5 +1,9 @@
 var EditableFeature = React.createClass({
 
+  setEditableFeatureRef: function (ref) {
+    this.editableFeature = ref;
+  },
+
   setFeatureRef: function (ref) {
     this.feature = ref;
   },
@@ -24,26 +28,39 @@ var EditableFeature = React.createClass({
     var self = this;
 
     return this.props.plans.map(function (plan) {
-      return <div className="feature-for-plan" key={Math.random()}><div className="plan-name">{plan.name}:</div><div className="feature-value-container"><Checkbox label={'Checkmark'} customClasses={['feature-included']} clickHandler={self.onCheckmarkClick} /><span className="or">OR</span><input type="text" key={Math.random()} className="feature-value" defaultValue={self.props.feature.values[plan.id]} placeholder="Value" ref={self.setValueInputRef} /></div></div>
+      var input;
+      var value = self.props.feature.values[plan.id];
+      var checkMarkClasses = ['feature-included'];
+
+      if (value == 'CHECK') {
+        checkMarkClasses.push('checked');
+        input = <input type="text" key={Math.random()} className="feature-value" placeholder="Value" onKeyUp={self.removeInvalid} ref={self.setValueInputRef} disabled="disabled"/>;
+      } else {
+        input = <input type="text" key={Math.random()} className="feature-value" defaultValue={value} placeholder="Value" onKeyUp={self.removeInvalid} ref={self.setValueInputRef} />;
+      }
+
+      return <div className="feature-for-plan" key={Math.random()}><div className="plan-name">{plan.name}:</div><div className="feature-value-container"><Checkbox label={'Checkmark'} customClasses={checkMarkClasses} clickHandler={self.onCheckmarkClick} /><span className="or">OR</span>{input}</div></div>
     });
   },
 
   onCheckmarkClick: function (e, checked) {
+    this.removeInvalid();
     var $row = $(e.target).closest('.feature-for-plan');
     var $input = $row.find('.feature-value');
     checked ? this.disableInput($input) : this.enableInput($input);
   },
 
-  disableInput: function () {
+  disableInput: function ($input) {
     $input.attr('disabled', 'disabled');
   },
 
-  enableInput: function () {
+  enableInput: function ($input) {
     $input.removeAttr('disabled');
   },
 
-  serialize: function () {
+  serialize: function (validate) {
     var values = {};
+    var valid = true;
 
     var planIds = _.map(this.props.plans, function (plan) {
       return plan.id;
@@ -60,6 +77,10 @@ var EditableFeature = React.createClass({
         val = $(el).find('.feature-value').val().trim();
       }
 
+      if (validate && _.isEmpty(val)) {
+        valid = false;
+      }
+
       values[planIds[i]] = val;
     });
 
@@ -68,15 +89,27 @@ var EditableFeature = React.createClass({
       values: values
     };
 
+    if (validate && _.isEmpty(data.feature)) {
+      valid = false;
+    }
+
     if ($(this.headlineFeature).is(':checked')) {
       data.headlineFeature = true;
     }
 
-    return data;
+    if (!valid) {
+      $(this.editableFeature).addClass('invalid');
+    }
+
+    return { valid: valid, value: data };
   },
 
-  removeFeature: function (e) {
+  removeFeature: function () {
+    this.props.onRemove(this.props.index);
+  },
 
+  removeInvalid: function () {
+    $(this.editableFeature).removeClass('invalid');
   },
 
   editableFeatureClasses: function () {
@@ -91,9 +124,9 @@ var EditableFeature = React.createClass({
 
   render: function() {
     return (
-      <div className={this.editableFeatureClasses()}>
+      <div className={this.editableFeatureClasses()} ref={this.setEditableFeatureRef}>
         <div className="feature-name-container">
-          <input type="text" className="feature-name" placeholder="Feature" defaultValue={this.props.feature.feature} ref={this.setFeatureRef}/>
+          <input type="text" className="feature-name" placeholder="Feature" defaultValue={this.props.feature.feature} onKeyUp={this.removeInvalid} ref={this.setFeatureRef}/>
           <Checkbox label={'Headline Feature'} customClasses={['headline-feature']} />
           <span className="remove-btn" onClick={this.removeFeature}>&times;</span>
         </div>

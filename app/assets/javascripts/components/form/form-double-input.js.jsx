@@ -95,7 +95,7 @@ var FormDoubleInput = React.createClass({
   },
 
   addNewRow: function () {
-    var rowsData = this.serialize();
+    var rowsData = this.serialize(false).value;
     var emptyRowData = this.emptyRow();
 
     rowsData.push(emptyRowData);
@@ -108,7 +108,14 @@ var FormDoubleInput = React.createClass({
   },
 
   serialize: function (validate) {
-    return _.map($(this.container).find('.form-double-input-row'), function (el) {
+    var self = this;
+    var valid = true;
+
+    if (validate == null) {
+      validate = this.props.required;
+    }
+
+    return _.map($(this.container).find('.form-double-input-row'), function (el, i) {
       var inputs = $(el).find('.form-double-input');
       var $input1 = $(inputs[0]);
       var $input2 = $(inputs[1]);
@@ -117,13 +124,22 @@ var FormDoubleInput = React.createClass({
 
       if (validate && !oneVal) {
         $input1.addClass('invalid');
+        valid = false;
       }
 
       if (validate && !twoVal) {
         $input2.addClass('invalid');
+        valid = false;
       }
 
-      return { one: oneVal, two: twoVal, id: Math.round(Math.random() * 10000000) };
+      return {
+        valid: valid,
+        value: {
+          one: oneVal,
+          two: twoVal,
+          id: self.state.rows[i].id
+        }
+      };
     });
   },
 

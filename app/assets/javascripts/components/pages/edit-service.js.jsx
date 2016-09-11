@@ -157,7 +157,91 @@ var EditService = React.createClass({
     this.features.comp.addPlan(id);
   },
 
+  formatPlans: function (plans) {
+    return _.map(plans, function (data) {
+      return {
+        id: data.id,
+        name: data.one,
+        price: data.two
+      };
+    });
+  },
+
   serialize: function () {
+    var refsMap = {
+      name: {
+        ref: this.name
+      },
+      category_uuid: {
+        ref: this.category
+      },
+      url: {
+        ref: this.url
+      },
+      facebook_url: {
+        ref: this.facebookUrl
+      },
+      twitter_url: {
+        ref: this.twitterUrl
+      },
+      github_url: {
+        ref: this.githubUrl
+      },
+      icon: {
+        ref: this.icon
+      },
+      tagline: {
+        ref: this.tagline
+      },
+      description: {
+        ref: this.description
+      },
+      plans: {
+        ref: this.plans,
+        furtherFormat: this.formatPlans
+      },
+      features: {
+        ref: this.features
+      },
+      jobs: {
+        ref: this.jobs
+      },
+      configs: {
+        ref: this.configs
+      },
+      api: {
+        ref: this.api
+      }
+    };
+
+    var payload = {};
+    var invalidRefs = [];
+
+    _.each(refsMap, function (info, key) {
+      var data = info.ref.serialize();
+
+      if (data.valid) {
+        var value = data.value;
+
+        if (info.furtherFormat) {
+          value = info.furtherFormat(value);
+        }
+
+        payload[key] = value;
+      } else {
+        invalidRefs.push(info.ref);
+      }
+    });
+
+    var firstInvalidRef = invalidRefs.shift();
+
+    if (firstInvalidRef) {
+      this.scrollToRef(firstInvalidRef);
+    }
+  },
+
+  scrollToRef: function (el) {
+    $('html, body').animate({ scrollTop: $(el).offset().top }, 500);
   },
 
   saveService: function () {

@@ -436,8 +436,9 @@
             outline: none;
           }
 
-          .feature-value[disabled='disabled'] {
-
+          .feature-value[disabled] {
+            background-color: rgba(0,0,0,0.04);
+            opacity: 0.5;
           }
 
           // outer width is 45
