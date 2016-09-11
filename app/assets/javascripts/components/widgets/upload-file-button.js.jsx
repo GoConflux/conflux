@@ -4,10 +4,14 @@ var UploadFileButton = React.createClass({
     var classes = 'file-name';
 
     if (!this.props.fileName) {
-      classes += 'no-file';
+      classes += ' no-file';
     }
 
     return classes;
+  },
+
+  getFile: function () {
+    return null; // something
   },
 
   render: function() {

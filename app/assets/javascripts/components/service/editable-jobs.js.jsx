@@ -6,6 +6,8 @@ var EditableJobs = React.createClass({
     };
   },
 
+  jobRefs: [],
+
   jobTypes: {
     newFile: 'new_file',
     newLibrary: 'new_library'
@@ -28,7 +30,7 @@ var EditableJobs = React.createClass({
     }
 
     job.action = type;
-    job.id = 'JOB_ID';
+    job.id = 'NEW_JOB_' + Math.round(Math.random() * 1000000);
 
     return job;
   },
@@ -62,9 +64,17 @@ var EditableJobs = React.createClass({
   },
 
   formatJobs: function (jobs) {
+    var self = this;
+
     return (jobs || []).map(function (job) {
-      return <EditableJob data={job} key={Math.random()} />;
+      return <EditableJob data={job} key={Math.random()} ref={self.pushRef} />;
     });
+  },
+
+  pushRef: function (ref) {
+    if (ref) {
+      this.jobRefs.push(ref);
+    }
   },
 
   onNewJob: function (type) {
@@ -84,7 +94,16 @@ var EditableJobs = React.createClass({
   },
 
   serialize: function () {
+    var jobsMap = {};
 
+    _.each((this.jobRefs || []), function (job) {
+      var data = job.serialize();
+      var jobId = data.id;
+      delete data.id;
+      jobsMap[jobId] = data;
+    });
+
+    return jobsMap;
   },
 
   render: function() {
@@ -104,6 +123,8 @@ var EditableJobs = React.createClass({
     }
 
     fileJobs = this.addGettingStartedFile(fileJobs);
+
+    this.jobRefs = [];  // empty this again
 
     return (
       <div className="editable-jobs">
