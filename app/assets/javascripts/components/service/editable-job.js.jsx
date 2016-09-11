@@ -25,14 +25,6 @@ var EditableJob = React.createClass({
   setLibraryVersionRef: function (ref) {
     this.libraryVersion = ref;
   },
-
-  getDestPathInput: function (job) {
-    if (job.restrictPathMod) {
-      return <div className="dest-path">{job.asset.path}</div>;
-    } else {
-      return <input className="dest-path" defaultValue={job.asset.path} placeholder="Ex: config/initializers/my_file.rb"/>;
-    }
-  },
   
   langSelectData: function () {
     return {
@@ -46,15 +38,19 @@ var EditableJob = React.createClass({
     };
   },
 
+  stripFileName: function (file) {
+    return file.split('/').pop();
+  },
+
   formatJob: function () {
     var job = this.props.data;
 
     switch (job.action) {
       case this.jobTypes.newFile:
-        return <div className="editable-job"><div className="ej-input-title dest">Project Destination Path:</div>{this.getDestPathInput(job)}<div className="ej-input-title file">File:</div><div className="upload-file-btn">Upload File</div></div>;
+        return <div className="editable-job"><div className="ej-input-title dest">Project Destination Path:</div><input className="dest-path" defaultValue={job.asset.path} placeholder="Ex: config/initializers/my_file.rb"/><UploadFileButton fileName={this.stripFileName(job.asset.contents)} /><div className="remove-btn">&times;</div></div>;
         break;
       case this.jobTypes.newLibrary:
-        return <div className="editable-job"><div className="ej-input-title lang">Language:</div><FormSelect required={true} data={this.langSelectData()} ref={this.setLangSelectRef} /><input type="text" className="editable-library-input" placeholder={this.libNamePlaceholder(job.asset.lang)} defaultValue={job.asset.name} ref={this.setLibraryNameRef}/><input type="text" className="editable-library-input" placeholder="Ex: ~> 1.2.0" defaultValue={job.asset.version} ref={this.setLibraryVersionRef}/></div>;
+        return <div className="editable-job"><div className="ej-input-title lang">Language:</div><FormSelect required={true} data={this.langSelectData()} ref={this.setLangSelectRef} /><input type="text" className="editable-library-input" placeholder={this.libNamePlaceholder(job.asset.lang)} defaultValue={job.asset.name} ref={this.setLibraryNameRef}/><input type="text" className="editable-library-input" placeholder="Ex: ~> 1.2.0" defaultValue={job.asset.version} ref={this.setLibraryVersionRef}/><div className="remove-btn">&times;</div></div>;
         break;
     }
   },

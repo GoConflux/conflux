@@ -1,5 +1,11 @@
 var EditableJobs = React.createClass({
 
+  getInitialState: function () {
+    return {
+      jobs: this.props.data.jobs
+    };
+  },
+
   jobTypes: {
     newFile: 'new_file',
     newLibrary: 'new_library'
@@ -50,7 +56,6 @@ var EditableJobs = React.createClass({
     if (fileJobs.length == 0) {
       var gettingStartedJob = this.newJob(this.jobTypes.newFile);
       gettingStartedJob.asset.path = './conflux/' + this.props.data.slug + '/getting-started.\<ext\>';
-      gettingStartedJob.restrictPathMod = true;
     }
 
     return fileJobs;
@@ -62,10 +67,30 @@ var EditableJobs = React.createClass({
     });
   },
 
+  onNewJob: function (type) {
+    var jobs = this.serialize();
+    var newJob = this.newJob(type);
+    var newJobs = _.clone(jobs);
+    newJobs[newJob.id] = newJob;
+    this.setState({ jobs: newJobs });
+  },
+
+  onNewLibrary: function () {
+    this.onNewJob(this.jobTypes.newLibrary);
+  },
+
+  onNewFile: function () {
+    this.onNewJob(this.jobTypes.newFile);
+  },
+
+  serialize: function () {
+
+  },
+
   render: function() {
     var fileJobs = [];
     var libraryJobs = [];
-    var jobs = this.props.data.jobs || {};
+    var jobs = this.state.jobs || {};
 
     for (var jobId in jobs) {
       var data = jobs[jobId];
@@ -87,12 +112,14 @@ var EditableJobs = React.createClass({
           <div className="ej-section-content">
             {this.formatJobs(fileJobs)}
           </div>
+          <div className="new-row-btn" onClick={this.onNewFile}>New File</div>
         </div>
         <div className="libraries ej-section">
           <div className="ej-section-title">Libraries</div>
           <div className="ej-section-content">
             {this.formatJobs(libraryJobs)}
           </div>
+          <div className="new-row-btn" onClick={this.onNewLibrary}>New Library</div>
         </div>
       </div>
     );

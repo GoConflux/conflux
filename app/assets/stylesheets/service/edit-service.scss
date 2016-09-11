@@ -62,7 +62,7 @@
 .form-section {
   width: 100%;
   float: left;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
 
   .form-section-label {
     font-size: 18px;
@@ -528,70 +528,61 @@
     .ej-section-content {
       width: 100%;
       float: left;
+      margin-bottom: 11px;
 
       .editable-job {
         width: 100%;
         float: left;
+        margin: 7px 0;
+        position: relative;
+
+        .remove-btn {
+          color: #b0b0b8;
+          font-size: 29px;
+          font-family: Avenir-Next-Thin;
+          cursor: pointer;
+          display: inline-block;
+          position: absolute;
+          right: -30px;
+          top: 3px;
+
+          &:hover {
+            opacity: 0.8;
+          }
+
+          &:active {
+            opacity: 1;
+          }
+        }
       }
     }
 
     .ej-input-title {
       float: left;
       display: inline-block;
-      padding-top: 12px;
-      font-size: 17px;
+      padding-top: 14px;
+      font-size: 16px;
 
       &.dest {
-        width: 205px;
-      }
-
-      &.file {
-        width: 100px;
+        width: 195px;
       }
 
       &.lang {
-        width: 100px;
+        width: 95px;
       }
     }
 
     .dest-path {
-      width: calc(100% - 205px - 100px - 100px);
+      width: calc(100% - 195px - 286px - 17px);
       float: left;
       padding: 12px;
       display: inline-block;
       color: #333;
-      font-size: 17px;
-    }
-
-    div.dest-path {
-      border: none;
-    }
-
-    input.dest-path {
+      font-size: 16px;
       border-radius: 3px;
       border: 1px solid #eaeaea;
       box-shadow: none;
       outline: none;
-    }
-
-    .upload-file-btn {
-      display: inline-block;
-      width: 100px;
-      float: left;
-      background-color: #249cf2;
-      padding: 14px 0;
-      font-size: 15px;
-      color: #fff;
-      text-align: center;
-      cursor: pointer;
-
-      &:hover {
-        background-color: #269DF7;
-      }
-
-      &:active {
-        background-color: #249cf2;
-      }
     }
 
     .editable-library-input {
@@ -601,7 +592,7 @@
       display: inline-block;
       margin-left: 17px;
       color: #333;
-      font-size: 17px;
+      font-size: 16px;
       border-radius: 3px;
       border: 1px solid #eaeaea;
       box-shadow: none;
@@ -615,8 +606,66 @@
 
       .form-select {
         padding: 12px;
+        font-size: 16px;
+      }
+    }
+
+    .upload-file {
+      margin-left: 17px;
+      margin-top: 1px;
+    }
+
+    &.files {
+      .new-row-btn {
+        margin-bottom: 18px;
+        margin-top: 0;
       }
     }
   }
 
+}
+
+// width is 286px
+.upload-file {
+  display: inline-block;
+  float: left;
+
+  .upload-file-btn {
+    display: inline-block;
+    width: 106px;
+    border-radius: 3px;
+    float: left;
+    background-color: #d0d0d2;
+    padding: 14px 0;
+    font-size: 13px;
+    text-transform: uppercase;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #d4d4d8;
+    }
+
+    &:active {
+      background-color: #d0d0d2;
+    }
+  }
+
+  .file-name {
+    display: inline-block;
+    float: left;
+    width: 180px;
+    padding-top: 13px;
+    color: #333;
+    font-size: 14px;
+    padding-left: 15px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+    &.no-file {
+      color: #919191;
+    }
+  }
 }
