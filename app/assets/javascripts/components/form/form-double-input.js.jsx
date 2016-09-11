@@ -109,13 +109,14 @@ var FormDoubleInput = React.createClass({
 
   serialize: function (validate) {
     var self = this;
+    var data = [];
     var valid = true;
 
     if (validate == null) {
       validate = this.props.required;
     }
 
-    return _.map($(this.container).find('.form-double-input-row'), function (el, i) {
+    _.each($(this.container).find('.form-double-input-row'), function (el, i) {
       var inputs = $(el).find('.form-double-input');
       var $input1 = $(inputs[0]);
       var $input2 = $(inputs[1]);
@@ -132,15 +133,14 @@ var FormDoubleInput = React.createClass({
         valid = false;
       }
 
-      return {
-        valid: valid,
-        value: {
-          one: oneVal,
-          two: twoVal,
-          id: self.state.rows[i].id
-        }
-      };
+      data.push({
+        one: oneVal,
+        two: twoVal,
+        id: self.state.rows[i].id
+      });
     });
+
+    return { valid: valid, value: data };
   },
 
   render: function() {

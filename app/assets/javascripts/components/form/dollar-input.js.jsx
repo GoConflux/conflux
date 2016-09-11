@@ -28,7 +28,7 @@ var DollarInput = React.createClass({
   render: function() {
     return (
       <div className="dollar-input-container">
-        <input type="text" className={this.getClasses()} placeholder={this.props.placeholder} defaultValue={this.props.val} onKeyUp={this.onKeyUp} ref={this.setInputRef} />
+        <input type="text" className={this.getClasses()} placeholder={this.props.placeholder} defaultValue={this.props.val} onKeyUp={this.props.onKeyUp} ref={this.setInputRef} />
       </div>
     );
   }

@@ -167,6 +167,15 @@ var EditService = React.createClass({
     });
   },
 
+  formatConfigs: function (configs) {
+    return _.map(configs, function (data) {
+      return {
+        name: data.one,
+        description: data.two
+      };
+    });
+  },
+
   serialize: function () {
     var refsMap = {
       name: {
@@ -207,7 +216,8 @@ var EditService = React.createClass({
         ref: this.jobs
       },
       configs: {
-        ref: this.configs
+        ref: this.configs,
+        furtherFormat: this.formatConfigs
       },
       api: {
         ref: this.api
@@ -229,6 +239,7 @@ var EditService = React.createClass({
 
         payload[key] = value;
       } else {
+        console.log(key);
         invalidRefs.push(info.ref);
       }
     });
@@ -238,6 +249,8 @@ var EditService = React.createClass({
     if (firstInvalidRef) {
       this.scrollToRef(firstInvalidRef);
     }
+
+    return payload;
   },
 
   scrollToRef: function (el) {
@@ -247,11 +260,11 @@ var EditService = React.createClass({
   saveService: function () {
     var payload = this.serialize();
 
-    React.post('/addons/modify', _.extend(payload, { addon_uuid: this.props.addon_uuid }), {
-      success: function (data) {
-        window.location = data.url;
-      }
-    });
+    // React.post('/addons/modify', _.extend(payload, { addon_uuid: this.props.addon_uuid }), {
+    //   success: function (data) {
+    //     window.location = data.url;
+    //   }
+    // });
   },
   
   onPlanNameBlur: function (planName, planId) {
@@ -286,7 +299,7 @@ var EditService = React.createClass({
             <FormSection label={'Features'} required={true} description={'Add your service\'s features and their values for each plan.'} compData={this.featureData()} ref={this.setFeaturesRef}/>
             <FormSection label={'Jobs'} required={false} description={'Add any files or libraries you would like to be automatically added to users\' projects when provisioning your service. These "jobs" will help get users up and running with your service even quicker.'} compData={this.jobsData()} ref={this.setJobsRef}/>
             <FormSection label={'Config Vars'} required={false} description={this.configSectionDescription()} compData={this.configData()} ref={this.setConfigsRef}/>
-            <FormSection label={'API'} required={true} description={'Add the URLs that Conflux will use to interact with your service.'} compData={this.apiData()} ref={this.setApiRef}/>
+            <FormSection label={'API'} required={this.props.api_required} description={'Add the URLs that Conflux will use to interact with your service.'} compData={this.apiData()} ref={this.setApiRef}/>
           </div>
           <div className="edit-service-footer">
             <div className="save-service-btn" onClick={this.saveService}>Save Service</div>

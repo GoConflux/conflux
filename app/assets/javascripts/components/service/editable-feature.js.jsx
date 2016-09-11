@@ -1,9 +1,5 @@
 var EditableFeature = React.createClass({
 
-  setEditableFeatureRef: function (ref) {
-    this.editableFeature = ref;
-  },
-
   setFeatureRef: function (ref) {
     this.feature = ref;
   },
@@ -16,14 +12,6 @@ var EditableFeature = React.createClass({
     this.headlineFeature = ref;
   },
 
-  setCheckmarkInputRef: function (ref) {
-    this.checkmarkInput = ref;
-  },
-
-  setValueInputRef: function (ref) {
-    this.valueInput = ref;
-  },
-
   getPlans: function () {
     var self = this;
 
@@ -34,9 +22,9 @@ var EditableFeature = React.createClass({
 
       if (value == 'CHECK') {
         checkMarkClasses.push('checked');
-        input = <input type="text" key={Math.random()} className="feature-value" placeholder="Value" onKeyUp={self.removeInvalid} ref={self.setValueInputRef} disabled="disabled"/>;
+        input = <input type="text" key={Math.random()} className="feature-value" placeholder="Value" disabled="disabled"/>;
       } else {
-        input = <input type="text" key={Math.random()} className="feature-value" defaultValue={value} placeholder="Value" onKeyUp={self.removeInvalid} ref={self.setValueInputRef} />;
+        input = <input type="text" key={Math.random()} className="feature-value" defaultValue={value} placeholder="Value"/>;
       }
 
       return <div className="feature-for-plan" key={Math.random()}><div className="plan-name">{plan.name}:</div><div className="feature-value-container"><Checkbox label={'Checkmark'} customClasses={checkMarkClasses} clickHandler={self.onCheckmarkClick} /><span className="or">OR</span>{input}</div></div>
@@ -44,7 +32,6 @@ var EditableFeature = React.createClass({
   },
 
   onCheckmarkClick: function (e, checked) {
-    this.removeInvalid();
     var $row = $(e.target).closest('.feature-for-plan');
     var $input = $row.find('.feature-value');
     checked ? this.disableInput($input) : this.enableInput($input);
@@ -69,16 +56,12 @@ var EditableFeature = React.createClass({
     _.map($(this.plansContainer).children(), function (el, i) {
       var val;
       // if check feature is selected, return 'CHECK' as the value
-      if ($(el).find('[name=check-feature]').is(':checked')) {
+      if ($(el).find('.feature-included').hasClass('checked')) {
         val = 'CHECK';
       }
       // otherwise, use the value from the feature-value input
       else {
         val = $(el).find('.feature-value').val().trim();
-      }
-
-      if (validate && _.isEmpty(val)) {
-        valid = false;
       }
 
       values[planIds[i]] = val;
@@ -91,14 +74,11 @@ var EditableFeature = React.createClass({
 
     if (validate && _.isEmpty(data.feature)) {
       valid = false;
+      $(this.feature).addClass('invalid');
     }
 
-    if ($(this.headlineFeature).is(':checked')) {
+    if ($(this.headlineFeature).find('.headline-feature').hasClass('checked')) {
       data.headlineFeature = true;
-    }
-
-    if (!valid) {
-      $(this.editableFeature).addClass('invalid');
     }
 
     return { valid: valid, value: data };
@@ -109,7 +89,7 @@ var EditableFeature = React.createClass({
   },
 
   removeInvalid: function () {
-    $(this.editableFeature).removeClass('invalid');
+    $(this.feature).removeClass('invalid');
   },
 
   editableFeatureClasses: function () {
@@ -124,10 +104,10 @@ var EditableFeature = React.createClass({
 
   render: function() {
     return (
-      <div className={this.editableFeatureClasses()} ref={this.setEditableFeatureRef}>
+      <div className={this.editableFeatureClasses()}>
         <div className="feature-name-container">
           <input type="text" className="feature-name" placeholder="Feature" defaultValue={this.props.feature.feature} onKeyUp={this.removeInvalid} ref={this.setFeatureRef}/>
-          <Checkbox label={'Headline Feature'} customClasses={['headline-feature']} />
+          <Checkbox label={'Headline Feature'} customClasses={['headline-feature']} ref={this.setHeadlineFeatureRef} />
           <span className="remove-btn" onClick={this.removeFeature}>&times;</span>
         </div>
         <div className="plans-container" ref={this.setPlansContainerRef}>{this.getPlans()}</div>

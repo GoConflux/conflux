@@ -9,6 +9,10 @@ var EditableJob = React.createClass({
     ruby: 'Gem'
   },
 
+  setEditableJobContainerRef: function (ref) {
+    this.editableJobContainer = ref;
+  },
+
   libNamePlaceholder: function (lang) {
     var type = this.langNameType[lang];
     return type ? (type + ' name') : 'Name';
@@ -55,12 +59,16 @@ var EditableJob = React.createClass({
 
     switch (job.action) {
       case this.jobTypes.newFile:
-        return <div className="editable-job"><div className="ej-input-title dest">Project Destination Path:</div><input className="dest-path" defaultValue={job.asset.path} placeholder="Ex: config/initializers/my_file.rb" ref={this.setDestPathRef}/><UploadFileButton fileName={this.stripFileName(job.asset.contents)} ref={this.setFileUploaderRef} /><div className="remove-btn" onClick={this.onRemove}>&times;</div></div>;
+        return <div className="editable-job"><div className="ej-input-title dest">Project Destination Path:</div><input className="dest-path" defaultValue={job.asset.path} placeholder="Ex: config/initializers/my_file.rb" onKeyUp={this.removeInvalid} ref={this.setDestPathRef}/><UploadFileButton clickHandler={this.removeInvalid} fileName={this.stripFileName(job.asset.contents)} ref={this.setFileUploaderRef} /><div className="remove-btn" onClick={this.onRemove}>&times;</div></div>;
         break;
       case this.jobTypes.newLibrary:
-        return <div className="editable-job"><div className="ej-input-title lang">Language:</div><FormSelect required={true} data={this.langSelectData()} ref={this.setLangSelectRef} /><input type="text" className="editable-library-input" placeholder={this.libNamePlaceholder(job.asset.lang)} defaultValue={job.asset.name} ref={this.setLibraryNameRef}/><input type="text" className="editable-library-input" placeholder="Ex: ~> 1.2.0" defaultValue={job.asset.version} ref={this.setLibraryVersionRef}/><div className="remove-btn" onClick={this.onRemove}>&times;</div></div>;
+        return <div className="editable-job"><div className="ej-input-title lang">Language:</div><FormSelect required={true} data={this.langSelectData()} ref={this.setLangSelectRef} /><input type="text" className="editable-library-input" placeholder={this.libNamePlaceholder(job.asset.lang)} defaultValue={job.asset.name} onKeyUp={this.removeInvalid} ref={this.setLibraryNameRef}/><input type="text" className="editable-library-input" placeholder="Ex: ~> 1.2.0" defaultValue={job.asset.version} onKeyUp={this.removeInvalid} ref={this.setLibraryVersionRef}/><div className="remove-btn" onClick={this.onRemove}>&times;</div></div>;
         break;
     }
+  },
+
+  removeInvalid: function () {
+    $(this.editableJobContainer).removeClass('invalid');
   },
 
   onRemove: function () {
@@ -70,6 +78,8 @@ var EditableJob = React.createClass({
   },
 
   serialize: function () {
+    var valid = true;
+
     var data = {
       action: this.props.data.action,
       id: this.props.data.id
@@ -77,26 +87,46 @@ var EditableJob = React.createClass({
 
     switch (data.action) {
       case this.jobTypes.newFile:
+        var path = $(this.destPath).val().trim();
+        var contents = this.fileUploader.getFile();
+
+        if (_.isEmpty(path) || !contents) {
+          valid = false;
+        }
+
         data.asset = {
-          path: $(this.destPath).val().trim(),
-          contents: this.fileUploader.getFile()
+          path: path,
+          contents: contents
         };
+
         break;
       case this.jobTypes.newLibrary:
+        var name = $(this.libraryName).val().trim();
+        var version = $(this.libraryVersion).val().trim();
+
+        if (_.isEmpty(name) || _.isEmpty(version)) {
+          valid = false;
+        }
+
         data.asset = {
           lang: this.langSelect.serialize().value,
-          name: $(this.libraryName).val().trim(),
-          version: $(this.libraryVersion).val().trim()
+          name: name,
+          version: version
         };
+
         break;
     }
 
-    return data;
+    if (!valid) {
+      $(this.editableJobContainer).addClass('invalid');
+    }
+
+    return { valid: valid, value: data };
   },
 
   render: function() {
     return (
-      <div className="editable-job-container">
+      <div className="editable-job-container" ref={this.setEditableJobContainerRef}>
         {this.formatJob()}
       </div>
     );

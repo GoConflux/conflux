@@ -78,7 +78,7 @@ var EditableJobs = React.createClass({
   },
 
   onNewJob: function (type) {
-    var jobs = this.serialize();
+    var jobs = this.serialize().value;
     var newJob = this.newJob(type);
     var newJobs = _.clone(jobs);
     newJobs[newJob.id] = newJob;
@@ -94,7 +94,7 @@ var EditableJobs = React.createClass({
   },
 
   onRemoveJob: function (id) {
-    var jobs = this.serialize();
+    var jobs = this.serialize().value;
     var newJobs = _.clone(jobs);
     delete newJobs[id];
     this.setState({ jobs: newJobs });
@@ -102,15 +102,23 @@ var EditableJobs = React.createClass({
 
   serialize: function () {
     var jobsMap = {};
+    var valid = true;
 
     _.each((this.jobRefs || []), function (job) {
-      var data = job.serialize();
+      var jobInfo = job.serialize();
+      var data = jobInfo.value;
+
+      if (!jobInfo.valid) {
+        valid = false;
+      }
+
       var jobId = data.id;
       delete data.id;
+
       jobsMap[jobId] = data;
     });
 
-    return jobsMap;
+    return { valid: valid, value: jobsMap };
   },
 
   render: function() {

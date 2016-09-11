@@ -169,6 +169,10 @@
     &.with-title {
       width: calc(100% - 110px);
     }
+
+    &.invalid {
+      border: 1px solid $invalid;
+    }
   }
 }
 
@@ -191,12 +195,21 @@
     background-color: white;
     background: url("https://ds8ypexjwou5.cloudfront.net/images/big-select-arrows.svg") right 20px center no-repeat;
     background-size: 12px;
+
+    &.invalid {
+      border: 1px solid $invalid;
+    }
   }
 }
 
 .editable-markdown {
   float: left;
   width: 100%;
+  border-radius: 3px;
+
+  &.invalid {
+    border: 1px solid $invalid;
+  }
 
   .markdown-editor-container,
   .markdown-preview-container {
@@ -271,6 +284,10 @@
       &.config-description {
         width: calc(60% - 5px);
       }
+
+      &.invalid {
+        border: 1px solid $invalid;
+      }
     }
 
     .dollar-input-container {
@@ -323,6 +340,10 @@
   &:active {
     background-color: #249cf2;
   }
+
+  &.invalid {
+    border: 1px solid red;
+  }
 }
 
 .editable-features {
@@ -359,6 +380,10 @@
         font-size: 17px;
         box-shadow: none;
         outline: none;
+
+        &.invalid {
+          border: 1px solid $invalid;
+        }
       }
 
       .headline-feature {
@@ -691,6 +716,10 @@
     float: left;
     display: inline-block;
     max-width: 250px;
+
+    &.invalid {
+      border: 1px solid $invalid;
+    }
   }
 
   .upload-file-btn {

@@ -9,9 +9,20 @@ var EditableApi = React.createClass({
   },
 
   serialize: function () {
+    var valid = true;
+    var baseUrlInfo = this.baseUrl.serialize();
+    var ssoUrlInfo = this.ssoUrl.serialize();
+
+    if (this.props.required && !baseUrlInfo.valid || !ssoUrlInfo.valid) {
+      valid = false;
+    }
+
     return {
-      base_url: this.baseUrl.serialize().value,
-      sso_url: this.ssoUrl.serialize().value
+      valid: valid,
+      value: {
+        base_url: baseUrlInfo.value,
+        sso_url: ssoUrlInfo.value
+      }
     };
   },
 

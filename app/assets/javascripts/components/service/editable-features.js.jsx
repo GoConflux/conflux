@@ -2,8 +2,8 @@ var EditableFeatures = React.createClass({
 
   featureRefs: [],
 
-  setEditableFeaturesRef: function (ref) {
-    this.editableFeatures = ref;
+  setNewRowBtnRef: function (ref) {
+    this.newRowBtn = ref;
   },
 
   getInitialState: function () {
@@ -88,7 +88,7 @@ var EditableFeatures = React.createClass({
   addNewFeature: function () {
     var features = this.serialize(false).value;
     features.push(this.emptyFeature());
-    $(this.editableFeatures).removeClass('invalid');
+    this.removeInvalid();
     this.setState({ features: features, plans: this.state.plans });
   },
 
@@ -118,17 +118,25 @@ var EditableFeatures = React.createClass({
     });
 
     if (validate && _.isEmpty(data)) {
-      $(this.editableFeatures).addClass('invalid');
+      this.showInvalid();
     }
 
     return { valid: valid, value: data };
   },
 
+  showInvalid: function () {
+    $(this.newRowBtn).addClass('invalid');
+  },
+
+  removeInvalid: function () {
+    $(this.newRowBtn).removeClass('invalid');
+  },
+
   render: function() {
     return (
-      <div className="editable-features" ref={this.setEditableFeaturesRef}>
+      <div className="editable-features">
         {this.getFeatures()}
-        <div className="new-row-btn" onClick={this.addNewFeature}>New Feature</div>
+        <div className="new-row-btn" onClick={this.addNewFeature} ref={this.setNewRowBtnRef}>New Feature</div>
       </div>
     );
   }

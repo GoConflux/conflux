@@ -87,6 +87,7 @@ module AddonsHelper
         description: addon.description,
         plans: plans,
         features: features,
+        api_required: !addon.is_heroku_dependent?,
         categories: AddonCategory.all.order('category').map { |c|
           {
             value: c.uuid,
