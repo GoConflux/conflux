@@ -55,11 +55,17 @@ var EditableJob = React.createClass({
 
     switch (job.action) {
       case this.jobTypes.newFile:
-        return <div className="editable-job"><div className="ej-input-title dest">Project Destination Path:</div><input className="dest-path" defaultValue={job.asset.path} placeholder="Ex: config/initializers/my_file.rb" ref={this.setDestPathRef}/><UploadFileButton fileName={this.stripFileName(job.asset.contents)} ref={this.setFileUploaderRef} /><div className="remove-btn">&times;</div></div>;
+        return <div className="editable-job"><div className="ej-input-title dest">Project Destination Path:</div><input className="dest-path" defaultValue={job.asset.path} placeholder="Ex: config/initializers/my_file.rb" ref={this.setDestPathRef}/><UploadFileButton fileName={this.stripFileName(job.asset.contents)} ref={this.setFileUploaderRef} /><div className="remove-btn" onClick={this.onRemove}>&times;</div></div>;
         break;
       case this.jobTypes.newLibrary:
-        return <div className="editable-job"><div className="ej-input-title lang">Language:</div><FormSelect required={true} data={this.langSelectData()} ref={this.setLangSelectRef} /><input type="text" className="editable-library-input" placeholder={this.libNamePlaceholder(job.asset.lang)} defaultValue={job.asset.name} ref={this.setLibraryNameRef}/><input type="text" className="editable-library-input" placeholder="Ex: ~> 1.2.0" defaultValue={job.asset.version} ref={this.setLibraryVersionRef}/><div className="remove-btn">&times;</div></div>;
+        return <div className="editable-job"><div className="ej-input-title lang">Language:</div><FormSelect required={true} data={this.langSelectData()} ref={this.setLangSelectRef} /><input type="text" className="editable-library-input" placeholder={this.libNamePlaceholder(job.asset.lang)} defaultValue={job.asset.name} ref={this.setLibraryNameRef}/><input type="text" className="editable-library-input" placeholder="Ex: ~> 1.2.0" defaultValue={job.asset.version} ref={this.setLibraryVersionRef}/><div className="remove-btn" onClick={this.onRemove}>&times;</div></div>;
         break;
+    }
+  },
+
+  onRemove: function () {
+    if (this.props.onRemove) {
+      this.props.onRemove(this.props.data.id);
     }
   },
 
