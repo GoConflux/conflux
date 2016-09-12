@@ -1,5 +1,71 @@
 var EditService = React.createClass({
 
+  params: [
+    'name',
+    'category_uuid',
+    'url',
+    'facebook_url',
+    'twitter_url',
+    'github_url',
+    'icon',
+    'tagline',
+    'description',
+    'plans',
+    'features',
+    'jobs',
+    'configs',
+    'api'
+  ],
+
+  getRefSection: function (param) {
+    return {
+      name: {
+        ref: this.name
+      },
+      category_uuid: {
+        ref: this.category
+      },
+      url: {
+        ref: this.url
+      },
+      facebook_url: {
+        ref: this.facebookUrl
+      },
+      twitter_url: {
+        ref: this.twitterUrl
+      },
+      github_url: {
+        ref: this.githubUrl
+      },
+      icon: {
+        ref: this.icon
+      },
+      tagline: {
+        ref: this.tagline
+      },
+      description: {
+        ref: this.description
+      },
+      plans: {
+        ref: this.plans,
+        furtherFormat: this.formatPlans
+      },
+      features: {
+        ref: this.features
+      },
+      jobs: {
+        ref: this.jobs
+      },
+      configs: {
+        ref: this.configs,
+        furtherFormat: this.formatConfigs
+      },
+      api: {
+        ref: this.api
+      }
+    }[param];
+  },
+
   setNameRef: function (ref) {
     this.name = ref;
   },
@@ -177,59 +243,15 @@ var EditService = React.createClass({
   },
 
   serialize: function () {
-    var refsMap = {
-      name: {
-        ref: this.name
-      },
-      category_uuid: {
-        ref: this.category
-      },
-      url: {
-        ref: this.url
-      },
-      facebook_url: {
-        ref: this.facebookUrl
-      },
-      twitter_url: {
-        ref: this.twitterUrl
-      },
-      github_url: {
-        ref: this.githubUrl
-      },
-      icon: {
-        ref: this.icon
-      },
-      tagline: {
-        ref: this.tagline
-      },
-      description: {
-        ref: this.description
-      },
-      plans: {
-        ref: this.plans,
-        furtherFormat: this.formatPlans
-      },
-      features: {
-        ref: this.features
-      },
-      jobs: {
-        ref: this.jobs
-      },
-      configs: {
-        ref: this.configs,
-        furtherFormat: this.formatConfigs
-      },
-      api: {
-        ref: this.api
-      }
-    };
+    return this.serializeSection(0, {}, []);
+  },
 
-    var payload = {};
-    var invalidRefs = [];
+  serializeSection: function (index, payload, invalidRefs) {
+    var self = this;
+    var key = this.params[index];
+    var info = this.getRefSection(key);
 
-    _.each(refsMap, function (info, key) {
-      var data = info.ref.serialize();
-
+    info.ref.serialize(function (data) {
       if (data.valid) {
         var value = data.value;
 
@@ -241,15 +263,21 @@ var EditService = React.createClass({
       } else {
         invalidRefs.push(info.ref);
       }
+
+      if (index == self.params.length - 1) {
+        var firstInvalidRef = invalidRefs.shift();
+
+        if (firstInvalidRef) {
+          this.scrollToRef(firstInvalidRef);
+        }
+
+        return payload;
+
+      } else {
+        index++;
+        self.serializeSection(index, payload, invalidRefs);
+      }
     });
-
-    var firstInvalidRef = invalidRefs.shift();
-
-    if (firstInvalidRef) {
-      this.scrollToRef(firstInvalidRef);
-    }
-
-    return payload;
   },
 
   scrollToRef: function (ref) {

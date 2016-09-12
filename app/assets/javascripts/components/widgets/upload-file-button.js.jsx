@@ -11,7 +11,7 @@ var UploadFileButton = React.createClass({
   getFileNameClasses: function () {
     var classes = 'file-name';
 
-    if (!this.props.fileName) {
+    if (!this.props.defaultFile) {
       classes += ' no-file';
     }
 
@@ -26,7 +26,8 @@ var UploadFileButton = React.createClass({
     var file = this.fileInput.files[0];
 
     if (!file) {
-      return null;
+      cb(this.props.defaultFile);
+      return;
     }
 
     var fr = new FileReader();
@@ -50,6 +51,10 @@ var UploadFileButton = React.createClass({
     return (this.fileInput.files[0] || {}).name || 'No file selected';
   },
 
+  defaultFileName: function () {
+    return (this.props.defaultFile || '').split('/').pop() || 'No file selected';
+  },
+
   onFileChange: function () {
     $(this.fileName).html(this.getFileName());
 
@@ -65,7 +70,7 @@ var UploadFileButton = React.createClass({
           <span>{this.props.btnText || 'Upload File'}</span>
           <input type="file" accept={this.getAcceptedFileTypes()} className="file-input" onChange={this.onFileChange} ref={this.setFileInputRef}/>
         </div>
-        <div className={this.getFileNameClasses()} ref={this.setFileNameRef}>{this.props.fileName || 'No file selected'}</div>
+        <div className={this.getFileNameClasses()} ref={this.setFileNameRef}>{this.defaultFileName()}</div>
       </div>
     );
   }

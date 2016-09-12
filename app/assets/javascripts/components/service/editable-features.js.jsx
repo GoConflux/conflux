@@ -29,7 +29,7 @@ var EditableFeatures = React.createClass({
   },
 
   removePlan: function (planId) {
-    var features = this.serialize(false).value;
+    var features = this.serialize(null, false).value;
     var plans = _.clone(this.state.plans);
 
     var planIndex = _.findIndex(plans, function (plan) {
@@ -46,7 +46,7 @@ var EditableFeatures = React.createClass({
   },
 
   addPlan: function (planId) {
-    var features = this.serialize(false).value;
+    var features = this.serialize(null, false).value;
     var plans = _.clone(this.state.plans);
 
     plans.push({ id: planId, name: 'Untitled' });
@@ -70,7 +70,7 @@ var EditableFeatures = React.createClass({
       }
     });
 
-    this.setState({ features: this.serialize(false).value, plans: plans });
+    this.setState({ features: this.serialize(null, false).value, plans: plans });
   },
 
   emptyFeature: function () {
@@ -88,19 +88,19 @@ var EditableFeatures = React.createClass({
   },
 
   addNewFeature: function () {
-    var features = this.serialize(false).value;
+    var features = this.serialize(null, false).value;
     features.push(this.emptyFeature());
     this.removeInvalid();
     this.setState({ features: features, plans: this.state.plans });
   },
 
   removeFeature: function (index) {
-    var features = this.serialize(false).value;
+    var features = this.serialize(null, false).value;
     features.splice(index, 1);
     this.setState({ features: features, plans: this.state.plans });
   },
 
-  serialize: function (validate) {
+  serialize: function (cb, validate) {
     var data = [];
     var valid = true;
 
@@ -123,7 +123,13 @@ var EditableFeatures = React.createClass({
       this.showInvalid();
     }
 
-    return { valid: valid, value: data };
+    var payload = { valid: valid, value: data };
+
+    if (!cb) {
+      return payload;
+    }
+
+    cb(payload);
   },
 
   showInvalid: function () {

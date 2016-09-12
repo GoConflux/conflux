@@ -53,7 +53,7 @@ var EditableMarkdown = React.createClass({
     $(this.editableMarkdown).addClass('invalid');
   },
 
-  serialize: function () {
+  serialize: function (cb) {
     var valid = true;
     var value = this.state.preview ? this.cachedMarkdown : $(this.editor).val().trim();
 
@@ -62,7 +62,13 @@ var EditableMarkdown = React.createClass({
       this.showInvalid();
     }
 
-    return { valid: valid, value: value };
+    var data = { valid: valid, value: value };
+
+    if (!cb) {
+      return data;
+    }
+
+    cb(data);
   },
   
   render: function() {

@@ -4,20 +4,28 @@ var UploadIcon = React.createClass({
     this.icon = ref;
   },
 
+  setUploaderRef: function (ref) {
+    this.iconUploader = ref;
+  },
+
   getIcon: function () {
     return this.props.data.icon || 'no-icon-url'; // add this
   },
 
-  serialize: function () {
+  serialize: function (cb) {
+    var self = this;
     var valid = true;
-    var value = null; // set this to the file picker file.
 
-    if (this.props.required && _.isEmpty(value)) {
-      valid = false;
-      this.showInvalid();
-    }
+    var fileCb = function (file) {
+      if (self.props.required && _.isEmpty(file)) {
+        valid = false;
+        self.showInvalid();
+      }
 
-    return { valid: valid, value: value };
+      cb({ valid: valid, value: file });
+    };
+
+    this.iconUploader.getFile(fileCb);
   },
 
   showInvalid: function () {
@@ -39,7 +47,7 @@ var UploadIcon = React.createClass({
           <img src={this.getIcon()} className="icon-preview" ref={this.setIconRef} />
         </div>
         <div className="icon-upload-container">
-          <UploadFileButton btnText={'Upload Icon'} image={true} fileName={(this.props.data.icon || '').split('/').pop()} onFileChange={this.onIconChange} clickHandler={this.removeInvalid} />
+          <UploadFileButton btnText={'Upload Icon'} image={true} defaultFile={this.props.data.icon} onFileChange={this.onIconChange} clickHandler={this.removeInvalid} ref={this.setUploaderRef} />
         </div>
       </div>
     );

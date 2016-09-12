@@ -89,8 +89,10 @@ var FormSection = React.createClass({
     }
   },
 
-  serialize: function () {
-    return this.comp.serialize ? this.comp.serialize() : {};
+  serialize: function (cb) {
+    this.comp.serialize(function (data) {
+      cb(data);
+    });
   },
 
   render: function() {

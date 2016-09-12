@@ -100,7 +100,7 @@ var EditableJobs = React.createClass({
     this.setState({ jobs: newJobs });
   },
 
-  serialize: function () {
+  serialize: function (cb) {
     var jobsMap = {};
     var valid = true;
 
@@ -118,7 +118,13 @@ var EditableJobs = React.createClass({
       jobsMap[jobId] = data;
     });
 
-    return { valid: valid, value: jobsMap };
+    var payload = { valid: valid, value: jobsMap };
+
+    if (!cb) {
+      return payload;
+    }
+
+    cb(payload);
   },
 
   render: function() {

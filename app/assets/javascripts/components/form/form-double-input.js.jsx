@@ -66,7 +66,7 @@ var FormDoubleInput = React.createClass({
 
   removeRow: function (e) {
     var index = $(e.target).closest('.form-double-input-row').index();
-    var rowsData = this.serialize(false).value;
+    var rowsData = this.serialize(null, false).value;
     var removedRow = rowsData.splice(index, 1);
 
     if (this.props.onRemoveRow) {
@@ -97,7 +97,7 @@ var FormDoubleInput = React.createClass({
   },
 
   addNewRow: function () {
-    var rowsData = this.serialize(false).value;
+    var rowsData = this.serialize(null, false).value;
     var emptyRowData = this.emptyRow();
 
     rowsData.push(emptyRowData);
@@ -111,7 +111,7 @@ var FormDoubleInput = React.createClass({
     }
   },
 
-  serialize: function (validate) {
+  serialize: function (cb, validate) {
     var self = this;
     var data = [];
     var valid = true;
@@ -148,7 +148,13 @@ var FormDoubleInput = React.createClass({
       $(this.newRowBtn).addClass('invalid');
     }
 
-    return { valid: valid, value: data };
+    var payload = { valid: valid, value: data };
+
+    if (!cb) {
+      return payload;
+    }
+
+    cb(payload);
   },
 
   render: function() {

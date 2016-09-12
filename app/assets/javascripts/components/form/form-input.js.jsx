@@ -4,7 +4,7 @@ var FormInput = React.createClass({
     this.input = ref;
   },
 
-  serialize: function () {
+  serialize: function (cb) {
     var valid = true;
     var value = $(this.input).val().trim();
 
@@ -13,7 +13,13 @@ var FormInput = React.createClass({
       this.showInvalid();
     }
 
-    return { valid: valid, value: value };
+    var data = { valid: valid, value: value };
+
+    if (!cb) {
+      return data;
+    }
+
+    cb(data);
   },
 
   showInvalid: function () {
