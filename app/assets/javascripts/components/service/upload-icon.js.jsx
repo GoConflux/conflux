@@ -28,6 +28,10 @@ var UploadIcon = React.createClass({
     $(this.icon).removeClass('invalid');
   },
 
+  onIconChange: function (file) {
+    $(this.icon).attr('src', file);
+  },
+
   render: function() {
     return (
       <div className="upload-icon">
@@ -35,7 +39,7 @@ var UploadIcon = React.createClass({
           <img src={this.getIcon()} className="icon-preview" ref={this.setIconRef} />
         </div>
         <div className="icon-upload-container">
-          <UploadFileButton btnText={'Upload Icon'} fileName={(this.props.data.icon || '').split('/').pop()} clickHandler={this.removeInvalid} />
+          <UploadFileButton btnText={'Upload Icon'} image={true} fileName={(this.props.data.icon || '').split('/').pop()} onFileChange={this.onIconChange} clickHandler={this.removeInvalid} />
         </div>
       </div>
     );
