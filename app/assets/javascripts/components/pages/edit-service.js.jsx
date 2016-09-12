@@ -239,7 +239,6 @@ var EditService = React.createClass({
 
         payload[key] = value;
       } else {
-        console.log(key);
         invalidRefs.push(info.ref);
       }
     });
@@ -253,8 +252,10 @@ var EditService = React.createClass({
     return payload;
   },
 
-  scrollToRef: function (el) {
-    $('html, body').animate({ scrollTop: $(el).offset().top }, 500);
+  scrollToRef: function (ref) {
+    var el = ReactDOM.findDOMNode(ref);
+    var pos = $(el).offset().top - 15;
+    $('html, body').animate({ scrollTop: pos }, 600);
   },
 
   saveService: function () {

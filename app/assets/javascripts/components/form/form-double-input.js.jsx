@@ -10,6 +10,10 @@ var FormDoubleInput = React.createClass({
     this.container = ref;
   },
 
+  setNewRowBtnRef: function (ref) {
+    this.newRowBtn = ref;
+  },
+
   getRows: function () {
     var self = this;
 
@@ -62,14 +66,14 @@ var FormDoubleInput = React.createClass({
 
   removeRow: function (e) {
     var index = $(e.target).closest('.form-double-input-row').index();
-    var newRowData = _.clone(this.state.rows);
-    var removedRow = newRowData.splice(index, 1);
+    var rowsData = this.serialize(false).value;
+    var removedRow = rowsData.splice(index, 1);
 
     if (this.props.onRemoveRow) {
       this.props.onRemoveRow(removedRow[0].id);
     }
 
-    this.setState({ rows: newRowData });
+    this.setState({ rows: rowsData });
   },
 
   colClasses: function (colIndex) {
@@ -85,13 +89,11 @@ var FormDoubleInput = React.createClass({
   },
 
   emptyRow: function () {
-    return [
-      {
-        one: '',
-        two: '',
-        id: Math.round(Math.random() * 1000000)
-      }
-    ];
+    return {
+      one: '',
+      two: '',
+      id: Math.round(Math.random() * 1000000)
+    };
   },
 
   addNewRow: function () {
@@ -99,6 +101,8 @@ var FormDoubleInput = React.createClass({
     var emptyRowData = this.emptyRow();
 
     rowsData.push(emptyRowData);
+
+    $(this.newRowBtn).removeClass('invalid');
 
     this.setState({ rows: rowsData });
 
@@ -140,6 +144,10 @@ var FormDoubleInput = React.createClass({
       });
     });
 
+    if (validate && _.isEmpty(data)) {
+      $(this.newRowBtn).addClass('invalid');
+    }
+
     return { valid: valid, value: data };
   },
 
@@ -147,7 +155,7 @@ var FormDoubleInput = React.createClass({
     return (
       <div className="form-double-input-container" ref={this.setContainerRef}>
         <div className="rows">{this.getRows()}</div>
-        <div className="new-row-btn" onClick={this.addNewRow}>{this.props.data.newRowName || 'New Row'}</div>
+        <div className="new-row-btn" onClick={this.addNewRow} ref={this.setNewRowBtnRef}>{this.props.data.newRowName || 'New Row'}</div>
       </div>
     );
   }

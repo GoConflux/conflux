@@ -55,6 +55,8 @@ var EditableFeatures = React.createClass({
       feature.values[planId] = '';
     });
 
+    console.log(plans);
+
     this.setState({ features: features, plans: plans });
   },
 

@@ -563,6 +563,10 @@
         margin: 7px 0;
         position: relative;
 
+        &.invalid {
+          border: 1px solid $invalid;
+        }
+
         .remove-btn {
           color: #b0b0b8;
           font-size: 29px;

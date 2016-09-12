@@ -9,8 +9,8 @@ var EditableJob = React.createClass({
     ruby: 'Gem'
   },
 
-  setEditableJobContainerRef: function (ref) {
-    this.editableJobContainer = ref;
+  setEditableJobRef: function (ref) {
+    this.editableJob = ref;
   },
 
   libNamePlaceholder: function (lang) {
@@ -59,16 +59,16 @@ var EditableJob = React.createClass({
 
     switch (job.action) {
       case this.jobTypes.newFile:
-        return <div className="editable-job"><div className="ej-input-title dest">Project Destination Path:</div><input className="dest-path" defaultValue={job.asset.path} placeholder="Ex: config/initializers/my_file.rb" onKeyUp={this.removeInvalid} ref={this.setDestPathRef}/><UploadFileButton clickHandler={this.removeInvalid} fileName={this.stripFileName(job.asset.contents)} ref={this.setFileUploaderRef} /><div className="remove-btn" onClick={this.onRemove}>&times;</div></div>;
+        return <div className="editable-job" ref={this.setEditableJobRef}><div className="ej-input-title dest">Project Destination Path:</div><input className="dest-path" defaultValue={job.asset.path} placeholder="Ex: config/initializers/my_file.rb" onKeyUp={this.removeInvalid} ref={this.setDestPathRef}/><UploadFileButton clickHandler={this.removeInvalid} fileName={this.stripFileName(job.asset.contents)} ref={this.setFileUploaderRef} /><div className="remove-btn" onClick={this.onRemove}>&times;</div></div>;
         break;
       case this.jobTypes.newLibrary:
-        return <div className="editable-job"><div className="ej-input-title lang">Language:</div><FormSelect required={true} data={this.langSelectData()} ref={this.setLangSelectRef} /><input type="text" className="editable-library-input" placeholder={this.libNamePlaceholder(job.asset.lang)} defaultValue={job.asset.name} onKeyUp={this.removeInvalid} ref={this.setLibraryNameRef}/><input type="text" className="editable-library-input" placeholder="Ex: ~> 1.2.0" defaultValue={job.asset.version} onKeyUp={this.removeInvalid} ref={this.setLibraryVersionRef}/><div className="remove-btn" onClick={this.onRemove}>&times;</div></div>;
+        return <div className="editable-job" ref={this.setEditableJobRef}><div className="ej-input-title lang">Language:</div><FormSelect required={true} data={this.langSelectData()} ref={this.setLangSelectRef} /><input type="text" className="editable-library-input" placeholder={this.libNamePlaceholder(job.asset.lang)} defaultValue={job.asset.name} onKeyUp={this.removeInvalid} ref={this.setLibraryNameRef}/><input type="text" className="editable-library-input" placeholder="Ex: ~> 1.2.0" defaultValue={job.asset.version} onKeyUp={this.removeInvalid} ref={this.setLibraryVersionRef}/><div className="remove-btn" onClick={this.onRemove}>&times;</div></div>;
         break;
     }
   },
 
   removeInvalid: function () {
-    $(this.editableJobContainer).removeClass('invalid');
+    $(this.editableJob).removeClass('invalid');
   },
 
   onRemove: function () {
@@ -118,7 +118,7 @@ var EditableJob = React.createClass({
     }
 
     if (!valid) {
-      $(this.editableJobContainer).addClass('invalid');
+      $(this.editableJob).addClass('invalid');
     }
 
     return { valid: valid, value: data };
@@ -126,7 +126,7 @@ var EditableJob = React.createClass({
 
   render: function() {
     return (
-      <div className="editable-job-container" ref={this.setEditableJobContainerRef}>
+      <div className="editable-job-container">
         {this.formatJob()}
       </div>
     );
