@@ -77,7 +77,8 @@ var EditableJob = React.createClass({
     }
   },
 
-  serialize: function () {
+  serialize: function (cb) {
+    var self = this;
     var valid = true;
 
     var data = {
@@ -85,19 +86,35 @@ var EditableJob = React.createClass({
       id: this.props.data.id
     };
 
+    var response = function (valid, data) {
+      if (!valid) {
+        $(self.editableJob).addClass('invalid');
+      }
+
+      var payload = { valid: valid, value: data };
+
+      if (!cb) {
+        return payload;
+      }
+
+      cb(payload);
+    };
+
     switch (data.action) {
       case this.jobTypes.newFile:
-        var path = $(this.destPath).val().trim();
-        var contents = this.fileUploader.getFile();
+        this.fileUploader.getFile(function (contents) {
+          var path = $(self.destPath).val().trim();
+          if (_.isEmpty(path) || !contents) {
+            valid = false;
+          }
 
-        if (_.isEmpty(path) || !contents) {
-          valid = false;
-        }
+          data.asset = {
+            path: path,
+            contents: contents
+          };
 
-        data.asset = {
-          path: path,
-          contents: contents
-        };
+          response(valid, data);
+        });
 
         break;
       case this.jobTypes.newLibrary:
@@ -114,14 +131,10 @@ var EditableJob = React.createClass({
           version: version
         };
 
+        response(valid, data);
+
         break;
     }
-
-    if (!valid) {
-      $(this.editableJob).addClass('invalid');
-    }
-
-    return { valid: valid, value: data };
   },
 
   render: function() {

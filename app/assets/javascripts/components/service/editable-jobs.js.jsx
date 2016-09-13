@@ -101,11 +101,25 @@ var EditableJobs = React.createClass({
   },
 
   serialize: function (cb) {
-    var jobsMap = {};
-    var valid = true;
+    if (_.isEmpty(this.jobRefs)) {
+      var payload = { valid: true, value: {} };
 
-    _.each((this.jobRefs || []), function (job) {
-      var jobInfo = job.serialize();
+      if (cb) {
+        cb(payload);
+        return;
+      } else {
+        return payload;
+      }
+    }
+
+    this.serializeJob(0, {}, true, cb);
+  },
+
+  serializeJob: function (index, jobsMap, valid, cb) {
+    var self = this;
+    var job = this.jobRefs[index];
+
+    job.serialize(function (jobInfo) {
       var data = jobInfo.value;
 
       if (!jobInfo.valid) {
@@ -116,15 +130,20 @@ var EditableJobs = React.createClass({
       delete data.id;
 
       jobsMap[jobId] = data;
+      
+      if (index == self.jobRefs.length - 1) {
+        var payload = { valid: valid, value: jobsMap };
+
+        if (!cb) {
+          return payload;
+        }
+
+        cb(payload);
+      } else {
+        index++;
+        self.serializeJob(index, jobsMap, valid, cb);
+      }
     });
-
-    var payload = { valid: valid, value: jobsMap };
-
-    if (!cb) {
-      return payload;
-    }
-
-    cb(payload);
   },
 
   render: function() {
