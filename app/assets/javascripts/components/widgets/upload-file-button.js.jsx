@@ -56,7 +56,7 @@ var UploadFileButton = React.createClass({
   },
 
   onFileChange: function () {
-    $(this.fileName).html(this.getFileName());
+    $(this.fileName).html(this.getFileName()).removeClass('no-file');
 
     if (this.props.onFileChange) {
       this.getFile(this.props.onFileChange);

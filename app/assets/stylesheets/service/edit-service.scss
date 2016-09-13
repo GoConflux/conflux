@@ -62,16 +62,16 @@
   }
 
   .submit-service-btn {
-    background-color: blue;
+    background-color: #249cf2;
     margin-top: 25px;
 
     &:hover,
     &:focus {
-      background-color: blue;
+      background-color: #269DF7;
     }
 
     &:active {
-      background-color: blue;
+      background-color: #249cf2;
     }
   }
 }

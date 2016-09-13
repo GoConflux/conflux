@@ -242,11 +242,11 @@ var EditService = React.createClass({
     });
   },
 
-  serialize: function () {
-    return this.serializeSection(0, {}, []);
+  serialize: function (cb) {
+    this.serializeSection(0, {}, [], cb);
   },
 
-  serializeSection: function (index, payload, invalidRefs) {
+  serializeSection: function (index, payload, invalidRefs, cb) {
     var self = this;
     var key = this.params[index];
     var info = this.getRefSection(key);
@@ -268,14 +268,14 @@ var EditService = React.createClass({
         var firstInvalidRef = invalidRefs.shift();
 
         if (firstInvalidRef) {
-          this.scrollToRef(firstInvalidRef);
+          self.scrollToRef(firstInvalidRef);
         }
 
-        return payload;
+        cb(payload);
 
       } else {
         index++;
-        self.serializeSection(index, payload, invalidRefs);
+        self.serializeSection(index, payload, invalidRefs, cb);
       }
     });
   },
@@ -287,23 +287,24 @@ var EditService = React.createClass({
   },
 
   saveService: function () {
-    var payload = this.serialize();
-
-    // React.post('/addons/modify', _.extend(payload, { addon_uuid: this.props.addon_uuid }), {
-    //   success: function (data) {
-    //     window.location = data.url;
-    //   }
-    // });
+    this.serialize(function (payload) {
+      console.log(payload);
+      // React.post('/addons/modify', _.extend(payload, { addon_uuid: this.props.addon_uuid }), {
+      //   success: function (data) {
+      //     window.location = data.url;
+      //   }
+      // });
+    });
   },
   
   submitService: function () {
-    var payload = this.serialize();
-  
-    // React.post('/addons/submit', _.extend(payload, { addon_uuid: this.props.addon_uuid }), {
-    //   success: function (data) {
-    //     window.location = data.url;
-    //   }
-    // });
+    this.serialize(function (payload) {
+      // React.post('/addons/submit', _.extend(payload, { addon_uuid: this.props.addon_uuid }), {
+      //   success: function (data) {
+      //     window.location = data.url;
+      //   }
+      // });
+    });
   },
   
   onPlanNameBlur: function (planName, planId) {
@@ -317,7 +318,7 @@ var EditService = React.createClass({
   },
 
   getSubmitServiceBtn: function () {
-    if (!this.props.status.is_draft) {
+    if (this.props.status.is_draft) {
       return;
     }
 
