@@ -51,6 +51,9 @@ module AddonServices
       @updates.merge({
         name: @attrs[:name],
         url: @attrs[:url],
+        facebook_url: @attrs[:facebook_url],
+        twitter_url: @attrs[:twitter_url],
+        github_url: @attrs[:github_url],
         tagline: @attrs[:tagline],
         description: @attrs[:description]
       })

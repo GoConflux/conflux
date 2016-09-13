@@ -287,23 +287,22 @@ var EditService = React.createClass({
   },
 
   saveService: function () {
-    this.serialize(function (payload) {
-      console.log(payload);
-      // React.post('/addons/modify', _.extend(payload, { addon_uuid: this.props.addon_uuid }), {
-      //   success: function (data) {
-      //     window.location = data.url;
-      //   }
-      // });
-    });
+    this.updateService('modify');
   },
   
   submitService: function () {
+    this.updateService('submit');
+  },
+
+  updateService: function (endpoint) {
+    var self = this;
+
     this.serialize(function (payload) {
-      // React.post('/addons/submit', _.extend(payload, { addon_uuid: this.props.addon_uuid }), {
-      //   success: function (data) {
-      //     window.location = data.url;
-      //   }
-      // });
+      React.put('/addons/' + endpoint, _.extend(payload, { addon_uuid: self.props.addon_uuid }), {
+        success: function (data) {
+          window.location = data.url;
+        }
+      });
     });
   },
   
@@ -318,7 +317,7 @@ var EditService = React.createClass({
   },
 
   getSubmitServiceBtn: function () {
-    if (this.props.status.is_draft) {
+    if (!this.props.status.is_draft) {
       return;
     }
 

@@ -83,7 +83,7 @@ class AddonsController < ApplicationController
 
     begin
       with_transaction do
-        AddonServices::ModifyService.new(@current_user, addon, draft_params).perform
+        # AddonServices::ModifyService.new(@current_user, addon, draft_params(addon)).perform
       end
     rescue Exception => e
       puts "Error modifying draft service: #{e.message}"
@@ -97,7 +97,7 @@ class AddonsController < ApplicationController
 
     begin
       with_transaction do
-        AddonServices::ModifyService.new(@current_user, addon, draft_params).perform
+        AddonServices::ModifyService.new(@current_user, addon, draft_params(addon)).perform
         addon.update_attributes(status: Addon::Status::PENDING)
       end
 
@@ -237,7 +237,7 @@ class AddonsController < ApplicationController
     render json: { owner: @current_user.email, others: admin_emails }
   end
 
-  def draft_params
+  def draft_params(addon)
     {
       name: params[:name],
       icon: params[:icon],
@@ -252,7 +252,7 @@ class AddonsController < ApplicationController
       features: params[:features],
       jobs: params[:jobs],
       configs: params[:configs],
-      api: params[:api]
+      api: addon.is_heroku_dependent? ? {} : params[:api]
     }
   end
 
