@@ -296,6 +296,16 @@ var EditService = React.createClass({
     // });
   },
   
+  submitService: function () {
+    var payload = this.serialize();
+  
+    // React.post('/addons/submit', _.extend(payload, { addon_uuid: this.props.addon_uuid }), {
+    //   success: function (data) {
+    //     window.location = data.url;
+    //   }
+    // });
+  },
+  
   onPlanNameBlur: function (planName, planId) {
     this.features.comp.updatePlanName(planName, planId);
   },
@@ -304,6 +314,14 @@ var EditService = React.createClass({
     var message = 'List the config vars that your API will return to users upon the successful provisioning of your service. Make sure each config var is in all-caps and is prefixed with ';
     var configPrefix = this.props.slug.toUpperCase().replace('-', '_');
     return message + '"' + configPrefix + '_".';
+  },
+
+  getSubmitServiceBtn: function () {
+    if (!this.props.status.is_draft) {
+      return;
+    }
+
+    return <div className="submit-service-btn" onClick={this.submitService}>Submit Service</div>;
   },
 
   render: function() {
@@ -332,6 +350,7 @@ var EditService = React.createClass({
           </div>
           <div className="edit-service-footer">
             <div className="save-service-btn" onClick={this.saveService}>Save Service</div>
+            {this.getSubmitServiceBtn()}
           </div>
         </div>
       </div>

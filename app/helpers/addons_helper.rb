@@ -74,7 +74,12 @@ module AddonsHelper
         twitter_url: addon.twitter_url,
         github_url: addon.github_url
       },
-      authed: @current_user.present?
+      authed: @current_user.present?,
+      status: {
+        is_draft: addon.is_draft?,
+        is_pending: addon.is_pending?,
+        is_active: addon.is_active?
+      }
     }
 
     if edit_mode

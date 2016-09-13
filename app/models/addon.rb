@@ -93,6 +93,14 @@ class Addon < ActiveRecord::Base
     heroku_alias || slug
   end
 
+  def is_draft?
+    status == Status::DRAFT
+  end
+
+  def is_pending?
+    status == Status::PENDING
+  end
+
   def is_active?
     status == Status::ACTIVE
   end
