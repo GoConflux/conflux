@@ -83,7 +83,7 @@ module AddonServices
         raise "Invalid File Type, #{icon_file_type}. Allowed Types Are #{valid_file_types.join(', ')}."
       end
 
-      icon_file_path = "/images/addons/#{@addon.slug}.#{@addon.ext_for_file_type(icon_file_type)}"
+      icon_file_path = "images/addons/#{@addon.slug}.#{@addon.ext_for_file_type(icon_file_type)}"
       icon_url = "#{ENV['CLOUDFRONT_URL']}#{icon_file_path}"
 
       FileServices::CloudUploadService.new(
