@@ -9,12 +9,15 @@ class ConfigsTest < AbstractJsonTest
   #   }
   # ]
 
+  DOESNT_REQUIRE_PREFIX = ['aws-redis', 'aws-pg']
+
   def call!
+
     test 'configs is an array' do
       data['configs'].is_a?(Array)
     end
 
-    return true if data.is_empty?
+    return true if data['configs'].empty?
 
     test 'each config is a hash' do
       data['configs'].each { |config|
@@ -36,12 +39,12 @@ class ConfigsTest < AbstractJsonTest
     end
 
     test 'configs are unique' do
-      config_names = data['configs'].select { |config| config['name'] }
-      config_names.length == config_names.unifq.length
+      config_names = data['configs'].map { |config| config['name'] }
+      config_names.length == config_names.uniq.length
     end
 
     test 'all config names are uppercase strings' do
-      config_names = data['configs'].select { |config| config['name'] }
+      config_names = data['configs'].map { |config| config['name'] }
 
       config_names.each do |k|
         next if k =~ /^[A-Z][0-9A-Z_]+$/
@@ -52,7 +55,9 @@ class ConfigsTest < AbstractJsonTest
     end
 
     test 'all config vars are prefixed with the addon id' do
-      config_names = data['configs'].select { |config| config['name'] }
+      return true if DOESNT_REQUIRE_PREFIX.include?(data['addon_slug'])
+
+      config_names = data['configs'].map { |config| config['name'] }
 
       config_names.each do |k|
         prefix = data['addon_slug'].upcase.gsub('-', '_')

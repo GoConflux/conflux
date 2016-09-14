@@ -223,4 +223,23 @@ namespace :addons do
     }
   end
 
+  desc 'reformat existing job contents urls'
+  task :reformat_job_contents_urls => :environment do
+    ActiveRecord::Base.transaction do
+      Addon.all.each { |addon|
+        new_jobs = {}
+
+        (addon.jobs || {}).each { |job_id, data|
+          if data['action'] == 'new_file'
+            data['asset']['contents'] = "files/addons/#{addon.slug}/#{job_id}"
+          end
+
+          new_jobs[job_id] = data
+        }
+
+        addon.update_attributes(jobs: new_jobs)
+      }
+    end
+  end
+
 end

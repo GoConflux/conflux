@@ -3,59 +3,66 @@ module AddonsHelper
   require 'markdown_helper'
 
   def format_plans(plans_arr)
+    id_to_slug_map = {}
+
     plans = plans_arr.map { |plan|
+      name = plan['name']
+      raise 'Plan must have a name' unless name.present?
+
+      slug = name.slugify
+      id_to_slug_map[plan['id']] = slug # features needs this information later
+
       {
-        slug: plan[:name].try(:slugify),
-        name: plan[:name],
-        price: plan[:price]
+        'slug' => slug,
+        'name' => name,
+        'price' => plan['price']
       }
     }
 
     validate_addon_json_column(PlansTest, plans)
 
-    plans
+    [plans, id_to_slug_map]
   end
 
-  def format_jobs(jobs_arr, addon_slug)
+  def format_jobs(jobs_map, addon_slug)
     jobs_for_db = {}
-    jobs_with_files = {}
+    file_jobs = []
 
-    jobs_arr.each { |job|
-      job_id = gen_job_id
+    jobs_map.each { |job_id, job|
+      job_id = job_id.include?('NEW_JOB') ? SecureRandom.hex(3) : job_id
 
-      if job[:action] == 'new_file'
-        file_path = job[:asset][:path] rescue nil
+      if job['action'] == 'new_file'
+        s3_file_path = "files/addons/#{addon_slug}/#{job_id}"
+        file_contents = job['asset']['contents']
 
-        raise 'No file path provided for new_file job' unless file_path.present?
+        # If file_contents is already equal to the s3 path, it means the file wasn't changed.
+        if file_contents == s3_file_path
+          jobs_for_db[job_id] = job
+        else
+          # If the file did change, the file is a base64 encoded string, so move the :contents key to
+          # a new :file key, set :contents to the s3_file_path, and then push the job into the file_jobs array.
+          job['asset']['file'] = job['asset']['contents']
+          job['asset']['contents'] = s3_file_path
+          file_jobs.push(job['asset'])
 
-        # Files will be named inside their addon slug's folder with the job_id as the file name
-        # For example: '/files/addons/pubnub/c1ed37.rb'
-        job[:asset][:contents] = "/files/addons/#{addon_slug}/#{job_id}#{File.extname(file_path)}"
-
-        # Add the job to the hash now, while the :file key is still there
-        jobs_with_files[job_id] = job
-
-        # Get rid of the :file key and add what's left to the jobs_for_db map
-        job[:asset].delete(:file)
-        jobs_for_db[job_id] = job
+          # Now we don't need the :file key anymore, so remove it before passing the job into the jobs_for_db map.
+          job['asset'].delete('file')
+          jobs_for_db[job_id] = job
+        end
       else
-        jobs_with_files[job_id] = job
         jobs_for_db[job_id] = job
       end
     }
 
     validate_addon_json_column(JobsTest, jobs_for_db)
 
-    [jobs_for_db, jobs_with_files]
+    [jobs_for_db, file_jobs]
   end
 
   def validate_addon_json_column(json_test, data)
-    json_valid = json_test.new(JSON.parse(data.to_json)).call
-    raise "Invalid JSON Format during #{json_test.to_s}" unless json_valid
-  end
-
-  def gen_job_id
-    SecureRandom.hex(3)
+    klass = json_test.new(data)
+    json_valid = klass.call
+    raise "Invalid JSON Format during #{json_test.to_s}: #{klass.err_message}" unless json_valid
   end
 
   def service_page_info(addon, is_admin: false, is_owner: false, edit_mode: false)
@@ -65,6 +72,7 @@ module AddonsHelper
       addon_uuid: addon.uuid,
       slug: addon.slug,
       name: addon.name,
+
       icon: addon.icon,
       tagline: addon.tagline,
       category_uuid: addon.addon_category.try(:uuid),
@@ -124,6 +132,14 @@ module AddonsHelper
 
   def to_markdown(content)
     MarkdownHelper.format(content)
+  end
+
+  def file_matches_type(base64_string, type)
+    base64_string.index("data:#{type}") == 0
+  end
+
+  def base_64_file_type(base64_string)
+    base64_string.split(';base64').first.gsub('data:')
   end
 
 end

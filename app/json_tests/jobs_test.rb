@@ -14,7 +14,7 @@
   #     "action": "new_file",
   #     "asset": {
   #       "path": "config/initializers/pubnub.rb",
-  #       "contents": "/files/addons/pubnub/initializer.rb"
+  #       "contents": "files/addons/pubnub/initializer.rb"
   #     }
   #   }
   # }

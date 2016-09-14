@@ -26,15 +26,14 @@ var UploadFileButton = React.createClass({
     var file = this.fileInput.files[0];
 
     if (!file) {
-      cb({ data: this.props.defaultFile, type: null });
+      cb(this.props.defaultFile);
       return;
     }
 
-    var type = file.type;
     var fr = new FileReader();
 
     fr.onload = function () {
-      cb({ data: fr.result, type: type });
+      cb(fr.result);
     };
 
     fr.readAsDataURL(file);

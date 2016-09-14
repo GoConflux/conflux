@@ -77,7 +77,7 @@ var EditableFeature = React.createClass({
       $(this.feature).addClass('invalid');
     }
 
-    if ($(this.headlineFeature).find('.headline-feature').hasClass('checked')) {
+    if ($(this.headlineFeature.checkboxWrap).hasClass('checked')) {
       data.headlineFeature = true;
     }
 
@@ -102,12 +102,22 @@ var EditableFeature = React.createClass({
     return classes;
   },
 
+  getHeadlineFeatureCustomClasses: function () {
+    var classes = ['headline-feature'];
+
+    if (this.props.feature.headlineFeature) {
+      classes.push('checked');
+    }
+
+    return classes;
+  },
+
   render: function() {
     return (
       <div className={this.editableFeatureClasses()}>
         <div className="feature-name-container">
           <input type="text" className="feature-name" placeholder="Feature" defaultValue={this.props.feature.feature} onKeyUp={this.removeInvalid} ref={this.setFeatureRef}/>
-          <Checkbox label={'Headline Feature'} customClasses={['headline-feature']} ref={this.setHeadlineFeatureRef} />
+          <Checkbox label={'Headline Feature'} customClasses={this.getHeadlineFeatureCustomClasses()} ref={this.setHeadlineFeatureRef} />
           <span className="remove-btn" onClick={this.removeFeature}>&times;</span>
         </div>
         <div className="plans-container" ref={this.setPlansContainerRef}>{this.getPlans()}</div>

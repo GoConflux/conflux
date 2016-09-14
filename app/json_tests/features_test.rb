@@ -15,6 +15,7 @@ class FeaturesTest < AbstractJsonTest
   # ]
 
   def call!
+
     test 'features is an array' do
       data.is_a?(Array)
     end
@@ -48,8 +49,6 @@ class FeaturesTest < AbstractJsonTest
 
       true
     end
-
-    # Eventually, do a test to check that all the plan slugs and features match up
 
   end
 

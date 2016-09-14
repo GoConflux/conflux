@@ -35,7 +35,7 @@ module AddonServices
       update_configs
 
       # Update API for this addon (which endpoints to hit for provisioning/sso/etc.)
-      update_api
+      update_api unless @addon.is_heroku_dependent?
 
       self
     end
@@ -70,64 +70,71 @@ module AddonServices
     end
 
     def update_icon
-      # If icon didn't change (it will be a url), just return
-      return if @addon.icon == @attrs[:icon][:data]
+      file = @attrs[:icon]
+      # If icon didn't change (it will be a url), just return if that's the case.
+      return if @addon.icon == file
 
-      # If the icon isn't the same, it means that @attrs[:icon] is a base64
-      # representation of the new image file to use. Let's validate the file type
-      # and then upload it to S3 if it passes validation.
-      icon_file_type = @attrs[:icon][:type] # Ex: 'image/png'
+      # 'file' is a base64 string at this point.
+      file_type = base_64_file_type(file)
       valid_file_types = @addon.valid_icon_file_types
 
-      if !valid_file_types.include?(icon_file_type)
-        raise "Invalid File Type, #{icon_file_type}. Allowed Types Are #{valid_file_types.join(', ')}."
+      if !valid_file_types.include?(file_type)
+        raise "Invalid File Type, #{file_type}. Allowed Types Are #{valid_file_types.join(', ')}."
       end
 
-      icon_file_path = "images/addons/#{@addon.slug}.#{@addon.ext_for_file_type(icon_file_type)}"
-      icon_url = "#{ENV['CLOUDFRONT_URL']}#{icon_file_path}"
+      file_path = "images/addons/#{@addon.slug}.#{@addon.ext_for_file_type(icon_file_type)}"
+      icon_url = "#{ENV['CLOUDFRONT_URL']}#{file_path}"
 
       FileServices::CloudUploadService.new(
         @executor_user,
-        @attrs[:icon][:data],
-        icon_file_path,
-        icon_file_type
+        file,
+        file_path,
+        file_type
       ).perform
 
       @addon.update_attributes(icon: icon_url)
     end
 
     def update_plans
-      formatted_plans = format_plans(@attrs[:plans])
+      formatted_plans, @id_to_plan_slug_map = format_plans(@attrs[:plans])
       @addon.update_attributes(plans: formatted_plans)
     end
 
     def update_features
+      (@attrs[:features] || []).each { |feature|
+        # Make sure index is a string
+        feature['index'] = feature['index'].to_s if feature.has_key?('index')
+
+        # Replace the values map with the correct plan slugs
+        new_values = {}
+
+        (feature['values'] || {}).each { |id, value|
+          new_values[@id_to_plan_slug_map[id]] = value
+        }
+
+        feature['values'] = new_values
+      }
+
       validate_addon_json_column(FeaturesTest, @attrs[:features])
       @addon.update_attributes(features: @attrs[:features])
     end
 
     def update_jobs
-      jobs_for_db, jobs_with_files = format_jobs(@attrs[:jobs], @addon.slug)
+      jobs_for_db, file_jobs = format_jobs(@attrs[:jobs], @addon.slug)
       @addon.update_attributes(jobs: jobs_for_db)
 
-      jobs_with_files.each { |job_id, job_info|
-        if job_info[:action] == 'new_file'
-
-          # PARAMS FOR THIS ARE WRONG. FIX THIS.
-
-          # FileServices::CloudUploadService.new(
-          #   @executor_user,
-          #   job_info[:asset][:file],
-          #   job_info[:asset][:contents][:data],
-          #   job_info[:asset][:contents][:type],
-          # ).delay.perform
-        end
+      file_jobs.each { |job|
+        FileServices::CloudUploadService.new(
+          @executor_user,
+          job[:file],
+          job[:contents],
+          base_64_file_type(job[:file])
+        ).delay.perform
       }
     end
 
     def update_configs
-      configs_data = { configs: @attrs[:configs], addon_slug: @addon.slug }
-      validate_addon_json_column(ConfigsTest, configs_data)
+      validate_addon_json_column(ConfigsTest, { 'configs' => @attrs[:configs], 'addon_slug' => @addon.slug })
       @addon.update_attributes(configs: @attrs[:configs])
     end
 

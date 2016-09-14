@@ -38,7 +38,7 @@ class PlansTest < AbstractJsonTest
     end
 
     test 'each plan slug is unique' do
-      slugs = data.select { |plan| plan['slug'] }
+      slugs = data.map { |plan| plan['slug'] }
       slugs.length == slugs.uniq.length
     end
 

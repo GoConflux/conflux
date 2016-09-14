@@ -85,6 +85,8 @@ class AddonsController < ApplicationController
       with_transaction do
         AddonServices::ModifyService.new(@current_user, addon, draft_params(addon)).perform
       end
+
+      render json: { url: "/services/#{addon.slug}" }
     rescue Exception => e
       puts "Error modifying draft service: #{e.message}"
       render json: { message: 'Error modifying draft service'}, status: 500
@@ -240,7 +242,7 @@ class AddonsController < ApplicationController
   def draft_params(addon)
     {
       name: params[:name],
-      icon: params[:icon] || {},
+      icon: params[:icon],
       url: params[:url],
       facebook_url: params[:facebook_url],
       twitter_url: params[:twitter_url],
