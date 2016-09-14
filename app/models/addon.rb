@@ -23,6 +23,22 @@ class Addon < ActiveRecord::Base
     ACTIVE = 1
   end
 
+  ICON_EXT_FOR_TYPE = {
+    'image/jpg' => 'jpg',
+    'image/jpeg' => 'jpg',
+    'image/png' => 'png',
+    'image/svg' => 'svg',
+    'image/svg+xml' => 'svg'
+  }
+
+  def valid_icon_file_types
+    ICON_EXT_FOR_TYPE.keys
+  end
+
+  def ext_for_file_type(type)
+    ICON_EXT_FOR_TYPE[type]
+  end
+
   def is_heroku_dependent?
     heroku_dependent
   end

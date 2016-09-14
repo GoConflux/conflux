@@ -19,21 +19,22 @@ var UploadFileButton = React.createClass({
   },
   
   getAcceptedFileTypes: function () {
-    return this.props.image ? 'image/png, image/jpg, image/jpeg, image/svg' : '';
+    return this.props.image ? 'image/png, image/jpg, image/jpeg, image/svg, image/svg+xml' : '';
   },
 
   getFile: function (cb) {
     var file = this.fileInput.files[0];
 
     if (!file) {
-      cb(this.props.defaultFile);
+      cb({ data: this.props.defaultFile, type: null });
       return;
     }
 
+    var type = file.type;
     var fr = new FileReader();
 
     fr.onload = function () {
-      cb(fr.result);
+      cb({ data: fr.result, type: type });
     };
 
     fr.readAsDataURL(file);

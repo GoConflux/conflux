@@ -16,16 +16,14 @@ var UploadIcon = React.createClass({
     var self = this;
     var valid = true;
 
-    var fileCb = function (file) {
-      if (self.props.required && _.isEmpty(file)) {
+    this.iconUploader.getFile(function (fileInfo) {
+      if (self.props.required && _.isEmpty(fileInfo.data)) {
         valid = false;
         self.showInvalid();
       }
 
-      cb({ valid: valid, value: file });
-    };
-
-    this.iconUploader.getFile(fileCb);
+      cb({ valid: valid, value: fileInfo });
+    });
   },
 
   showInvalid: function () {
@@ -36,8 +34,8 @@ var UploadIcon = React.createClass({
     $(this.icon).removeClass('invalid');
   },
 
-  onIconChange: function (file) {
-    $(this.icon).attr('src', file);
+  onIconChange: function (info) {
+    $(this.icon).attr('src', info.data);
   },
 
   render: function() {

@@ -83,7 +83,7 @@ class AddonsController < ApplicationController
 
     begin
       with_transaction do
-        # AddonServices::ModifyService.new(@current_user, addon, draft_params(addon)).perform
+        AddonServices::ModifyService.new(@current_user, addon, draft_params(addon)).perform
       end
     rescue Exception => e
       puts "Error modifying draft service: #{e.message}"
@@ -240,7 +240,7 @@ class AddonsController < ApplicationController
   def draft_params(addon)
     {
       name: params[:name],
-      icon: params[:icon],
+      icon: params[:icon] || {},
       url: params[:url],
       facebook_url: params[:facebook_url],
       twitter_url: params[:twitter_url],

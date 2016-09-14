@@ -98,15 +98,16 @@ var EditableJob = React.createClass({
 
     switch (data.action) {
       case this.jobTypes.newFile:
-        this.fileUploader.getFile(function (contents) {
+        this.fileUploader.getFile(function (fileInfo) {
           var path = $(self.destPath).val().trim();
-          if (_.isEmpty(path) || !contents) {
+
+          if (_.isEmpty(path) || !fileInfo.data) {
             valid = false;
           }
 
           data.asset = {
             path: path,
-            contents: contents
+            contents: fileInfo
           };
 
           response(valid, data);

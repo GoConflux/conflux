@@ -70,23 +70,30 @@ module AddonServices
     end
 
     def update_icon
-      icon_file = ''
-      icon_file_ext = ''
+      # If icon didn't change (it will be a url), just return
+      return if @addon.icon == @attrs[:icon][:data]
 
-      if !['png', 'jpg'].include?(icon_file_ext)
-        raise "Invalid File Extension, #{icon_file_ext}. Allowed extensions are png or jpg"
+      # If the icon isn't the same, it means that @attrs[:icon] is a base64
+      # representation of the new image file to use. Let's validate the file type
+      # and then upload it to S3 if it passes validation.
+      icon_file_type = @attrs[:icon][:type] # Ex: 'image/png'
+      valid_file_types = @addon.valid_icon_file_types
+
+      if !valid_file_types.include?(icon_file_type)
+        raise "Invalid File Type, #{icon_file_type}. Allowed Types Are #{valid_file_types.join(', ')}."
       end
 
-      icon_file_path = "/images/addons/#{@addon.slug}.#{icon_file_ext}"
+      icon_file_path = "/images/addons/#{@addon.slug}.#{@addon.ext_for_file_type(icon_file_type)}"
       icon_url = "#{ENV['CLOUDFRONT_URL']}#{icon_file_path}"
 
       FileServices::CloudUploadService.new(
         @executor_user,
-        icon_file,
-        icon_file_path
-      ).delay.perform
+        @attrs[:icon][:data],
+        icon_file_path,
+        icon_file_type
+      ).perform
 
-      @addon.update_attributes(icon: icon_url) if @addon.icon != icon_url
+      @addon.update_attributes(icon: icon_url)
     end
 
     def update_plans
@@ -105,11 +112,15 @@ module AddonServices
 
       jobs_with_files.each { |job_id, job_info|
         if job_info[:action] == 'new_file'
-          FileServices::CloudUploadService.new(
-            @executor_user,
-            job_info[:asset][:file],
-            job_info[:asset][:contents]
-          ).delay.perform
+
+          # PARAMS FOR THIS ARE WRONG. FIX THIS.
+
+          # FileServices::CloudUploadService.new(
+          #   @executor_user,
+          #   job_info[:asset][:file],
+          #   job_info[:asset][:contents][:data],
+          #   job_info[:asset][:contents][:type],
+          # ).delay.perform
         end
       }
     end
