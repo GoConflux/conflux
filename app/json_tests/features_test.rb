@@ -9,7 +9,7 @@ class FeaturesTest < AbstractJsonTest
   #       "plan1": "amount",
   #       "plan2": "amount"
   #     },
-  #     "headlineFeature": true,
+  #     "headlineFeature": true, # not mandatory key
   #     "index": "0"
   #   }
   # ]
@@ -33,9 +33,17 @@ class FeaturesTest < AbstractJsonTest
       data.each { |feature|
         feature_check = feature.has_key?('feature') && feature['feature'].is_a?(String) && feature['feature'].present?
         values_check = feature.has_key?('values') && feature['values'].is_a?(Hash)
-        hf_check = feature.has_key?('headlineFeature') && feature['headlineFeature'].is_a?(Boolean)
+        index_check = feature.has_key?('index') && feature['index'].is_a?(String) && feature['index'].present?
 
-        raise 'Invalid Feature Keys' unless feature_check && values_check && hf_check
+        raise 'Invalid Feature Keys' unless feature_check && values_check && index_check
+      }
+
+      true
+    end
+
+    test 'features are in order' do
+      data.each_with_index { |feature, i|
+        raise 'Features not in index order' if feature['index'].to_i != i
       }
 
       true
