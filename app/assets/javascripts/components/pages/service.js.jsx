@@ -114,6 +114,11 @@ var Service = React.createClass({
               </div>
               <div className="starting-at-container">
                 <div className="starting-at">{this.getStartingAtText()}</div>
+                <span className="service-middot">&middot;</span>
+                <div className="service-category">
+                  <div className="category-name">{this.props.category}</div>
+                  <img src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/category-tag.svg" className="category-tag"/>
+                </div>
               </div>
             </div>
           </div>

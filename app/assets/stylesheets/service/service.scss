@@ -17,8 +17,8 @@
 
 .service-header {
   padding-top: 55px;
-  padding-left: 42px;
-  padding-right: 42px;
+  padding-left: 40px;
+  padding-right: 40px;
   border-bottom: 1px solid rgba(0,0,0,0.08);
   position: relative;
 }
@@ -132,6 +132,7 @@
     }
 
     .service-middot {
+      cursor: default;
       font-size: 24px;
       height: 16px;
       opacity: 0.8;
@@ -188,11 +189,47 @@
     display: inline-block;
     float: right;
     width: 50%;
+    font-size: 13px;
 
     .starting-at {
       display: inline-block;
       float: right;
-      font-size: 15px;
+      margin-top: 4px;
+    }
+
+    .service-middot {
+      cursor: default;
+      font-size: 24px;
+      height: 16px;
+      opacity: 0.8;
+      margin: 0 13px;
+      float: right;
+      display: inline-block;
+      margin-top: -6px;
+    }
+
+    .service-category {
+      display: inline-block;
+      float: right;
+      margin-top: 5px;
+      cursor: default;
+
+      .category-tag {
+        height: 13px;
+        margin-right: 8px;
+        display: inline-block;
+        float: right;
+        opacity: 0.85;
+      }
+
+      .category-name {
+        display: inline-block;
+        height: 100%;
+        line-height: 13px;
+        float: right;
+        color: #919191;
+      }
+
     }
 
   }

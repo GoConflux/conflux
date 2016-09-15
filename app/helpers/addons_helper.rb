@@ -72,7 +72,6 @@ module AddonsHelper
       addon_uuid: addon.uuid,
       slug: addon.slug,
       name: addon.name,
-
       icon: addon.icon,
       tagline: addon.tagline,
       category_uuid: addon.addon_category.try(:uuid),
@@ -124,6 +123,7 @@ module AddonsHelper
         description: to_markdown(addon.description),
         plans: addon.plans,
         features: addon.ordered_features,
+        category: addon.addon_category.category
       })
     end
 
