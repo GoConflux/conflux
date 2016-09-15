@@ -55,7 +55,7 @@ var EditableJob = React.createClass({
 
     switch (job.action) {
       case this.jobTypes.newFile:
-        return <div className="editable-job" ref={this.setEditableJobRef}><div className="ej-input-title dest">Project Destination Path:</div><input className="dest-path" defaultValue={job.asset.path} placeholder="Ex: config/initializers/my_file.rb" onKeyUp={this.removeInvalid} ref={this.setDestPathRef}/><UploadFileButton clickHandler={this.removeInvalid} defaultFile={job.asset.contents} ref={this.setFileUploaderRef} /><div className="remove-btn" onClick={this.onRemove}>&times;</div></div>;
+        return <div className="editable-job" ref={this.setEditableJobRef}><div className="ej-input-title dest">Project Destination Path:</div><input className="dest-path" defaultValue={job.asset.path} placeholder="Ex: config/initializers/my_file.rb" onKeyUp={this.removeInvalid} ref={this.setDestPathRef}/><UploadFileButton clickHandler={this.removeInvalid} defaultFile={job.asset.contents} defaultFileName={job.asset.name} ref={this.setFileUploaderRef} /><div className="remove-btn" onClick={this.onRemove}>&times;</div></div>;
         break;
       case this.jobTypes.newLibrary:
         return <div className="editable-job" ref={this.setEditableJobRef}><div className="ej-input-title lang">Language:</div><FormSelect required={true} data={this.langSelectData()} ref={this.setLangSelectRef} /><input type="text" className="editable-library-input" placeholder={this.libNamePlaceholder(job.asset.lang)} defaultValue={job.asset.name} onKeyUp={this.removeInvalid} ref={this.setLibraryNameRef}/><input type="text" className="editable-library-input" placeholder="Ex: ~> 1.2.0" defaultValue={job.asset.version} onKeyUp={this.removeInvalid} ref={this.setLibraryVersionRef}/><div className="remove-btn" onClick={this.onRemove}>&times;</div></div>;
@@ -101,13 +101,14 @@ var EditableJob = React.createClass({
         this.fileUploader.getFile(function (file) {
           var path = $(self.destPath).val().trim();
 
-          if (_.isEmpty(path) || _.isEmpty(file)) {
+          if (_.isEmpty(path) || _.isEmpty(file.data)) {
             valid = false;
           }
 
           data.asset = {
             path: path,
-            contents: file
+            contents: file.data,
+            name: file.name
           };
 
           response(valid, data);

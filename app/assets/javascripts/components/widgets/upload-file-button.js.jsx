@@ -26,14 +26,14 @@ var UploadFileButton = React.createClass({
     var file = this.fileInput.files[0];
 
     if (!file) {
-      cb(this.props.defaultFile);
+      cb({ data: this.props.defaultFile, name: this.defaultFileName() });
       return;
     }
 
     var fr = new FileReader();
 
     fr.onload = function () {
-      cb(fr.result);
+      cb({ data: fr.result, name: file.name });
     };
 
     fr.readAsDataURL(file);
@@ -52,7 +52,7 @@ var UploadFileButton = React.createClass({
   },
 
   defaultFileName: function () {
-    return (this.props.defaultFile || '').split('/').pop() || 'No file selected';
+    return this.props.defaultFileName || (this.props.defaultFile || '').split('/').pop();
   },
 
   onFileChange: function () {
@@ -70,7 +70,7 @@ var UploadFileButton = React.createClass({
           <span>{this.props.btnText || 'Upload File'}</span>
           <input type="file" accept={this.getAcceptedFileTypes()} className="file-input" onChange={this.onFileChange} ref={this.setFileInputRef}/>
         </div>
-        <div className={this.getFileNameClasses()} ref={this.setFileNameRef}>{this.defaultFileName()}</div>
+        <div className={this.getFileNameClasses()} ref={this.setFileNameRef}>{this.defaultFileName() || 'No file selected'}</div>
       </div>
     );
   }

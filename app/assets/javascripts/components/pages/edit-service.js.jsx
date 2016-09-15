@@ -243,10 +243,10 @@ var EditService = React.createClass({
   },
 
   serialize: function (cb) {
-    this.serializeSection(0, {}, [], cb);
+    this.serializeSection(0, {}, cb);
   },
 
-  serializeSection: function (index, payload, invalidRefs, cb) {
+  serializeSection: function (index, payload, cb) {
     var self = this;
     var key = this.params[index];
     var info = this.getRefSection(key);
@@ -261,21 +261,15 @@ var EditService = React.createClass({
 
         payload[key] = value;
       } else {
-        invalidRefs.push(info.ref);
+        self.scrollToRef(info.ref);
+        return;
       }
 
       if (index == self.params.length - 1) {
-        var firstInvalidRef = invalidRefs.shift();
-
-        if (firstInvalidRef) {
-          self.scrollToRef(firstInvalidRef);
-        }
-
         cb(payload);
-
       } else {
         index++;
-        self.serializeSection(index, payload, invalidRefs, cb);
+        self.serializeSection(index, payload, cb);
       }
     });
   },

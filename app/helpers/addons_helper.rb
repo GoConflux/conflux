@@ -43,7 +43,7 @@ module AddonsHelper
           # a new :file key, set :contents to the s3_file_path, and then push the job into the file_jobs array.
           job['asset']['file'] = job['asset']['contents']
           job['asset']['contents'] = s3_file_path
-          file_jobs.push(job['asset'])
+          file_jobs.push(job['asset'].clone)
 
           # Now we don't need the :file key anymore, so remove it before passing the job into the jobs_for_db map.
           job['asset'].delete('file')

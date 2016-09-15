@@ -17,12 +17,12 @@ var UploadIcon = React.createClass({
     var valid = true;
 
     this.iconUploader.getFile(function (file) {
-      if (self.props.required && _.isEmpty(file)) {
+      if (self.props.required && _.isEmpty(file.data)) {
         valid = false;
         self.showInvalid();
       }
 
-      cb({ valid: valid, value: file });
+      cb({ valid: valid, value: file.data });
     });
   },
 
@@ -35,7 +35,7 @@ var UploadIcon = React.createClass({
   },
 
   onIconChange: function (file) {
-    $(this.icon).attr('src', file);
+    $(this.icon).attr('src', file.data);
   },
 
   render: function() {

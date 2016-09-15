@@ -74,12 +74,12 @@
       true
     end
 
-    test 'new_file jobs have path and contents string keys for their assets' do
+    test 'new_file jobs have path, contents, and name string keys for their assets' do
       data.each { |job_id, job_info|
         if job_info['action'] == 'new_file'
           asset = job_info['asset']
 
-          ['path', 'contents'].each { |key|
+          ['path', 'contents', 'name'].each { |key|
             unless asset.has_key?(key) && asset[key].is_a?(String) && asset[key].present?
               raise "Missing or blank new_file job key, #{key}"
             end
