@@ -92,7 +92,7 @@ var FormDoubleInput = React.createClass({
     return {
       one: '',
       two: '',
-      id: Math.round(Math.random() * 1000000)
+      id: Math.round(Math.random() * 1000000).toString()
     };
   },
 
