@@ -94,6 +94,14 @@ var Service = React.createClass({
 
     return classes;
   },
+  
+  getStatus: function () {
+    if (!this.props.permissions.can_edit) {
+      return;
+    }
+
+    return <div className="service-status">Status: <div className={'status ' + this.props.display_status.toLowerCase()}>{this.props.display_status}</div></div>;
+  },
 
   render: function() {
     return (
@@ -146,6 +154,7 @@ var Service = React.createClass({
         </div>
         {this.adminButton()}
         {this.editButton()}
+        {this.getStatus()}
       </div>
     );
   }

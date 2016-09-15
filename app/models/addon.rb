@@ -126,6 +126,17 @@ class Addon < ActiveRecord::Base
     status == Status::ACTIVE
   end
 
+  def display_status
+    case status
+      when Status::DRAFT
+        'Draft'
+      when Status::PENDING
+        'Pending'
+      when Status::ACTIVE
+        'Active'
+    end
+  end
+
   def base_url
     base = api['production']['base_url'] rescue ''
     uri = URI.parse(base)

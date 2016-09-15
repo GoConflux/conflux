@@ -309,6 +309,34 @@
   }
 }
 
+.service-status {
+  color: rgba(0, 0, 0, 0.55);
+  font-family: Avenir-Next-Medium;
+  font-size: 14px;
+  display: inline-block;
+  position: fixed;
+  right: 25px;
+  bottom: 30px;
+
+  .status {
+    display: inline;
+    margin-left: 2px;
+
+    &.draft {
+      color: #DA5959;
+    }
+
+    &.pending {
+      color: #FDB82D;
+    }
+
+    &.active {
+      color: #14c07b;
+    }
+
+  }
+}
+
 .service-section {
   padding: 22px 0;
   width: 100%;
