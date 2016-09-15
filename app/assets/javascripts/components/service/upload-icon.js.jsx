@@ -34,8 +34,8 @@ var UploadIcon = React.createClass({
     $(this.icon).removeClass('invalid');
   },
 
-  onIconChange: function (info) {
-    $(this.icon).attr('src', info.data);
+  onIconChange: function (file) {
+    $(this.icon).attr('src', file);
   },
 
   render: function() {

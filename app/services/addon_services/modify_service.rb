@@ -37,6 +37,8 @@ module AddonServices
       # Update API for this addon (which endpoints to hit for provisioning/sso/etc.)
       update_api unless @addon.is_heroku_dependent?
 
+      @addon.update_attributes(@updates)
+
       self
     end
 
@@ -48,7 +50,7 @@ module AddonServices
     end
 
     def add_simple_attrs_to_updates
-      @updates.merge({
+      @updates.merge!({
         name: @attrs[:name],
         url: @attrs[:url],
         facebook_url: @attrs[:facebook_url],
@@ -65,39 +67,37 @@ module AddonServices
       if @addon.addon_category.uuid != category_uuid
         addon_category = AddonCategory.find_by(uuid: category_uuid)
         raise "No AddonCategory with uuid: #{category_uuid}" if addon_category.nil?
-        @addon.update_attributes(addon_category_id: addon_category.id)
+        @updates[:addon_category_id] = addon_category.id
       end
     end
 
     def update_icon
       file = @attrs[:icon]
-      # If icon didn't change (it will be a url), just return if that's the case.
-      return if @addon.icon == file
 
-      # 'file' is a base64 string at this point.
-      file_type = base_64_file_type(file)
-      valid_file_types = @addon.valid_icon_file_types
+      if @addon.icon != file
+        # 'file' is a base64 string at this point.
+        file_type = base_64_file_type(file)
+        valid_file_types = @addon.valid_icon_file_types
 
-      if !valid_file_types.include?(file_type)
-        raise "Invalid File Type, #{file_type}. Allowed Types Are #{valid_file_types.join(', ')}."
+        if !valid_file_types.include?(file_type)
+          raise "Invalid File Type, #{file_type}. Allowed Types Are #{valid_file_types.join(', ')}."
+        end
+
+        file_path = "images/addons/#{@addon.slug}.#{@addon.ext_for_file_type(file_type)}"
+        @updates[:icon] = "#{ENV['S3_URL']}/#{file_path}"
+
+        FileServices::CloudUploadService.new(
+          @executor_user,
+          file,
+          file_path,
+          file_type
+        ).perform
       end
-
-      file_path = "images/addons/#{@addon.slug}.#{@addon.ext_for_file_type(icon_file_type)}"
-      icon_url = "#{ENV['CLOUDFRONT_URL']}#{file_path}"
-
-      FileServices::CloudUploadService.new(
-        @executor_user,
-        file,
-        file_path,
-        file_type
-      ).perform
-
-      @addon.update_attributes(icon: icon_url)
     end
 
     def update_plans
       formatted_plans, @id_to_plan_slug_map = format_plans(@attrs[:plans])
-      @addon.update_attributes(plans: formatted_plans)
+      @updates[:plans] = formatted_plans
     end
 
     def update_features
@@ -116,12 +116,12 @@ module AddonServices
       }
 
       validate_addon_json_column(FeaturesTest, @attrs[:features])
-      @addon.update_attributes(features: @attrs[:features])
+      @updates[:features] = @attrs[:features]
     end
 
     def update_jobs
       jobs_for_db, file_jobs = format_jobs(@attrs[:jobs], @addon.slug)
-      @addon.update_attributes(jobs: jobs_for_db)
+      @updates[:jobs] = jobs_for_db
 
       file_jobs.each { |job|
         FileServices::CloudUploadService.new(
@@ -135,12 +135,12 @@ module AddonServices
 
     def update_configs
       validate_addon_json_column(ConfigsTest, { 'configs' => @attrs[:configs], 'addon_slug' => @addon.slug })
-      @addon.update_attributes(configs: @attrs[:configs])
+      @updates[:configs] = @attrs[:configs]
     end
 
     def update_api
       validate_addon_json_column(ServiceApiTest, @attrs[:api])
-      @addon.update_attributes(api: @attrs[:api])
+      @updates[:api] = @attrs[:api]
     end
 
   end

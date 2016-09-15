@@ -139,7 +139,7 @@ module AddonsHelper
   end
 
   def base_64_file_type(base64_string)
-    base64_string.split(';base64').first.gsub('data:')
+    base64_string.split(';base64').first.gsub('data:', '')
   end
 
 end

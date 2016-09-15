@@ -242,4 +242,13 @@ namespace :addons do
     end
   end
 
+  desc 'Convert icon urls to use S3 instead of Cloudfront since they can get updated often'
+  task :service_icons_to_s3 => :environment do
+    ActiveRecord::Base.transaction do
+      Addon.all.each { |addon|
+        addon.update_attributes(icon: addon.icon.gsub(ENV['CLOUDFRONT_URL'], ENV['S3_URL']))
+      }
+    end
+  end
+
 end
