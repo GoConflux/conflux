@@ -85,6 +85,16 @@ var Service = React.createClass({
     $tempInput.remove();
   },
 
+  getIconClasses: function () {
+    var classes = 'service-icon';
+
+    if (!this.props.icon) {
+      classes += ' no-icon';
+    }
+
+    return classes;
+  },
+
   render: function() {
     return (
       <div id="service">
@@ -92,7 +102,7 @@ var Service = React.createClass({
         <div className="service-container conflux-container">
           <div className="service-header">
             <div className="primary-info-container">
-              <img className="service-icon" src={this.props.icon} />
+              <img className={this.getIconClasses()} src={this.props.icon || 'https://ds8ypexjwou5.cloudfront.net/images/no-addon-icon.svg'} />
               <div className="service-name">{this.props.name}</div>
               <div className="service-tagline">{this.props.tagline}</div>
             </div>

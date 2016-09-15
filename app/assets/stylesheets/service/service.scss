@@ -52,6 +52,15 @@
     width: 70px;
     height: 70px;
     display: block;
+
+    &.no-icon {
+      background: rgba(0, 0, 20, 0.2);
+      border-radius: 4px;
+      padding-top: 18px;
+      padding-bottom: 14px;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
   }
 
   .service-name {

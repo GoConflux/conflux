@@ -9,7 +9,7 @@ var UploadIcon = React.createClass({
   },
 
   getIcon: function () {
-    return this.props.data.icon || 'no-icon-url'; // add this
+    return this.props.data.icon;
   },
 
   serialize: function (cb) {
