@@ -19,7 +19,6 @@
   #   }
   # }
 
-  ALLOWED_ACTIONS = ['new_library', 'new_file']
   ALLOWED_LANGS = ['ruby']
 
   def call!
@@ -45,8 +44,10 @@
     end
 
     test 'all actions are allowed' do
+      allowed_actions = Addon::JobTypes.constants.map{ |k| Addon::JobTypes.const_get(k) }
+
       data.each { |job_id, job_info|
-        raise 'Invalid Job Action' unless ALLOWED_ACTIONS.include?(job_info['action'])
+        raise 'Invalid Job Action' unless allowed_actions.include?(job_info['action'])
       }
 
       true
@@ -54,7 +55,7 @@
 
     test 'new_library jobs have lang, name, and version string keys for their assets' do
       data.each { |job_id, job_info|
-        if job_info['action'] == 'new_library'
+        if job_info['action'] == Addon::JobTypes::NEW_LIBRARY
           asset = job_info['asset']
 
           ['lang', 'name', 'version'].each { |key|
@@ -76,7 +77,7 @@
 
     test 'new_file jobs have path, contents, and name string keys for their assets' do
       data.each { |job_id, job_info|
-        if job_info['action'] == 'new_file'
+        if job_info['action'] == Addon::JobTypes::NEW_FILE
           asset = job_info['asset']
 
           ['path', 'contents', 'name'].each { |key|
@@ -92,7 +93,7 @@
 
     test 'all new_file jobs have unique paths' do
       new_file_paths = data.map { |job_id, job_info|
-        job_info['action'] == 'new_file' ? job_info['asset']['path'] : nil
+        job_info['action'] == Addon::JobTypes::NEW_FILE ? job_info['asset']['path'] : nil
       }.compact
 
       new_file_paths.length == new_file_paths.uniq.length

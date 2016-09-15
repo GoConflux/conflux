@@ -23,6 +23,11 @@ class Addon < ActiveRecord::Base
     ACTIVE = 1
   end
 
+  module JobTypes
+    NEW_FILE = 'new_file'
+    NEW_LIBRARY = 'new_library'
+  end
+
   ICON_EXT_FOR_TYPE = {
     'image/jpg' => 'jpg',
     'image/jpeg' => 'jpg',

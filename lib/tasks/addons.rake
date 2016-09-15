@@ -230,7 +230,7 @@ namespace :addons do
         new_jobs = {}
 
         (addon.jobs || {}).each { |job_id, data|
-          if data['action'] == 'new_file'
+          if data['action'] == Addon::JobTypes::NEW_FILE
             data['asset']['contents'] = "files/addons/#{addon.slug}/#{job_id}"
           end
 

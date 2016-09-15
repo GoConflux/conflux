@@ -31,7 +31,7 @@ module AddonsHelper
     jobs_map.each { |job_id, job|
       job_id = job_id.include?('NEW_JOB') ? SecureRandom.hex(3) : job_id
 
-      if job['action'] == 'new_file'
+      if job['action'] == Addon::JobTypes::NEW_FILE
         s3_file_path = "files/addons/#{addon_slug}/#{job_id}"
         file_contents = job['asset']['contents']
 
