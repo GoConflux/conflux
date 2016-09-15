@@ -3,7 +3,7 @@ var LikeService = React.createClass({
   getInitialState: function () {
     return {
       count: this.props.count,
-      hasLiked: this.props.authed
+      hasLiked: this.props.authed && this.props.hasLiked
     }
   },
 

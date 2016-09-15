@@ -104,6 +104,7 @@ var Service = React.createClass({
   },
 
   render: function() {
+    console.log(this.props.likes.has_liked);
     return (
       <div id="service">
         <div className="home-header"></div>

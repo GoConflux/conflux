@@ -87,7 +87,7 @@ module AddonsHelper
         is_pending: addon.is_pending?,
         is_active: addon.is_active?
       },
-      display_status: 'Pending' || addon.display_status
+      display_status: addon.display_status
     }
 
     if edit_mode
