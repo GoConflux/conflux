@@ -146,6 +146,7 @@ var FormDoubleInput = React.createClass({
 
     if (validate && _.isEmpty(data)) {
       $(this.newRowBtn).addClass('invalid');
+      valid = false;
     }
 
     var payload = { valid: valid, value: data };

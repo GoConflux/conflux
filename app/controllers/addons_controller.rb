@@ -250,11 +250,11 @@ class AddonsController < ApplicationController
       tagline: params[:tagline],
       description: params[:description],
       category_uuid: params[:category_uuid],
-      plans: params[:plans],
-      features: params[:features],
-      jobs: params[:jobs],
-      configs: params[:configs],
-      api: addon.is_heroku_dependent? ? {} : params[:api]
+      plans: params[:plans] || [],
+      features: params[:features] || [],
+      jobs: params[:jobs] || {},
+      configs: params[:configs] || [],
+      api: addon.is_heroku_dependent? ? {} : (params[:api] || {})
     }
   end
 

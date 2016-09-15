@@ -64,7 +64,7 @@ module AddonServices
     def check_for_category_update
       category_uuid = @attrs[:category_uuid]
 
-      if @addon.addon_category.uuid != category_uuid
+      if @addon.addon_category.try(:uuid) != category_uuid
         addon_category = AddonCategory.find_by(uuid: category_uuid)
         raise "No AddonCategory with uuid: #{category_uuid}" if addon_category.nil?
         @updates[:addon_category_id] = addon_category.id
@@ -74,7 +74,7 @@ module AddonServices
     def update_icon
       file = @attrs[:icon]
 
-      if @addon.icon != file
+      if @addon.icon != file && file.present?
         # 'file' is a base64 string at this point.
         file_type = base_64_file_type(file)
         valid_file_types = @addon.valid_icon_file_types
@@ -139,8 +139,11 @@ module AddonServices
     end
 
     def update_api
-      validate_addon_json_column(ServiceApiTest, @attrs[:api])
-      @updates[:api] = @attrs[:api]
+      api = @addon.api || {}
+      api['production'] = @attrs[:api]
+
+      validate_addon_json_column(ServiceApiTest, api)
+      @updates[:api] = api
     end
 
   end

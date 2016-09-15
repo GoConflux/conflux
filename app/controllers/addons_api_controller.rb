@@ -101,7 +101,7 @@ class AddonsApiController < ApplicationController
 
       # Send back the url for the new draft service so that the owner can
       # go there and finish the submission process
-      render json: { url: "#{ENV['CONFLUX_USER_ADDRESS']}/services/#{addon.try(:slug)}" }, status: 200
+      render json: { url: "#{ENV['CONFLUX_USER_ADDRESS']}/services/#{addon.try(:slug)}/edit" }, status: 200
     rescue Exception => e
       render json: { message: e.message }, status: 500
     end

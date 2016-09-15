@@ -24,9 +24,17 @@ var Features = React.createClass({
     });
   },
 
+  featuresClasses: function () {
+    if ((this.state.features || []).length > 0) {
+      return;
+    }
+
+    return 'no-features';
+  },
+
   render: function() {
     return (
-      <div id="features">{this.formatFeatures()}</div>
+      <div id="features" className={this.featuresClasses()}>{this.formatFeatures()}</div>
     );
   }
 });

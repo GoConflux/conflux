@@ -104,7 +104,6 @@ var Service = React.createClass({
   },
 
   render: function() {
-    console.log(this.props.likes.has_liked);
     return (
       <div id="service">
         <div className="home-header"></div>
@@ -125,7 +124,7 @@ var Service = React.createClass({
                 <div className="starting-at">{this.getStartingAtText()}</div>
                 <span className="service-middot">&middot;</span>
                 <div className="service-category">
-                  <div className="category-name">{this.props.category}</div>
+                  <div className="category-name">{this.props.category || 'No Category'}</div>
                   <img src="http://confluxapp.s3-website-us-west-1.amazonaws.com/images/category-tag.svg" className="category-tag"/>
                 </div>
               </div>
@@ -141,7 +140,7 @@ var Service = React.createClass({
                 <Plans data={this.props} writeAccess={true} hideSubsectionTitle={true} onPlanSelected={this.onPlanSelected} ref={this.setPlansRef} />
               </div>
               <div className="features-container">
-                <Features features={this.props.features} plan={this.props.plans[0].slug} ref={this.setFeaturesRef} />
+                <Features features={this.props.features} plan={(this.props.plans[0] || {}).slug} ref={this.setFeaturesRef} />
               </div>
             </div>
             <div id="provisioning" className="service-section">

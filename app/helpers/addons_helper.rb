@@ -96,7 +96,7 @@ module AddonsHelper
       data.merge!({
         jobs: addon.jobs,
         configs: addon.configs,
-        api: addon.api,
+        api: addon.is_heroku_dependent? ? {} : addon.prod_api,
         description: addon.description,
         plans: plans,
         features: features,
@@ -124,7 +124,7 @@ module AddonsHelper
         description: to_markdown(addon.description),
         plans: addon.plans,
         features: addon.ordered_features,
-        category: addon.addon_category.category
+        category: addon.addon_category.try(:category)
       })
     end
 

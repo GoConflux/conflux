@@ -397,6 +397,10 @@
   background-color: white;
   border: 1px solid #E7E7EC;
 
+  &.no-features {
+    display: none;
+  }
+
   .feature {
     float: left;
     width: 100%;

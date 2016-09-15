@@ -242,34 +242,34 @@ var EditService = React.createClass({
     });
   },
 
-  serialize: function (cb) {
-    this.serializeSection(0, {}, cb);
+  serialize: function (scrollToErrors, cb) {
+    this.serializeSection(scrollToErrors, 0, {}, cb);
   },
 
-  serializeSection: function (index, payload, cb) {
+  serializeSection: function (scrollToErrors, index, payload, cb) {
     var self = this;
     var key = this.params[index];
     var info = this.getRefSection(key);
 
     info.ref.serialize(function (data) {
-      if (data.valid) {
-        var value = data.value;
-
-        if (info.furtherFormat) {
-          value = info.furtherFormat(value);
-        }
-
-        payload[key] = value;
-      } else {
+      if (!data.valid && scrollToErrors) {
         self.scrollToRef(info.ref);
         return;
       }
+
+      var value = data.value;
+
+      if (info.furtherFormat) {
+        value = info.furtherFormat(value);
+      }
+
+      payload[key] = value;
 
       if (index == self.params.length - 1) {
         cb(payload);
       } else {
         index++;
-        self.serializeSection(index, payload, cb);
+        self.serializeSection(scrollToErrors, index, payload, cb);
       }
     });
   },
@@ -290,8 +290,15 @@ var EditService = React.createClass({
 
   updateService: function (endpoint) {
     var self = this;
+    var scrollToErrors = true;
 
-    this.serialize(function (payload) {
+    // If this service is only a draft, and the admin is trying to save it (modify it),
+    // save it without stoppint to scroll to errors.
+    if (endpoint == 'modify' && this.props.status.is_draft) {
+      scrollToErrors = false;
+    }
+
+    this.serialize(scrollToErrors, function (payload) {
       React.put('/addons/' + endpoint, _.extend(payload, { addon_uuid: self.props.addon_uuid }), {
         success: function (data) {
           window.location = data.url;

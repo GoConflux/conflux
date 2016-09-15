@@ -32,14 +32,26 @@ var EditableApi = React.createClass({
     cb(data);
   },
 
+  defaultBaseUrl: function () {
+    return {
+      defaultValue: this.props.data.api.base_url
+    }
+  },
+
+  defaultSsoUrl: function () {
+    return {
+      defaultValue: this.props.data.api.sso_url
+    }
+  },
+  
   render: function() {
     return (
       <div className="editable-api">
         <div className="editable-api-input">
-          <FormInput required={this.props.required} data={this.props.data} inputTitle={'Base URL'} ref={this.setBaseUrlRef} />
+          <FormInput required={this.props.required} data={this.defaultBaseUrl()} inputTitle={'Base URL'} ref={this.setBaseUrlRef} />
         </div>
         <div className="editable-api-input">
-          <FormInput required={this.props.required} data={this.props.data} inputTitle={'SSO URL'} ref={this.setSsoUrlRef} />
+          <FormInput required={this.props.required} data={this.defaultSsoUrl()} inputTitle={'SSO URL'} ref={this.setSsoUrlRef} />
         </div>
       </div>
     );

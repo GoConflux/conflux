@@ -51,16 +51,17 @@ var EditableJobs = React.createClass({
         name: '',
         version: ''
       }
-    }
+    };
   },
 
   addGettingStartedFile: function (fileJobs) {
     if (fileJobs.length == 0) {
       var gettingStartedJob = this.newJob(this.jobTypes.newFile);
       gettingStartedJob.asset.path = './conflux/' + this.props.data.slug + '/getting-started.\<ext\>';
+      fileJobs.push(gettingStartedJob);
     }
 
-    return fileJobs;
+    return fileJobs;R
   },
 
   formatJobs: function (jobs) {

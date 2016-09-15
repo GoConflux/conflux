@@ -36,6 +36,10 @@ class Addon < ActiveRecord::Base
     'image/svg+xml' => 'svg'
   }
 
+  def prod_api
+    (api || {})['production']
+  end
+
   def valid_icon_file_types
     ICON_EXT_FOR_TYPE.keys
   end
