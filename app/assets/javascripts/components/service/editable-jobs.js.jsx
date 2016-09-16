@@ -2,7 +2,7 @@ var EditableJobs = React.createClass({
 
   getInitialState: function () {
     return {
-      jobs: this.props.data.jobs
+      jobs: this.getInitialJobs()
     };
   },
 
@@ -15,6 +15,26 @@ var EditableJobs = React.createClass({
 
   langTypes: {
     ruby: 'ruby'
+  },
+
+  getInitialJobs: function () {
+    var jobs = this.props.data.jobs || {};
+    var fileJobsExist = false;
+
+    for (var jobId in jobs) {
+      if (jobs[jobId].action == this.jobTypes.newFile) {
+        fileJobsExist = true;
+      }
+    }
+
+    if (!fileJobsExist) {
+      var gettingStartedJob = this.newJob(this.jobTypes.newFile);
+      gettingStartedJob.asset.path = './conflux/' + this.props.data.slug + '/getting-started.\<ext\>';
+      jobs[gettingStartedJob.id] = gettingStartedJob;
+      delete jobs[gettingStartedJob.id].id;
+    }
+
+    return jobs;
   },
 
   newJob: function (type) {
@@ -52,16 +72,6 @@ var EditableJobs = React.createClass({
         version: ''
       }
     };
-  },
-
-  addGettingStartedFile: function (fileJobs) {
-    if (fileJobs.length == 0) {
-      var gettingStartedJob = this.newJob(this.jobTypes.newFile);
-      gettingStartedJob.asset.path = './conflux/' + this.props.data.slug + '/getting-started.\<ext\>';
-      fileJobs.push(gettingStartedJob);
-    }
-
-    return fileJobs;
   },
 
   formatJobs: function (jobs) {
@@ -168,8 +178,6 @@ var EditableJobs = React.createClass({
         libraryJobs.push(data);
       }
     }
-
-    // fileJobs = this.addGettingStartedFile(fileJobs);
 
     this.jobRefs = []; // empty this again
 
