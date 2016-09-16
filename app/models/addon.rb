@@ -159,7 +159,7 @@ class Addon < ActiveRecord::Base
   end
 
   def request_creds
-    [ @addon.slug, @addon.password ]
+    [ slug, password ]
   end
 
   def api_requires_syslog_drain

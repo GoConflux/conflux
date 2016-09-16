@@ -110,7 +110,7 @@ class AddonsController < ApplicationController
         icon_url: "#{ENV['CLOUDFRONT_URL']}/images/conflux-icon-white-blue-bg.png"
       )
 
-      render json: {}, status: 200
+      render json: { url: "/services/#{addon.slug}" }
     rescue Exception => e
       puts "Error submitting service: #{e.message}"
       render json: { message: 'Error submitting service'}, status: 500

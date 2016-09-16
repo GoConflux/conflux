@@ -59,9 +59,18 @@ class AddonsApiController < ApplicationController
       # Make sure manifest is valid.
       raise "Invalid Manifest: #{manifest_test.err_message}" unless manifest_test.call
 
-      # Make sure slug is available.
-      unless is_name_available(Addon, manifest['id'])
-        raise 'id for service is unavailable. Change the "id" field in your Conflux manifest and then try again.'
+      # Find or initialize an addon by the slug from the manifest
+      addon = Addon.unscoped.find_or_initialize_by(slug: manifest['id'], is_destroyed: false)
+      current_addon_admin = nil
+
+      # If the addon already existed...
+      if addon.persisted?
+        # Check to see if the current_user is an addon_admin. If not, raise a permissions error.
+        current_addon_admin = AddonAdmin.find_by(user_id: @current_user.id, addon_id: addon.id)
+
+        if current_addon_admin.nil?
+          raise 'id for service is unavailable. Change the "id" field in your Conflux manifest and then try again.'
+        end
       end
 
       api = manifest['api'] || {}
@@ -75,33 +84,39 @@ class AddonsApiController < ApplicationController
         }
       }
 
-      addon = nil
-
       with_transaction do
-        # Create new draft Addon
-        addon = Addon.create!(
+        attrs_to_update = {
           slug: manifest['id'],
           configs: configs,
-          password: api['password'],
-          sso_salt: api['sso_salt'],
           api: {
             production: api['production'],
             test: api['test']
-          },
-          status: Addon::Status::DRAFT
-        )
+          }
+        }
 
-        # Create new AddonAdmin so that this addon has an owner
-        AddonAdmin.create!(
-          addon_id: addon.id,
-          user_id: @current_user.id,
-          is_owner: true
-        )
+        # if addon is new, add the password, sso_salt, and status attributes.
+        if !addon.persisted?
+          attrs_to_update.merge!({
+            password: api['password'],
+            sso_salt: api['sso_salt'],
+            status: Addon::Status::DRAFT
+          })
+        end
+
+        addon.assign_attributes(attrs_to_update)
+        addon.save!
+
+        # if this is nil, that means the addon is new. So create the addon_admin now.
+        if current_addon_admin.nil?
+          current_addon_admin = AddonAdmin.find_or_initialize_by(user_id: @current_user.id, addon_id: addon.id) { |aa|
+            aa.is_owner = true
+          }
+
+          current_addon_admin.save!
+        end
       end
 
-      # Send back the url for the new draft service so that the owner can
-      # go there and finish the submission process
-      render json: { url: "#{ENV['CONFLUX_USER_ADDRESS']}/services/#{addon.try(:slug)}/edit" }, status: 200
+      render json: {}, status: 200
     rescue Exception => e
       render json: { message: e.message }, status: 500
     end

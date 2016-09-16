@@ -61,7 +61,7 @@ var EditableJobs = React.createClass({
       fileJobs.push(gettingStartedJob);
     }
 
-    return fileJobs;R
+    return fileJobs;
   },
 
   formatJobs: function (jobs) {
@@ -169,7 +169,7 @@ var EditableJobs = React.createClass({
       }
     }
 
-    fileJobs = this.addGettingStartedFile(fileJobs);
+    // fileJobs = this.addGettingStartedFile(fileJobs);
 
     this.jobRefs = []; // empty this again
 
