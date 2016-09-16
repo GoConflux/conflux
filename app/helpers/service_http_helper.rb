@@ -12,12 +12,12 @@ module ServiceHttpHelper
     make_request(:post, credentials, url, path, payload)
   end
 
-  def make_put(credentials, url, path, payload = nil)
-    request(:put, credentials, url, path, payload)
+  def put(credentials, url, path, payload = nil)
+    make_request(:put, credentials, url, path, payload)
   end
 
-  def make_delete(credentials, url, path, payload = nil)
-    request(:delete, credentials, url, path, payload)
+  def delete(credentials, url, path, payload = nil)
+    make_request(:delete, credentials, url, path, payload)
   end
 
   def make_request(method, credentials, url, path, payload = nil)
