@@ -37,11 +37,11 @@ class ServiceApiTest < AbstractJsonTest
       true
     end
 
-    # test 'production keys use SSL' do
-    #   ssl_for_base_url = data['production']['base_url'] =~ /^https:/
-    #   ssl_for_sso_url = data['production']['sso_url'] =~ /^https:/
-    #   ssl_for_base_url && ssl_for_sso_url
-    # end
+    test 'production keys use SSL' do
+      ssl_for_base_url = data['production']['base_url'] =~ /^https:/
+      ssl_for_sso_url = data['production']['sso_url'] =~ /^https:/
+      ssl_for_base_url && ssl_for_sso_url
+    end
 
   end
 
