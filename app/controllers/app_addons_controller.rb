@@ -2,14 +2,14 @@ class AppAddonsController < ApplicationController
   include AppsHelper
 
   before_filter :set_current_user
-  before_filter :set_app_addon, :only => [:index, :sso]
-  before_filter :protect_app_addon, :only => [:index, :sso]
+  before_filter :set_app_addon, :only => [:index]
+  before_filter :protect_app_addon, :only => [:index]
   before_filter :required_app_addon_creation_params, :only => [:create]
   before_filter :required_app_addon_update_params, :only => [:update]
   before_filter :required_app_addon_destroy_params, :only => [:destroy]
   before_filter :addon_by_uuid, :only => [:create]
   before_filter :app_by_uuid, :only => [:create]
-  before_filter :app_addon_by_uuid, :only => [:update, :update_plan, :update_description, :destroy]
+  before_filter :app_addon_by_uuid, :only => [:update, :update_plan, :update_description, :destroy, :sso]
 
   def index
     addon = @app_addon.addon
@@ -26,7 +26,7 @@ class AppAddonsController < ApplicationController
         selected: addon.index_for_plan(@app_addon.plan),
         plans: addon.plans
       },
-      links: [],
+      links: @app_addon.links,
       write_access: @current_team_user.can_edit_addon?(@app_addon)
     }
 
@@ -210,7 +210,10 @@ class AppAddonsController < ApplicationController
   end
 
   def sso
+    protect_app_addon
     Sso.new(@app_addon).perform
+    # Need to be able to follow the redirect that Mechanize is getting when posting,
+    # but that doesn't seem to want to happen...
   end
 
 end

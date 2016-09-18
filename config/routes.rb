@@ -39,7 +39,7 @@ Rails.application.routes.draw do
     put '/app_addons/update_plan' => 'app_addons#update_plan'
     put '/app_addons/update_description' => 'app_addons#update_description'
     delete '/app_addons' => 'app_addons#destroy'
-    get '/sso/:addon_slug' => 'app_addons#sso'
+    get '/sso/:app_addon_uuid' => 'app_addons#sso'
 
     # API:
     post '/api/app_addons' => 'app_addons_api#create'
