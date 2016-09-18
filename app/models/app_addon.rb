@@ -70,15 +70,19 @@ class AppAddon < ActiveRecord::Base
   end
 
   def links
-    addon = self.addon
-    return [] if addon.is_heroku_dependent?
+    []
 
-    [
-      {
-        name: "Open #{addon.name}",
-        href: "/sso/#{uuid}"
-      }
-    ]
+    # WHEN SSO IS READY:
+    # ----------------------
+    # addon = self.addon
+    # return [] if addon.is_heroku_dependent?
+    #
+    # [
+    #   {
+    #     name: "Open #{addon.name}",
+    #     href: "/sso/#{uuid}"
+    #   }
+    # ]
   end
 
 end
