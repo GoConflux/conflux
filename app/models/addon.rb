@@ -87,6 +87,16 @@ class Addon < ActiveRecord::Base
     hf
   end
 
+  def modal_headline_features
+    hf = []
+
+    features.each { |data|
+      hf.push(data) if data['headlineFeature'] === true
+    }
+
+    hf
+  end
+
   def index_for_plan(slug)
     plans.find_index { |plan| plan['slug'] == slug } || 0
   end

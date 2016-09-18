@@ -58,7 +58,7 @@ class AddonsController < ApplicationController
       icon: @addon.icon,
       description: @addon.tagline,
       plans: @addon.plans,
-      headline_features: @addon.headline_features
+      headline_features: @addon.modal_headline_features
     }
   end
 
