@@ -33,7 +33,7 @@ module Heroku
   def self.upsert_keys_from_new_config_vars(app_addon)
     all_app_configs = heroku.config_var.info(app_addon.app_scope.heroku_app)
 
-    addon_specific_configs = app_addon.addon.config_vars # from addons.json
+    addon_specific_configs = app_addon.addon.config_keys
 
     new_configs_map = all_app_configs.select { |key|
       addon_specific_configs.include?(key.to_s)

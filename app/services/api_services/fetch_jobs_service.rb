@@ -7,45 +7,51 @@ module ApiServices
     def initialize(executor_user, app, app_token, past_jobs, team_user)
       super(executor_user)
       @app = app
-      @app_token = app_token
+      @app_token = app_token # was used when redis was being used
       @past_jobs = past_jobs
       @team_user = team_user
       @jobs = {}
     end
 
     def perform
-      # # attempt to get the array of job ids from redis if redis exists
-      # job_ids = $redis.hget(Key::JOBS, @app_token) if $redis.present?
-      # add_to_redis = false
-      #
-      # # if the job ids fetched from redis do NOT come back nil, take what is given and parse it.
-      # if job_ids.present?
-      #   job_ids = JSON.parse(job_ids) rescue []
-      #
-      # # app_token wasn't inside redis, so get all job ids that belong to this app
-      # else
-      #   job_ids = @app.job_ids
-      #   add_to_redis = true
-      # end
-      #
-      # # if app_token wasn't in redis, store the fetched job_ids from above under that app_token
-      # if add_to_redis && $redis.present?
-      #   $redis.hset(Key::JOBS, @app_token, job_ids.to_json)
-      # end
+      # We have a @past_jobs array of past job ids.
+      # We needs to fill the @jobs hash with any NEW jobs, sorted by addon.
+      # Example of @jobs structure:
 
-      job_ids = @app.job_ids(@team_user.id)
+      # {
+      #   'pubnub' => [new pubnub jobs],
+      #   'bucketeer' => [new bucketeer jobs],
+      #   'etc...'
+      # }
 
-      (job_ids - @past_jobs).each { |job_id|
-        job_info = $jobs[job_id] # global var '$jobs' -- important difference
+      # ...where a job has the structure:
 
-        if job_info
-          addon = job_info['addon']
+      # {
+      #   "id": "7de945",
+      #   "action": "new_library",
+      #   "asset": {
+      #     "lang": "ruby",
+      #     "name": "pubnub",
+      #     "version": "3.6.10"
+      #   }
+      # }
 
-          @jobs[addon] = [] if !@jobs.key?(addon)
+      @app.app_addons
+        .includes(:app_scope, :addon)
+        .where(app_scopes: { team_user_id: [nil, @team_user.id] })
+        .each { |app_addon|
+          addon = app_addon.addon
+          addon_jobs = addon.jobs
+          addon_job_ids = addon_jobs.keys
 
-          @jobs[addon].push(job_info)
-        end
-      }
+          @jobs[addon.slug] = []
+
+          (addon_job_ids - @past_jobs).each { |job_id|
+            job = addon_jobs[job_id]
+            job['id'] = job_id
+            @jobs[addon.slug].push(job)
+          }
+        }
 
       self
     end

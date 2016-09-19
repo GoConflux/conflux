@@ -1,0 +1,41 @@
+[
+    {
+        "feature": "Redundancy",
+        "values": {
+            "free": "",
+            "entry": "CHECK",
+            "premium": "CHECK",
+            "premium_16": "CHECK",
+            "premium_32": "CHECK",
+            "premium_64": "CHECK",
+            "premium_128": "CHECK"
+        },
+        "headlineFeature": true
+    },
+    {
+        "feature": "Feed updates per month",
+        "values": {
+            "free": "2,000,000",
+            "entry": "4,000,000",
+            "premium": "8,000,000",
+            "premium_16": "16,000,000",
+            "premium_32": "32,000,000",
+            "premium_64": "64,000,000",
+            "premium_128": "128,000,000"
+        },
+        "headlineFeature": true
+    },
+    {
+        "feature": "Concurrent realtime connections",
+        "values": {
+            "free": "10",
+            "entry": "20",
+            "premium": "200",
+            "premium_16": "500",
+            "premium_32": "2,000",
+            "premium_64": "Unlimited",
+            "premium_128": "Unlimited"
+        },
+        "headlineFeature": true
+    }
+]

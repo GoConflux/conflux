@@ -102,10 +102,10 @@ class AppsController < ApplicationController
         @app.destroy!
 
         # Remove all keys from Redis mapping to each of these apps
-        AppServices::RemoveAppKeysFromRedis.new(
-          @current_user,
-          token_placeholder_app
-        ).delay.perform
+        # AppServices::RemoveAppKeysFromRedis.new(
+        #   @current_user,
+        #   token_placeholder_app
+        # ).delay.perform
 
         track('Delete Bundle', { app: @app.slug })
 

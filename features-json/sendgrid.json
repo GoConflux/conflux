@@ -1,0 +1,155 @@
+[
+    {
+        "feature": "Emails per Month",
+        "values": {
+            "starter": "up to 12000",
+            "bronze": "up to 40000",
+            "silver": "up to 100000",
+            "100000plus": "up to 100,000",
+            "gold": "up to 300000",
+            "300000plus": "up to 300,000",
+            "platinum": "up to 700000",
+            "700000plus": "700,000",
+            "pr1500000": "up to 1,500,000",
+            "pr2500000": "up to 2,500,000"
+        },
+        "headlineFeature": true
+    },
+    {
+        "feature": "Dedicated IP Address &amp; IP Whitelabeling",
+        "values": {
+            "starter": "",
+            "bronze": "",
+            "silver": "CHECK",
+            "100000plus": "CHECK",
+            "gold": "CHECK",
+            "300000plus": "CHECK",
+            "platinum": "CHECK",
+            "700000plus": "CHECK",
+            "pr1500000": "CHECK",
+            "pr2500000": "CHECK"
+        },
+        "headlineFeature": true
+    },
+    {
+        "feature": "Dedicated Technical Account Manager &amp; Deliverability Expert",
+        "values": {
+            "starter": "",
+            "bronze": "",
+            "silver": "",
+            "100000plus": "",
+            "gold": "",
+            "300000plus": "",
+            "platinum": "",
+            "700000plus": "",
+            "pr1500000": "CHECK",
+            "pr2500000": "CHECK"
+        }
+    },
+    {
+        "feature": "Priority Support with SendGrid ",
+        "values": {
+            "starter": "",
+            "bronze": "",
+            "silver": "",
+            "100000plus": "",
+            "gold": "",
+            "300000plus": "",
+            "platinum": "",
+            "700000plus": "",
+            "pr1500000": "CHECK",
+            "pr2500000": "CHECK"
+        }
+    },
+    {
+        "feature": "Sender Reputation, ISP and Blacklist Management",
+        "values": {
+            "starter": "",
+            "bronze": "",
+            "silver": "",
+            "100000plus": "",
+            "gold": "",
+            "300000plus": "",
+            "platinum": "",
+            "700000plus": "",
+            "pr1500000": "CHECK",
+            "pr2500000": "CHECK"
+        }
+    },
+    {
+        "feature": "Sub-User API",
+        "values": {
+            "starter": "",
+            "bronze": "",
+            "silver": "CHECK",
+            "100000plus": "CHECK",
+            "gold": "CHECK",
+            "300000plus": "CHECK",
+            "platinum": "CHECK",
+            "700000plus": "CHECK",
+            "pr1500000": "CHECK",
+            "pr2500000": "CHECK"
+        }
+    },
+    {
+        "feature": "Parse API and Webhook",
+        "values": {
+            "starter": "CHECK",
+            "bronze": "",
+            "silver": "CHECK",
+            "100000plus": "CHECK",
+            "gold": "CHECK",
+            "300000plus": "CHECK",
+            "platinum": "CHECK",
+            "700000plus": "CHECK",
+            "pr1500000": "CHECK",
+            "pr2500000": "CHECK"
+        }
+    },
+    {
+        "feature": "Event API and Webhook",
+        "values": {
+            "starter": "CHECK",
+            "bronze": "CHECK",
+            "silver": "CHECK",
+            "100000plus": "CHECK",
+            "gold": "CHECK",
+            "300000plus": "CHECK",
+            "platinum": "CHECK",
+            "700000plus": "CHECK",
+            "pr1500000": "CHECK",
+            "pr2500000": "CHECK"
+        },
+        "headlineFeature": true
+    },
+    {
+        "feature": "24/7 Support: Phone, Chat, Email",
+        "values": {
+            "starter": "CHECK",
+            "bronze": "CHECK",
+            "silver": "CHECK",
+            "100000plus": "CHECK",
+            "gold": "CHECK",
+            "300000plus": "CHECK",
+            "platinum": "CHECK",
+            "700000plus": "CHECK",
+            "pr1500000": "CHECK",
+            "pr2500000": "CHECK"
+        }
+    },
+    {
+        "feature": "Marketing Email",
+        "values": {
+            "starter": "",
+            "bronze": "",
+            "silver": "",
+            "100000plus": "CHECK",
+            "gold": "",
+            "300000plus": "CHECK",
+            "platinum": "",
+            "700000plus": "CHECK",
+            "pr1500000": "CHECK",
+            "pr2500000": "CHECK"
+        }
+    }
+]

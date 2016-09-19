@@ -1,0 +1,28 @@
+[
+    {
+        "feature": "Compute hours / month",
+        "values": {
+            "developer": "2",
+            "deployer": "12",
+            "producer": "52",
+            "rockstar": "102",
+            "imagga": "52",
+            "gold": "202",
+            "platinum": "1,002"
+        },
+        "headlineFeature": true
+    },
+    {
+        "feature": "Imagga Smart Crops",
+        "values": {
+            "developer": "100",
+            "deployer": "100",
+            "producer": "100",
+            "rockstar": "100",
+            "imagga": "5,000",
+            "gold": "100",
+            "platinum": "100"
+        },
+        "headlineFeature": true
+    }
+]

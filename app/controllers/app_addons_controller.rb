@@ -9,7 +9,7 @@ class AppAddonsController < ApplicationController
   before_filter :required_app_addon_destroy_params, :only => [:destroy]
   before_filter :addon_by_uuid, :only => [:create]
   before_filter :app_by_uuid, :only => [:create]
-  before_filter :app_addon_by_uuid, :only => [:update, :update_plan, :update_description, :destroy, :revoke_keys]
+  before_filter :app_addon_by_uuid, :only => [:update, :update_plan, :update_description, :destroy, :sso]
 
   def index
     addon = @app_addon.addon
@@ -26,7 +26,7 @@ class AppAddonsController < ApplicationController
         selected: addon.index_for_plan(@app_addon.plan),
         plans: addon.plans
       },
-      links: [],
+      links: @app_addon.links,
       write_access: @current_team_user.can_edit_addon?(@app_addon)
     }
 
@@ -52,7 +52,14 @@ class AppAddonsController < ApplicationController
       return
     end
 
-    if @addon.plan_disabled?(params[:plan])
+    plan = params[:plan]
+
+    # If no plan passed in or the plan passed in isn't actually valid, default to the basic plan.
+    if plan.nil? || !@addon.has_plan?(plan)
+      plan = @addon.basic_plan_slug
+    end
+
+    if @addon.plan_disabled?(plan)
       render json: { message: 'Plan Not Available' }, status: 500
       return
     end
@@ -74,23 +81,20 @@ class AppAddonsController < ApplicationController
         app_addon = AppAddon.create!(
           app_scope_id: app_scope.id,
           addon_id: @addon.id,
-          plan: @addon.basic_plan # hardcoding basic plan until Stripe integration is added
+          plan: plan
         )
-
-        # For later:
-        # plan = params[:plan].present? ? "#{@addon.slug}:#{params[:plan]}" : @addon.basic_plan
 
         AppServices::ProvisionAppAddon.new(
           @current_user,
           app_addon,
-          @addon.basic_plan # hardcoding basic plan until Stripe integration is added
+          plan
         ).delay.perform
 
         # Remove all keys from Redis mapping to each of these apps
-        AppServices::RemoveAppKeysFromRedis.new(
-          @current_user,
-          @app
-        ).delay.perform
+        # AppServices::RemoveAppKeysFromRedis.new(
+        #   @current_user,
+        #   @app
+        # ).delay.perform
 
         track('New Add-on', { addon: @addon.slug })
 
@@ -115,10 +119,10 @@ class AppAddonsController < ApplicationController
           @app_addon.update_keys(params[:keys])
 
           # Remove all keys from Redis mapping to each of these apps
-          AppServices::RemoveAppKeysFromRedis.new(
-            @current_user,
-            @app_addon.app_scope.app
-          ).delay.perform
+          # AppServices::RemoveAppKeysFromRedis.new(
+          #   @current_user,
+          #   @app_addon.app_scope.app
+          # ).delay.perform
         end
 
         updated_data = {
@@ -139,7 +143,12 @@ class AppAddonsController < ApplicationController
     addon = @app_addon.addon
     plan = params[:plan]
 
-    if addon.plan_disabled?(plan)
+    if @app_addon.plan == plan
+      render json: { message: 'Plan Already Selected' }, status: 500
+      return
+    end
+
+    if addon.plan_disabled?(plan) || !addon.has_plan?(plan)
       render json: { message: 'Plan Not Available' }, status: 500
       return
     end
@@ -148,12 +157,11 @@ class AppAddonsController < ApplicationController
       with_transaction do
         @app_addon.update_attributes(plan: plan)
 
-        # Also keeping commented out until Stripe integration is added
-        # AppServices::ChangeAddonPlan.new(
-        #   @current_user,
-        #   @app_addon,
-        #   "#{addon.heroku_slug}:#{params[:plan]}"
-        # ).delay.perform
+        AppServices::ChangeAddonPlan.new(
+          @current_user,
+          @app_addon,
+          plan
+        ).delay.perform
 
         track('Update Add-on Plan', { addon: addon.slug, plan: plan })
 
@@ -186,10 +194,10 @@ class AppAddonsController < ApplicationController
 
       @app_addon.destroy!
 
-      AppServices::RemoveAppKeysFromRedis.new(
-        @current_user,
-        app
-      ).perform
+      # AppServices::RemoveAppKeysFromRedis.new(
+      #   @current_user,
+      #   app
+      # ).perform
 
       track('Remove Add-on', { addon: addon.slug })
 
@@ -201,19 +209,11 @@ class AppAddonsController < ApplicationController
     end
   end
 
-  def revoke_keys
-    begin
-      with_transaction do
-        KeyServices::RevokeKeys.new(
-          @current_user,
-          @app_addon
-        ).delay.perform
-      end
-    rescue Exception => e
-      error = "Error Revoking Keys for AppAddon with ID #{@app_addon.id}: #{e}"
-      logger.error { error }
-      render json: { message: error }, status: 500
-    end
+  def sso
+    protect_app_addon
+    Sso.new(@app_addon).perform
+    # Need to be able to follow the redirect that Mechanize is getting when posting,
+    # but that doesn't seem to want to happen...
   end
 
 end

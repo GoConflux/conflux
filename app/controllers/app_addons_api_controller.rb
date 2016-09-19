@@ -54,7 +54,7 @@ class AppAddonsApiController < ApplicationController
         AppServices::ProvisionAppAddon.new(
           @current_user,
           app_addon,
-          @addon.basic_plan # hardcoding basic plan until Stripe integration is added
+          plan
         ).perform
 
         if $redis.present?

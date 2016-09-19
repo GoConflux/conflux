@@ -78,8 +78,16 @@ var UpsertAddonModal = React.createClass({
       title: 'Plan',
       selectedIndex: this.props.data.selectedIndex,
       options: this.props.data.plans.map(function (plan) {
+        var displayPrice = null;
+
+        if (parseInt(plan.price) == 0 && parseInt(plan.price) == Math.ceil(parseFloat(plan.price))) {
+          displayPrice = 'Free';
+        } else {
+          displayPrice = '$' + plan.price;
+        }
+
         return {
-          text: plan.name + '  -  ' + plan.displayPrice,
+          text: plan.name + '  -  ' + displayPrice,
           value: plan.slug
         };
       })
@@ -89,7 +97,7 @@ var UpsertAddonModal = React.createClass({
   getSelectionAttrData: function () {
     return {
       selectedIndex: this.props.data.selectedIndex,
-      info: this.props.data.plans,
+      plans: this.props.data.plans,
       headline_features: this.props.data.headline_features
     };
   },

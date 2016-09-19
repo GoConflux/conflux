@@ -22,6 +22,11 @@
 
     .name {
       float: left;
+      float: left;
+      max-width: 155px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .price {
@@ -35,7 +40,7 @@
 
   .plan-option:hover,
   .plan-option:active {
-    background-color: #f0f0f4;
+    background-color: #f4f4f8;
     border: 1px solid #e0e0e4;
   }
 

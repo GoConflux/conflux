@@ -1,5 +1,9 @@
 class AddonCategory < ActiveRecord::Base
-  has_many :addons
+  include Extensions::UUID
+
+  has_many :addons # leaving off :dependent => :destroy here bc I don't wanna risk it
+
+  before_create :generate_uuid
 
   CATEGORIES_BY_PRIORITY = [
     'Data Stores',

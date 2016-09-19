@@ -69,4 +69,20 @@ class AppAddon < ActiveRecord::Base
     self.app_scope.shared?
   end
 
+  def links
+    []
+
+    # WHEN SSO IS READY:
+    # ----------------------
+    # addon = self.addon
+    # return [] if addon.is_heroku_dependent?
+    #
+    # [
+    #   {
+    #     name: "Open #{addon.name}",
+    #     href: "/sso/#{uuid}"
+    #   }
+    # ]
+  end
+
 end

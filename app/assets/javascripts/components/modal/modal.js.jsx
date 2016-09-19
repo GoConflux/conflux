@@ -141,6 +141,12 @@ var Modal = React.createClass({
         confirmText: 'Submit',
         headerText: 'Suggest a Service'
       },
+      'addon:admins': {
+        body: <AddonAdminsModal data={this.data} ref={this.setCurrentModal}/>,
+        confirmText: 'Add as Admin',
+        headerText: 'Manage Admins',
+        hideFooterBtn: true
+      },
       'key:update': {
         body: <KeyUpdateModal data={this.data} ref={this.setCurrentModal}/>,
         confirmText: 'Save',
@@ -178,6 +184,10 @@ var Modal = React.createClass({
         confirmText: 'Send email',
         headerText: 'Forgot Password'
       },
+      'like-service:unauthed': {
+        body: <ActionRequiresAuthModal data={this.data} ref={this.setCurrentModal}/>,
+        confirmText: 'Login'
+      },
       'empty': {
         body: <div></div>,
         confirmText: '',
@@ -207,13 +217,17 @@ var Modal = React.createClass({
     var confirmClasses = 'modal-action-btn confirm';
     var confirmText = this.getConfirmText();
     this.enableConfirm();
+
+    if (currentModal.hideFooterBtn) {
+      return;
+    }
     
     if (currentModal.confirmText && currentModal.declineText) {
       return <div className="double-footer-btns"><a onClick={this.onDecline} className="modal-action-link" href="javascript:void(0)"><div className="modal-action-btn decline">{this.getDeclineText()}</div></a><a onClick={this.onConfirm} className="modal-action-link" href="javascript:void(0)"><div className="modal-action-btn confirm">{this.getConfirmText()}</div><HorizontalSpinner ref={this.setSpinnerRef} /></a></div>;
     } else {
       this.hideLoadingAnimation = !!currentModal.hideLoadingAnimation;
 
-      // hardcoding cause fuck it - tech debt here we come!
+      // hardcoding cause fuck it
       if (this.state.usecase == 'addon:update' && this.data.plans[this.data.selectedIndex].disabled == 'true') {
         confirmClasses += ' plan-na';
         confirmText = <span><i className="fa fa-lock lock-icon"></i>Plan not currently available</span>;

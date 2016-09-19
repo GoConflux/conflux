@@ -1,0 +1,52 @@
+[
+    {
+        "feature": "Storage",
+        "values": {
+            "hobbyist": "5 GB",
+            "micro": "15 GB",
+            "small": "50 GB",
+            "standard": "250 GB",
+            "production": "1 TB",
+            "xlarge": "10 TB",
+            "enterprise": "100 TB"
+        },
+        "headlineFeature": true
+    },
+    {
+        "feature": "Custom Name",
+        "values": {
+            "hobbyist": "",
+            "micro": "CHECK",
+            "small": "CHECK",
+            "standard": "CHECK",
+            "production": "CHECK",
+            "xlarge": "CHECK",
+            "enterprise": "CHECK"
+        }
+    },
+    {
+        "feature": "Bandwidth",
+        "values": {
+            "hobbyist": "5 GB",
+            "micro": "10 GB",
+            "small": "25 GB",
+            "standard": "125 GB",
+            "production": "250 GB",
+            "xlarge": "250 GB",
+            "enterprise": "1 TB"
+        },
+        "headlineFeature": true
+    },
+    {
+        "feature": "Public Folder",
+        "values": {
+            "hobbyist": "CHECK",
+            "micro": "CHECK",
+            "small": "CHECK",
+            "standard": "CHECK",
+            "production": "CHECK",
+            "xlarge": "CHECK",
+            "enterprise": "CHECK"
+        }
+    }
+]

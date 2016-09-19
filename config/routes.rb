@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
 
-
   # HOME ------------------------------------
 
     # User:
     get '/' => 'home#index'
     get '/services' => 'home#services'
+    get '/services/:addon_slug' => 'home#service'
+    get '/services/:addon_slug/edit' => 'home#edit_service'
     get '/download' => 'home#download'
     get '/.well-known/acme-challenge/:id' => 'home#lets_encrypt'
 
@@ -38,6 +39,7 @@ Rails.application.routes.draw do
     put '/app_addons/update_plan' => 'app_addons#update_plan'
     put '/app_addons/update_description' => 'app_addons#update_description'
     delete '/app_addons' => 'app_addons#destroy'
+    get '/sso/:app_addon_uuid' => 'app_addons#sso'
 
     # API:
     post '/api/app_addons' => 'app_addons_api#create'
@@ -48,14 +50,24 @@ Rails.application.routes.draw do
     # User:
     get '/addons/search' => 'addons#search'
     get '/addons/modal_info' => 'addons#modal_info'
+    get '/addons/admin' => 'addons#admin'
     get '/addons/:addon_slug' => 'addons#addon'
     get '/addons' => 'addons#index'
+    post '/addons/md_preview' => 'addons#md_preview'
     post '/addons/suggest' => 'addons#suggest'
+    post '/addons/like' => 'addons#like'
+    post '/addons/unlike' => 'addons#unlike'
+    post '/addons/add_admin' => 'addons#add_admin'
+    put '/addons/modify' => 'addons#modify'
+    put '/addons/submit' => 'addons#submit'
+    put '/addons/approve' => 'addons#approve'
+    delete '/addons/remove_admin' => 'addons#remove_admin'
 
     # API:
     get '/api/addons/for_app' => 'addons_api#for_app'
     get '/api/addons/all' => 'addons_api#all'
     get '/api/addons/plans' => 'addons_api#plans'
+    post '/api/addons/push' => 'addons_api#push'
 
   # APPS ------------------------------------
 

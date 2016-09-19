@@ -63,11 +63,12 @@ class ApplicationController < ActionController::Base
     }
   end
 
-  def get_user_teams_for_header(home: false, explore: false, toolbelt: false)
+  def get_user_teams_for_header(home: false, explore: false, toolbelt: false, service: false)
     @header_team_data = {}
     @header_team_data[:home] = true if home
     @header_team_data[:explore] = true if explore
     @header_team_data[:toolbelt] = true if toolbelt
+    @header_team_data[:service] = true if service
 
     if @current_user
       @header_team_data[:authed] = true
@@ -273,6 +274,11 @@ class ApplicationController < ActionController::Base
     assert(@team_user, StatusCodes::ResourceNotFound)
   end
 
+  def user_by_uuid
+    @user = User.find_by(uuid: params[:user_uuid])
+    assert(@user, StatusCodes::ResourceNotFound)
+  end
+
   def protect_app(check_for_write_perms = false)
     @current_team_user ||= TeamUser.find_by(user_id: @current_user.id, team_id: @app.tier.pipeline.team.id)
     assert(@current_team_user)
@@ -296,6 +302,16 @@ class ApplicationController < ActionController::Base
 
   def show_invalid_permissions
     render json: { message: 'Invalid Permissions' }, status: 403
+  end
+
+  def unscoped_addon_by_slug
+    @addon = Addon.unscoped.find_by(slug: params[:addon_slug], is_destroyed: false)
+    page_dne if @addon.nil?
+  end
+
+  # Make sure @addon has been set before calling this.
+  def current_addon_admin
+    @current_addon_admin = @current_user.present? ? @addon.addon_admins.find_by(user_id: @current_user.id) : nil
   end
 
   # ---------- Helpers ----------

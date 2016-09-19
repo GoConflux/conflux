@@ -1,7 +1,9 @@
 @import 'global-vars';
 
 #explore,
-#toolbelt {
+#toolbelt,
+#service {
+
   .home-header {
     height: 80px;
   }
@@ -113,10 +115,6 @@
 
         .addon {
           margin-left: 0;
-
-          &:hover {
-            border: 1px solid #E7E7EC;
-          }
         }
       }
     }

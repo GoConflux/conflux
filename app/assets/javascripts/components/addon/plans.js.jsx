@@ -16,8 +16,14 @@ var Plans = React.createClass({
         classes += ' selected';
       }
 
-      return <li className={classes} data-plan-index={i} onClick={self.props.onPlanSelected}><div className="name">{plan.name}</div><div className="price">{plan.displayPrice}</div></li>;
+      return <li className={classes} data-plan-index={i} onClick={self.props.onPlanSelected}><div className="name">{plan.name}</div><div className="price">{self.formatPrice(plan.price)}</div></li>;
     });
+  },
+
+  formatPrice: function (price) {
+    // if price has 0 cents, just use integer value. Otherwise, show cents.
+    var displayPrice = (parseInt(price) == parseFloat(price)) ? parseInt(price) : parseFloat(price).toFixed(2);
+    return '$' + displayPrice + '/mo';
   },
 
   getPlansListClasses: function () {
@@ -30,10 +36,14 @@ var Plans = React.createClass({
     return classes;
   },
 
+  getSubsectionTitle: function () {
+    return this.props.hideSubsectionTitle ? null : <div className="app-addon-subsection-title">Plans</div>;
+  },
+
   render: function() {
     return (
       <div>
-        <div className="app-addon-subsection-title">Plans</div>
+        {this.getSubsectionTitle()}
         <ul className={this.getPlansListClasses()}>{this.formatPlans()}</ul>
       </div>
     );

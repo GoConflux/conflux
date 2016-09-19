@@ -99,10 +99,10 @@ class PipelinesController < ApplicationController
           .where(tiers: { pipeline_id: @pipeline.id })
 
         # Remove all keys from Redis mapping to each of these apps
-        AppServices::RemoveAppKeysFromRedis.new(
-          @current_user,
-          apps_of_pipeline
-        ).delay.perform
+        # AppServices::RemoveAppKeysFromRedis.new(
+        #   @current_user,
+        #   apps_of_pipeline
+        # ).delay.perform
 
         track('Delete Pipeline', { team: team.slug })
 

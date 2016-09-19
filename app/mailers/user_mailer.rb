@@ -36,6 +36,13 @@ class UserMailer < ActionMailer::Base
     send_email(email, 'You\'ve been invited to Conflux')
   end
 
+  def service_approved(user, addon)
+    @email = user.email
+    @service = addon.name
+    @service_link = "#{ENV['CONFLUX_USER_ADDRESS']}/services/#{addon.slug}"
+    send_email(@email, "Your Conflux service, #{@service}, has been approved")
+  end
+
   def send_email(email, subject, custom_from = nil)
     set_global_template_vars
 

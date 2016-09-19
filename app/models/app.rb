@@ -66,17 +66,6 @@ class App < ActiveRecord::Base
     map
   end
 
-  def job_ids(team_user_id)
-    all_app_job_ids = []
-
-    app_addons.includes(:app_scope, :addon).where(app_scopes: { team_user_id: [nil, team_user_id] }).each { |app_addon|
-      addon_job_ids = $addons[app_addon.addon.slug]['jobs'].keys rescue []
-      all_app_job_ids += addon_job_ids
-    }
-
-    all_app_job_ids.uniq
-  end
-
   def clone_info
     self.app_addons.includes(:app_scope, :addon).where(app_scopes: { scope: AppScope::SHARED }).map { |app_addon|
       addon = app_addon.addon

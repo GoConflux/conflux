@@ -37,7 +37,7 @@ gem 'activeuuid', '0.6.0'
 
 gem 'react-rails', '1.5.0'
 
-gem 'rest-client', '1.6.7'
+gem 'rest-client', '~> 2.0.0'
 
 gem 'slugify', '~> 1.0', '>= 1.0.6'
 
@@ -54,3 +54,11 @@ gem 'conflux', '1.0.8'
 gem 'mixpanel-ruby'
 
 gem 'twitter_oauth'
+
+gem 'aws-sdk', '2.3.19'
+
+gem 'mechanize', '~> 2.6.0'
+
+gem 'redcarpet'
+
+gem 'pygments.rb'

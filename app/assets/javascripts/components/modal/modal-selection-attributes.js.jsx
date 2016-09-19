@@ -18,18 +18,16 @@ var ModalSelectionAttributes = React.createClass({
       index = this.props.data.selectedIndex;
     }
 
-    var info = this.props.data.info[index];
+    var planSlug = this.props.data.plans[index].slug;
 
     return this.props.data.headline_features.map(function (feature) {
-      var value = info[feature];
+      var value = feature.values[planSlug];
 
-      if (value === 'yes') {
+      if (value == 'CHECK') {
         value = <i className="fa fa-check yes"></i>;
-      } else if (value === 'no') {
-        value = <i className="fa fa-times no"></i>;
       }
 
-      return <div className="feature"><div className="feature-name">{feature}</div><div className="feature-value">{value}</div></div>;
+      return <div className="feature"><div className="feature-name">{feature.feature}</div><div className="feature-value">{value}</div></div>;
     });
   },
 
