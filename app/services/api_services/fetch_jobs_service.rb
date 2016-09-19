@@ -44,11 +44,10 @@ module ApiServices
           addon_jobs = addon.jobs
           addon_job_ids = addon_jobs.keys
 
-          @jobs[addon.slug] = []
-
           (addon_job_ids - @past_jobs).each { |job_id|
             job = addon_jobs[job_id]
             job['id'] = job_id
+            @jobs[addon.slug] = [] unless @jobs.has_key?(addon.slug)
             @jobs[addon.slug].push(job)
           }
         }
