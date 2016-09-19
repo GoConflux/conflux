@@ -458,6 +458,9 @@
           width: 135px;
           margin-right: 15px;
           padding-top: 15px;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
         }
 
         .feature-value-container {
