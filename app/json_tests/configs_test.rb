@@ -9,7 +9,7 @@ class ConfigsTest < AbstractJsonTest
   #   }
   # ]
 
-  DOESNT_REQUIRE_PREFIX = ['aws-redis', 'aws-pg']
+  DOESNT_REQUIRE_PREFIX = ['aws-redis', 'aws-pg', 'mongolab']
 
   def call!
 
