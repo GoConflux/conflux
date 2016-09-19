@@ -102,7 +102,7 @@ namespace :addons do
     }
 
     addons_json.each { |slug, info|
-      addon = Addon.find_by(slug: slug)
+      addon = Addon.unscoped.find_by(slug: slug, is_destroyed: false)
       next if addon.nil?
 
       # STATUS
