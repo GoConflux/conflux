@@ -132,21 +132,6 @@ namespace :addons do
         data
       }
 
-      # FEATURES
-      updates[:features] = info['headlineFeatures'].map { |feature|
-        values_map = {}
-
-        info['plans'].each { |plan|
-          values_map[plan['slug']] = plan[feature]
-        }
-
-        {
-          feature: feature,
-          values: values_map,
-          headlineFeature: true
-        }
-      }
-
       addon.update_attributes(updates)
     }
   end
@@ -214,6 +199,11 @@ namespace :addons do
         begin
           ActiveRecord::Base.transaction do
             features = JSON.parse(File.read(addon_features_file))
+
+            features.each_with_index { |feature, i|
+              feature['index'] = i.to_s
+            }
+
             addon.update_attributes(features: features)
           end
         rescue Exception => e

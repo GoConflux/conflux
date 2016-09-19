@@ -1,0 +1,90 @@
+[
+    {
+        "feature": "Redis Instance Size ",
+        "values": {
+            "nano": "5 MB",
+            "micro": "10 MB",
+            "mini": "20 MB",
+            "little": "50 MB",
+            "small": "100 MB",
+            "smedium": "250 MB",
+            "medium": "500 MB",
+            "big": "1020 MB",
+            "large": "2 GB",
+            "jumbo": "5 GB",
+            "super": "10 GB",
+            "mega": "50 GB"
+        },
+        "headlineFeature": true
+    },
+    {
+        "feature": "Database",
+        "values": {
+            "nano": "1",
+            "micro": "1",
+            "mini": "1",
+            "little": "1",
+            "small": "1",
+            "smedium": "3",
+            "medium": "3",
+            "big": "10",
+            "large": "10",
+            "jumbo": "20",
+            "super": "20",
+            "mega": "50"
+        },
+        "headlineFeature": true
+    },
+    {
+        "feature": "Persistent",
+        "values": {
+            "nano": "",
+            "micro": "CHECK",
+            "mini": "CHECK",
+            "little": "CHECK",
+            "small": "CHECK",
+            "smedium": "CHECK",
+            "medium": "CHECK",
+            "big": "CHECK",
+            "large": "CHECK",
+            "jumbo": "CHECK",
+            "super": "CHECK",
+            "mega": "CHECK"
+        }
+    },
+    {
+        "feature": "Connections",
+        "values": {
+            "nano": "10",
+            "micro": "50",
+            "mini": "50",
+            "little": "128",
+            "small": "256",
+            "smedium": "512",
+            "medium": "512",
+            "big": "1,024",
+            "large": "1,024",
+            "jumbo": "1,024",
+            "super": "1,024",
+            "mega": "1,024"
+        },
+        "headlineFeature": true
+    },
+    {
+        "feature": "Backups",
+        "values": {
+            "nano": "",
+            "micro": "CHECK",
+            "mini": "CHECK",
+            "little": "CHECK",
+            "small": "CHECK",
+            "smedium": "CHECK",
+            "medium": "CHECK",
+            "big": "CHECK",
+            "large": "CHECK",
+            "jumbo": "CHECK",
+            "super": "CHECK",
+            "mega": "CHECK"
+        }
+    }
+]

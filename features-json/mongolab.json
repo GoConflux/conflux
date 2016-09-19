@@ -1,0 +1,277 @@
+[
+    {
+        "feature": "Storage",
+        "values": {
+            "sandbox": "496 MB",
+            "shared-cluster-1": "1 GB",
+            "shared-cluster-2": "2 GB",
+            "shared-cluster-4": "4 GB",
+            "shared-cluster-8": "8 GB",
+            "dedicated-cluster-m1": "40 GB",
+            "dedicated-cluster-m2": "60 GB",
+            "dedicated-cluster-m3": "120 GB",
+            "dedicated-cluster-m4": "240 GB",
+            "dedicated-cluster-m5": "480 GB",
+            "dedicated-cluster-m6": "700 GB"
+        },
+        "headlineFeature": true
+    },
+    {
+        "feature": "Continuous monitoring, 24/7",
+        "values": {
+            "sandbox": "CHECK",
+            "shared-cluster-1": "CHECK",
+            "shared-cluster-2": "CHECK",
+            "shared-cluster-4": "CHECK",
+            "shared-cluster-8": "CHECK",
+            "dedicated-cluster-m1": "CHECK",
+            "dedicated-cluster-m2": "CHECK",
+            "dedicated-cluster-m3": "CHECK",
+            "dedicated-cluster-m4": "CHECK",
+            "dedicated-cluster-m5": "CHECK",
+            "dedicated-cluster-m6": "CHECK"
+        },
+        "headlineFeature": true
+    },
+    {
+        "feature": "Real-time and historical monitoring tools",
+        "values": {
+            "sandbox": "",
+            "shared-cluster-1": "CHECK",
+            "shared-cluster-2": "CHECK",
+            "shared-cluster-4": "CHECK",
+            "shared-cluster-8": "CHECK",
+            "dedicated-cluster-m1": "CHECK",
+            "dedicated-cluster-m2": "CHECK",
+            "dedicated-cluster-m3": "CHECK",
+            "dedicated-cluster-m4": "CHECK",
+            "dedicated-cluster-m5": "CHECK",
+            "dedicated-cluster-m6": "CHECK"
+        }
+    },
+    {
+        "feature": "Web-based management tools",
+        "values": {
+            "sandbox": "CHECK",
+            "shared-cluster-1": "CHECK",
+            "shared-cluster-2": "CHECK",
+            "shared-cluster-4": "CHECK",
+            "shared-cluster-8": "CHECK",
+            "dedicated-cluster-m1": "CHECK",
+            "dedicated-cluster-m2": "CHECK",
+            "dedicated-cluster-m3": "CHECK",
+            "dedicated-cluster-m4": "CHECK",
+            "dedicated-cluster-m5": "CHECK",
+            "dedicated-cluster-m6": "CHECK"
+        }
+    },
+    {
+        "feature": "Standard driver and REST API support",
+        "values": {
+            "sandbox": "CHECK",
+            "shared-cluster-1": "CHECK",
+            "shared-cluster-2": "CHECK",
+            "shared-cluster-4": "CHECK",
+            "shared-cluster-8": "CHECK",
+            "dedicated-cluster-m1": "CHECK",
+            "dedicated-cluster-m2": "CHECK",
+            "dedicated-cluster-m3": "CHECK",
+            "dedicated-cluster-m4": "CHECK",
+            "dedicated-cluster-m5": "CHECK",
+            "dedicated-cluster-m6": "CHECK"
+        }
+    },
+    {
+        "feature": "Email support (support@mlab.com)",
+        "values": {
+            "sandbox": "CHECK",
+            "shared-cluster-1": "CHECK",
+            "shared-cluster-2": "CHECK",
+            "shared-cluster-4": "CHECK",
+            "shared-cluster-8": "CHECK",
+            "dedicated-cluster-m1": "CHECK",
+            "dedicated-cluster-m2": "CHECK",
+            "dedicated-cluster-m3": "CHECK",
+            "dedicated-cluster-m4": "CHECK",
+            "dedicated-cluster-m5": "CHECK",
+            "dedicated-cluster-m6": "CHECK"
+        }
+    },
+    {
+        "feature": "Dedicated mongod (your own server process)",
+        "values": {
+            "sandbox": "",
+            "shared-cluster-1": "CHECK",
+            "shared-cluster-2": "CHECK",
+            "shared-cluster-4": "CHECK",
+            "shared-cluster-8": "CHECK",
+            "dedicated-cluster-m1": "CHECK",
+            "dedicated-cluster-m2": "CHECK",
+            "dedicated-cluster-m3": "CHECK",
+            "dedicated-cluster-m4": "CHECK",
+            "dedicated-cluster-m5": "CHECK",
+            "dedicated-cluster-m6": "CHECK"
+        }
+    },
+    {
+        "feature": "Custom backups on any schedule to any S3 bucket with easy restore (per-run backup fee applies)",
+        "values": {
+            "sandbox": "CHECK",
+            "shared-cluster-1": "CHECK",
+            "shared-cluster-2": "CHECK",
+            "shared-cluster-4": "CHECK",
+            "shared-cluster-8": "CHECK",
+            "dedicated-cluster-m1": "CHECK",
+            "dedicated-cluster-m2": "CHECK",
+            "dedicated-cluster-m3": "CHECK",
+            "dedicated-cluster-m4": "CHECK",
+            "dedicated-cluster-m5": "CHECK",
+            "dedicated-cluster-m6": "CHECK"
+        }
+    },
+    {
+        "feature": "High availability (multi-zone automatic failover)",
+        "values": {
+            "sandbox": "",
+            "shared-cluster-1": "CHECK",
+            "shared-cluster-2": "CHECK",
+            "shared-cluster-4": "CHECK",
+            "shared-cluster-8": "CHECK",
+            "dedicated-cluster-m1": "CHECK",
+            "dedicated-cluster-m2": "CHECK",
+            "dedicated-cluster-m3": "CHECK",
+            "dedicated-cluster-m4": "CHECK",
+            "dedicated-cluster-m5": "CHECK",
+            "dedicated-cluster-m6": "CHECK"
+        }
+    },
+    {
+        "feature": "Log file access (real-time and historical)",
+        "values": {
+            "sandbox": "",
+            "shared-cluster-1": "CHECK",
+            "shared-cluster-2": "CHECK",
+            "shared-cluster-4": "CHECK",
+            "shared-cluster-8": "CHECK",
+            "dedicated-cluster-m1": "CHECK",
+            "dedicated-cluster-m2": "CHECK",
+            "dedicated-cluster-m3": "CHECK",
+            "dedicated-cluster-m4": "CHECK",
+            "dedicated-cluster-m5": "CHECK",
+            "dedicated-cluster-m6": "CHECK"
+        }
+    },
+    {
+        "feature": "Dedicated virtual machines (your own RAM, CPU, I/O)",
+        "values": {
+            "sandbox": "",
+            "shared-cluster-1": "",
+            "shared-cluster-2": "",
+            "shared-cluster-4": "",
+            "shared-cluster-8": "",
+            "dedicated-cluster-m1": "CHECK",
+            "dedicated-cluster-m2": "CHECK",
+            "dedicated-cluster-m3": "CHECK",
+            "dedicated-cluster-m4": "CHECK",
+            "dedicated-cluster-m5": "CHECK",
+            "dedicated-cluster-m6": "CHECK"
+        }
+    },
+    {
+        "feature": "Full database administrative privileges (unlimited databases)",
+        "values": {
+            "sandbox": "",
+            "shared-cluster-1": "",
+            "shared-cluster-2": "",
+            "shared-cluster-4": "",
+            "shared-cluster-8": "",
+            "dedicated-cluster-m1": "CHECK",
+            "dedicated-cluster-m2": "CHECK",
+            "dedicated-cluster-m3": "CHECK",
+            "dedicated-cluster-m4": "CHECK",
+            "dedicated-cluster-m5": "CHECK",
+            "dedicated-cluster-m6": "CHECK"
+        }
+    },
+    {
+        "feature": "Ability to have custom firewall rules",
+        "values": {
+            "sandbox": "",
+            "shared-cluster-1": "",
+            "shared-cluster-2": "",
+            "shared-cluster-4": "",
+            "shared-cluster-8": "",
+            "dedicated-cluster-m1": "CHECK",
+            "dedicated-cluster-m2": "CHECK",
+            "dedicated-cluster-m3": "CHECK",
+            "dedicated-cluster-m4": "CHECK",
+            "dedicated-cluster-m5": "CHECK",
+            "dedicated-cluster-m6": "CHECK"
+        }
+    },
+    {
+        "feature": "Emergency support email, 24x7",
+        "values": {
+            "sandbox": "",
+            "shared-cluster-1": "",
+            "shared-cluster-2": "",
+            "shared-cluster-4": "",
+            "shared-cluster-8": "",
+            "dedicated-cluster-m1": "CHECK",
+            "dedicated-cluster-m2": "CHECK",
+            "dedicated-cluster-m3": "CHECK",
+            "dedicated-cluster-m4": "CHECK",
+            "dedicated-cluster-m5": "CHECK",
+            "dedicated-cluster-m6": "CHECK"
+        }
+    },
+    {
+        "feature": "Free daily system-level backup",
+        "values": {
+            "sandbox": "CHECK",
+            "shared-cluster-1": "CHECK",
+            "shared-cluster-2": "CHECK",
+            "shared-cluster-4": "CHECK",
+            "shared-cluster-8": "CHECK",
+            "dedicated-cluster-m1": "CHECK",
+            "dedicated-cluster-m2": "CHECK",
+            "dedicated-cluster-m3": "CHECK",
+            "dedicated-cluster-m4": "CHECK",
+            "dedicated-cluster-m5": "CHECK",
+            "dedicated-cluster-m6": "CHECK"
+        }
+    },
+    {
+        "feature": "RAM",
+        "values": {
+            "sandbox": "variable",
+            "shared-cluster-1": "variable",
+            "shared-cluster-2": "variable",
+            "shared-cluster-4": "variable",
+            "shared-cluster-8": "variable",
+            "dedicated-cluster-m1": "1.7 GB",
+            "dedicated-cluster-m2": "3.7 GB",
+            "dedicated-cluster-m3": "7.5 GB",
+            "dedicated-cluster-m4": "15 GB",
+            "dedicated-cluster-m5": "34 GB",
+            "dedicated-cluster-m6": "68 GB"
+        },
+        "headlineFeature": true
+    },
+    {
+        "feature": "Unlimited custom backups",
+        "values": {
+            "sandbox": "",
+            "shared-cluster-1": "",
+            "shared-cluster-2": "",
+            "shared-cluster-4": "",
+            "shared-cluster-8": "",
+            "dedicated-cluster-m1": "CHECK",
+            "dedicated-cluster-m2": "CHECK",
+            "dedicated-cluster-m3": "CHECK",
+            "dedicated-cluster-m4": "CHECK",
+            "dedicated-cluster-m5": "CHECK",
+            "dedicated-cluster-m6": "CHECK"
+        }
+    }
+]

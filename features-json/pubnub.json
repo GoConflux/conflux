@@ -1,0 +1,41 @@
+[
+    {
+        "feature": "Devices",
+        "values": {
+            "go-sandbox": "100",
+            "pilot": "1,000",
+            "launch": "5,000",
+            "scale": "20,000"
+        },
+        "headlineFeature": true
+    },
+    {
+        "feature": "Messages",
+        "values": {
+            "go-sandbox": "1M",
+            "pilot": "5 Million",
+            "launch": "10 Million",
+            "scale": "40 Million"
+        },
+        "headlineFeature": true
+    },
+    {
+        "feature": "Web/Email Support",
+        "values": {
+            "go-sandbox": "CHECK",
+            "pilot": "CHECK",
+            "launch": "CHECK",
+            "scale": "CHECK"
+        }
+    },
+    {
+        "feature": "Access Control",
+        "values": {
+            "go-sandbox": "CHECK",
+            "pilot": "CHECK",
+            "launch": "CHECK",
+            "scale": "CHECK"
+        },
+        "headlineFeature": true
+    }
+]

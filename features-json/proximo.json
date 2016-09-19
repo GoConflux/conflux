@@ -1,0 +1,77 @@
+[
+    {
+        "feature": "Requests per Month",
+        "values": {
+            "development": "2,000",
+            "starter": "50,000",
+            "professional": "500,000",
+            "advanced": "1,250,000",
+            "dedicated": "2,000,000",
+            "elite": "5,500,000",
+            "enterprise": "Unlimited"
+        },
+        "headlineFeature": true
+    },
+    {
+        "feature": "Bandwidth per Month",
+        "values": {
+            "development": "500 MB",
+            "starter": "20 GB",
+            "professional": "200 GB",
+            "advanced": "500 GB",
+            "dedicated": "2 TB",
+            "elite": "5 TB",
+            "enterprise": "Unlimited"
+        },
+        "headlineFeature": true
+    },
+    {
+        "feature": "Dedicated IP Address",
+        "values": {
+            "development": "",
+            "starter": "",
+            "professional": "",
+            "advanced": "",
+            "dedicated": "CHECK",
+            "elite": "CHECK",
+            "enterprise": "CHECK"
+        },
+        "headlineFeature": true
+    },
+    {
+        "feature": "Phone Support",
+        "values": {
+            "development": "",
+            "starter": "",
+            "professional": "",
+            "advanced": "",
+            "dedicated": "",
+            "elite": "",
+            "enterprise": "CHECK"
+        }
+    },
+    {
+        "feature": "Email Support",
+        "values": {
+            "development": "CHECK",
+            "starter": "CHECK",
+            "professional": "CHECK",
+            "advanced": "CHECK",
+            "dedicated": "CHECK",
+            "elite": "CHECK",
+            "enterprise": "CHECK"
+        }
+    },
+    {
+        "feature": "Detailed Usage Analytics",
+        "values": {
+            "development": "CHECK",
+            "starter": "CHECK",
+            "professional": "CHECK",
+            "advanced": "CHECK",
+            "dedicated": "CHECK",
+            "elite": "CHECK",
+            "enterprise": "CHECK"
+        }
+    }
+]
