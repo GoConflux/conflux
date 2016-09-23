@@ -2,7 +2,7 @@ module TeamServices
   class CreateTeam < AbstractService
     include ApplicationHelper
 
-    attr_reader :team
+    attr_reader :team, :new_bundle
 
     def initialize(executor_user, team_data)
       super(executor_user)
@@ -18,11 +18,13 @@ module TeamServices
         role: Role::OWNER
       )
 
-      PipelineServices::CreatePipeline.new(
+      new_pipeline_svc = PipelineServices::CreatePipeline.new(
         @executor_user,
         @team,
         name: "#{@team.name} Pipeline"
       ).perform
+
+      @new_bundle = new_pipeline_svc.new_bundle
 
       self
     end

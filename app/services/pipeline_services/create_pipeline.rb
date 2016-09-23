@@ -1,7 +1,7 @@
 module PipelineServices
   class CreatePipeline < AbstractService
 
-    attr_reader :pipeline
+    attr_reader :pipeline, :new_bundle
 
     def initialize(executor_user, team, name: nil, description: nil)
       super(executor_user)
@@ -28,10 +28,12 @@ module PipelineServices
       @pipeline.save!
 
       # Add the default Tiers for a Pipeline
-      PipelineServices::AddDefaultTiers.new(
+      add_tiers_svc = PipelineServices::AddDefaultTiers.new(
         @executor_user,
         @pipeline
       ).perform
+
+      @new_bundle = add_tiers_svc.new_bundle
 
       self
     end
