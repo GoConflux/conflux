@@ -29,7 +29,7 @@ class UsersApiController < ApplicationController
     email = params[:email]
 
     user = User.find_or_initialize_by(email: email) { |new_user|
-      new_user.password = SecureRandom.hex(4)
+      new_user.password = params[:password]
     }
 
     # If user already exists for this email, say so.
